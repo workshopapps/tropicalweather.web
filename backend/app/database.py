@@ -1,30 +1,55 @@
 
 
-# application engine configuration goes here
-import os
+# database.py
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from decouple import config
 
 
-USER = os.getenv('USERNAME')
-PASSWORD = os.environ.get('PASSWORD')
-# created a temporary database engine with postgres to test my endpoint
-SQLALCHEMY_DATABASE_URL = "postgresql://{USER}:{PASSWORD}@localhost/fastapi"
+def get_db_engine():
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-    # , connect_args={"check_same_thread": False} - used only for SQLite
-)
+    DB_TYPE = config("DB_TYPE")
+    DB_NAME = config("DB_NAME")
+    DB_USER = config("DB_USER")
+    DB_PASSWORD = config("DB_PASSWORD")
+    DB_HOST = config("DB_HOST")
+    DB_PORT = config("DB_PORT")
+    MYSQL_DRIVER = config("MYSQL_DRIVER")
+    DATABASE_URL = ""
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+
+
+    if DB_TYPE == "mysql":
+        DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    elif DB_TYPE == "postgresql":
+        DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    else:
+        DATABASE_URL = "sqlite:///./database.db"
+
+    if DB_TYPE == "sqlite":
+        db_engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+    else:
+        db_engine = create_engine(DATABASE_URL)
+    
+    return db_engine
+
+db_engine = get_db_engine()
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=db_engine)
 
 Base = declarative_base()
+
+
+def create_database():
+    return Base.metadata.create_all(bind=db_engine)
+
 
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
-        # pass
-        db.close(
+        db.close()
