@@ -44,13 +44,21 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=db_engine)
 Base = declarative_base()
 
 
+<<<<<<< HEAD
 def create_database():
     return Base.metadata.create_all(bind=db_engine)
 
 
+=======
+>>>>>>> main
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
+<<<<<<< HEAD
         db.close()
+=======
+        # pass
+        db.close()
+>>>>>>> main
