@@ -6,7 +6,6 @@
 from typing import List
 from fastapi import Response, status, HTTPException, Depends, APIRouter
 
-
 # Internal import
 from models import User
 from schemas import *

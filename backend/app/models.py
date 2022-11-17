@@ -13,7 +13,6 @@ from sqlalchemy.sql.sqltypes import TIMESTAMP, TIME
 from database import Base
 
 
-
 # Model class for user
 class User(Base):
     __tablename__ = "users"
