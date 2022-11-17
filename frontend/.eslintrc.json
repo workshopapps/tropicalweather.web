@@ -1,23 +1,68 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-      },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:react-hooks/recommended"
-    ],
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "plugins": [
-        "react"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
     ],
-    "rules": {
-    }
+    "react/react-in-jsx-scope": "off",
+    "import/no-unresolved": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": [
+            "nesting",
+            "id"
+          ]
+        }
+      }
+    ],
+    "no-shadow": "off",
+    "no-unused-vars": "warn",
+    "operator-linebreak": "off",
+    "consistent-return": "off",
+    "indent": "off",
+    "camelcase": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "state"
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "dist/",
+    "build/"
+  ]
 }

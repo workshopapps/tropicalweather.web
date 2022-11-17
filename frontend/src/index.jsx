@@ -1,41 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 import Home from './pages/Home';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Faqs from './pages/Faqs';
 import WeatherNews from './pages/WeatherNews';
 import Career from './pages/Career';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    component: <Home />,
+    element: <Home />,
   },
   {
     path: '/contact-us',
-    component: <ContactUs />,
+    element: <ContactUs />,
   },
   {
     path: '/about-us',
-    component: <AboutUs />,
+    element: <AboutUs />,
   },
   {
     path: '/faqs',
-    component: <Faqs />,
+    element: <Faqs />,
   },
   {
     path: '/weather-news',
-    component: <WeatherNews />,
+    element: <WeatherNews />,
   },
   {
     path: '/career',
-    component: <Career />,
-  }
-])
+    element: <Career />,
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
