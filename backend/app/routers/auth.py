@@ -1,3 +1,1 @@
-
-
 # Implement the authentication here
