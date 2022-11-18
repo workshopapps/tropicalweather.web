@@ -1,0 +1,13 @@
+
+#Example credentials for SQLALCHEMY_DATABASE_URL in POstgres
+
+
+
+DB_TYPE = string
+DB_NAME = string
+DB_USER = string
+DB_PASSWORD = string
+DB_HOST = string
+DB_PORT = string
+MYSQL_DRIVER = string
+API_KEY = int
