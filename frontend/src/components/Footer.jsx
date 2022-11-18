@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col gap-10 pb-12 md:flex-row md:justify-between md:items-center">
           <div>
             <img src="logo-white.png" alt="logo" />
-            <div className="flex flex-col gap-6 mt-8 md:flex-row">
+            <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
               <a href="/about-us" className="link link-hover">About us</a>
               <a href="/careers" className="link link-hover">Careers</a>
               <a href="/weather-news" className="link link-hover">Weather News</a>
@@ -20,7 +20,7 @@ export default function Footer() {
           </div>
           <div>
             <span className="footer-title">Download the mobile app</span>
-            <div className="grid grid-flow-col gap-6 mt-6">
+            <div className="flex flex-wrap gap-6 mt-6">
               <img src="app-store.png" alt="app store" />
               <img src="google-play.png" alt="google play" />
             </div>
