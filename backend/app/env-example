@@ -1,5 +1,0 @@
-
-#Example credentials for SQLALCHEMY_DATABASE_URL in POstgres
-
-PASSWORD=password
-USERNAME = username
