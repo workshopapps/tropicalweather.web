@@ -8,6 +8,7 @@ import AboutUs from './pages/AboutUs';
 import Faqs from './pages/Faqs';
 import WeatherNews from './pages/WeatherNews';
 import Career from './pages/Career';
+import Business from './pages/Business';
 import reportWebVitals from './reportWebVitals';
 import AppLayout from './components/AppLayout';
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/careers',
     element: <Career />,
+  },
+  {
+    path: '/business',
+    element: <Business />,
   },
 ]);
 
