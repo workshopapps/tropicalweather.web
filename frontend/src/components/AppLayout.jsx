@@ -1,20 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
-export default function AppLayout({ children }) {
+export default function AppLayout() {
   return (
     <div className="grid min-h-screen grid-rows-[auto_auto_1fr] bg-white">
       <Header />
-      <main>
-        {children}
+      <main className="px-4 md:px-16">
+        <Outlet />
       </main>
       <Footer />
     </div>
   );
 }
-
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};

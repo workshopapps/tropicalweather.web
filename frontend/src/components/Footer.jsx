@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BsGlobe } from 'react-icons/bs';
 import { BiSupport } from 'react-icons/bi';
 
@@ -10,12 +11,12 @@ export default function Footer() {
           <div>
             <img src="logo-white.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
-              <a href="/about-us" className="link link-hover">About us</a>
-              <a href="/careers" className="link link-hover">Careers</a>
-              <a href="/weather-news" className="link link-hover">Weather News</a>
-              <a href="/" className="link link-hover">For Business</a>
-              <a href="/faqs" className="link link-hover">FAQs</a>
-              <a href="/contact-us" className="link link-hover">Contact Us</a>
+              <Link to="/about-us" className="link link-hover">About us</Link>
+              <Link to="/careers" className="link link-hover">Careers</Link>
+              <Link to="/weather-news" className="link link-hover">Weather News</Link>
+              <Link to="/business" className="link link-hover">For Business</Link>
+              <Link to="/faqs" className="link link-hover">FAQs</Link>
+              <Link to="/contact-us" className="link link-hover">Contact Us</Link>
             </div>
           </div>
           <div>

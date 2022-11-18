@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { Link } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
 
 export default function Header() {
@@ -17,13 +18,13 @@ export default function Header() {
       <div className="items-center hidden w-full grid-cols-[1fr_1fr_auto] lg:grid gap-x-4">
         <ul className="flex gap-10">
           <li>
-            <a href="/about-us" className="link link-hover">About Us</a>
+            <Link to="/about-us" className="link link-hover">About Us</Link>
           </li>
           <li>
-            <a href="/careers" className="link link-hover">Features</a>
+            <Link to="/features" className="link link-hover">Features</Link>
           </li>
           <li>
-            <a href="/business" className="link link-hover">For Business</a>
+            <Link to="/business" className="link link-hover">For Business</Link>
           </li>
         </ul>
         <label htmlFor="search" className="relative w-full py-4 border-b justify-self-end border-grey-200">
