@@ -7,7 +7,7 @@ from fastapi import Response, status, HTTPException, Depends, APIRouter
 # Internal import
 from models import User
 from schemas import *
-from database import engine, get_db
+from database import db_engine, get_db
 from utils import generate_hash
 
 # Sqlalchemy import

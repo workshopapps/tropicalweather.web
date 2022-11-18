@@ -1,3 +1,6 @@
+
+from decouple import config
+
 # Utility function to generate and verify password hash
 from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -26,3 +29,12 @@ def verify_password_hash(password: str, hash_password: str):
     :rtype: bool
     """
     return pwd_context.verify(password, hash_password)
+
+
+
+# feature to call the open weather api and fetch the required data
+
+
+
+def waether_api_call(long, lat, *args, **kwargs):
+    pass
