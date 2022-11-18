@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { PopularLocation } from '../components/PopularLocation';
+import PopularLocation from '../components/PopularLocation';
 import '../styles/Home.css';
 
 export default function Home() {

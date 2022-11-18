@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Home.css';
-export function PopularLocation() {
+
+export default function PopularLocation() {
     return (
         <article className="landing_location_brief">
             <div className="landing_location_brief_header">
