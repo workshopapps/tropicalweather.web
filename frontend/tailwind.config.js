@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary-btn': '#F05513',
+        'primary-btn': '#EF6820',
         'primary-btn-clicked': '#F7B27A',
         'primary-btn-disabled': '#E8E7EA',
       },
