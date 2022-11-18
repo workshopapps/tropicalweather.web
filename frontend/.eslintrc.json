@@ -34,6 +34,8 @@
     "import/no-unresolved": "off",
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "no-use-before-define": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
@@ -51,15 +53,8 @@
     "consistent-return": "off",
     "indent": "off",
     "camelcase": "off",
-    "no-param-reassign": [
-      "error",
-      {
-        "props": true,
-        "ignorePropertyModificationsFor": [
-          "state"
-        ]
-      }
-    ]
+    "no-param-reassign": "off",
+    "no-return-assign": "off"
   },
   "ignorePatterns": [
     "dist/",
