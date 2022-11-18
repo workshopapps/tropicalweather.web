@@ -36,5 +36,8 @@ def verify_password_hash(password: str, hash_password: str):
 
 
 
-def waether_api_call(long, lat, *args, **kwargs):
-    pass
+def waether_api_call(lon, lat, *args, **kwargs):
+
+    API_key = config("API_KEY")
+    part = "alert"
+    open_weather_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API_key}"

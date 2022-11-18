@@ -10,3 +10,4 @@ DB_PASSWORD = string
 DB_HOST = string
 DB_PORT = string
 MYSQL_DRIVER = string
+API_KEY = int
