@@ -50,27 +50,36 @@ We're utilizing eslint as our style guide
 - Add any Page component to the `pages` folder. If you have a component that is repeated several times in your project, consider converting it to a reusable component and store it in the `components` folder
 - This project utilizes [Tailwind CSS](https://tailwindcss.com/) for styling. If you feel more comfortable with Vanilla CSS, keep your stylesheets in the `styles` folder.
 - Make sure the name of the stylesheet matches the name of the component you're working on.
-- Import your stylesheet inside the corresspoding components not `index.jsx`
+- Import your stylesheet inside the correspoding components not `index.jsx`
 - Refer to the official [Eslint](https://eslint.org/docs/latest/) doc if you don't understand any of the rules it enforces
+- Run `npm run lint` to check/fix linting errors
 
 #### Layout
 
 We have created a layout to ensure the DRY principle is followed. This layout contains the header and footer so you page component stays in-between.
-There are two layouts. One for the landing pages (home, about us, career, etc), and one for the web app itself.
 
 How to use it:
-```jsx
-import PageLayout from '../layout/PageLayout';
 
-export default function Home() {
-  return (
-    <PageLayout>
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold">Home Page</h1>
-      </div>
-    </PageLayout>
-  );
-};
+- Head on to App.jsx to see the current structure
+- If the page you're working on isn't part of the current Routes;
+  - Create a new page component for it in the `pages` folder
+  - Import it into App.jsx and add it to the Routes
+- If the page you're working on is part of the current Routes;
+  - Continue updating the page component in the `pages` folder
+
+
+```jsx
+// App.jsx
+import MyPage from './pages/MyPage';
+...
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<AppLayout />}>
+      ...
+      <Route path="/my-page" element={<MyPage />} />
+    </Route>,
+  ),
+);
 ```
 
 
