@@ -1,0 +1,1 @@
+# Frontend of the Weathery App
