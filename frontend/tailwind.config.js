@@ -2,7 +2,13 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary-btn': '#F05513',
+        'primary-btn-clicked': '#F7B27A',
+        'primary-btn-disabled': '#E8E7EA',
+      },
+    },
   },
   /* eslint-disable global-require */
   plugins: [require('daisyui')],
