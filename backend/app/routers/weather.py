@@ -28,7 +28,6 @@ def get_current_weather():
             detail= f"invalid longitute and latitude"
         
         )
-
     
     lat, lon = long_lat
     return utils.weather_api_call(lon, lat)
