@@ -11,7 +11,6 @@ from database import db_engine, get_db
 from utils import generate_hash
 
 # Sqlalchemy import
-from sqlalchemy.orm import Session
 
 router = APIRouter(
     tags=['weather']

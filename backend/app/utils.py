@@ -7,31 +7,34 @@ import requests
 # Utility function to generate and verify password hash
 from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Utility functions
+
+import geocoder
 
 
-def generate_hash(password: str):
-    """Generate hash for password
+def geocode_address(city_name: str, lga: str = "", state: str = ""):
+    """Get geocode of city, lga and state
 
-    :param password: password to hash
-    :type password: str
-    :return: hashed password
-    :rtype: str
+    :param city_name: city name
+    :type city_name: str
+    :param lga: local government area
+    :type lga: str or None
+    :param state: state
+    :type state: str or None
+    :return: geocode in format [lat, long]
+    :rtype: list or None
     """
-    hashed_password = pwd_context.hash(password)
-    return hashed_password
 
+    address = f"{city_name}"
 
-def verify_password_hash(password: str, hash_password: str):
-    """verify password hash
+    if lga:
+        address += f", {lga}"
+    if state:
+        address += f", {state}"
 
-    :param password: password to verify
-    :type password: str
-    :param hash_password: hashed password
-    :type hash_password: str
-    :return: True if password is correct else False
-    :rtype: bool
-    """
-    return pwd_context.verify(password, hash_password)
+    g = geocoder.osm(address)
+    return g.latlng
+
 
 
 
@@ -51,7 +54,7 @@ def weather_api_call(lon, lat, *args, **kwargs):
     try:
         response = requests.get(open_weather_url).json()
 
-        # Error messages for unknown city or staet names or invalid API key
+        # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
             return f"Can't retrive weather data for this location"
         
@@ -79,3 +82,4 @@ def weather_api_call(lon, lat, *args, **kwargs):
 
 
 
+    
