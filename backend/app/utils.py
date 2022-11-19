@@ -6,6 +6,7 @@ import geocoder
 import requests
 from decouple import config
 from fastapi import HTTPException, status
+import datetime
 
 
 def geocode_address(
@@ -68,4 +69,46 @@ def weather_api_call(lon, lat, *args, **kwargs):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Weather conditon not found.Please retry again"
+        )
+
+def immediate_weather_api_call(lng, lat, *args, **kwargs):
+
+    API_key = config("API_KEY")
+
+    # converts given parameters into required types
+    lng = float(lng)
+    lat = float(lat)
+
+    # Call API and converts response into dictionary
+    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={API_key}"
+
+    try:
+        response = requests.get(open_weather_url).json()
+
+        # Error messages for unknown city or street names or invalid API key
+        if response.status_code != 200:
+            return f"Can't retrive weather data for this location"
+        
+        weather_conditions = response['list'] #returns a lists
+
+        time_epoch = weather_conditions[0]['dt']
+        main = weather_conditions[0]['weather'][0]['main']
+        description = weather_conditions[0]['weather'][0]['description']
+
+        time_format = datetime.datetime.fromtimestamp(time_epoch)
+        date = time_format.strftime('%d %B, %Y')
+        am_or_pm = time_format.strftime('%p')
+        hour_minute = time_format.strftime('%I:%M')
+        time_output = f"{hour_minute}{am_or_pm.lower()}"
+        
+        return {
+            "main": main,
+            "description": description,
+            "date": date,
+            "time": time_output
+        }
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail= f"Weather conditon not found.Please retry again"
         )
