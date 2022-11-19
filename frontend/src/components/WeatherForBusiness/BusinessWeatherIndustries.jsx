@@ -72,7 +72,7 @@ export default function BusinessWeatherIndustries() {
           </a>
         </div>
         <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 pt-6 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4 max-w-full">
-          <p className="text-white font-bold text-4xl mt-7 ml-0 px-6 md:px-10 ">Forensic Meteorology</p>
+          <p className="text-white font-bold text-4xl mt-7 ml-0 px-10 md:px-10 ">Forensic Meteorology</p>
           <p className="text-white text-xl ml-2 px-10">Get expert witness testimony and past weather event verification.</p>
           <a href="/business" className="flex justify-end ">
             <img src={arrow} alt="" className=" mr-4 mb-4" />

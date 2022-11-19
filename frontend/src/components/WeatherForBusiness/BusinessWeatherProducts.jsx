@@ -4,7 +4,7 @@ export default function BusinessWeatherProducts() {
       <div>
         <h2 className="text-center text-3xl md:text-4xl font-bold text-white mb-10 mt-5">
           WeatheryBusiness
-          <span className="text-[#F05513]"> Products</span>
+          <span className="text-[#F05513] text-3xl md:text-4xl"> Products</span>
         </h2>
       </div>
       <div className="flex flex-col md:flex-row justify-center md:justify-around align-center items-center">
