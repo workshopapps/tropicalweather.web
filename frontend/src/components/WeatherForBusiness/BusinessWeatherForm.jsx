@@ -43,7 +43,7 @@ export default function BusinessWeatherForm() {
               <input type="text" placeholder="e.g : London" />
             </div>
           </div>
-          <p className="text-base text-[#565560] text-left mt-4 mb-10">
+          <p className="text-base text-[#565560] text-left mt-4 ml-4 mb-10 md:mb-16">
             Weathery is committed to protecting and respecting your privacy, and
             we’ll only use your personal information to administer your account
             and to provide the products and services you requested from us.
