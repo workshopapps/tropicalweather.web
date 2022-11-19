@@ -24,7 +24,7 @@ function WhyWeatherSection() {
           </div>
         </div>
         <div className="pt-5">
-          <button className="btn">
+          <button className="btn" type="button">
             Get Started →
           </button>
         </div>
