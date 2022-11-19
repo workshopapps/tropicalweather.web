@@ -10,7 +10,12 @@ from fastapi import HTTPException, status
 from app.schemas import *  # noqa: F401, F403
 
 from app.utils import get_weather_forecast, convert_epoch_to_datetime
-
+from fastapi import APIRouter
+from datetime import time, datetime, timedelta
+import requests
+from fastapi import FastAPI
+# from .. import utils
+from fastapi import HTTPException, status
 
 router = APIRouter(
     prefix="/weather",
@@ -38,4 +43,39 @@ async def weather_forcasts(lat: float, lon: float):
         data['description'] = forcast['weather'][0]['description']
         results.append(data)
 
+    return results
+
+
+@app.get("/tomorrow")
+def weather():
+    # weather_forecast = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}"
+    # r = requests.get(weather_forecast_url)
+    # data = r.json()
+
+
+    today = datetime.now()
+    tomorrow = today + timedelta(days=1)
+    datetime_object = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    epoch = int(datetime_object.timestamp())
+
+    starting_point = None
+
+    for index, _data in enumerate(results):
+        if _data['dt'] >= epoch:
+            starting_point = index
+            break
+
+    if starting_point is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail = f"Weather condition not found, Please try again"
+        )
+    return results[starting_point:10]
+
+    for forecast in weather_forecast:
+        data = convert_epoch_to_datetime(forecast.get('dt'))
+        data['main'] = forecast['weather'][0]['main']
+        data['description'] = forecast['weather'][0][description]
+        results.append(data)
     return results
