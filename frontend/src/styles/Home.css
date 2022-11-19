@@ -16,8 +16,10 @@
 .landing_sections_wrapper {
     display: flex;
     flex-direction: column;
+    width: min(100%, 1400px);
     align-items: center;
     gap: 100px;
+    margin-inline: auto;
     padding-inline: 88px;
 }
 
