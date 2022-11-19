@@ -60,7 +60,7 @@ def weather(lat: float, long: float) -> str:
     return weather_forecasts
 
 
-def reverse_geocoding(lat: float, long: float) -> str:
+def reverse_geocoding(lat: float, long: float) -> list:
     """Get the city name for a given latitude and longitude
 
     :param lat: The latitude
@@ -69,15 +69,19 @@ def reverse_geocoding(lat: float, long: float) -> str:
     :type long: float
     :raises Exception: If the request fails
     :raises Exception: If the response is invalid
-    :return: The city name
-    :rtype: str
+    :return: [
+            {'name': 'Etche', 
+            'lat': 5.0765321, 
+            'lon': 7.092638789196567,
+            'country': 'NG', 
+            'state': 'Rivers State'}
+            ]
+    :rtype: list
     """
     res = get("/geo/1.0/reverse", {"lat": lat, "lon": long})
     if not res:
         raise Exception("Invalid request")
-    first_result: Dict[str, str] = res[0]
-    name = first_result.get("name")
-    if not name:
-        raise Exception("Invalid request")
-    return name
+    print(res)
+    return res
+
 

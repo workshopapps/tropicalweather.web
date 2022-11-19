@@ -6,3 +6,9 @@ class SingleWeatherResponse(BaseModel):
     description: str
     date: str
     time: str
+
+
+class locationResponse(BaseModel):
+    city: str
+    state: str
+
