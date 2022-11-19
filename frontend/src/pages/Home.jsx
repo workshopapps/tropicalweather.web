@@ -58,9 +58,21 @@ export default function Home() {
               </div>
               <div>
                 <div ref={slider} className="landing_locations_container">
-                  <PopularLocation />
-                  <PopularLocation />
-                  <PopularLocation />
+                  <PopularLocation
+                    forecast="Expect rain and scattered thunderstorms by 12:00pm."
+                    state="SUNNY"
+                    location="Port Harcourt, Nigeria"
+                  />
+                  <PopularLocation
+                    forecast="Expect rain and scattered thunderstorms by 12:00pm."
+                    state="SUNNY"
+                    location="Port Harcourt, Nigeria"
+                  />
+                  <PopularLocation
+                    forecast="Expect rain and scattered thunderstorms by 12:00pm."
+                    state="SUNNY"
+                    location="Port Harcourt, Nigeria"
+                  />
                 </div>
                 <div className="landing_scroll_indicator">
                   <div style={{ backgroundColor: curr === 0 ? 'var(--primary-color)' : '' }}>{' '}</div>
@@ -98,7 +110,7 @@ export default function Home() {
                       '--ill-bg': '#D1FADF',
                     }}
                   >
-                    <h5>Features</h5>
+                    <p>Features</p>
                     <h3>Add  Multiple Locations</h3>
                     <p>
                       What’s even better than not having to worry about the
@@ -129,7 +141,7 @@ export default function Home() {
                       '--ill-bg': '#FEF2F2',
                     }}
                   >
-                    <h5>Features</h5>
+                    <p>Features</p>
                     <h3>Get the Forecast for your city!</h3>
                     <p>
                       Would you like to know how the weather would be in thee next few
@@ -157,15 +169,15 @@ export default function Home() {
 
             <section id="landing_download_app">
               <div className="landing_download_container">
-                <h6>Go Mobile</h6>
+                <p>Go Mobile</p>
                 <h3 className="landing_header_md">Use the free Weathery app</h3>
                 <p>
                   Explore the flexibility and ease that comes with using
                   our Weatherly app on the go!
                 </p>
                 <div>
-                  <img src="/Home/appstore.png" alt="" />
-                  <img src="/Home/playstore.png" alt="" />
+                  <img src="/app-store.png" alt="" />
+                  <img src="/google-play.png" alt="" />
                 </div>
               </div>
               <div className="landing_phones_wrapper">

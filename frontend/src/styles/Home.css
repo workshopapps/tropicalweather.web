@@ -23,7 +23,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 100px
+    gap: 100px;
+    padding-inline: 88px;
 }
 
 .landing_header_content_container {
@@ -324,7 +325,7 @@
     flex-direction: column;
 }
 
-.landing_download_container h6 {
+.landing_download_container p {
     color: var(--primary-color)
 }
 
