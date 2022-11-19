@@ -4,15 +4,18 @@
 from fastapi import status, HTTPException, APIRouter
 import requests
 # Internal import
-from .. import utils 
+from app import utils 
+from utils import *
+
 
 
 router = APIRouter(
+    prefix="/weather",
     tags=['weather']
 )
 
 
-@router.post("/weather")
+@router.post("/weather/current")
 def get_current_weather():
     
     city_name = requests.json['city_name']
@@ -25,12 +28,32 @@ def get_current_weather():
         
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail= f"invalid longitute and latitude"
+            detail= f"Can't retrive weather data for this location"
         
         )
     
     lat, lon = long_lat
-    return utils.weather_api_call(lon, lat)
+    
+    result = utils.weather_api_call(lon, lat)
+    
+    weather_condition = result['main']
+    description =result['description']
+    date = result['dt']
+    state = result['state']
+    city = result['city']
+    time = result['dt'][0]
+    
+    return {
+        
+    "state": state,
+    "city": city,
+    "main": weather_condition,
+    "description": description,
+    "date": date,
+    "time": time
+        
+    }
+    
     
 
 
