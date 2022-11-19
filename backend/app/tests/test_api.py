@@ -66,22 +66,32 @@ class TestWeatherForecastsAPI:
 
 
 class TestLocationAPI:
-    def test_get_locations_valid(self):
-        mock_response = {
+    def test_get_locations_valid(self, mocker):
+
+        mocker.patch('app.routers.location.get_location',
+        return_value = {
             "city": "Etche",
             "state": "Rivers State"
-            }
+            })
+
         response = client.get("/location/?lat=5.12&lon=7.03")
 
         assert response.status_code == 200
 
         data: dict = response.json()
 
-        assert response.json() == mock_response
+        assert data == {
+            "city": "Etche",
+            "state": "Rivers State"
+            }
         assert len(data) == 2
 
 
-    def test_get_locations_invalid(self):
+    def test_get_locations_invalid(self, mocker):
+        mocker.patch(
+            'app.routers.location.get_location',
+            side_effect=Exception("Invalid request")
+        )
         response = client.get("/location/?lat=5.12&lon=700000.03")
         assert response.status_code == 400
 
