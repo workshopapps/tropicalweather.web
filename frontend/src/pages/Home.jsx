@@ -55,18 +55,18 @@ export default function Home() {
           <div ref={slider} className="landing_locations_container">
             <PopularLocation
               forecast="Expect rain and scattered thunderstorms by 12:00pm."
-              state="SUNNY"
+              state="CLOUDY"
               location="Port Harcourt, Nigeria"
             />
             <PopularLocation
-              forecast="Expect rain and scattered thunderstorms by 12:00pm."
-              state="SUNNY"
-              location="Port Harcourt, Nigeria"
+              forecast="Expect Cloudy skies all through the Day."
+              state="CLOUDY"
+              location="Lagos, Nigeria"
             />
             <PopularLocation
-              forecast="Expect rain and scattered thunderstorms by 12:00pm."
-              state="SUNNY"
-              location="Port Harcourt, Nigeria"
+              forecast="Expect warm Sun and light drizzle through the night."
+              state="RAINY"
+              location="Osun, Nigeria"
             />
           </div>
           <div className="landing_scroll_indicator">
