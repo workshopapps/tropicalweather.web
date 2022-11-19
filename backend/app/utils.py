@@ -6,6 +6,7 @@ import geocoder
 import requests
 from decouple import config
 from fastapi import HTTPException, status
+import time
 
 
 def geocode_address(
@@ -69,3 +70,14 @@ def weather_api_call(lon, lat, *args, **kwargs):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Weather conditon not found.Please retry again"
         )
+
+
+
+# function to convert Epoch time to date-time
+def convert_epoch_to_datetime(epoch):
+    converted_date = time.strftime("%d %b,%Y", time.localtime(epoch))
+    converted_time = time.strftime("%I:%M%P", time.localtime(epoch))
+    return {
+        "date": converted_date,
+        "time": converted_time
+    }
