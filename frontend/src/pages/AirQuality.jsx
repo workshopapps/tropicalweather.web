@@ -1,8 +1,8 @@
 import React from 'react';
-import AirIndex from '../components/AirIndex';
-import AllPolutants from '../components/AllPolutants';
-import TodayAirQuality from '../components/TodayAirQuality';
-import WeatherCard from '../components/WeatherCard';
+import AirIndex from '../components/AirQualityComponents/AirIndex';
+import AllPolutants from '../components/AirQualityComponents/AllPolutants';
+import TodayAirQuality from '../components/AirQualityComponents/TodayAirQuality';
+import WeatherCard from '../components/AirQualityComponents/WeatherCard';
 
 function AirQuality() {
     const [show, setShow] = React.useState(false);
