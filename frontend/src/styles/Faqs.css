@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Rose:wght@400;500;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.faq-container {
+  max-width: 1512px;
+  /* padding: 0 80px; */
+
+  margin: 0 auto;
+}
+
+.faq-header {
+  background-image: url(../FaqAssets/HeaderBg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 116px;
+  padding-bottom: 34px;
+}
+.faq-header h1 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 72px;
+  /* or 129% */
+
+  text-align: center;
+  letter-spacing: 0.011em;
+  font-feature-settings: "liga" off;
+
+  /* Grey/50 */
+
+  color: #fbfbfc;
+}
+.faq-header h2 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  /* or 133% */
+
+  text-align: center;
+  letter-spacing: -0.01em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  margin-bottom: 41px;
+  /* Grey/50 */
+
+  color: #fbfbfc;
+}
+.faq-search {
+  padding: 12px 24px;
+  /* background-color: gold; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 42.3%;
+  background: #ffffff;
+  /* Grey/200 */
+
+  border-bottom: 1px solid #e8e7ea;
+  border-radius: 8px;
+}
+.faq-search-bar {
+  /* background-color: pink; */
+  width: 78%;
+  display: flex;
+}
+.faq-search-bar input {
+  width: 100%;
+  border: none;
+}
+.faq-search-bar input::placeholder {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  padding-left: 16px;
+  /* identical to box height, or 133% */
+
+  /* Primary/1100 */
+
+  color: #301104;
+
+  opacity: 0.4;
+}
+.faq-search-btn {
+  width: 22%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.faq-header__icon {
+  padding: 12px 8px;
+  opacity: 0.4;
+}
+.faq-search-cta-btn {
+  padding: 18px 24px;
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  border: none;
+  /* identical to box height, or 133% */
+
+  text-align: center;
+
+  /* Shade White */
+
+  color: #ffffff;
+  background: #f05513;
+  border-radius: 8px;
+}
+
+.faqs {
+  width: 89%;
+  margin: 0 auto;
+}
+
+.faq {
+  width: 70%;
+}
+
+.faq-text {
+  display: flex;
+  justify-content: space-between;
+  border-top: #eaecf0 1px solid;
+  align-items: center;
+}
+.faq-text h2 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  /* identical to box height, or 140% */
+  padding-top: 24px;
+  padding-bottom: 24px;
+  letter-spacing: -0.01em;
+
+  /* Grey/800 */
+
+  color: #2b2a30;
+  /* width: 80%; */
+}
+.faq-answer__text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  /* or 133% */
+
+  letter-spacing: 0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+
+  /* Grey/600 */
+
+  color: #82808f;
+  margin-bottom: 32px;
+  margin-top: 8px;
+}
+
+.faqs__customer--line {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fdead7;
+  border-radius: 16px;
+  padding: 32px 0;
+  gap: 24px;
+  margin-top: 78px;
+}
+.faqs__customer--line--heading {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  /* identical to box height, or 129% */
+
+  text-align: center;
+  letter-spacing: -0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+
+  /* Grey/800 */
+
+  color: #2b2a30;
+}
+.faqs__customer--line--supporting-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  /* identical to box height, or 140% */
+
+  text-align: center;
+  letter-spacing: -0.01em;
+
+  /* Grey/600 */
+
+  color: #82808f;
+}
+.faqs__customer--line--btn {
+  background: #ef6820;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  color: #fbfbfc;
+  padding: 16px 26px;
+  border: none;
+}
+
+.faqs__mobile--app {
+  display: flex;
+  justify-content: space-between;
+  background: #fdead7;
+  border-radius: 16px;
+  margin-top: 78px;
+}
+.faqs__mobile--app--text-container {
+  margin-left: 64px;
+  width: 39%;
+  margin-top: 61px;
+  margin-bottom: 47px;
+}
+.faqs__mobile--app--heading {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  /* identical to box height, or 200% */
+
+  /* Primary/500 */
+
+  color: #ef6820;
+}
+
+.faqs__mobile--app--sub-heading-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  /* or 130% */
+  width: 80%;
+  font-feature-settings: "tnum" on, "lnum" on;
+
+  /* Grey/900 */
+
+  color: #161518;
+}
+.faqs__mobile--app--heading--description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  /* or 156% */
+
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/700 */
+
+  color: #565560;
+}
+.options-container {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+.options-container__icons {
+  display: flex;
+  padding: 8px;
+  background: #0f1112;
+  border-radius: 8px;
+  gap: 8px;
+  color: white;
+}
+.options-container__description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  color: #ffffff;
+}
+.options-container__name {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  /* identical to box height, or 100% */
+
+  color: #ffffff;
+}
