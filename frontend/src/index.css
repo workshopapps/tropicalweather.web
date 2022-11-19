@@ -6,3 +6,25 @@
 html {
   font-family: 'Outfit', sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 20px 4px 10px #f3eee7;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #EF6820;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
+
+.btn {
+  @apply font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg;
+}
