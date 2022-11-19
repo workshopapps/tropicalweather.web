@@ -47,6 +47,11 @@
     margin: 48px 0px 12px 0px;
 }
 
+.cu_img_2 {
+    display: none;
+}
+
+
 .contact_us_instant_chat_tag a{
     display: flex;
     align-items: center;
@@ -176,6 +181,10 @@ label {
         max-width: 1024px;
         justify-content: center;
     }
+    
+    .cu_img_2 {display: flex;}
+    .cu_img_1 {display: none;}
+    
     .form {
         width: 50%;
         padding: auto;
