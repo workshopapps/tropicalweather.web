@@ -50,7 +50,7 @@ export default function BusinessWeatherForm() {
             we’ll only use your personal information to administer your account
             and to provide the products and services you requested from us.
           </p>
-          <button className="" type="button">Submit</button>
+          <button className="ml-4 md:ml-0 lg:ml-0" type="button">Submit</button>
         </form>
       </div>
     </div>
