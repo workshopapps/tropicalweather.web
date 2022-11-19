@@ -54,7 +54,7 @@ class TestWeatherForecastsAPI:
     def test_weather_forcasts_invalid(self, mocker):
         """Test weather forecast endpoint"""
         mocker.patch(
-            'app.utils.get_weather_forecast',
+            'app.routers.weather.get_weather_forecast',
             side_effect=Exception("Invalid request")
         )
         response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")

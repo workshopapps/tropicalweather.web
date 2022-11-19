@@ -12,7 +12,10 @@ OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
 
 def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
-    pass
+    return {
+        "date": "",
+        "time": "",
+    }
 
 
 def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
@@ -80,38 +83,70 @@ def geocode_address(
     }
 
 
+
 # function to call the open weather api and fetch the required data
 # Required data = "lon" and "lat"
-def weather_api_call(lon, lat, *args, **kwargs):
+def weather_api_call(lat, lon, *args, **kwargs):
 
-    API_key = config("API_KEY")
+
+    """call Open_weather_api with lat and lon, lat and lon
+
+    :param lat: latitude
+    :type lat: float
+    :param lon: longitude
+    :type lon: float
+    :return:  {main, description, dt, city, state, time, country}
+    :rtype: dictionary
+    """
+
+
 
     # converts given parameters into required types
     lon = float(lon)
     lat = float(lat)
 
     # Call API and converts response into dictionary
-    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
+    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
 
     try:
         response = requests.get(open_weather_url).json()
+        
+        
+        weather_conditions = response['weather'][0]#returns a dictionary
 
-        # Error messages for unknown city or street names or invalid API key
-        if response.status_code != 200:
-            return f"Can't retrive weather data for this location"
+        # Assign the weather conditions
+        condition = weather_conditions['main']
 
-        weather_conditions = response['weather'] #returns a lists
+        description = weather_conditions['description']
 
-        for detail in weather_conditions:
-            current_weather = detail['main']
-            weather_description = detail['description']
+        # Date
+        date =  response['dt']
+
+        # Country Name
+        country = response['sys']['country']
+
+        # city name
+        city_name = response['name']
+
+        # State name
+        state = response['name']
+
+        # time zone not return from this response
+        time = 'none'
+
 
         return {
-            "current_weather": current_weather,
-            "weather_description": weather_description
+            "main": condition,
+            "description": description,
+            "dt": date,
+            "city": city_name,
+            "state": state,
+            "time": time,
+            "country": country
         }
     except:
-        raise HTTPException(
+       raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Weather conditon not found.Please retry again"
         )
+
