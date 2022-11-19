@@ -6,6 +6,5 @@ WORKDIR /backend
 ADD . /backend/
 RUN pip install -r requirements.txt
 WORKDIR /backend/app/
-RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
