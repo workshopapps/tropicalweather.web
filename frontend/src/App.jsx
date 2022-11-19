@@ -10,6 +10,7 @@ import WeatherNews from './pages/WeatherNews';
 import Career from './pages/Career';
 import Business from './pages/Business';
 import Features from './pages/Features';
+import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/features" element={<Features />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Route>,
   ),
 );
