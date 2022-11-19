@@ -1,6 +1,6 @@
 export default function BusinessWeatherForm() {
   return (
-    <div className="WeatherForm mt-14 md:mt-24 mb-24 px-4 md:px-14 overflow-hidden">
+    <div className="WeatherForm mt-14 md:mt-24 mb-24 px-4 md:px-14">
       <div className="flex flex-col md:flex-row justify-between">
         <div className="container mx-auto text-center md:text-left pt-0 md:pt-24 pr-0 md:pr-8 md:mr-0   ">
           <p className="text-xl text-[#EF6820]">Partner</p>
@@ -36,10 +36,12 @@ export default function BusinessWeatherForm() {
           <div className=" flex flex-col md:flex-row  mt-4 md:mt-12 ml-4 md:ml-0">
             <div>
               <label htmlFor="name">Company Email</label>
+              <br />
               <input type="text" placeholder="yourname@company.com" />
             </div>
             <div className="mt-4 md:mt-0">
               <label htmlFor="name">Location</label>
+              <br />
               <input type="text" placeholder="e.g : London" />
             </div>
           </div>
