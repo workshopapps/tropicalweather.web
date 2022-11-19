@@ -42,6 +42,7 @@ export default function Home() {
         <section
           id="landing_locations"
           style={{
+            width: '100%',
             display: 'flex',
             flexDirection: 'column',
             gap: '40px',
@@ -51,32 +52,29 @@ export default function Home() {
             <h3 className="landing_header_md">Popular locations</h3>
             <h6>upated a minute ago</h6>
           </div>
-          <div>
-            <div ref={slider} className="landing_locations_container">
-              <PopularLocation
-                forecast="Expect rain and scattered thunderstorms by 12:00pm."
-                state="SUNNY"
-                location="Port Harcourt, Nigeria"
-              />
-              <PopularLocation
-                forecast="Expect rain and scattered thunderstorms by 12:00pm."
-                state="SUNNY"
-                location="Port Harcourt, Nigeria"
-              />
-              <PopularLocation
-                forecast="Expect rain and scattered thunderstorms by 12:00pm."
-                state="SUNNY"
-                location="Port Harcourt, Nigeria"
-              />
-            </div>
-            <div className="landing_scroll_indicator">
-              <div style={{ backgroundColor: curr === 0 ? 'var(--primary-color)' : '' }}>{' '}</div>
-              <div style={{ backgroundColor: curr === 1 ? 'var(--primary-color)' : '' }}>{' '}</div>
-              <div style={{ backgroundColor: curr === 2 ? 'var(--primary-color)' : '' }}>{' '}</div>
-            </div>
+          <div ref={slider} className="landing_locations_container">
+            <PopularLocation
+              forecast="Expect rain and scattered thunderstorms by 12:00pm."
+              state="SUNNY"
+              location="Port Harcourt, Nigeria"
+            />
+            <PopularLocation
+              forecast="Expect rain and scattered thunderstorms by 12:00pm."
+              state="SUNNY"
+              location="Port Harcourt, Nigeria"
+            />
+            <PopularLocation
+              forecast="Expect rain and scattered thunderstorms by 12:00pm."
+              state="SUNNY"
+              location="Port Harcourt, Nigeria"
+            />
+          </div>
+          <div className="landing_scroll_indicator">
+            <div style={{ backgroundColor: curr === 0 ? 'var(--primary-color)' : '' }}>{' '}</div>
+            <div style={{ backgroundColor: curr === 1 ? 'var(--primary-color)' : '' }}>{' '}</div>
+            <div style={{ backgroundColor: curr === 2 ? 'var(--primary-color)' : '' }}>{' '}</div>
           </div>
         </section>
-
         <section
           id="landing_features_and_globe"
           style={{
