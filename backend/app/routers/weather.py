@@ -1,9 +1,6 @@
 # implement main application logic like weather api response here
 
 # FastApi imports
-from fastapi import APIRouter, HTTPException, status
-from utils import immediate_weather_api_call
-
 from typing import List
 
 from app.models import SingleWeatherResponse
@@ -20,18 +17,6 @@ router = APIRouter(
     tags=['weather']
 )
 
-@router.get("/weather/forecasts/immediate")
-def get_immediate_weather_forecast(lat: int=None, lng: int=None):
-    
-    if lat is None and lng is None:
-        result = immediate_weather_api_call(lng, lat)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail= f"invalid longitute and latitude"
-        
-        )
-    
-    return result
 
 @router.get('/forecasts', response_model=List[SingleWeatherResponse])
 async def weather_forcasts(lat: float, lon: float):
