@@ -15,3 +15,14 @@ from utils import generate_hash
 router = APIRouter(
     tags=['weather']
 )
+
+@router.post('/weather/')
+def get_tommorrows_weather(lat: int=None, lng: int=None):
+    if lat is None and lng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+
+        )
+
+    return    utils.immediate_weather_api_call_tommorrow()
