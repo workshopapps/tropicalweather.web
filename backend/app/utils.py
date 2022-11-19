@@ -12,7 +12,10 @@ OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
 
 def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
-    pass
+    return {
+        "date": "",
+        "time": "",
+    }
 
 
 def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
