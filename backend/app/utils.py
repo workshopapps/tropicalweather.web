@@ -1,18 +1,16 @@
+# Utility functions
 
+from typing import List, Union
+
+import geocoder
+import requests
 from decouple import config
 from fastapi import HTTPException, status
 
-import requests
 
-# Utility function to generate and verify password hash
-from passlib.context import CryptContext
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-# Utility functions
-
-import geocoder
-
-
-def geocode_address(city_name: str, lga: str = "", state: str = ""):
+def geocode_address(
+    city_name: str, lga: str = "", state: str = ""
+) -> Union[List[str], None]:
     """Get geocode of city, lga and state
 
     :param city_name: city name
@@ -36,8 +34,6 @@ def geocode_address(city_name: str, lga: str = "", state: str = ""):
     return g.latlng
 
 
-
-
 # function to call the open weather api and fetch the required data
 # Required data = "lon" and "lat"
 def weather_api_call(lon, lat, *args, **kwargs):
@@ -57,13 +53,13 @@ def weather_api_call(lon, lat, *args, **kwargs):
         # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
             return f"Can't retrive weather data for this location"
-        
+
         weather_conditions = response['weather'] #returns a lists
 
         for detail in weather_conditions:
             current_weather = detail['main']
             weather_description = detail['description']
-        
+
         return {
             "current_weather": current_weather,
             "weather_description": weather_description
@@ -71,15 +67,5 @@ def weather_api_call(lon, lat, *args, **kwargs):
     except:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail= f"Weather conditon not found.Please retry again"
-        
+            detail=f"Weather conditon not found.Please retry again"
         )
-
-
-
-
-
-
-
-
-    
