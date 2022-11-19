@@ -11,7 +11,7 @@ import Career from './pages/Career';
 import Business from './pages/Business';
 import Features from './pages/Features';
 import AppLayout from './components/AppLayout';
-import { AirQuality } from './pages/AirQuality';
+import AirQuality from './pages/AirQuality';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

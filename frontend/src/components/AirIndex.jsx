@@ -1,7 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export function AirIndex(props) {
-    const classs = props.handleShow ? 'grid grid-cols-2 w-[40rem] bg-[#FEF2F2] p-[2rem] mb-[2rem]' : 'hidden';
+AirIndex.propTypes = {
+  handleShow: PropTypes.bool,
+  changeVal: PropTypes.func,
+};
+
+function AirIndex({ handleShow, changeVal }) {
+  const handleKeyDown = () => {
+
+  };
+    const classs = handleShow ? 'grid grid-cols-2 w-[40rem] bg-[#FEF2F2] p-[2rem] mb-[2rem]' : 'hidden';
   return (
     <div className={classs}>
       <div className="grid">
@@ -34,10 +43,13 @@ export function AirIndex(props) {
       <div>
         <div className="flex justify-between items-center">
           <h1 className="font-bold">Sources</h1>
-          <img src="close.png" alt="" className="cursor-pointer" onClick={props.changeVal} />
+          <button type="button" onClick={changeVal} onKeyDown={handleKeyDown}>
+            <img src="close.png" alt="" className="cursor-pointer" />
+          </button>
         </div>
         <p>
-          Contains Copernicus Atmosphere Monitoring Service information 2022 and/or modified Copernicus Atmosphere Monitoring Service information 2022
+          Contains Copernicus Atmosphere Monitoring Service information
+          2022 and/or modified Copernicus Atmosphere Monitoring Service information 2022
           Neither the European Commission nor ECMWF is responsible for any use of this information
         </p>
 
@@ -46,3 +58,5 @@ export function AirIndex(props) {
     </div>
   );
 }
+
+export default AirIndex;

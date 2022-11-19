@@ -1,14 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export function AllPolutants(props) {
+AllPolutants.propTypes = {
+  src: PropTypes.string,
+  nam: PropTypes.string,
+  quantity: PropTypes.string,
+  amount: PropTypes.string,
+};
+
+function AllPolutants({
+ src, nam, amount, quantity,
+}) {
   return (
     <div className="flex gap-[3rem] items-start">
-      <img src={props.src} alt="" />
+      <img src={src} alt="" />
       <div className="grid gap-[1.5rem]">
-        <p>{props.name}</p>
-        <p className="font-bold">{props.quantity}</p>
-        <p>{props.amount}</p>
+        <p>{nam}</p>
+        <p className="font-bold">{quantity}</p>
+        <p>{amount}</p>
       </div>
     </div>
   );
 }
+
+export default AllPolutants;

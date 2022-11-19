@@ -1,11 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export function WeatherCard(props) {
+WeatherCard.propTypes = {
+  weather: PropTypes.string,
+  src: PropTypes.string,
+  time: PropTypes.string,
+};
+
+function WeatherCard({ weather, src, time }) {
   return (
     <div className="flex flex-col items-center justify-between h-[8rem] p-[.7rem] border rounded-md">
-      <p>{props.weather}</p>
-      <img src={props.src} alt="" />
-      <p>{props.time}</p>
+      <p>{weather}</p>
+      <img src={src} alt="" />
+      <p>{time}</p>
     </div>
   );
 }
+
+export default WeatherCard;

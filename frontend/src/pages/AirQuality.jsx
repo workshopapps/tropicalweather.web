@@ -1,13 +1,16 @@
 import React from 'react';
-import { AirIndex } from '../components/AirIndex';
-import { AllPolutants } from '../components/AllPolutants';
-import { TodayAirQuality } from '../components/TodayAirQuality';
-import { WeatherCard } from '../components/WeatherCard';
+import AirIndex from '../components/AirIndex';
+import AllPolutants from '../components/AllPolutants';
+import TodayAirQuality from '../components/TodayAirQuality';
+import WeatherCard from '../components/WeatherCard';
 
-export function AirQuality() {
+function AirQuality() {
     const [show, setShow] = React.useState(false);
     const handleShow = () => {
         setShow(!show);
+    };
+    const handleKeyDown = () => {
+
     };
   return (
     <div>
@@ -44,7 +47,9 @@ export function AirQuality() {
               </div>
             </div>
             <div className="flex items-center mt-[3rem]">
-              <img src="info.png" alt="" onClick={handleShow} />
+              <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
+                <img src="info.png" alt="" />
+              </button>
               <p className="">Air Quality Index</p>
             </div>
           </div>
@@ -71,3 +76,5 @@ export function AirQuality() {
     </div>
   );
 }
+
+export default AirQuality;
