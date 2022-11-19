@@ -5,13 +5,13 @@ export default function BusinessHeroSection() {
     <div>
       <div className="header">
         <div className="flex justify-between pt-96 space-x-12">
-          <section className="ml-2 ,d:ml-10 mt-10">
+          <section className="ml-2 md:ml-16 mt-10">
             <div className="inline-flex ">
               <img src={weatheryBusinessimg} alt="" />
             </div>
             <h3 className="text-2xl text-white ml-3">
               Weathery for
-              business
+              <span><p className="font-bold text-4xl">Business</p></span>
             </h3>
           </section>
           <section className="mt-10">
