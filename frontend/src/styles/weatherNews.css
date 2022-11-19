@@ -80,13 +80,13 @@
 }
 @media (min-width: 800px) {
   .input-control {
-    border: none;
-    box-shadow: 0 5px 2px -5px rgba(86, 85, 96, 0.25),
+    border: 1px solid #eee;
+     box-shadow: 0 5px 2px -5px rgba(86, 85, 96, 0.25),
       -5px 0 5px -8px rgba(86, 85, 96, 0.25),
       3px 0 5px -5px rgba(86, 85, 96, 0.25);
       width: 80%;
       margin: 0 auto;
-      margin-bottom: 2rem;
+      margin-bottom: 2rem; 
   }
   .input-control .btn {
     display: block;
