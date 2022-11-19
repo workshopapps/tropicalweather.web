@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PopularLocation from '../components/PopularLocation';
 import '../styles/Home.css';
 
@@ -31,9 +32,9 @@ export default function Home() {
               <img src="/Home/Icon.svg" alt="" />
               <p>There is a high risk of flooding in your area</p>
             </div>
-            <button type="button">
+            <Link to="/dashboard">
               View more
-            </button>
+            </Link>
           </div>
         </div>
       </header>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import '../styles/Home.css';
 
@@ -15,9 +16,9 @@ export default function PopularLocation({ location, state, forecast }) {
         <p>
           {forecast}
         </p>
-        <button type="button" className="landing_link_button">
+        <Link to="/dashboard" className="landing_link_button">
           View more info →
-        </button>
+        </Link>
       </div>
     </article>
   );
