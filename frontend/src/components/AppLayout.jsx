@@ -7,7 +7,8 @@ export default function AppLayout() {
   return (
     <div className="grid min-h-screen grid-rows-[auto_auto_1fr] bg-white">
       <Header />
-      <main className="px-4 md:px-16">
+      <main className="">
+        {/* <main className="px-4 md:px-16"> */}
         <Outlet />
       </main>
       <Footer />
