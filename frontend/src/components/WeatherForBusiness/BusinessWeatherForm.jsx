@@ -14,36 +14,36 @@ export default function BusinessWeatherForm() {
             <div>
               <label htmlFor="name">Full Name</label>
               <br />
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="Doe Mavis" />
             </div>
             <div className="ml-0 md:ml-8 mt-4 md:mt-0">
               <label htmlFor="name">I Work in...</label>
               <br />
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="Industry Type" />
             </div>
           </div>
           <div className=" flex flex-col md:flex-row mt-4 md:mt-12 ml-4 md:ml-0">
             <div>
               <label htmlFor="name">Company Name</label>
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="e.g : facebook" />
             </div>
             <div className="mt-4 md:mt-0">
               <label htmlFor="name">Company Size</label>
               <br />
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="e.g : 10 - 500" />
             </div>
           </div>
           <div className=" flex flex-col md:flex-row  mt-4 md:mt-12 ml-4 md:ml-0">
             <div>
               <label htmlFor="name">Company Email</label>
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="yourname@company.com" />
             </div>
             <div className="mt-4 md:mt-0">
               <label htmlFor="name">Location</label>
-              <input type="text" placeholder="" />
+              <input type="text" placeholder="e.g : London" />
             </div>
           </div>
-          <p className="text-base text-[#565560] text-center mt-4 mb-4">
+          <p className="text-base text-[#565560] text-center mt-10 mb-10">
             Weathery is committed to protecting and respecting your privacy, and
             we’ll only use your personal information to administer your account
             and to provide the products and services you requested from us.

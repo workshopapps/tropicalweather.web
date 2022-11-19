@@ -1,6 +1,6 @@
 export default function BusinessWeatherHowItWorks() {
   return (
-    <div className="pb-16">
+    <div className="pb-16 md:pb-20 ">
       <div className="container space-y-6 mt-6 mb-8 pl-2 md:pl-10">
         <p className="font-semibold text-2xl text-[#EF6820]">Reliable</p>
         <p className="font-bold text-4xl">How it Works </p>

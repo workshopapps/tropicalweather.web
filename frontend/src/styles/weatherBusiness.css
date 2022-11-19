@@ -22,19 +22,19 @@ border-radius: 4px;
 
   .BusinessWorksCard1{
     height: 620px;
-  background-image: url('../assets/weatherBusinessImgs/work1.png');
+  background-image: url('../assets/weatherBusinessImgs/partner.png');
   background-position: center center;
   background-size: cover;
   }
   .BusinessWorksCard2{
     height: 620px;
-  background-image: url('../assets/weatherBusinessImgs/work2.png');
+  background-image: url('../assets/weatherBusinessImgs/prepare.png');
   background-position: center center;
   background-size: cover;
   }
   .BusinessWorksCard3{
     height: 620px;
-  background-image: url('../assets/weatherBusinessImgs/work3.png');
+  background-image: url('../assets/weatherBusinessImgs/protect.png');
   background-position: center center;
   background-size: cover;
   }
@@ -51,6 +51,11 @@ border-radius: 4px;
 
   background: #E8E7EA !important;
 border-radius: 8px;
+  }
+
+  .WeatherForm input::placeholder{
+    color: #D3D3D3;
+    padding-left: 10px;
   }
 
   .WeatherForm button{
