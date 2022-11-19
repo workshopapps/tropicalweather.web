@@ -62,3 +62,29 @@ class TestWeatherForecastsAPI:
 
         data: dict = response.json()
         assert data["detail"]
+
+
+
+class TestLocationAPI:
+    def test_get_locations_valid(self):
+        mock_response = {
+            "city": "Etche",
+            "state": "Rivers State"
+            }
+        response = client.get("/location/?lat=5.12&lon=7.03")
+
+        assert response.status_code == 200
+
+        data: dict = response.json()
+
+        assert response.json() == mock_response
+        assert len(data) == 2
+
+
+    def test_get_locations_invalid(self):
+        response = client.get("/location/?lat=5.12&lon=700000.03")
+        assert response.status_code == 400
+
+        data: dict = response.json()
+        assert data["detail"]
+

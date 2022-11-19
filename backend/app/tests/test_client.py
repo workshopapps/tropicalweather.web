@@ -31,16 +31,18 @@ def test_get_error(mocker):
 def test_reverse_geocoding(mocker):
     mocker.patch('requests.get', return_value=mocker.Mock(
         status_code=200,
-        json=lambda: [{'name': 'test'}]
+        json=lambda: {"city": "Etche",
+            "state": "Rivers State"}
     ))
     mocker.patch('app.client.API_KEY\
 ', '123')
-    data = reverse_geocoding(1, 2)
+    data = reverse_geocoding(5.12, 7.03)
     requests.get.assert_called_once_with(
         url='https://api.openweathermap.org/geo/1.0/reverse',
-        params={'lat': 1, 'lon': 2, 'appid': '123'}
+        params={'lat': 5.12, 'lon': 7.03, 'appid': '123'}
     )
-    assert data == 'test'
+    assert data == {"city": "Etche",
+            "state": "Rivers State"}
 
 
 def test_reverse_geocoding_error(mocker):
