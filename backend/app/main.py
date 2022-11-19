@@ -18,4 +18,5 @@ app = FastAPI()
 
 # Registering routes
 app.include_router(weather.router)
+
 app.include_router(location.router)

@@ -7,7 +7,6 @@ class SingleWeatherResponse(BaseModel):
     date: str
     time: str
 
-
 class locationResponse(BaseModel):
     city: str
     state: str

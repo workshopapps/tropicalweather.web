@@ -15,7 +15,6 @@ router = APIRouter(
     tags=['location']
 )
 
-
 @router.get('/')
 async def get_location(lat: float, lon: float):
 
