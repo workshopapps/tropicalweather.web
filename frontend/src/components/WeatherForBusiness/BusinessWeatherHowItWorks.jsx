@@ -28,7 +28,7 @@ export default function BusinessWeatherHowItWorks() {
             tailored to your specific business needs.
           </p>
         </div>
-        <div className="BusinessWorksCard3 pt-96 px-8">
+        <div className="BusinessWorksCard3 pt-96 px-0 md:px-8 lg:px-8">
           <br />
           <br />
           <br />
