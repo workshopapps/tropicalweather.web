@@ -13,7 +13,7 @@ function AllPolutants({
 }) {
   return (
     <div className="flex gap-[3rem] items-start">
-      <img src={src} alt="" />
+      <img src={`AirQuality/${src}`} alt="" />
       <div className="grid gap-[1.5rem]">
         <p>{nam}</p>
         <p className="font-bold">{quantity}</p>

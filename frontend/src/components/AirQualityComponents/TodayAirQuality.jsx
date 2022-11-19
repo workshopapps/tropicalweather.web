@@ -9,7 +9,7 @@ function TodayAirQuality() {
       </h1>
       <div className="grid grid-rows-3 md:grid-cols-3 md:grid-rows-none gap-[1rem]">
         <div className="row-span-2 md:row-span-1 md:col-span-2 flex items-start gap-[15px]">
-          <img src="95big.png" alt="" className="w-[97px] h-[97px]" />
+          <img src="AirQuality/95big.png" alt="" className="w-[97px] h-[97px]" />
           <div>
             <h1 className="text-2xl">Moderate</h1>
             <p>

@@ -11,7 +11,7 @@ function WeatherCard({ weather, src, time }) {
   return (
     <div className="flex flex-col items-center justify-between h-[8rem] p-[.7rem] border rounded-md">
       <p>{weather}</p>
-      <img src={src} alt="" />
+      <img src={`AirQuality/${src}`} alt="" />
       <p>{time}</p>
     </div>
   );

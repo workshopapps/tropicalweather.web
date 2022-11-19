@@ -44,7 +44,7 @@ function AirIndex({ handleShow, changeVal }) {
         <div className="flex justify-between items-center">
           <h1 className="font-bold">Sources</h1>
           <button type="button" onClick={changeVal} onKeyDown={handleKeyDown}>
-            <img src="close.png" alt="" className="cursor-pointer" />
+            <img src="AirQuality/close.png" alt="" className="cursor-pointer" />
           </button>
         </div>
         <p>

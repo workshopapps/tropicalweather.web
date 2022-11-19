@@ -13,7 +13,7 @@ function AirQuality() {
 
     };
   return (
-    <div>
+    <div className="mx-auto">
       <h1 className="font-bold text-2xl">Lagos, Nigeria</h1>
       <div className="flex gap-[10px] mb-[30px] overflow-hidden">
         <WeatherCard weather="Sunny" src="Sunny.png" time="Now" />
@@ -48,7 +48,7 @@ function AirQuality() {
             </div>
             <div className="flex items-center mt-[3rem]">
               <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
-                <img src="info.png" alt="" />
+                <img src="AirQuality/info.png" alt="" />
               </button>
               <p className="">Air Quality Index</p>
             </div>
