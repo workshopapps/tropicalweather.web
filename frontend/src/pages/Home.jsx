@@ -52,6 +52,7 @@ export default function Home() {
             <h3 className="landing_header_md">Popular locations</h3>
             <h6>upated a minute ago</h6>
           </div>
+          <p>Weather reports of some popular locations in Nigeria</p>
           <div ref={slider} className="landing_locations_container">
             <PopularLocation
               forecast="Expect rain and scattered thunderstorms by 12:00pm."
@@ -66,7 +67,7 @@ export default function Home() {
             <PopularLocation
               forecast="Expect warm Sun and light drizzle through the night."
               state="RAINY"
-              location="Osun, Nigeria"
+              location="Kaduna, Nigeria"
             />
           </div>
           <div className="landing_scroll_indicator">
@@ -91,10 +92,10 @@ export default function Home() {
                   Never Worry about Figures and Statistics
                 </h3>
                 <p>
-                  Weathery analyses them for you to give you
-                  a self explanatory forecast so you never
-                  have to worry about the weather and you can
-                  have a more seamless experience
+                  Weathery analyzes the weather for you in order to provide you with a
+                  self-explanatory forecast,
+                  so you never have to worry about the weather and can have a more
+                  smooth experience.
                 </p>
               </div>
               <div
@@ -104,13 +105,13 @@ export default function Home() {
                 }}
               >
                 <p>Features</p>
-                <h3>Add  Multiple Locations</h3>
+                <h3>Add multiple locations</h3>
                 <p>
-                  What’s even better than not having to worry about the
-                  weather in your current location?
-                  Being up to date about the weather condition in
-                  other Locations is what! Add and delete multiple
-                  locations to plan your daily movement effectively
+                  What could possibly be better than not having to worry about the weather
+                  where you are right now? What matters is staying informed about
+                  the weather in other places!
+                  In order to successfully arrange your daily movement,
+                  add and delete several destinations. Use weathery app now!
                 </p>
                 <button type="button" className="landing_link_button">
                   Get started
@@ -135,12 +136,12 @@ export default function Home() {
                 }}
               >
                 <p>Features</p>
-                <h3>Get the Forecast for your city!</h3>
+                <h3>Find out your city&apos;s forecast!</h3>
                 <p>
-                  Would you like to know how the weather would be in thee next few
-                  hours or even through out the day! Weathery offers seamless and
-                  understandable features that communicates the daily weather status
-                  of its Users free of Costs!
+                  Are you curious to discover the weather predictions for the upcoming few or
+                  even the entire day? You don&apos;t have to pay for the straightforward,
+                  uncomplicated capabilities that Weathery offers to convey
+                  your everyday weather condition!
                 </p>
                 <button type="button" className="landing_link_button">
                   Get started
