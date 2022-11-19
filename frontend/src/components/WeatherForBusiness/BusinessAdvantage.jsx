@@ -1,6 +1,6 @@
 export default function BusinessAdvantage() {
   return (
-    <div className="overflow-hidden px-16 md:px-16">
+    <div className="overflow-hidden">
       <div className="">
         <section className="container mx-auto mb-12">
           <section className="text-center space-y-6 mt-8">

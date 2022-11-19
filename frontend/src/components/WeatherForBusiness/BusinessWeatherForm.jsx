@@ -39,7 +39,7 @@ export default function BusinessWeatherForm() {
               <br />
               <input type="text" placeholder="yourname@company.com" />
             </div>
-            <div className="mt-4 md:mt-0">
+            <div className="mt-4 md:mt-0 ml-0 md:ml-8">
               <label htmlFor="name">Location</label>
               <br />
               <input type="text" placeholder="e.g : London" />
