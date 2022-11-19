@@ -11,6 +11,7 @@ import Career from './pages/Career';
 import Business from './pages/Business';
 import Features from './pages/Features';
 import AppLayout from './components/AppLayout';
+import { AirQuality } from './pages/AirQuality';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/features" element={<Features />} />
+      <Route path="/air-quality" element={<AirQuality />} />
     </Route>,
   ),
 );
