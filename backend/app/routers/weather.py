@@ -50,8 +50,7 @@ def get_current_weather():
     "main": weather_condition,
     "description": description,
     "date": date,
-    "time": time
-        
+    "time": time    
     }
     
     
