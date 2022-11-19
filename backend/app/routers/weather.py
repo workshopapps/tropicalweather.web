@@ -16,7 +16,7 @@ router = APIRouter(
     tags=['weather']
 )
 
-@router.post('/weather/')
+@router.post('/weather/forecast/immediate/tommorrow')
 def get_tommorrows_weather(lat: int=None, lng: int=None):
     if lat is None and lng is None:
         raise HTTPException(
