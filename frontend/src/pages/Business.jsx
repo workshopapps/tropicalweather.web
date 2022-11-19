@@ -11,7 +11,7 @@ import BusinessWeatherForm from '../components/WeatherForBusiness/BusinessWeathe
 
 export default function Business() {
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <BusinessHeroSection />
       <BusinessOverviewSection />
       <BusinessAdvantage />

@@ -1,8 +1,8 @@
 export default function BusinessWeatherForm() {
   return (
-    <div className="WeatherForm container mx-auto mt-14 md:mt-24 mb-24">
+    <div className="WeatherForm container mx-auto mt-14 md:mt-24 mb-24 px-4 md:px-14">
       <div className="flex flex-col md:flex-row justify-between">
-        <div className="container mx-auto text-center md:text-left pt-0 md:pt-24 ">
+        <div className="container mx-auto text-center md:text-left pt-0 md:pt-24 pr-0 md:pr-20   ">
           <p className="text-xl text-[#EF6820]">Partner</p>
           <p className="text-3xl">Get Started</p>
           <p className="text-base text-center md:text-left text-[#565560]">
