@@ -70,13 +70,6 @@
     font-feature-settings: 'liga' off;
 }
 
-@media screen and (max-width: 580px) {
-    .landing_header_message {
-        font-size: 10vw;
-        line-height: 140%;
-    }
-}
-
 .landing_warning {
     display: flex;
     padding: 8px 16px;
@@ -90,14 +83,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-}
-
-
-@media screen and (max-width: 500px) {
-    .landing_locations_header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
 
 .landing_header_md {
@@ -124,14 +109,6 @@
     column-gap: 25px;
 }
 
-@media screen and (max-width:890px) {
-    .landing_locations_container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 50px;
-    }
-}
-
 .landing_scroll_indicator {
     justify-content: center;
     gap: 4px;
@@ -150,33 +127,6 @@
     display: flex;
     flex-direction: column;
     gap: 24px
-}
-
-@media screen and (max-width:600px) {
-    .landing_scroll_indicator {
-        display: flex
-    }
-
-    .landing_locations_container {
-        display: flex;
-        flex-wrap: nowrap;
-        width: 100%;
-        overflow: scroll;
-        scroll-snap-type: x mandatory;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .landing_locations_container::-webkit-scrollbar {
-        display: none;
-    }
-
-
-    .landing_location_brief {
-        width: 100%;
-        scroll-snap-align: center;
-        flex-shrink: 0;
-    }
 }
 
 .landing_location_brief_header {
@@ -237,14 +187,6 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
     grid-column-gap: 88px;
-}
-
-@media screen and (max-width:800px) {
-    .landing_features_and_globe {
-        display: flex;
-        flex-direction: column;
-        gap: 88px
-    }
 }
 
 .landing_globe {
@@ -350,17 +292,6 @@
     margin-top: 30px;
 }
 
-@media screen and (max-width:550px) {
-    .landing_download_container div>img {
-        width: 50%;
-    }
-
-    .landing_download_container h3 {
-        font-size: 10vw;
-        line-height: 140%;
-    }
-}
-
 .landing_phones_wrapper {
     position: relative;
     width: 800px;
@@ -378,28 +309,6 @@
     grid-template-rows: repeat(4, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
-}
-
-@media screen and (max-width:900px) {
-    .landing_phones_wrapper {
-        width: 500px;
-    }
-
-    .landing_phones_container {
-        width: 400px;
-        transform: rotate(-25deg) translate(20%, -10%);
-    }
-}
-
-@media screen and (max-width:650px) {
-    .landing_phones_wrapper {
-        display: none;
-    }
-
-    .landing_phones_container {
-        width: 400px;
-        transform: rotate(-25deg) translate(20%, -10%);
-    }
 }
 
 .landing_phones_container>img {
@@ -420,4 +329,65 @@
 
 .landing_phones_container img:last-child {
     grid-area: 2 / 3 / 4 / 4;
+}
+
+@media screen and (max-width:768px) {
+    .landing_locations_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .landing_header_message {
+        font-size: 10vw;
+        line-height: 140%;
+    }
+
+    .landing_scroll_indicator {
+        display: flex
+    }
+
+    .landing_locations_container {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow: scroll;
+        scroll-snap-type: x mandatory;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .landing_locations_container::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .landing_location_brief {
+        width: 100%;
+        scroll-snap-align: center;
+        flex-shrink: 0;
+    }
+
+    .landing_phones_wrapper {
+        display: none;
+    }
+
+    .landing_phones_container {
+        width: 400px;
+        transform: rotate(-25deg) translate(20%, -10%);
+    }
+
+    .landing_features_and_globe {
+        display: flex;
+        flex-direction: column;
+        gap: 88px
+    }
+
+    .landing_download_container div>img {
+        width: 50%;
+    }
+
+    .landing_download_container h3 {
+        font-size: 8vw;
+        line-height: 140%;
+    }
 }
