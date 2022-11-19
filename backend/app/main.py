@@ -1,6 +1,6 @@
 # application initilization starts here
 from fastapi import FastAPI
-from app.routers import weather
+from .routers import weather
 
 # internal import
 
