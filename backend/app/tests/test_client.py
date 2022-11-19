@@ -32,7 +32,7 @@ def test_reverse_geocoding(mocker):
     mocker.patch('requests.get', return_value=mocker.Mock(
         status_code=200,
         json=lambda: {"city": "Etche",
-            "state": "Rivers State"}
+                      "state": "Rivers State"}
     ))
     mocker.patch('app.client.API_KEY\
 ', '123')
@@ -42,7 +42,7 @@ def test_reverse_geocoding(mocker):
         params={'lat': 5.12, 'lon': 7.03, 'appid': '123'}
     )
     assert data == {"city": "Etche",
-            "state": "Rivers State"}
+                    "state": "Rivers State"}
 
 
 def test_reverse_geocoding_error(mocker):
@@ -89,4 +89,3 @@ def test_weather_error(mocker):
     mocker.patch('app.client.API_KEY', '123')
     with pytest.raises(Exception, match='Invalid request'):
         weather(1, 2)
-        
