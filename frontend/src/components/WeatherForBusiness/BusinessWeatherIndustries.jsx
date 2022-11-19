@@ -2,14 +2,14 @@ import arrow from '../../assets/weatherBusinessImgs/ArrowUp.png';
 
 export default function BusinessWeatherIndustries() {
   return (
-    <div className="bg-[#2B2A30] pb-16">
-      <div className="container mx-auto space-y-6 pt-16 ml-4 md:ml-12">
+    <div className="bg-[#2B2A30] pb-16 overflow-hidden px-16 ">
+      <div className="container mx-auto space-y-6 pt-16   ">
         <p className="text-[#EF6820] text-xl">Industries</p>
         <p className="text-white text-3xl pb-10">
           Our Services Are Tailored For Your Business
         </p>
       </div>
-      <div className="flex flex-col md:flex-row justify-center md:justify-around mb-4 ml-5 md:ml-0">
+      <div className="flex flex-col md:flex-row justify-center md:justify-around mb-4 ml-5 md:ml-4 lg:ml-0">
         <div className="WeatherIndustryCard space-y-6 px-2 py-8">
           <p className="text-white font-bold text-4xl mt-7 ml-2">Manufacturing</p>
           <p className="text-white text-xl ml-2">
@@ -21,7 +21,7 @@ export default function BusinessWeatherIndustries() {
             <img className="pt-4 mr-4 mb-4" src={arrow} alt="" />
           </a>
         </div>
-        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 ml-0 md:ml-4 lg:ml-0 mr-0 md:mr-4 lg:mr-0 py-6">
+        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4 py-6">
           <p className="text-white font-bold text-4xl mt-7 ml-2 px-10">Retail</p>
           <p className="text-white text-xl ml-2 px-10">Position your inventory with the forecast.</p>
           <a href="/business" className="flex justify-end ">
@@ -46,7 +46,7 @@ export default function BusinessWeatherIndustries() {
             <img className="pt-14 mr-4 mb-4" src={arrow} alt="" />
           </a>
         </div>
-        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 py-6">
+        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 py-6 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4">
           <p className="text-white font-bold text-4xl mt-7 ml-2 px-10">Insurance</p>
           <p className="text-white text-xl ml-2 px-10">Proactive weather-related insightsfor your workforce.</p>
           <a href="/business" className="flex justify-end ">
@@ -71,7 +71,7 @@ export default function BusinessWeatherIndustries() {
             <img src={arrow} alt="" className="pt-12 mr-4 mb-4 " />
           </a>
         </div>
-        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 pt-6">
+        <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 pt-6 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4">
           <p className="text-white font-bold text-4xl mt-7 ml-2 px-10">Forensic Meteorology</p>
           <p className="text-white text-xl ml-2 px-10">Get expert witness testimony and past weather event verification.</p>
           <a href="/business" className="flex justify-end ">

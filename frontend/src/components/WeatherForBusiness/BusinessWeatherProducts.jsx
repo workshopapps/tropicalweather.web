@@ -1,6 +1,6 @@
 export default function BusinessWeatherProducts() {
   return (
-    <div className="bg-[#2B2A30] p-5 weatheryBusinessProducts pb-20">
+    <div className="bg-[#2B2A30] p-5 weatheryBusinessProducts pb-20 overflow-hidden">
       <div>
         <h2 className="text-center text-4xl font-bold text-white mb-10 mt-5">
           WeatheryBusiness

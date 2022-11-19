@@ -2,7 +2,7 @@ import weatheryBusinessimg from '../../assets/weatherBusinessImgs/weatheryBusine
 
 export default function BusinessHeroSection() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="header">
         <div className="flex justify-between pt-96 space-x-12">
           <section className="ml-2 md:ml-16 mt-10">
@@ -15,7 +15,7 @@ export default function BusinessHeroSection() {
             </h3>
           </section>
           <section className="mt-10">
-            <h3 className="mr-0 md:mr-10 text-white">
+            <h3 className="mr-0 md:mr-10 text-white overflow-hidden">
               There&apos;s no luck in business. There&apos;s only drive,
               <br />
               determination, and more drive.
