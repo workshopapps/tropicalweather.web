@@ -114,9 +114,9 @@ export default function Home() {
                   In order to successfully arrange your daily movement,
                   add and delete several destinations. Use weathery app now!
                 </p>
-                <button type="button" className="landing_link_button">
+                <Link to="/signup" className="landing_link_button">
                   Get started
-                </button>
+                </Link>
                 <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
                     src="/Home/globe.png"
@@ -144,9 +144,9 @@ export default function Home() {
                   uncomplicated capabilities that Weathery offers to convey
                   your everyday weather condition!
                 </p>
-                <button type="button" className="landing_link_button">
+                <Link to="/signup" className="landing_link_button">
                   Get started
-                </button>
+                </Link>
                 <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
                     src="/Home/fall.png"
