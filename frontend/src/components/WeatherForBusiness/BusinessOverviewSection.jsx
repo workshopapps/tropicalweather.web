@@ -14,7 +14,7 @@ export default function BusinessOverviewSection() {
             WEATHERY PROTECTOR
           </h1>
         </section>
-        <div className="px-2 md:px-4 lg:px-4">
+        <div className="px-2 md:px-4 lg:px-4 w-full">
           <img className="" src={farm} alt="" />
         </div>
       </div>

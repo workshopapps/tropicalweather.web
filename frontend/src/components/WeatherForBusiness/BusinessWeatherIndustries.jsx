@@ -100,10 +100,10 @@ export default function BusinessWeatherIndustries() {
           </a>
         </div>
         <div className="WeatherIndustryCard md:mt-0 mb-4 md:mb-0 pt-6 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4 max-w-full h-60">
-          <p className="text-white font-bold text-3xl md:text-3xl ml-4 md:ml-0 lg:ml-4 md:ml-0 px-10 lg:px-6 md:px-6 ">
+          <p className="text-white font-bold text-3xl md:text-2xl ml-4 md:ml-0 lg:ml-4 md:ml-0 px-0 lg:px-6 md:px-4  ">
             Forensic Meteorology
           </p>
-          <p className="text-white mt-2 mb-2 text-base md:text-base leading-6 md:leading-4 lg:leading-6  ml-2 px-10 md:px-0 lg:px-6">
+          <p className="text-white mt-2 mb-2 text-base md:text-auto lg:text-lg leading-6 md:leading-4 lg:leading-5  ml-4 px-0 md:px-0 lg:px-6">
             As part of our commitment to upholding your privacy, Weathery will
             only use the personal data we collect about you to carry out the
             orders you place with us and to administer your account.
