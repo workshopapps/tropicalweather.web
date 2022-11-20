@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
 
 export default function Header() {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
     setToggle(!toggle);

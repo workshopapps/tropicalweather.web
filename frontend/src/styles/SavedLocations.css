@@ -1,0 +1,88 @@
+.dashboard_savedLocations {
+  border-top: 1px solid #e8e7ea;
+  padding-block: 3.6rem;
+}
+
+.dashboard_savedLocations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard_savedLocations-header>h3 {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.addcity_btn {
+  width: 8.125rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: transparent;
+  border: 1px solid #ef6820;
+  border-radius: 8px;
+  cursor: pointer;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.dashboard_savedLocations-body {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  margin-block: 3.6rem;
+}
+
+.dashboard_savedLocations-body-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block: 2.4rem;
+}
+
+.dashboard_savedLocations-body-empty>h4 {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.savedLocations_body-logo {
+  height: 2.8rem;
+  width: 2.8rem;
+}
+
+.savedLocations_body-logo img {
+  width: 100%;
+}
+
+
+@media screen and (max-width: 37.5em) {
+  .dashboard_savedLocations-header>h3 {
+    font-size: 1.3rem;
+  }
+
+  .addcity_btn {
+    width: 6.4rem;
+    height: 2.8rem;
+    font-size: 0.9rem;
+  }
+
+  .dashboard_savedLocations-body {
+    flex-direction: column;
+  }
+
+  .dashboard_savedLocations-body-empty>h4 {
+    font-size: 1.1rem;
+  }
+
+  .dashboard_savedLocations-body-empty>p {
+    font-size: 0.85rem;
+  }
+
+}

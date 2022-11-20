@@ -1,0 +1,258 @@
+.weather_news-hero {
+  padding: 1rem 0;
+}
+
+.weather_news-hero h1 {
+  padding: 2rem 0;
+  text-align: center;
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 650px) {
+  .weather_news-hero h1 {
+    display: none;
+    font-weight: bolder;
+    font-size: 22rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .weather_news-hero h1 {
+    font-size: 3.5rem;
+  }
+}
+
+.weather_news-hero .desktop-h1 {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .weather_news-hero .desktop-h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 90px) {
+  .weather_news-hero .desktop-h1 {
+    padding: 2rem 0;
+    display: block;
+    font-weight: bolder;
+    font-size: 4rem;
+  }
+}
+
+.weather_news-temp-list {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  padding: 2rem 0.5rem;
+  color: #fff;
+  gap: 1rem;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 800px) {
+  .weather_news-temp-list {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .weather_news-temp-list {
+    padding: 4rem;
+  }
+}
+
+.weather_news-conditions {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .weather_news-conditions {
+    display: block;
+  }
+}
+
+.weather_news-input-control {
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.weather_news-input-control .btn {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .weather_news-input-control {
+    border: 1px solid #eee;
+    box-shadow: 0 5px 2px -5px rgba(86, 85, 96, 0.25),
+      -5px 0 5px -8px rgba(86, 85, 96, 0.25),
+      3px 0 5px -5px rgba(86, 85, 96, 0.25);
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+  }
+
+  .weather_news-input-control .btn {
+    display: block;
+  }
+}
+
+.weather_news-input-control input {
+  padding: 0.5rem 0.5rem;
+  flex-basis: 90%;
+  border-radius: 6px;
+  border: none;
+  transition: all 0.3s ease-in;
+}
+
+.weather_news-input-control input:focus {
+  outline: none;
+}
+
+.weather_news-input-control .btn {
+  background-color: #ef6820;
+  padding: 0.3rem 0.5rem;
+  color: #fff;
+  border-radius: 6px;
+}
+
+@media (min-width: 600px) {
+  input:focus {
+    padding: 0.6rem 1rem;
+  }
+}
+
+.weather_news-cards {
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+.weather_news-card {
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+@media (min-width: 600px) {
+  .weather_news-cards {
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+
+  .weather_news-card {
+    padding: 1rem;
+    flex-basis: 46%;
+    border-radius: 12px;
+  }
+
+  .weather_news-card .img-container {
+    width: 100%;
+  }
+}
+
+.weather_news-rectangle {
+  border: 1px solid #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 800px) {
+  .weather_news-rectangle {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+}
+
+.weather_news-rectangle .img-container {
+  flex-basis: 50%;
+  min-width: 50%;
+  height: 20rem;
+  border-radius: 6px;
+}
+
+.weather_news-rectangle .img-container img:first-of-type {
+  display: none;
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.weather_news-rectangle .img-container img:last-of-type {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
+  .weather_news-rectangle .img-container img:first-of-type {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .weather_news-rectangle .img-container img:last-of-type {
+    display: none;
+  }
+}
+
+.weather_news-rectangle .weather_news-text h3 {
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.weather_news-info {
+  font-size: 0.8rem;
+  color: #82808f;
+  font-weight: 500;
+}
+
+.weather_news-text {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.weather_news-continue {
+  font-size: 1rem;
+  color: #ef6820;
+  cursor: pointer;
+}
+
+.weather_news-date {
+  font-size: 0.8rem;
+  color: #82808f;
+}
+
+@media (min-width: 900px) {
+  .weather_news-rectangle .weather_news-text h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .weather_news-info {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .weather_news-continue {
+    margin-bottom: 0.5rem;
+  }
+}
