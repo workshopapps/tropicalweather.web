@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import PlusIcon from "../FaqAssets/PlusIcon.svg";
+import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
 import "../styles/Faqs.css";
-import MinusIcon from "../FaqAssets/MinusIcon.svg";
 import PlaystoreIcon from "../FaqAssets/google-play.png";
 import AppleIcon from "../FaqAssets/app-store.png";
 import ArrowDown from "../FaqAssets/ArrowDownBtn.svg";
@@ -16,8 +15,10 @@ export default function Faqs() {
   return (
     <div className="faq-container">
       <header className="faq-header">
-        <h1>Frequently Asked Questions</h1>
-        <h2>Everything you need to know about Weathery</h2>
+        <p className="faq-header__title">Frequently Asked Questions</p>
+        <p className="faq-header__description">
+          Everything you need to know about Weathery
+        </p>
         <div className="faq-search">
           <div className="test">
             <div className="faq-search-bar">
@@ -52,12 +53,12 @@ export default function Faqs() {
             onClick={toggleOpen(index)}
           >
             <div className="faq-text">
-              <h2 className="faq-question__text">{item.question}</h2>
+              <p className="faq-question__text">{item.question}</p>
               <span>
                 {isOpen === index ? (
-                  <img src={MinusIcon} alt="Minus icon" />
+                  <FiMinusCircle className="toggle-icon" />
                 ) : (
-                  <img src={PlusIcon} alt="plus icon" />
+                  <FiPlusCircle className="toggle-icon" />
                 )}
               </span>
             </div>
@@ -91,17 +92,12 @@ export default function Faqs() {
               the go!
             </p>
             <div className="options-container">
-              <img src={AppleIcon} alt="Apple icon" />
-              {/* <div>
-                  <p className="options-container__description">Get it on</p>
-                  <p className="options-container__name">App Store</p>
-                */}
-
-              <img src={PlaystoreIcon} alt="Playstore icon" />
-              {/* <div>
-              <p className="options-container__description">Get it on</p>
-              <p className="options-container__name">Play Store</p>
-                */}
+              <img src={AppleIcon} className="apple-icon" alt="Apple icon" />
+              <img
+                src={PlaystoreIcon}
+                className="playstore-icon"
+                alt="Playstore icon"
+              />
             </div>
           </div>
         </section>
