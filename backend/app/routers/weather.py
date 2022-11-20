@@ -9,7 +9,10 @@ from fastapi import HTTPException, status
 # Internal import
 from app.schemas import *  # noqa: F401, F403
 
-from app.utils import get_weather_forecast, convert_epoch_to_datetime
+from app.utils import (
+    get_weather_forecast,
+    convert_epoch_to_datetime,
+    get_immediate_weather_api_call)
 
 
 router = APIRouter(
@@ -39,3 +42,15 @@ async def weather_forcasts(lat: float, lon: float):
         results.append(data)
 
     return results
+
+@router.get("/forecasts/immediate")
+async def immediate_weather_forecast(lat: float=None, lng: float=None):
+
+    if lat is None and lng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+        )
+    result = get_immediate_weather_api_call(lat, lng)
+
+    return result
