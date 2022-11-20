@@ -4,7 +4,7 @@ services:
                 build: ./backend
                 command: ["uvicorn", "main:app", "--reload"]
                 environment:
-                        - OPEN_WEATHER_API_KEY : bd7fbd53339fa23cdc6fc863e601bd9e
+                        - OPEN_WEATHER_API_KEY : "bd7fbd53339fa23cdc6fc863e601bd9e"
                 volumes:
                         - ./backend:/app/backend
                 ports:
