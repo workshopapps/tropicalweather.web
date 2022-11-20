@@ -148,10 +148,9 @@ def weather_api_call(lon, lat, *args, **kwargs):
 def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
     # Call API and converts response into dictionary
-    response = requests.get(
-        url="https://api.openweathermap.org/data/2.5/weather",
-        params={'lat': 22, 'lng': 43, 'appid': OPEN_WEATHER_API_KEY})
-
+    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={OPEN_WEATHER_API_KEY}"
+    response = requests.get(open_weather_url)
+    
     error = Exception("Invalid Request")
 
     if response.status_code != 200:
@@ -159,11 +158,9 @@ def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
     data: dict = response.json()
 
-    weather_conditions = data['list']  # returns a lists
-
-    time_epoch = weather_conditions[0]['dt']
-    main = weather_conditions[0]['weather'][0]['main']
-    description = weather_conditions[0]['weather'][0]['description']
+    time_epoch = data['dt']
+    main = data['weather'][0]['main']
+    description = data['weather'][0]['description']
 
     time_format = datetime.datetime.fromtimestamp(time_epoch)
     date = time_format.strftime('%d %b, %Y')

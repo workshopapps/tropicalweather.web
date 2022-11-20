@@ -41,7 +41,7 @@ async def weather_forcasts(lat: float, lon: float):
 
     return results
 
-@router.get("/forecasts/immediate")
+@router.get("/forecasts/immediate", response_model=ImmediateForecastResponse)
 async def immediate_weather_forecast(lat: float=None, lng: float=None):
 
     if lat is None and lng is None:
