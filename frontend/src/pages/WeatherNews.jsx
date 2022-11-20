@@ -63,7 +63,7 @@ export default function WeatherNews() {
   return (
     <>
       <main>
-        <div className="hero">
+        <div className="weather_news-hero">
           <h1 className="text-xl text-center">
             The Weather Inside Of 24 Hours and Beyond
           </h1>
@@ -72,7 +72,7 @@ export default function WeatherNews() {
             <br />
             Hours and Beyond
           </h1>
-          <div className="input-control">
+          <div className="weather_news-input-control">
             <span>
               <CiSearch />
             </span>
@@ -82,13 +82,13 @@ export default function WeatherNews() {
             </button>
           </div>
         </div>
-        <ul className="temp-list md:text-xl bg-primary-btn">
+        <ul className="weather_news-temp-list md:text-xl bg-primary-btn">
           <li>Rainy</li>
           <li>Sunny </li>
           <li>Cloudy</li>
           <li>Windy</li>
-          <li className="conditions">Thunderstorms</li>
-          <li className="conditions">Heat</li>
+          <li className="weather_news-conditions">Thunderstorms</li>
+          <li className="weather_news-conditions">Heat</li>
         </ul>
         <div>
           <RectangleCard
@@ -100,22 +100,22 @@ export default function WeatherNews() {
           />
         </div>
         <div>
-          <div className="cards">
+          <div className="weather_news-cards">
             {articles.map((item) => (
-              <div key={item.text} className="card">
+              <div key={item.text} className="weather_news-card">
                 <div className="img-container mb-4">
                   <img src={item.image} alt="" />
                 </div>
-                <div className="text">
+                <div>
                   <h3 className="uppercase font-bold mb-3 text-md">
                     {item.heading}
                   </h3>
-                  <p className="info">{item.info}</p>
-                  <p className="text">{item.text}</p>
-                  <p className="continue">
+                  <p className="weather_news-info">{item.info}</p>
+                  <p className="weather_news-text">{item.text}</p>
+                  <p className="weather_news-continue">
                     <a href="/">Continue reading</a>
                   </p>
-                  <p className="date">10th November 2022</p>
+                  <p className="weather_news-date">10th November 2022</p>
                 </div>
               </div>
             ))}
