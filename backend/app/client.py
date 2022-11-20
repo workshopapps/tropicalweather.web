@@ -81,7 +81,7 @@ def reverse_geocoding(lat: float, long: float) -> list:
     res = get("/geo/1.0/reverse", {"lat": lat, "lon": long})
     if not res:
         raise Exception("Invalid request")
-    print(res)
+
     return res
 
 
