@@ -20,23 +20,23 @@ function AirIndex({ handleShow, changeVal }) {
           <p>Good</p>
         </div>
         <div className="flex items-center gap-[20px]">
-          <div className="bg-[yellow] w-[10px] h-[10px] rounded-full" />
+          <div className="bg-[#FCD34D] w-[10px] h-[10px] rounded-full" />
           <p>Moderate</p>
         </div>
         <div className="flex items-center gap-[20px]">
-          <div className="bg-[orange] w-[10px] h-[10px] rounded-full" />
+          <div className="bg-[#F87171] w-[10px] h-[10px] rounded-full" />
           <p>Unhealthy for sensitive groups</p>
         </div>
         <div className="flex items-center gap-[20px]">
-          <div className="bg-[red] w-[10px] h-[10px] rounded-full" />
+          <div className="bg-[#DC2626] w-[10px] h-[10px] rounded-full" />
           <p>Unhealthy</p>
         </div>
         <div className="flex items-center gap-[20px]">
-          <div className="bg-[green] w-[10px] h-[10px] rounded-full" />
+          <div className="bg-[#B91C1C] w-[10px] h-[10px] rounded-full" />
           <p>Very unhealthy</p>
         </div>
         <div className="flex items-center gap-[20px]">
-          <div className="bg-[green] w-[10px] h-[10px] rounded-full" />
+          <div className="bg-[#7F1D1D] w-[10px] h-[10px] rounded-full" />
           <p>Hazardious</p>
         </div>
       </div>
