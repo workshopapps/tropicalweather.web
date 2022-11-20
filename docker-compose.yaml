@@ -10,8 +10,6 @@ services:
         frontend:
                 build: ./frontend
                 command: ["npm", "start"]
-                environment: 
-                        PROXY_API: http://localhost:8000
                 volumes:
                         - ./frontend:/app/frontend
                 ports:
