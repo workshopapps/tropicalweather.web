@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutProductSection() {
   return (
-    <div className="py-10 font-Outfit">
+    <div className="py-10 font-Outfit mx-4 md:mx-0">
       <div className="container mx-auto ">
         <h1 className="font-bold text-[#2B2A30] text-center text-2xl md:text-3xl">Our Product Offering</h1>
         <div className="md:w-1/2 pt-4">
@@ -26,10 +26,11 @@ function AboutProductSection() {
               <div className="text-[#2B2A30] font-bold text-xl md:text-2xl">Accurate Data</div>
             </div>
             <p className="text-[#82808F] text-sm md:text-lg">
-            The significant amount of weather data we collect becomes meaningful only when combined
-             with the scientific expertise provided by our team of experts. Our meteorologists and 
-             climatologists offer valuable insight into the science behind the data, as well as the 
-             relationship between climate and weather change.
+              The significant amount of weather data we collect becomes meaningful
+              only when combined with the scientific expertise provided by our team
+              of experts.  Our meteorologists and  climatologists offer valuable
+              insight into the science behind the data, as well as the
+              relationship between climate and weather change.
             </p>
           </div>
         </div>
@@ -40,15 +41,15 @@ function AboutProductSection() {
             <div className="text-[#2B2A30] font-bold text-xl md:text-2xl">User Experience</div>
           </div>
           <p className="text-[#82808F] text-sm md:text-lg">
-           We have invested a lot of time and energy into the design of our products across all 
-           digital platforms, especially in a world where so much data is consumed on the small
-           screen of a mobile phone. We designed a user experience to help you find as much
-           weather data as you need as quickly as possible.
+            We have invested a lot of time and energy into the design of our products across all
+            digital platforms, especially in a world where so much data is consumed on the small
+            screen of a mobile phone. We designed a user experience to help you find as much
+            weather data as you need as quickly as possible.
           </p>
         </div>
         <div>
           <div className="flex justify-center pt-5 md:py-10 ">
-            <button className="btn" type="button">Get Started → </button>
+            <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">Get Started → </button>
           </div>
 
           <div className="rounded-xl  bg-[#FDEAD7]">

@@ -2,7 +2,7 @@ import React from 'react';
 
 function WhyWeatherSection() {
   return (
-    <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center md:gap-12 mt-14 lg:mt-28 font-Outfit">
+    <div className="container mx-4 md:mx-auto flex flex-col-reverse lg:flex-row items-center md:gap-12 mt-14 lg:mt-28 font-Outfit">
       {/* --content- */}
       <div className="flex flex-1 flex-col items-center lg:items-start">
         <h1 className="font-bold leading-5 text-2xl md:text-3xl tracking-wide text-center md:text-start mb-6">Why Weathery?</h1>
@@ -24,7 +24,7 @@ function WhyWeatherSection() {
           </div>
         </div>
         <div className="pt-5">
-          <button className="btn" type="button">
+          <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">
             Get Started →
           </button>
         </div>
