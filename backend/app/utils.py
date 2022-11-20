@@ -1,7 +1,7 @@
 # Utility functions
 
 from typing import List, Union, Dict
-from datetime import date, time, timedelta
+from datetime import timedelta
 import geocoder
 import requests
 import datetime
@@ -13,10 +13,33 @@ from app.schemas import ImmediateForecastResponse
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
 
-def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
+def convert_epoch_to_datetime(epoch_time: int) -> Dict[str, str]:
+    """Convert epoch time to datetime, return dict of
+    date, time
+
+    Sample response
+
+    ```
+    {
+        "date": "01 Jan, 2021",
+        "time": "12:00am"
+    }
+    ```
+
+    :param epoch_time: epoch time
+    :type epoch_time: int
+    :return: dict of date, time
+    :rtype: Dict[str, str]
+    """
+
+    time_format = datetime.datetime.fromtimestamp(epoch_time)
+    date = time_format.strftime('%d %b, %Y')
+    am_or_pm = time_format.strftime('%p')
+    hour_minute = time_format.strftime('%I:%M')
+    time_output = f"{hour_minute}{am_or_pm.lower()}"
     return {
-        "date": "",
-        "time": "",
+        "date": date,
+        "time": time_output
     }
 
 
@@ -96,16 +119,16 @@ def weather_api_call(lon, lat, *args, **kwargs):
     lat = float(lat)
 
     # Call API and converts response into dictionary
-    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
+    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"  # noqa
 
     try:
         response = requests.get(open_weather_url).json()
 
         # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
-            return f"Can't retrive weather data for this location"
+            return "Can't retrive weather data for this location"
 
-        weather_conditions = response['weather'] #returns a lists
+        weather_conditions = response['weather']  # returns a lists
 
         for detail in weather_conditions:
             current_weather = detail['main']
@@ -115,11 +138,12 @@ def weather_api_call(lon, lat, *args, **kwargs):
             "current_weather": current_weather,
             "weather_description": weather_description
         }
-    except:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Weather conditon not found.Please retry again"
+            detail="Weather conditon not found.Please retry again"
         )
+
 
 def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
@@ -135,7 +159,7 @@ def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
     data: dict = response.json()
 
-    weather_conditions = data['list'] #returns a lists
+    weather_conditions = data['list']  # returns a lists
 
     time_epoch = weather_conditions[0]['dt']
     main = weather_conditions[0]['weather'][0]['main']
@@ -154,12 +178,15 @@ def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
         time=time_output
     )
 
+
 def convert():
     today = datetime.datetime.now()
     tomorrow = today + timedelta(days=1)
-    datetime_object = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
+    datetime_object = tomorrow.replace(
+        hour=0, minute=0, second=0, microsecond=0)
     epoch = int(datetime_object.timestamp())
     return epoch
+
 
 def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
     

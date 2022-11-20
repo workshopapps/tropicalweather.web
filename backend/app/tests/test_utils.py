@@ -1,5 +1,15 @@
-from app.utils import get_weather_forecast
+from app.utils import get_weather_forecast, convert_epoch_to_datetime
 import pytest
+
+
+def test_convert_epoch_to_datetime():
+    epoch_time = 1612904800
+    expected = {
+        "date": "09 Feb, 2021",
+        "time": "10:06pm"
+    }
+    print(convert_epoch_to_datetime(epoch_time))
+    assert convert_epoch_to_datetime(epoch_time) == expected
 
 
 class TestGetWeatherForecast:

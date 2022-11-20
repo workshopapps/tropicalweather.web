@@ -1,13 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&display=swap');
-
-.body {
-  width: 100%;
+.head-img{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
-.head-img {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.mo-wo{
+    position: absolute;
+    display: none;
+}
+.img3{
+    position: absolute;
+    display: none;
 }
 
 .sub-back {
@@ -32,63 +34,61 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 50%;
-}
-
-.midhead {
-  font-family: 'outfit';
   width: 100%;
-  color: #2A2A2A;
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 20px;
 }
-
-.mid-p {
-  font-family: 'outfit';
-  width: 60%;
-  color: #2A2A2A;
-  font-size: 14px;
-  font-weight: 400;
+.midhead{
+    font-family: 'outfit';
+    width: 80%;
+    color: #2A2A2A;
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.mid-p{
+    font-family: 'outfit';
+    width: 50%;
+    color: #2A2A2A;
+    font-size: 18px;
+    font-weight: 400;
 }
 
 .img2 {
   width: 100%;
 }
-
-.award {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
+.award{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
 }
-
-.comm {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
+.comm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
 }
+.emp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 30px;
 
-.emp {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
 .main-content {
   padding: 20px 70px 60px 70px;
 }
 
-.content-list {
-  font-size: 18px;
-  font-weight: 400;
-  font-family: 'outfit';
-  line-height: 33px;
-  color: #2A2A2A;
+.content-list{
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'outfit';
+    line-height: 33px;
+    color: #2A2A2A;
+    list-style: disc;
+    margin-left: 70px;
+    margin-bottom: 60px;
 }
-
 .sub-award {
   color: #2A2A2A;
   font-size: 30px;
@@ -110,30 +110,32 @@
   font-family: 'outfit';
 }
 
-.comm-pa {
-  color: #2A2A2A;
-  font-family: 'outfit';
-  font-weight: 400;
-  font-size: 16px;
-  width: 68%;
+.comm-pa{
+    color: #2A2A2A;
+    font-family: 'outfit';
+    font-weight: 400;
+    font-size: 18px;
+    width: 68%;
+    margin-bottom: 60px;
+}
+.emp1-pa{
+    color: #2A2A2A;
+    font-family: 'outfit';
+    font-weight: 400;
+    font-size: 18px;
+    width: 65%;
+    margin-bottom: 60px;
+}
+.emp2-pa{
+    color: #2A2A2A;
+    font-family: 'outfit';
+    font-weight: 400;
+    font-size: 18px;
+    width: 65%;
+    margin-top: 50px;
+    margin-bottom: 60px;
 }
 
-.emp1-pa {
-  color: #2A2A2A;
-  font-family: 'outfit';
-  font-weight: 400;
-  font-size: 16px;
-  width: 65%;
-}
-
-.emp2-pa {
-  color: #2A2A2A;
-  font-family: 'outfit';
-  font-weight: 400;
-  font-size: 16px;
-  width: 65%;
-  margin-top: 50px;
-}
 
 .culture_span {
   color: #2A2A2A;
@@ -153,6 +155,26 @@
 }
 
 @media screen and (max-width: 930px) {
+
+    .midhead{
+        width: 100%;
+        font-size: 27px;
+        font-weight: 500;
+       text-align: center;
+    }
+    .mid-p{
+        width: 100%;
+        font-size: 14px;
+        font-weight: 300;
+        text-align: center;
+
+    }
+    .img2{
+        width: 90%;
+        margin-top: 20px;
+        margin-left: 45px;
+    }
+
   .sub-content {
     display: flex;
     flex-direction: column;
@@ -168,54 +190,147 @@
     width: 50%;
   }
 
-  .midhead {
-    width: 100%;
-    font-size: 27px;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .mid-p {
-    width: 100%;
-    font-size: 14px;
-    font-weight: 300;
-    text-align: center;
-
-  }
-
-  .happyboy {
-    width: 90%;
-    margin-top: 20px;
-    margin-left: 45px;
-  }
 }
 
 @media screen and (max-width: 700px) {
-  .sub-content {
-    padding: 50px 70px;
-  }
 
-  .midhead {
-    width: 100%;
-    font-size: 21px;
-    font-weight: 400;
-    text-align: center;
-    margin-top: 10px;
-  }
+    .sub-content{
+        padding: 50px 40px;
+      }
+    .midhead{
+        width: 100%;
+        font-size: 21px;
+        font-weight: 400;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .mid-p{
+        width: 100%;
+        font-size: 12px;
+        font-weight: 200;
+        text-align: center;
 
-  .mid-p {
-    width: 100%;
-    font-size: 12px;
-    font-weight: 200;
-    text-align: center;
-
-  }
-
-  .happyboy {
-    width: 100%;
-    margin-top: 20px;
-    margin-left: 5px;
-  }
+    }
+    .img2{
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 5px;
+    }
+    .content-list{
+        font-size: 14px;
+        line-height: 25px;
+    }
+    .scroll{
+        width: 3px;
+    }
+    .sub-award{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .sub-comm{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .sub-emp{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .comm-pa{
+        font-weight: 300;
+        font-size: 13px;
+        width: 80%;
+    }
+    .emp1-pa{
+        font-weight: 300;
+        font-size: 12px;
+        width: 90%;
+    }
+    .emp2-pa{
+        font-weight: 300;
+        font-size: 12px;
+        width: 80%;
+        margin-top: 30px;
+    }
+    span{
+        font-size: 13px;
+        color: #2A2A2A;
+        font-weight: 600;
+    }
+}
+@media screen and (max-width: 480px) {
+    .woman{
+        display: none;
+    }
+    .mo-wo{
+        display: block;
+        position: relative;
+    }
+    .img3{
+        display: block;
+        position: relative;
+        margin-top: 20px;
+        margin-left: 30px;
+        width: 80%;
+    }
+    .img2{
+        display: none;
+    }
+    .sub-content{
+        padding: 70px 50px;
+      }
+    
+    .sub-back{
+       display: none;
+    }
+    .midhead{
+        width: 120%;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-left: -4px;
+    }
+    .mid-p{
+        width: 150%;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14px;
+        margin-top: 5px;
+        margin-left: -34px;
+    }
+    .img2{
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 30px;
+    }
+    .main-content{
+        padding: 10px 35px;
+    }
+    .content-list{
+        margin-left: 20px;
+    }
+    .comm-pa{
+        margin-top: 10px;
+        font-size: 14px;
+        width: 90%;
+        font-weight: 400;
+    }
+    span{
+        font-size: 15px;
+        font-weight: 700;
+    }
+    .emp1-pa{
+        margin-top: 10px;
+        font-size: 13px;
+        width: 90%;
+        font-weight: 400;
+    }
+    .emp2-pa{
+        margin-top: 10px;
+        font-size: 13px;
+        width: 90%;
+        font-weight: 400;
+    }
 
   .content-list {
     font-size: 14px;
@@ -223,46 +338,52 @@
   }
 
   .scroll {
-    width: 3px;
+    width: 5px;
   }
 
   .sub-award {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
   }
 
   .sub-comm {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
   }
 
   .sub-emp {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
   }
-
-  .comm-pa {
-    font-weight: 300;
-    font-size: 13px;
-    width: 80%;
-  }
-
-  .emp1-pa {
-    font-weight: 300;
-    font-size: 12px;
-    width: 90%;
-  }
-
-  .emp2-pa {
-    font-weight: 300;
-    font-size: 12px;
-    width: 80%;
-    margin-top: 30px;
-  }
-
   .culture_span {
     font-size: 13px;
     color: #2A2A2A;
     font-weight: 600;
   }
+  .award{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.comm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.emp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+
+}
+
+.main-content {
+  padding: 20px 40px;
+}
 }
