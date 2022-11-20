@@ -6,7 +6,7 @@ export default function Culture() {
   return (
     <div className="body">
       <div className="head-img">
-        <img src="assets/image/mo-woman.png" alt="logo" className="mo-wo" />
+        <img src="assets/image/mobile-lady.png" alt="logo" className="mo-wo" />
         <img src="assets/image/woman.png" alt="logo" className="woman" />
         <Link to="/careers" className="link link-hover">
           <div className="sub-back">
