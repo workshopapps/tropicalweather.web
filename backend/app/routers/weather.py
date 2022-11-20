@@ -10,7 +10,7 @@ from app.client import weather
 from app.utils import (
     get_weather_forecast,
     convert_epoch_to_datetime,
-    get_immediate_weather_api_call, convert)
+    get_immediate_weather_api_call, convert, immediate_weather_api_call_tommorrow)
 
 
 router = APIRouter(
@@ -87,3 +87,24 @@ async def weather_data(lat: float, lon: float):
         data['description'] = forecast['weather'][0]['description']
         bus.append(data)
     return bus
+
+@router.get('/forecasts/tomorrow/immediate') #response_model=List[SingleWeatherResponse]
+async def get_tommorrows_weather(lat: float, lon: float):
+    
+    if lat is None and lon is None: 
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+        )
+
+    try:
+        tommorows_weather = immediate_weather_api_call_tommorrow(lon, lat) #returns a dictionary   
+        return tommorows_weather
+        
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrive weather data for this location"
+        )
+
