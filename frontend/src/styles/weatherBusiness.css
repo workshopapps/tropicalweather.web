@@ -6,8 +6,8 @@
 
 .customCard {
   background-color: #F3F3F4;
-  /* height: 100%;   */
-  /* width: 49px; */
+  /* height: 451px; */
+  width: 449px;
   border-radius: 8px;
 
 }
@@ -44,6 +44,7 @@
 
 .WeatherIndustryCard {
   width: 371px;
+  /* height: 226px; */
   border: 1px solid #565560;
   border-radius: 8px;
 }
@@ -68,3 +69,6 @@
   background-color: #EF6820 !important;
   border-radius: 4px;
 }
+
+/* TABLET SCREENS */
+

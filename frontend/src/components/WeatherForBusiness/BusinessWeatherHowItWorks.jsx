@@ -5,7 +5,7 @@ export default function BusinessWeatherHowItWorks() {
         <p className="font-semibold text-2xl text-[#EF6820]">Reliable</p>
         <p className="font-bold text-4xl">How it Works </p>
       </div>
-      <div className="flex flex-col md:flex-row justify-center px-2">
+      <div className="flex flex-col md:flex-row justify-center px-2 md:px-10 lg:px-10">
         <div className="BusinessWorksCard1 pt-96">
           <br />
           <br />
