@@ -1,37 +1,88 @@
 # Utility functions
 
-from typing import List, Union
+from typing import List, Union, Dict
 
 import geocoder
 import requests
+import datetime
 from decouple import config
 from fastapi import HTTPException, status
+from app.schemas import ImmediateForecastResponse
+
+
+OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
+
+
+def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
+    return {
+        "date": "",
+        "time": "",
+    }
+
+
+def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
+    """Get weather forecast for next 10 steps
+
+    :param lat: latitude
+    :type lat: float
+    :param lon: longitude
+    :type lon: float
+    :return: weather forecast for next 10 steps
+    :rtype: list
+    """
+
+    url = f"http://api.openweathermap.org/data/2.5/forecast?\
+lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
+
+    response = requests.get(url)
+    error = Exception("Invalid request")
+
+    if response.status_code != 200:
+        raise error
+
+    data: dict = response.json()
+
+    if not data:
+        raise error
+
+    cod = str(data.get('cod'))
+    if cod != "200":
+        raise error
+
+    weather_forecasts = data.get('list')
+    if not weather_forecasts:
+        raise error
+
+    return weather_forecasts[:10]
 
 
 def geocode_address(
-    city_name: str, lga: str = "", state: str = ""
-) -> Union[List[str], None]:
-    """Get geocode of city, lga and state
+    address: str,
+) -> Dict[str, Union[str, float]]:
+    """Geocode address, return dict of
+    latitude, longitude, city, state
 
-    :param city_name: city name
-    :type city_name: str
-    :param lga: local government area
-    :type lga: str or None
-    :param state: state
-    :type state: str or None
-    :return: geocode in format [lat, long]
-    :rtype: list or None
+    :param address: address
+    :type address: str
+    :raises HTTPException: if address is not found
+    :return: dict of latitude, longitude, city, state
+    :rtype: Dict[str, Union[str, float]]
     """
 
-    address = f"{city_name}"
-
-    if lga:
-        address += f", {lga}"
-    if state:
-        address += f", {state}"
-
     g = geocoder.osm(address)
-    return g.latlng
+
+    if not g.ok:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Address not found. Please retry again",
+        )
+
+    return {
+        "lat": g.lat,
+        "lon": g.lng,
+        "city": g.city,
+        "state": g.state,
+    }
 
 
 # function to call the open weather api and fetch the required data
@@ -69,3 +120,36 @@ def weather_api_call(lon, lat, *args, **kwargs):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Weather conditon not found.Please retry again"
         )
+
+def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
+
+    # Call API and converts response into dictionary
+    response = requests.get(
+        url="https://api.openweathermap.org/data/2.5/weather",
+        params={'lat': 22, 'lng': 43, 'appid': OPEN_WEATHER_API_KEY})
+
+    error = Exception("Invalid Request")
+
+    if response.status_code != 200:
+        raise error
+
+    data: dict = response.json()
+
+    weather_conditions = data['list'] #returns a lists
+
+    time_epoch = weather_conditions[0]['dt']
+    main = weather_conditions[0]['weather'][0]['main']
+    description = weather_conditions[0]['weather'][0]['description']
+
+    time_format = datetime.datetime.fromtimestamp(time_epoch)
+    date = time_format.strftime('%d %b, %Y')
+    am_or_pm = time_format.strftime('%p')
+    hour_minute = time_format.strftime('%I:%M')
+    time_output = f"{hour_minute}{am_or_pm.lower()}"
+
+    return ImmediateForecastResponse(
+        main=main,
+        description=description,
+        date=date,
+        time=time_output
+    )

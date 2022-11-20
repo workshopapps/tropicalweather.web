@@ -1,0 +1,45 @@
+.saved_locations-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 20rem;
+}
+
+.location_city,
+.city {
+  display: flex;
+  align-items: center;
+}
+
+.location_city {
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e7ea;
+}
+
+.city {
+  padding-block-end: 0.6rem;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.location_weather {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.location_description {
+  font-size: 1.2rem;
+}
+
+.location_view-more {
+  font-size: 0.7rem;
+  color: #ef6820;
+}
+
+@media screen and (max-width: 37.5em) {
+  .saved_locations-container {
+    max-width: 100%;
+  }
+}
