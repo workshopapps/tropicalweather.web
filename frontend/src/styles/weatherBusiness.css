@@ -1,6 +1,6 @@
 .header{
     background-image: url('../assets/weatherBusinessImgs/Map.png');
-    height: 600px;
+    /* height: 600px; */
   }
 
   .customCard {
@@ -47,7 +47,7 @@ border-radius: 4px;
 
   .WeatherForm input{
     height: 44px;
-  width: 380px;
+  /* width: 380px; */
 
   background: #E8E7EA !important;
 border-radius: 8px;

@@ -10,11 +10,11 @@ export default function BusinessWeatherIndustries() {
         </p>
       </div>
       <div className="flex flex-col md:flex-row justify-center md:justify-around mb-4 ml-4 md:ml-4 lg:ml-4">
-        <div className="WeatherIndustryCard space-y-6 max-w-full py-8 lg:px-6 md:px-0 px-0">
-          <p className="text-white font-bold text-4xl mt-7 ml-3 md:ml-0 lg:ml-0">
+        <div className="WeatherIndustryCard space-y-6 max-w-full py-8 lg:px-10 md:px-0 px-0">
+          <p className="text-white font-bold text-4xl mt-7 ml-3 md:ml-0 lg:ml-0 px-5 md:px-1 lg:px-5">
             Manufacturing
           </p>
-          <p className="text-white text-xl text-left ml-2">
+          <p className="text-white text-xl text-left ml-2 px-8 md:px-2 lg:px-4">
             Our experts will work with you to help strengthen your business
             locations against weather threats 24/7 with safety plans and
             procedures tailored to your specific business needs.
@@ -32,19 +32,19 @@ export default function BusinessWeatherIndustries() {
             forecast.
           </p>
           <a href="/business" className="flex justify-end ">
-            <img src={arrow} alt="" className="pt-24 md:pt-28 lg:pt-24 mt-0 md:mt-4 mr-4 mb-4" />
+            <img src={arrow} alt="" className="pt-24 md:pt-32 lg:pt-20 mt-0 md:mt-4 mr-4 mb-4" />
           </a>
         </div>
         <div className="WeatherIndustryCard space-y-10 py-6 max-w-full ">
           <p className="text-white font-bold text-4xl mt-7 ml-2 px-6 md:px-2">
             Financial Services
           </p>
-          <p className="text-white text-xl ml-2 md:px-2 px-6 md:px-0">
+          <p className="text-white text-xl ml-2 px-6 md:px-0">
             We help keep transactions and trades on track at branches, data
             centers, and call centers.
           </p>
           <a className="flex justify-end" href="/business">
-            <img src={arrow} alt="" className="pt-20 md:pt-20 lg:pt-20 mr-4 mb-4" />
+            <img src={arrow} alt="" className="pt-20 md:pt-28 lg:pt-24 mr-4 mb-4" />
           </a>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function BusinessWeatherIndustries() {
           </a>
         </div>
         <div className="WeatherIndustryCard space-y-10 mt-4 md:mt-0 mb-4 md:mb-0 pt-6 ml-0 md:ml-4 lg:ml-4 mr-0 md:mr-4 lg:mr-4 max-w-full">
-          <p className="text-white font-bold text-4xl mt-7 ml-0 md:ml-0 lg:ml-4 px-10 lg:px-6 md:px-6 px-6 ">
+          <p className="text-white font-bold text-4xl mt-7 ml-0 md:ml-0 lg:ml-4 px-10 lg:px-6 md:px-6 ">
             Forensic Meteorology
           </p>
           <p className="text-white text-xl ml-2 px-10">
