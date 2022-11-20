@@ -9,7 +9,8 @@ from fastapi import HTTPException, status
 # Internal import
 from app.schemas import *  # noqa: F401, F403
 
-from app.utils import get_weather_forecast, convert_epoch_to_datetime
+from app.utils import get_weather_forecast, convert_epoch_to_datetime, immediate_weather_api_call_tommorrow
+from app.client import weather
 
 
 router = APIRouter(
@@ -29,7 +30,7 @@ async def weather_forcasts(lat: float, lon: float):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Can't retrive weather data for this location"
         )
-
+    
     results = []
 
     for forcast in weather_forecasts_data:
@@ -39,3 +40,18 @@ async def weather_forcasts(lat: float, lon: float):
         results.append(data)
 
     return results
+
+
+@router.get('/forecasts/tomorrow/immediate') #response_model=List[SingleWeatherResponse]
+async def get_tommorrows_weather(lat: float, lon: float):
+   
+   # p=2
+    #print(p)
+    if lat is None and lon is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+
+        )
+        
+    return immediate_weather_api_call_tommorrow(lon, lat)
