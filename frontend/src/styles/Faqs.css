@@ -1,0 +1,358 @@
+.faq-container {
+  max-width: 1512px;
+}
+
+.faq-header {
+  background-image: url(../FaqAssets/HeaderBg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 116px;
+  padding-bottom: 34px;
+}
+
+.faq-header__title {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 72px;
+  text-align: center;
+  letter-spacing: 0.011em;
+  font-feature-settings: "liga" off;
+  color: #fbfbfc;
+}
+
+.faq-header__description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  margin-bottom: 41px;
+  color: #fbfbfc;
+}
+.faq-search {
+  padding: 12px 24px;
+  margin: 0 auto;
+  width: 42.3%;
+  background: #ffffff;
+  border-bottom: 1px solid #e8e7ea;
+  border-radius: 8px;
+}
+@media (max-width: 950px) {
+  .faq-search {
+    width: 60%;
+  }
+}
+@media (max-width: 800px) {
+  .faq-search {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .faq-header {
+    padding: 24px;
+  }
+  .faq-header__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  .faq-header__description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 24px;
+  }
+  .faq-search {
+    padding: 12px 0px;
+  }
+}
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.faq-search-bar {
+  width: 74%;
+  display: flex;
+}
+.faq-search-bar input {
+  border: none;
+  width: 100%;
+}
+.faq-search-bar input:focus {
+  outline: none;
+}
+.faq-search-bar input::placeholder {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  padding-left: 16px;
+  color: #301104;
+
+  opacity: 0.4;
+}
+.faq-search-btn {
+  display: flex;
+  align-items: center;
+  width: 31%;
+  justify-content: flex-end;
+}
+.faq-header__arrowdown--icon {
+  padding: 12px 8px;
+  opacity: 0.4;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+.faq-header__icon {
+  padding: 12px 8px;
+  opacity: 0.4;
+}
+.faq-search-cta-btn {
+  padding: 12px 24px;
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  border: none;
+  text-align: center;
+  color: #ffffff;
+  background: #f05513;
+  border-radius: 8px;
+}
+@media (max-width: 800px) {
+  .faq-search {
+    width: 80%;
+  }
+  .faq-search-btn {
+    display: none;
+  }
+}
+
+.faqs {
+  padding: 80px;
+}
+@media (max-width: 800px) {
+  .faqs {
+    padding: 48px;
+  }
+}
+@media (max-width: 600px) {
+  .faqs {
+    padding: 24px;
+  }
+}
+@media (max-width: 400px) {
+  .faqs {
+    padding: 24px;
+  }
+}
+
+.faq {
+  width: 70%;
+}
+.faq-text {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+@media (max-width: 1200px) {
+  .faq {
+    width: 85%;
+  }
+}
+@media (max-width: 1000px) {
+  .faq {
+    width: 90%;
+  }
+}
+@media (max-width: 800px) {
+  .faq {
+    width: 92%;
+  }
+}
+@media (max-width: 700px) {
+  .faq {
+    width: 95%;
+  }
+}
+@media (max-width: 500px) {
+  .faq {
+    width: 100%;
+  }
+}
+
+.faq-text {
+  display: flex;
+  justify-content: space-between;
+  border-top: #eaecf0 1px solid;
+  align-items: center;
+}
+.faq-question__text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  letter-spacing: -0.01em;
+  color: #2b2a30;
+}
+.toggle-icon {
+  color: #f05513;
+}
+.faq-answer__text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: left;
+  line-height: 16px;
+  letter-spacing: 0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #82808f;
+
+  margin-top: 8px;
+}
+
+.faqs__customer--line {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fdead7;
+  border-radius: 16px;
+  padding: 32px 32px;
+  gap: 24px;
+  margin-top: 78px;
+}
+@media (max-width: 800px) {
+  .faqs__customer--line {
+    margin-top: 34px;
+  }
+}
+.faqs__customer--line--heading {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #2b2a30;
+}
+.faqs__customer--line--supporting-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #82808f;
+}
+.faqs__customer--line--btn {
+  background: #ef6820;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  color: #fbfbfc;
+  padding: 16px 26px;
+  border: none;
+}
+
+.faqs__mobile--app {
+  display: flex;
+  justify-content: space-between;
+  background: #fdead7;
+  border-radius: 16px;
+  margin-top: 78px;
+}
+@media (max-width: 800px) {
+  .faqs__mobile--app {
+    margin-top: 34px;
+  }
+}
+.faqs__mobile--app--text-container {
+  margin-left: 64px;
+  width: 39%;
+  margin-top: 61px;
+  margin-bottom: 47px;
+}
+@media (max-width: 800px) {
+  .faqs__mobile--app--text-container {
+    width: 70%;
+    margin-left: 44px;
+  }
+}
+@media (max-width: 600px) {
+  .faqs__mobile--app--text-container {
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-left: 0;
+  }
+}
+@media (max-width: 600px) {
+}
+.faqs__mobile--app--heading {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  color: #ef6820;
+}
+
+.faqs__mobile--app--sub-heading-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  width: 80%;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #161518;
+}
+.faqs__mobile--app--heading--description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #565560;
+}
+.options-container {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (max-width: 450px) {
+  .apple-icon {
+    width: 130px;
+    height: 50px;
+  }
+  .playstore-icon {
+    width: 130px;
+    height: 50px;
+  }
+}
+@media (max-width: 390px) {
+  .options-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
 
 export default function Header() {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
-  const handleToggle = () => {
-    setToggle(!toggle);
+  const handleToggle = (param) => {
+    setToggle(param);
   };
 
   return (
     <header className="flex items-center justify-between px-4 py-4 lg:justify-start md:px-16 lg:gap-10">
       <div>
-        <img src="logo.png" alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
       <div className="items-center hidden w-full grid-cols-[1fr_1fr_auto] lg:grid gap-x-4">
         <ul className="flex gap-10">
@@ -33,7 +33,7 @@ export default function Header() {
         </label>
         <button type="button" className="px-6 py-4 text-white rounded-lg justify-self-end bg-primary-btn w-max">Sign up</button>
       </div>
-      <MobileHeaderToggle handleToggle={handleToggle} />
+      <MobileHeaderToggle handleToggle={handleToggle} toggle={toggle} />
     </header>
   );
 }

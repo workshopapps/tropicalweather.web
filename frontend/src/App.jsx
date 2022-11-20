@@ -10,7 +10,11 @@ import WeatherNews from './pages/WeatherNews';
 import Career from './pages/Career';
 import Business from './pages/Business';
 import Features from './pages/Features';
+import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
+import Notification from './pages/Notification';
+import AirQuality from './pages/AirQuality';
+import Culture from './pages/Culture';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +27,10 @@ const router = createBrowserRouter(
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/features" element={<Features />} />
+      <Route path="/notification" element={<Notification />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/air-quality" element={<AirQuality />} />
+      <Route path="/culture" element={<Culture />} />
     </Route>,
   ),
 );
