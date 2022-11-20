@@ -5,14 +5,14 @@ export default function Interns({ position, location }) {
   return (
     <>
       <li className="career_flex">
-        <p className="small">{position}</p>
-        <p className="small">{location}</p>
+        <p className="career_small">{position}</p>
+        <p className="career_small">{location}</p>
         <div className="career_arrow">
           <p>Apply</p>
           <img
             src="/assets/careers/arrow.svg"
             alt="arrow pointing right"
-            className="arrow"
+            className="career_arrowicon"
           />
         </div>
       </li>
