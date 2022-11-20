@@ -10,33 +10,40 @@ export default function BusinessWeatherHowItWorks() {
           <br />
           <br />
           <br />
-          <p className="text-white text-center text-4xl font-extrabold">Partner</p>
+          <p className="text-white text-center text-4xl font-extrabold">
+            Partner
+          </p>
           <p className="text-white text-center">
-            Trust us to provide you with the confidence to make critical
-            decisions when weather threatens by leveraging our proprietary
-            SkyGuard services with Superior Accuracy.
+            You can always trust weathery to provide you with the confidence you
+            need to make vital decisions when weather threatens by utilizing our
+            patented ‘weathery protector’ services with greater accuracy.
           </p>
         </div>
         <div className="BusinessWorksCard2 pt-96 mt-4 md:mt-0 mb-4 md:mb-0">
           <br />
           <br />
           <br />
-          <p className="text-white text-center text-4xl font-extrabold">PREPARE</p>
+          <p className="text-white text-center text-4xl font-extrabold">
+            PREPARE
+          </p>
           <p className="text-white text-center">
-            Our experts work with you to help strengthen your business locations
-            against weather threats 24/7 with safety plans and procedures
-            tailored to your specific business needs.
+            At Weathery, we will prepare you with safety plans and procedures
+            created specifically for your company&aspo;s needs. Our experts will work
+            with you to help strengthen your business locations against weather
+            dangers around-the-clock.
           </p>
         </div>
         <div className="BusinessWorksCard3 pt-96 px-0 md:px-8 lg:px-8">
           <br />
           <br />
           <br />
-          <p className="text-white text-center text-4xl font-extrabold">PROTECT</p>
+          <p className="text-white text-center text-4xl font-extrabold">
+            PROTECT
+          </p>
           <p className="text-white text-center">
-            We provide the actionable insights you need to activate your
-            emergency plans, ensuring your employees and assets are safe at all
-            times.
+            We keep you updated about the weather conditions. We provide the
+            actionable insights you require to initiate your emergency plans,
+            ensuring the safety of your personnel and assets at all times.
           </p>
         </div>
       </div>
