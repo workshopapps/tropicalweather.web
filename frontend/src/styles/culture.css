@@ -7,12 +7,16 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.mo-wo{
+    position: absolute;
+    display: none;
+}
 .sub-back{
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 40px;
-    font-size: 12px;
+    font-size: 13px;
     margin-left: 70px;
     font-weight: 500;
 }
@@ -33,15 +37,15 @@
     font-family: 'outfit';
     width: 100%;
     color: #2A2A2A;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 600;
     margin-bottom: 20px;
 }
 .mid-p{
     font-family: 'outfit';
-    width: 60%;
+    width: 80%;
     color: #2A2A2A;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 400;
 }
 .img2{
@@ -51,29 +55,32 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .comm{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .emp{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .main-content{
     padding: 20px 70px 60px 70px;
 }
 .content-list{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
     font-family: 'outfit';
     line-height: 33px;
     color: #2A2A2A;
+    list-style: disc;
+    margin-left: 70px;
+    margin-bottom: 60px;
 }
 .sub-award{
     color: #2A2A2A;
@@ -97,23 +104,26 @@
     color: #2A2A2A;
     font-family: 'outfit';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     width: 68%;
+    margin-bottom: 60px;
 }
 .emp1-pa{
     color: #2A2A2A;
     font-family: 'outfit';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     width: 65%;
+    margin-bottom: 60px;
 }
 .emp2-pa{
     color: #2A2A2A;
     font-family: 'outfit';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     width: 65%;
     margin-top: 50px;
+    margin-bottom: 60px;
 }
 span{
     color: #2A2A2A;
@@ -134,7 +144,7 @@ span{
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 50px 70px;
+        padding: 50px 40px;
       }
       .cont-col1{
           display: flex;
@@ -155,7 +165,7 @@ span{
         text-align: center;
 
     }
-    .happyboy{
+    .img2{
         width: 90%;
         margin-top: 20px;
         margin-left: 45px;
@@ -163,7 +173,7 @@ span{
 }
 @media screen and (max-width: 700px) {
     .sub-content{
-        padding: 50px 70px;
+        padding: 50px 40px;
       }
     .midhead{
         width: 100%;
@@ -179,7 +189,7 @@ span{
         text-align: center;
 
     }
-    .happyboy{
+    .img2{
         width: 100%;
         margin-top: 20px;
         margin-left: 5px;
@@ -223,5 +233,69 @@ span{
         font-size: 13px;
         color: #2A2A2A;
         font-weight: 600;
+    }
+}
+@media screen and (max-width: 480px) {
+    .woman{
+        display: none;
+    }
+    .mo-wo{
+        display: block;
+        position: relative;
+    }
+    .sub-content{
+        padding: 70px 5px;
+      }
+    
+    .sub-back{
+       display: none;
+    }
+    .midhead{
+        width: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .mid-p{
+        width: 100%;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 14px;
+        margin-top: 5px;
+    }
+    .img2{
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 25px;
+    }
+    .main-content{
+        padding: 10px 35px;
+    }
+    .content-list{
+        margin-left: 20px;
+    }
+    .comm-pa{
+        margin-top: 10px;
+        font-size: 14px;
+        width: 90%;
+        font-weight: 400;
+    }
+    span{
+        font-size: 15px;
+        font-weight: 700;
+    }
+    .emp1-pa{
+        margin-top: 10px;
+        font-size: 13px;
+        width: 90%;
+        font-weight: 400;
+    }
+    .emp2-pa{
+        margin-top: 10px;
+        font-size: 13px;
+        width: 90%;
+        font-weight: 400;
     }
 }
