@@ -15,7 +15,7 @@ export default function BusinessWeatherCards() {
             <p className="text-center text-lg px-4">
               One of our primary goals at weathery for your farm business is to
               provide you with accurate long-term forecasts allow financial
-              planning around broad- scale weather risks andcrop plantation.
+              planning around broad- scale weather risks and crop plantation.
             </p>
           </div>
           <div className="customCard flex flex-col justify-center align-center items-center  w-full  space-y-8 pt-8 pb-12 md:pb-32 lg:pb-32  mt-4 md:mt-0 mb-4 md:mb-0">
