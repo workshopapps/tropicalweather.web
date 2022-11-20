@@ -192,6 +192,6 @@ class TestGetImmediateWeatherForecast:
         data: dict = response.json()
         assert len(data) == 4
         assert data["date"] == "30 Aug, 2022"
-        assert data["time"] == "04:00pm"
+        assert data["time"] == "05:00pm"
         assert data["main"] == "Rain"
         assert data["description"] == "light rain"

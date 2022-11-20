@@ -1,7 +1,7 @@
 # Utility functions
 
 from typing import List, Union, Dict
-
+from datetime import date, time, timedelta
 import geocoder
 import requests
 import datetime
@@ -153,3 +153,10 @@ def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
         date=date,
         time=time_output
     )
+
+def convert():
+    today = datetime.datetime.now()
+    tomorrow = today + timedelta(days=1)
+    datetime_object = tomorrow.replace(hour=0, minute=0, second=0, microsecond=0)
+    epoch = int(datetime_object.timestamp())
+    return epoch
