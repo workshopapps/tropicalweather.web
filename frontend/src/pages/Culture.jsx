@@ -47,7 +47,7 @@ export default function Culture() {
             <h2 className="sub-emp">Employee Groups</h2>
           </div>
           <p className="emp1-pa">
-            <span>Inclusion Networks.</span>
+            <span className="culture_span">Inclusion Networks.</span>
             Inclusion Networks are an integral part of the diversity,
             equity and inclusion strategy for The Weathery Company.
             They are employee-led, company-recognized networks formed to act as a resource
@@ -56,7 +56,7 @@ export default function Culture() {
             backgrounds who wish to create a better shared future for people everywhere.
           </p>
           <p className="emp2-pa">
-            <span>Business Forums.</span>
+            <span className="culture_span">Business Forums.</span>
             Business forums provide networking volunteerism and professional development
             opportunities focused on specific industries/skillsets.
           </p>
