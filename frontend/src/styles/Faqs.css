@@ -1,14 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Red+Rose:wght@400;500;700&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 .faq-container {
   max-width: 1512px;
-  /* padding: 0 80px; */
-
   margin: 0 auto;
 }
 
@@ -26,14 +17,9 @@
   font-weight: 700;
   font-size: 56px;
   line-height: 72px;
-  /* or 129% */
-
   text-align: center;
   letter-spacing: 0.011em;
   font-feature-settings: "liga" off;
-
-  /* Grey/50 */
-
   color: #fbfbfc;
 }
 .faq-header h2 {
@@ -42,38 +28,35 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 32px;
-  /* or 133% */
-
   text-align: center;
   letter-spacing: -0.01em;
   font-feature-settings: "tnum" on, "lnum" on;
   margin-bottom: 41px;
-  /* Grey/50 */
-
   color: #fbfbfc;
 }
 .faq-search {
   padding: 12px 24px;
-  /* background-color: gold; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 0 auto;
   width: 42.3%;
   background: #ffffff;
-  /* Grey/200 */
-
   border-bottom: 1px solid #e8e7ea;
   border-radius: 8px;
 }
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .faq-search-bar {
-  /* background-color: pink; */
-  width: 78%;
+  width: 74%;
   display: flex;
 }
 .faq-search-bar input {
-  width: 100%;
   border: none;
+  width: 100%;
+}
+.faq-search-bar input:focus {
+  outline: none;
 }
 .faq-search-bar input::placeholder {
   font-family: "Outfit";
@@ -82,43 +65,47 @@
   font-size: 18px;
   line-height: 24px;
   padding-left: 16px;
-  /* identical to box height, or 133% */
-
-  /* Primary/1100 */
-
   color: #301104;
 
   opacity: 0.4;
 }
 .faq-search-btn {
-  width: 22%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  width: 31%;
+  justify-content: flex-end;
+}
+.faq-header__arrowdown--icon {
+  padding: 12px 8px;
+  opacity: 0.4;
+  margin-right: 8px;
+  margin-left: 8px;
 }
 .faq-header__icon {
   padding: 12px 8px;
   opacity: 0.4;
 }
 .faq-search-cta-btn {
-  padding: 18px 24px;
+  padding: 12px 24px;
   font-family: "Outfit";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
   border: none;
-  /* identical to box height, or 133% */
-
   text-align: center;
-
-  /* Shade White */
-
   color: #ffffff;
   background: #f05513;
   border-radius: 8px;
 }
-
+@media (max-width: 800px) {
+  .faq-search {
+    width: 80%;
+  }
+  .faq-search-btn {
+    display: none;
+  }
+}
 .faqs {
   width: 89%;
   margin: 0 auto;
@@ -140,29 +127,20 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
-  /* identical to box height, or 140% */
   padding-top: 24px;
   padding-bottom: 24px;
   letter-spacing: -0.01em;
-
-  /* Grey/800 */
-
   color: #2b2a30;
-  /* width: 80%; */
 }
 .faq-answer__text {
   font-family: "Outfit";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
+  text-align: left;
   line-height: 16px;
-  /* or 133% */
-
   letter-spacing: 0.025em;
   font-feature-settings: "tnum" on, "lnum" on;
-
-  /* Grey/600 */
-
   color: #82808f;
   margin-bottom: 32px;
   margin-top: 8px;
@@ -185,14 +163,9 @@
   font-weight: 700;
   font-size: 28px;
   line-height: 36px;
-  /* identical to box height, or 129% */
-
   text-align: center;
   letter-spacing: -0.025em;
   font-feature-settings: "tnum" on, "lnum" on;
-
-  /* Grey/800 */
-
   color: #2b2a30;
 }
 .faqs__customer--line--supporting-text {
@@ -201,13 +174,8 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
-  /* identical to box height, or 140% */
-
   text-align: center;
   letter-spacing: -0.01em;
-
-  /* Grey/600 */
-
   color: #82808f;
 }
 .faqs__customer--line--btn {
@@ -239,10 +207,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 32px;
-  /* identical to box height, or 200% */
-
-  /* Primary/500 */
-
   color: #ef6820;
 }
 
@@ -252,12 +216,8 @@
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
-  /* or 130% */
   width: 80%;
   font-feature-settings: "tnum" on, "lnum" on;
-
-  /* Grey/900 */
-
   color: #161518;
 }
 .faqs__mobile--app--heading--description {
@@ -266,12 +226,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  /* or 156% */
-
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/700 */
-
   color: #565560;
 }
 .options-container {
@@ -293,8 +248,6 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  /* identical to box height, or 171% */
-
   color: #ffffff;
 }
 .options-container__name {
@@ -303,7 +256,31 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 24px;
-  /* identical to box height, or 100% */
-
   color: #ffffff;
+}
+.faq-question__text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  /* identical to box height, or 140% */
+
+  letter-spacing: -0.01em;
+
+  color: #2b2a30;
+}
+.faq-answer__text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  /* or 133% */
+
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/600 */
+
+  color: #82808f;
 }
