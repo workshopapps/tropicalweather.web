@@ -122,57 +122,30 @@ def weather_api_call(lon, lat, *args, **kwargs):
             detail=f"Weather conditon not found.Please retry again"
         )
 
-import json
+
 def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
-
-    #API_key = config("API_KEY")
-
-    # converts given parameters into required types
-    #lng = float(log)
-    #lat = float(lat)
-
-    #Call API and converts response into dictionary
-    #open_weather_url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
     
-
     try:
 
-        weather_conditions = weather(lat, lon)
+        weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
+        
         tommorows_date = datetime.now() + timedelta(days=1)
         filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
         tommorrows_timestamp = int(filter_date.timestamp())
         
         tommorrow_weather_data = 0
       
-      
-        #print(weather_conditions) 
-        #response = requests.get(open_weather_url).json()
-        #print(response)
-        # Error messages for unknown city or street names or invalid API key
-        #resp = json.loads(response)
-        #print(resp)
-        #if response.status_code != 200:
-        #    return f"Can't retrive weather data for this location"
-
-        #print(response['list'])
-        #weather_conditions = response['list'] #returns a lists
-        #print(weather_conditions)
-        #p = weather_conditions[0]['dt']
-        #print(p)
-        
-        for data in weather_conditions: 
-            #print(data)
-            if data['dt'] >= tommorrows_timestamp: #>= data['dt']:
+        for data in weather_conditions: #getting tommorrows weather data 
+         
+            if data['dt'] >= tommorrows_timestamp: 
                 tommorrow_weather_data = data
                 break 
-        #print(tommorrow_weather_data)   
+     
         main = tommorrow_weather_data['weather'][0]['main']
-        #print(main)
+  
         description = tommorrow_weather_data['weather'][0]['description']
-        #print(description)
         date = tommorrow_weather_data['dt'] 
-        #time = tommorrow_weather_data['dt_text']
-        #time_display = tommorrows_date.replace(year=0, month=0, day=0)
+        
         r = {
             "a": "ab",
             "c": "ac"
@@ -182,11 +155,9 @@ def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs
             "description": str(description)
             }
         result = dict(pre_result)
-        print(dict(result))
         res = convert_epoch_to_datetime(date)
-        print(res)
         result.update(res)
-        print(result)
+        
         return result
 
     except:

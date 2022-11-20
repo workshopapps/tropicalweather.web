@@ -55,7 +55,7 @@ class TestWeatherForecastsAPI:
         """Test weather forecast endpoint"""
         mocker.patch(
             'app.routers.weather.get_weather_forecast',
-            #side_effect=Exception("Invalid request")
+            side_effect=Exception("Invalid request")
         )
         response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")
         assert response.status_code == 400
@@ -121,10 +121,11 @@ class Test_get_tommorrows_weather:
     def test_get_tommorrows_weather_invalid(self, mocker):
         mocker.patch(
             'app.routers.weather.immediate_weather_api_call_tommorrow',
-            side_effect=Exception("Invalid requet")
+            side_effect=Exception("Invalid request")
         )
 
         response = client.get("/weather/forecasts/tomorrow/immediate?lat=6.46542&lon=3.406448")
+        print(response)
         assert response.status_code == 400
 
         data: dict = response.json()
