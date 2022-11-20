@@ -1,11 +1,11 @@
 from routers import weather
-import pytest
-from fastapi import HTTPException
+from fastapi.testclient import TestClient
 
 from app.main import app
 
 
 client = TestClient(app)
+
 
 
 def test_current_weather(mocker):
