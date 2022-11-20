@@ -6,7 +6,5 @@ WORKDIR /backend
 ADD . /backend/
 RUN pip install -r requirements.txt
 WORKDIR /backend/app/
-RUN touch .env
-RUN cp env.example .env
 RUN pip install gunicorn
 
