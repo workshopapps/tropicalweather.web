@@ -56,7 +56,7 @@ const rectangle2 = {
   image2: news2Vert,
   heading: 'NCAA warns pilots, airlines over adverse weather',
   info: 'Nigerian Aviation | By Wole Oyebade, 18 June 2021 | 3:06 am',
-  text: 'The Nigerian Civil Aviation Authority (NCAA) has warned pilots to be wary of severe thunderstorms and other hazardous weather changes during the rainy season.',
+  text: 'The Nigerian Civil Aviation Authority (NCAA) has warned pilots to be wary of severe thunderstorms.',
 };
 
 export default function WeatherNews() {
