@@ -51,7 +51,7 @@ export default function Notification() {
   ];
 
   return (
-    <div className="notification">
+    <div className="notification mt-10">
       <div className="notification__wrapper">
         <h3>Notification</h3>
         <p className="notification__subtext">
