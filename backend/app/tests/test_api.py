@@ -54,7 +54,7 @@ class TestWeatherForecastsAPI:
     def test_weather_forcasts_invalid(self, mocker):
         """Test weather forecast endpoint"""
         mocker.patch(
-            'app.utils.get_weather_forecast',
+            'app.routers.weather.get_weather_forecast',
             side_effect=Exception("Invalid request")
         )
         response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")
@@ -62,3 +62,39 @@ class TestWeatherForecastsAPI:
 
         data: dict = response.json()
         assert data["detail"]
+
+
+
+class TestLocationAPI:
+    def test_get_locations_valid(self, mocker):
+
+        mocker.patch('app.routers.location.get_location',
+        return_value = {
+            "city": "Etche",
+            "state": "Rivers State"
+            })
+
+        response = client.get("/location/?lat=5.12&lon=7.03")
+
+        assert response.status_code == 200
+
+        data: dict = response.json()
+
+        assert data == {
+            "city": "Etche",
+            "state": "Rivers State"
+            }
+        assert len(data) == 2
+
+
+    def test_get_locations_invalid(self, mocker):
+        mocker.patch(
+            'app.routers.location.get_location',
+            side_effect=Exception("Invalid request")
+        )
+        response = client.get("/location/?lat=5.12&lon=700000.03")
+        assert response.status_code == 400
+
+        data: dict = response.json()
+        assert data["detail"]
+

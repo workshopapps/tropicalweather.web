@@ -12,7 +12,10 @@ OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
 
 def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
-    pass
+    return {
+        "date": "",
+        "time": "",
+    }
 
 
 def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
@@ -52,29 +55,32 @@ lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
 
 
 def geocode_address(
-    city_name: str, lga: str = "", state: str = ""
-) -> Union[List[str], None]:
-    """Get geocode of city, lga and state
+    address: str,
+) -> Dict[str, Union[str, float]]:
+    """Geocode address, return dict of
+    latitude, longitude, city, state
 
-    :param city_name: city name
-    :type city_name: str
-    :param lga: local government area
-    :type lga: str or None
-    :param state: state
-    :type state: str or None
-    :return: geocode in format [lat, long]
-    :rtype: list or None
+    :param address: address
+    :type address: str
+    :raises HTTPException: if address is not found
+    :return: dict of latitude, longitude, city, state
+    :rtype: Dict[str, Union[str, float]]
     """
 
-    address = f"{city_name}"
-
-    if lga:
-        address += f", {lga}"
-    if state:
-        address += f", {state}"
-
     g = geocoder.osm(address)
-    return g.latlng
+
+    if not g.ok:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Address not found. Please retry again",
+        )
+
+    return {
+        "lat": g.lat,
+        "lon": g.lng,
+        "city": g.city,
+        "state": g.state,
+    }
 
 
 # function to call the open weather api and fetch the required data

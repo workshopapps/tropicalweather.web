@@ -2,7 +2,7 @@ version: '3'
 services:
         fastapi:
                 build: ./backend
-                command: ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
+                command: ["uvicorn", "main:app", "--reload"]
                 volumes:
                         - ./backend:/app/backend
                 ports:
