@@ -3,8 +3,8 @@ export default function BusinessWeatherForm() {
     <div className="WeatherForm mt-14 md:mt-24 mb-24 px-4 md:px-14">
       <div className="flex flex-col md:flex-row justify-between">
         <div className="container mx-auto text-center md:text-left pt-0 md:pt-24 pr-0 md:pr-8 md:mr-0   ">
-          <p className="text-xl text-[#EF6820]">Partner</p>
-          <p className="text-3xl">Get Started</p>
+          <p className="text-2xl text-[#EF6820]">Partner</p>
+          <p className="text-4xl font-bold mt-5">Get Started</p>
           <p className="text-base text-center md:text-left text-[#565560]">
             Contact us to find the right plan and price for your business
           </p>
@@ -45,12 +45,14 @@ export default function BusinessWeatherForm() {
               <input type="text" placeholder="e.g : London" />
             </div>
           </div>
-          <p className="text-base text-[#565560] text-left mt-4 ml-4 mb-10 md:mb-16">
-            Weathery is committed to protecting and respecting your privacy, and
-            we’ll only use your personal information to administer your account
-            and to provide the products and services you requested from us.
+          <p className="text-base text-[#565560] text-left mt-4 ml-4 md:ml-1 mb-10 md:mb-16">
+            As part of our commitment to upholding your privacy, Weathery will
+            only use the personal data we collect about you to carry out the
+            orders you place with us and to administer your account.
           </p>
-          <button className="ml-4 md:ml-0 lg:ml-0" type="button">Submit</button>
+          <button className="ml-4 md:ml-0 lg:ml-0" type="button">
+            Submit
+          </button>
         </form>
       </div>
     </div>
