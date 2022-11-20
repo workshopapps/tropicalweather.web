@@ -11,7 +11,6 @@ from app.schemas import *  # noqa: F401, F403
 
 from app.utils import get_weather_forecast, convert_epoch_to_datetime
 from app.utils import get_immediate_weather_api_call
-from app.schemas import ImmediateForecastResponse
 
 router = APIRouter(
     prefix="/weather",
@@ -20,16 +19,13 @@ router = APIRouter(
 
 
 @router.get("/forecasts/immediate")
-async def immediate_weather_forecast(lat: float, lng: float):
-
-    # try:
-    #     result = get_immediate_weather_api_call(lat, lng)
+async def immediate_weather_forecast(lat: float=None, lng: float=None):
     
-    # if lat is None and lng is None:
-    #     raise HTTPException(
-    #         status_code=status.HTTP_404_NOT_FOUND,
-    #         detail= f"invalid longitute and latitude"
-    #     )
+    if lat is None and lng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+        )
     result = get_immediate_weather_api_call(lat, lng)
     
     return result
