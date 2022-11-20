@@ -6,8 +6,8 @@ import MobileHeaderToggle from './MobileHeaderToggle';
 export default function Header() {
   const [toggle, setToggle] = useState(false);
 
-  const handleToggle = () => {
-    setToggle(!toggle);
+  const handleToggle = (param) => {
+    setToggle(param);
   };
 
   return (
@@ -33,7 +33,7 @@ export default function Header() {
         </label>
         <button type="button" className="px-6 py-4 text-white rounded-lg justify-self-end bg-primary-btn w-max">Sign up</button>
       </div>
-      <MobileHeaderToggle handleToggle={handleToggle} />
+      <MobileHeaderToggle handleToggle={handleToggle} toggle={toggle} />
     </header>
   );
 }
