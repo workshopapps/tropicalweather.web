@@ -16,7 +16,8 @@ export default function ContactUs() {
       <div className="cu_split">
         <div className="contact_us_instant_chat">
           <div className="contact_us_instant_img">
-            <img src="contact-us.png" alt="img" />
+            <img className="cu_img_1" src="contact-us.png" alt="img" />
+            <img className="cu_img_2" src="other-img.png" alt="img" />
           </div>
           <div className="cu_phone_address">
             <div className="contact_us_instant_chat">

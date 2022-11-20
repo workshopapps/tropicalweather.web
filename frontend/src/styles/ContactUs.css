@@ -1,3 +1,7 @@
+.body {
+    font-family:  url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+}
+
 .contact_us_container {
     display: flex;
     flex-direction: column;
@@ -42,6 +46,11 @@
 .contact_us_instant_chat h3 {
     margin: 48px 0px 12px 0px;
 }
+
+.cu_img_2 {
+    display: none;
+}
+
 
 .contact_us_instant_chat_tag a{
     display: flex;
@@ -172,6 +181,10 @@ label {
         max-width: 1024px;
         justify-content: center;
     }
+    
+    .cu_img_2 {display: flex;}
+    .cu_img_1 {display: none;}
+    
     .form {
         width: 50%;
         padding: auto;

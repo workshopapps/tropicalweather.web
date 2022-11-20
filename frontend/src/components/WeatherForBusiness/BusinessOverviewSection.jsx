@@ -3,7 +3,7 @@ import farm from '../../assets/weatherBusinessImgs/farm.png';
 export default function BusinessOverviewSection() {
   return (
     <div className="">
-      <div className="bg-[#FDEAD7] pb-16 px-16 md:px-0">
+      <div className="bg-[#FDEAD7] pb-16 ">
         <section className="container text-left space-y-8 ml-2 md:ml-20 lg:ml-20  ">
           <p className="pt-8 text-[#EF6820] text-2xl">Overview</p>
           <h1 className="text-xl md:text-3xl font-bold pb-12 ">

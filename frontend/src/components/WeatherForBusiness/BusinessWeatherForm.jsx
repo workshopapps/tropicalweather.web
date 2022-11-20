@@ -39,7 +39,7 @@ export default function BusinessWeatherForm() {
               <br />
               <input type="text" placeholder="yourname@company.com" />
             </div>
-            <div className="mt-4 md:mt-0">
+            <div className="mt-4 md:mt-0 ml-0 md:ml-8">
               <label htmlFor="name">Location</label>
               <br />
               <input type="text" placeholder="e.g : London" />
@@ -50,7 +50,7 @@ export default function BusinessWeatherForm() {
             we’ll only use your personal information to administer your account
             and to provide the products and services you requested from us.
           </p>
-          <button className="" type="button">Submit</button>
+          <button className="ml-4 md:ml-0 lg:ml-0" type="button">Submit</button>
         </form>
       </div>
     </div>
