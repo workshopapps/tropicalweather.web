@@ -21,6 +21,7 @@ export default function Culture() {
           <p className="mid-p">The Global Office of Diversity,Equity and Inclusion office works cross-functionally with senior leaders,Human Resources, Business Relations and Councils to help create an inclusive environment.At The Weathery Company we focus on four strategic imperatives called CARE; create, articulate, regulate and evaluate.</p>
         </div>
         <div className="content-col2">
+          <img src="assets/image/mobile boy.png" alt="back" className="img3" />
           <img src="assets/image/happy boy.png" alt="back" className="img2" />
         </div>
       </div>
