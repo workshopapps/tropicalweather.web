@@ -62,7 +62,7 @@ const rectangle2 = {
 export default function WeatherNews() {
   return (
     <>
-      <main className="m-4 md:m-16">
+      <main className="m-4 md:mx-20">
         <div className="weather_news-hero">
           <h1 className="text-xl text-center">
             The Weather Inside Of 24 Hours and Beyond
