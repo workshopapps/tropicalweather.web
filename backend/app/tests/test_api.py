@@ -68,11 +68,14 @@ class TestWeatherForecastsAPI:
 class TestLocationAPI:
     def test_get_locations_valid(self, mocker):
 
-        mocker.patch('app.routers.location.get_location',
-        return_value = {
-            "city": "Etche",
-            "state": "Rivers State"
-            })
+        mocker.patch('app.routers.location.reverse_geocoding',
+        return_value = [
+            {'name': 'Etche', 
+            'lat': 5.0765321, 
+            'lon': 7.092638789196567,
+            'country': 'NG', 
+            'state': 'Rivers State'}
+            ])
 
         response = client.get("/location/?lat=5.12&lon=7.03")
 
