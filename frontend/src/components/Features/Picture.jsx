@@ -1,9 +1,9 @@
 import React from 'react';
-import sun from '../img/sun.png';
-import rainy from '../img/rainy.png';
-import dot from '../img/dot.png';
-import spark from '../img/spark.png';
-import cloud from '../img/cloud.png';
+import sun from './img/sun.png';
+import rainy from './img/rainy.png';
+import dot from './img/dot.png';
+import spark from './img/spark.png';
+import cloud from './img/cloud.png';
 
 function Picture() {
   return (

@@ -16,10 +16,10 @@ function Features02() {
           <p>
             Get all the infos you need to make living safer, easier and better. We aim at
             <br />
-            {' '}
+
             making life easier and better for our users
           </p>
-          <button> Get started</button>
+          <button type="button"> Get started</button>
         </div>
         <div className="select_page1_feature">
           <div className="places2_feature">
@@ -31,7 +31,7 @@ function Features02() {
               <div className="search_feature">
                 <img src={search} alt="" />
                 <input type="text" placeholder="Choose a Location" />
-                <button> Search </button>
+                <button type="button"> Search </button>
               </div>
               <a href="/"> Weather settings</a>
             </nav>

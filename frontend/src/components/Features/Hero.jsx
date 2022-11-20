@@ -1,6 +1,6 @@
 import React from 'react';
-import heroToolbar from '../img/heroToolbar.png';
-import heroimg from '../img/heroimg.png';
+import heroToolbar from './img/heroToolbar.png';
+import heroimg from './img/heroimg.png';
 
 function Hero() {
   return (
@@ -22,7 +22,7 @@ function Hero() {
             {' '}
             protected with Weathery forecasts in real-time.
           </p>
-          <div className="buttom_">
+          <div className="button_">
             <button className="button_feature" type="button"> Get started</button>
             <a className="dot_button_feature" href="/"> View all features</a>
           </div>

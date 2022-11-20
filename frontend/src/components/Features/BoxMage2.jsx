@@ -1,7 +1,7 @@
 import React from 'react';
-import Icon1 from '../img/Icon1.png';
-import Icon2 from '../img/Icon2.png';
-import Icon4 from '../img/Icon4.png';
+import Icon1 from './img/Icon1.png';
+import Icon2 from './img/Icon2.png';
+import Icon4 from './img/Icon4.png';
 
 function BoxMage2() {
   return (

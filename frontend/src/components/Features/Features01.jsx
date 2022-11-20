@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../img/logo.png';
-import search from '../img/search.png';
-import icon from '../img/icon.png';
+import logo from './img/logo.png';
+import search from './img/search.png';
+import icon from './img/Icon.png';
 
 function Features01() {
   return (
@@ -13,7 +13,7 @@ function Features01() {
         </div>
         <div className="style_01_writeup_feature">
           <p>
-            Our product is designed to serve all users with interactive and
+            Our product is designed to serve all users with  interactive and
             customized
             <br />
             experirence, Users get to personalize the product however they like

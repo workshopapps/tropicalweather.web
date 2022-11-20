@@ -1,5 +1,5 @@
 import React from 'react';
-import Frameimg from '../img/Frameimg.png';
+import Frameimg from './img/Frameimg.png';
 
 function Frame() {
   return (

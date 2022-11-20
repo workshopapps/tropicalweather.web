@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon5 from '../img/Icon5.png';
+import Icon5 from './img/Icon5.png';
 
 function Frequently() {
   return (
