@@ -36,6 +36,7 @@
   text-align: left;
   color: #82808f;
 }
+
 .notification__wrapper .active {
   border-bottom: 2px solid #ef6820;
   color: #ef6820;
@@ -129,7 +130,7 @@
   .notification__ind {
 
     margin-bottom: 1rem;
-}
+  }
 
   .notification__ind h6 {
     margin-bottom: 0.2rem;
@@ -139,16 +140,16 @@
   .notification__ind p {
 
     font-size: 14px;
-   margin-top: 0rem;
+    margin-top: 0rem;
   }
 
   .notification__ind input {
-  height: 15px;
-  width: 14.5px;
-  left: 0px;
-  top: 0px;
-  border-radius: 0px;
-  padding: 7px 9px 7px 9px;
-  accent-color: #ef6820;
-}
+    height: 15px;
+    width: 14.5px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    accent-color: #ef6820;
+  }
 }
