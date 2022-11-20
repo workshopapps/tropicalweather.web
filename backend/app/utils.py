@@ -6,6 +6,8 @@ import geocoder
 import requests
 from decouple import config
 from fastapi import HTTPException, status
+import datetime
+from app.schemas import ImmediateForecastResponse
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -118,3 +120,42 @@ def weather_api_call(lon, lat, *args, **kwargs):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Weather conditon not found.Please retry again"
         )
+
+def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
+
+    #API_key = config("API_KEY")
+
+    # converts given parameters into required types
+    # lng = float(lng)
+    # lat = float(lat)
+
+    # Call API and converts response into dictionary
+    #open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lng={lng}&appid={OPEN_WEATHER_API_KEY}"
+    response = requests.get(url="https://api.openweathermap.org/data/2.5/weather", params={'lat': 22, 'lng': 43, 'appid': OPEN_WEATHER_API_KEY})
+
+    #response = requests.get(open_weather_url)
+    error = Exception("Invalid Request")
+
+    if response.status_code != 200:
+        raise error
+
+    data: dict = response.json()
+
+    weather_conditions = data['list'] #returns a lists
+
+    time_epoch = weather_conditions[0]['dt']
+    main = weather_conditions[0]['weather'][0]['main']
+    description = weather_conditions[0]['weather'][0]['description']
+
+    time_format = datetime.datetime.fromtimestamp(time_epoch)
+    date = time_format.strftime('%d %b, %Y')
+    am_or_pm = time_format.strftime('%p')
+    hour_minute = time_format.strftime('%I:%M')
+    time_output = f"{hour_minute}{am_or_pm.lower()}"
+    
+    return ImmediateForecastResponse(
+        main=main,
+        description=description,
+        date=date,
+        time=time_output
+    )
