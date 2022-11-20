@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 export default function Department({ department }) {
   return (
     <div className="career_grid">
-      <hr />
+      <hr className="career_hr" />
       <p className="career_pt">{department}</p>
-      <hr />
+      <hr className="career_hr" />
     </div>
   );
 }
