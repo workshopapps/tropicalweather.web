@@ -110,7 +110,7 @@ export default function WeatherNews() {
                   <p className="weather_news-info">{item.info}</p>
                   <p className="weather_news-text">{item.text}</p>
                   <p className="weather_news-continue">
-                    <a href="/">Continue reading</a>
+                    <a href="/weather-news">Continue reading</a>
                   </p>
                   <p className="weather_news-date">10th November 2022</p>
                 </div>
