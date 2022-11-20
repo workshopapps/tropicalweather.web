@@ -16,7 +16,7 @@ export default function Career() {
   const careerSrc = './assets/careers/Rectangle 43.png';
   return (
     <div>
-      <div className="hero" />
+      <div className="career_hero" />
       <div className="career_container">
         <div className="career_introtext">
           <h1 className="career_heading">
