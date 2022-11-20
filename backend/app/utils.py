@@ -6,15 +6,18 @@ import geocoder
 import requests
 from decouple import config
 from fastapi import HTTPException, status
+import time
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
-
-def convert_epoch_to_datetime(epoch_time) -> Dict[str, str]:
+# function to convert Epoch time to date-time
+def convert_epoch_to_datetime(epoch_time):
+    converted_date = time.strftime("%d %b,%Y", time.localtime(epoch_time))
+    converted_time = time.strftime("%I:%M%p", time.localtime(epoch_time)).lower()
     return {
-        "date": "",
-        "time": "",
+        "date": converted_date,
+        "time": converted_time
     }
 
 
