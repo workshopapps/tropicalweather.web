@@ -23,24 +23,21 @@ const articles = [
   },
   {
     image: news4,
-    heading:
-      'Pakistan vs England, T20 World Cup Final: Will Rain Force Summit Clash To Go Into Reserve Day?',
-    info: 'NDTV Sports Desk | Sunday November 13, 2022',
-    text: 'One question on everyone`s minds ahead of the summit clash is about the weather and will it hold for a a full 40-overs game.',
+    heading: 'NiMet predicts three-day hazy weather condition from Wednesday',
+    info: 'Nigeria | Edited by Nan | 28 December 2022 | 7:36 pm',
+    text: 'The Nigerian Meteorological Agency (NiMet) on Tuesday predicted hazy weather conditions for three days across the country beginning from we...',
   },
   {
     image: news1,
-    heading:
-      'Pakistan vs England, T20 World Cup Final: Will Rain Force Summit Clash To Go Into Reserve Day?',
-    info: 'NDTV Sports Desk | Sunday November 13, 2022',
-    text: 'One question on everyone`s minds ahead of the summit clash is about the weather and will it hold for a a full 40-overs game.',
+    heading: 'Coast-to-coast cold as US plunges into winter this week',
+    info: 'By Haley and Gray, CNN Meteorologists, 10:56 AM, November 14, 2022',
+    text: 'Snow flurries and an arctic chill are in the air for millions across the nation. A low-pressure system across the Southwest will sweep across the central...',
   },
   {
     image: news5,
-    heading:
-      'Pakistan vs England, T20 World Cup Final: Will Rain Force Summit Clash To Go Into Reserve Day?',
-    info: 'NDTV Sports Desk | Sunday November 13, 2022',
-    text: 'One question on everyone`s minds ahead of the summit clash is about the weather and will it hold for a a full 40-overs game.',
+    heading: 'November Snow Heads for North-Central U.S, Northeast',
+    info: 'By WeatherBug Meteorologists November 15, 2022 at 04:12 PM EST',
+    text: 'Unusually cold air will allow for early season snows from the Midwest and Great Lake...',
   },
 ];
 
