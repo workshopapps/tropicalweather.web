@@ -1,4 +1,4 @@
-.hero {
+.career_hero {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -47,7 +47,6 @@
 .career_sec {
   margin-bottom: 3em;
 }
-
 .career_oport p {
   font-weight: 400;
   font-size: 18px;
@@ -66,7 +65,7 @@
   background-image: url("../../public/assets/careers/Sliders.svg");
   padding: 0.5em 1em;
 }
-.small {
+.career_small {
   font-size: 14px;
   width: 100%;
   font-weight: 500;
@@ -80,6 +79,7 @@
   color: #ffffff;
   padding: 0.5em 1.5em;
   border: 0;
+  max-width: 300px;
 }
 .career_flex {
   display: flex;
@@ -94,7 +94,7 @@
   align-items: center;
   font-size: 14px;
 }
-.arrow {
+.career_arrowicon {
   width: 20px;
 }
 .career_arrow {
@@ -102,25 +102,27 @@
   align-items: center;
   gap: 1em;
 }
-hr {
+.career_hr {
   display: none;
 }
 .career_opp {
   text-align: center;
 }
-@media (min-width: 40rem) {
+
+@media (min-width: 60rem) {
   .career_grid {
     display: grid;
     align-items: center;
     gap: 0.5em;
     grid-template-columns: 2fr 1fr 2fr;
   }
-}
-@media (min-width: 60rem) {
+  .career_hr {
+    display: block;
+  }
   .career_container {
     padding-inline: 4em;
   }
-  .grid {
+  .career_grid2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
