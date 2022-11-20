@@ -13,8 +13,8 @@ function AirQuality() {
 
     };
   return (
-    <div className="mx-auto">
-      <h1 className="font-bold text-2xl">Lagos, Nigeria</h1>
+    <div className=" w-[90%] mx-auto">
+      <h1 className="font-bold text-2xl mb-[2rem]">Lagos, Nigeria</h1>
       <div className="flex gap-[10px] mb-[30px] overflow-hidden">
         <WeatherCard weather="Sunny" src="Sunny.png" time="Now" />
         <WeatherCard weather="Rain" src="Heavy-rain.png" time="2:00PM" />
@@ -48,7 +48,7 @@ function AirQuality() {
             </div>
             <div className="flex items-center mt-[3rem]">
               <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
-                <img src="AirQuality/info.png" alt="" />
+                <img src="AirQuality/Info.png" alt="" />
               </button>
               <p className="">Air Quality Index</p>
             </div>
@@ -58,7 +58,7 @@ function AirQuality() {
         <div className="bg-[#FEF2F2] rounded-lg  py-[2rem] h-fit">
           <h1 className="font-bold  px-[1rem]">Stay Safe</h1>
           <div className="flex gap-[.7rem]">
-            <img src="Notebook.png" alt="" />
+            <img src="AirQuality/Notebook.png" alt="" />
             <div>
               <h1 className="p-[.5rem] bg-[#FDEAD7] text-[orange] font-bold w-fit rounded-lg mb-[.7rem] ">FEATURES</h1>
               <p>Featured stories, photo essays and more by Weathery</p>
