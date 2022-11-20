@@ -1,9 +1,9 @@
 export default function BusinessAdvantage() {
   return (
-    <div className="overflow-hidden">
+    <div className="px-8">
       <div className="">
         <section className="container mx-auto mb-12">
-          <section className="text-center space-y-6 mt-8">
+          <section className="text-center space-y-8 mt-8">
             <h4 className="text-2xl text-[#B93815]">
               The Weathery For Business Advantage
             </h4>

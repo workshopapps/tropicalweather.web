@@ -1,11 +1,11 @@
 export default function BusinessWeatherHowItWorks() {
   return (
-    <div className="pb-16 md:pb-20 overflow-hidden ">
+    <div className="pb-16 md:pb-20 ">
       <div className="container space-y-6 mt-6 mb-8 pl-2 md:pl-10">
         <p className="font-semibold text-2xl text-[#EF6820]">Reliable</p>
         <p className="font-bold text-4xl">How it Works </p>
       </div>
-      <div className="flex flex-col md:flex-row justify-center container mx-auto">
+      <div className="flex flex-col md:flex-row justify-center px-2 md:px-10 lg:px-10">
         <div className="BusinessWorksCard1 pt-96">
           <br />
           <br />
@@ -26,9 +26,9 @@ export default function BusinessWeatherHowItWorks() {
           <p className="text-white text-center text-4xl font-extrabold">
             PREPARE
           </p>
-          <p className="text-white text-center">
+          <p className="text-white text-center px-4">
             At Weathery, we will prepare you with safety plans and procedures
-            created specifically for your company&aspo;s needs. Our experts will work
+            created specifically for your company&apos;s needs. Our experts will work
             with you to help strengthen your business locations against weather
             dangers around-the-clock.
           </p>
