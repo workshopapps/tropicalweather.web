@@ -45,6 +45,7 @@ function AirQuality() {
                 <AllPolutants src="20.png" name="PM10 (Particulate matter less than 10 microns)" quantity="Good" amount="32.97ug/m3" />
                 <AllPolutants src="2.png" name="SO2 (Sulphur Dioxide)" quantity="Good" amount="2.33ug/m3" />
               </div>
+              <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
             </div>
             <div className="flex items-center mt-[3rem]">
               <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
