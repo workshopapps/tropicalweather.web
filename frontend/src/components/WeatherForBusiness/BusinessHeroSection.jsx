@@ -4,7 +4,7 @@ export default function BusinessHeroSection() {
   return (
     <div className="">
       <div className="header">
-        <div className="flex justify-between pt-96 space-x-4 ">
+        <div className="flex justify-between pt-40 md:pt-96 pb-12 md:pb-20 space-x-20 w-full h-full">
           <section className="ml-2 md:ml-16 mt-10">
             <div className="inline-flex ">
               <img src={weatheryBusinessimg} alt="" />
