@@ -68,11 +68,14 @@ class TestWeatherForecastsAPI:
 class TestLocationAPI:
     def test_get_locations_valid(self, mocker):
 
-        mocker.patch('app.routers.location.get_location',
-        return_value = {
-            "city": "Etche",
-            "state": "Rivers State"
-            })
+        mocker.patch('app.routers.location.reverse_geocoding',
+        return_value = [
+            {'name': 'Etche', 
+            'lat': 5.0765321, 
+            'lon': 7.092638789196567,
+            'country': 'NG', 
+            'state': 'Rivers State'}
+            ])
 
         response = client.get("/location/?lat=5.12&lon=7.03")
 
@@ -98,3 +101,56 @@ class TestLocationAPI:
         data: dict = response.json()
         assert data["detail"]
 
+
+class TestWeatherDataAPI:
+    def test_weather_data_valid(self, mocker):
+        """Test weather data endpoint"""
+        mocker.patch(
+            'app.routers.weather.weather',
+            return_value=[
+                {
+                    "dt": 1661871600,
+                    "weather": [
+                        {
+                            "main": "Clouds",
+                            "description": "overcast clouds",
+                        }
+                    ],
+                },
+            ]
+        )
+	
+        mocker.patch(
+            'app.routers.weather.convert_epoch_to_datetime',
+            return_value={
+                "date": "2022-09-08",
+                "time": "12:00:00",
+            }
+        )
+        mocker.patch(
+            'app.routers.weather.convert',
+            return_value = 1661871600
+        )
+
+        response = client.get("/weather/forecasts/tomorrow?lat=7.5629&lon=4.5200")
+        print(response.json())
+        assert response.status_code == 200
+        data: list[dict] = response.json()
+
+        assert len(data) == 1
+        assert data[0]["date"]
+        assert data[0]["time"]
+        assert data[0]["main"] == "Clouds"
+        assert data[0]["description"] == "overcast clouds"	
+
+    def test_weather_data_invalid(self, mocker):
+        """Test weather data endpoint"""
+        mocker.patch(
+            'app.routers.weather.weather',
+            side_effect=Exception("Invalid request")
+        )
+        response = client.get("/weather/forecasts/tomorrow?lat=7.5629&lon=4.5200")
+        assert response.status_code == 400
+
+        data: dict = response.json()
+        assert data["detail"]

@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="p-4 bg-[#B93815] md:py-10 md:px-16">
         <div className="flex flex-col gap-10 pb-12 md:flex-row md:justify-between md:items-center">
           <div>
-            <img src="logo-white.png" alt="logo" />
+            <img src="/logo-white.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
               <Link to="/about-us" className="link link-hover">About us</Link>
               <Link to="/careers" className="link link-hover">Careers</Link>
@@ -23,8 +23,8 @@ export default function Footer() {
           <div>
             <span className="footer-title">Download the mobile app</span>
             <div className="flex flex-wrap gap-6 mt-6">
-              <img src="app-store.png" alt="app store" />
-              <img src="google-play.png" alt="google play" />
+              <img src="/app-store.png" alt="app store" />
+              <img src="/google-play.png" alt="google play" />
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ export default function Footer() {
               <span className="hidden md:block">English</span>
             </span>
             <span className="flex items-center gap-2">
-              <img src="icons/uk-flag.png" alt="uk flag" />
+              <img src="/icons/uk-flag.png" alt="uk flag" />
               <span className="hidden md:block">United Kingdom</span>
             </span>
             <span className="flex items-center gap-2">
