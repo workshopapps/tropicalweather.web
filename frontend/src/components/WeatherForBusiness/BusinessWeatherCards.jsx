@@ -4,8 +4,8 @@ import cardImg3 from '../../assets/weatherBusinessImgs/cardimg3.png';
 
 export default function BusinessWeatherCards() {
   return (
-    <center>
-      <div className="container mx-auto px-8 mb-24">
+    <center className="">
+      <div className=" mb-24 px-8">
         <div className="flex flex-col md:flex-row space-x-0 md:space-x-6  ">
           <div className="customCard flex flex-col justify-center align-center items-center w-full h-full space-y-8 pt-10 pb-10 md:pb-16 lg:pb-16 xl:pb-24">
             <img src={cardImg1} alt="" className="pt-8" />
@@ -19,7 +19,7 @@ export default function BusinessWeatherCards() {
             </p>
           </div>
           <div className="customCard flex flex-col justify-center align-center items-center  w-full  space-y-8 pt-8 pb-12 md:pb-32 lg:pb-32  mt-4 md:mt-0 mb-4 md:mb-0">
-            <img src={cardImg2} alt="" className="pt-10" />
+            <img src={cardImg2} alt="" className="pt-8 mt-1" />
             <p className="font-bold text-2xl md:text-3xl text-center px-4">
               Critical decisions can be planned precisely
             </p>
