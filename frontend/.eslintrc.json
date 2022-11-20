@@ -54,7 +54,8 @@
     "indent": "off",
     "camelcase": "off",
     "no-param-reassign": "off",
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+    "linebreak-style": "off"
   },
   "ignorePatterns": [
     "dist/",
