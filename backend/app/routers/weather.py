@@ -18,6 +18,7 @@ router = APIRouter(
     tags=['weather']
 )
 
+<<<<<<< HEAD
 
 @router.get('/forecasts', response_model=List[SingleWeatherResponse])
 async def weather_forcasts(lat: float, lon: float):
@@ -62,3 +63,15 @@ async def get_tommorrows_weather(lat: float, lon: float):
             detail="Can't retrive weather data for this location"
         )
     
+=======
+@router.post('/weather/forecast/immediate/tommorrow')
+def get_tommorrows_weather(lat: int=None, lng: int=None):
+    if lat is None and lng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail= f"invalid longitute and latitude"
+
+        )
+
+    return    utils.immediate_weather_api_call_tommorrow()
+>>>>>>> feat/BAC-33-Setup-an-endpoint-that-return-the-next-available-forecast-starting-from-tomorrow
