@@ -2,6 +2,9 @@
 .body{
     width: 100%;
 }
+main{
+    padding: 0;
+}
 .head-img{
     display: flex;
     flex-direction: column;
@@ -47,6 +50,7 @@
     color: #2A2A2A;
     font-size: 18px;
     font-weight: 400;
+
 }
 .img2{
     width: 100%;
@@ -251,24 +255,26 @@ span{
        display: none;
     }
     .midhead{
-        width: 100%;
+        width: 120%;
         font-size: 20px;
         font-weight: 600;
         text-align: center;
         margin-bottom: 10px;
+        margin-left: -18px;
     }
     .mid-p{
-        width: 100%;
+        width: 170%;
         font-size: 12px;
         font-weight: 400;
         text-align: center;
         line-height: 14px;
         margin-top: 5px;
+        margin-left: -60px;
     }
     .img2{
         width: 80%;
         margin-top: 20px;
-        margin-left: 25px;
+        margin-left: 30px;
     }
     .main-content{
         padding: 10px 35px;
