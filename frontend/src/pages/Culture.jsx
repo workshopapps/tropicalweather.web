@@ -1,23 +1,28 @@
 import React from 'react';
 import '../styles/culture.css';
+import { Link } from 'react-router-dom';
 
 export default function Culture() {
   return (
     <div className="body">
       <div className="head-img">
+        <img src="assets/image/mobile-lady.png" alt="logo" className="mo-wo" />
         <img src="assets/image/woman.png" alt="logo" className="woman" />
-        <div className="sub-back">
-          <img src="assets/image/back.png" alt="back" />
-          <p> Back to Careers</p>
-        </div>
+        <Link to="/careers" className="link link-hover">
+          <div className="sub-back">
+            <img src="assets/image/back.png" alt="back" />
+            <p> Back to Careers</p>
+          </div>
+        </Link>
       </div>
       <div className="sub-content">
         <div className="cont-col1">
           <h2 className="midhead">Diversity, Equity and & Inclusion</h2>
-          <p className="mid-p">The Global Office of Diversity,Equity and Inclusion office works cross-functionally with senior leaders, Human Resources, Business Relations and Councils to help create an inclusive environment.At The Coca-Cola Company we focus on four strategic imperatives called CARE; create, articulate, regulate and evaluate.</p>
+          <p className="mid-p">The Global Office of Diversity,Equity and Inclusion office works cross-functionally with senior leaders,Human Resources, Business Relations and Councils to help create an inclusive environment.At The Weathery Company we focus on four strategic imperatives called CARE; create, articulate, regulate and evaluate.</p>
         </div>
         <div className="content-col2">
-          <img src="assets/image/happy boy.png" alt="back" className="happyboy" />
+          <img src="assets/image/mobile boy.png" alt="back" className="img3" />
+          <img src="assets/image/happy boy.png" alt="back" className="img2" />
         </div>
       </div>
       <div className="main-content">
