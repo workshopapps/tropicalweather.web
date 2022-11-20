@@ -18,7 +18,6 @@ export default function Home() {
   }, []);
 
   return (
-
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
@@ -183,7 +182,6 @@ export default function Home() {
               <img src="/Home/phones.png" alt="" />
             </div>
           </div>
-
         </section>
       </div>
     </div>
