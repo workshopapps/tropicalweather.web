@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between px-4 py-4 lg:justify-start md:px-16 lg:gap-10">
       <div>
-        <img src="logo.png" alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
       <div className="items-center hidden w-full grid-cols-[1fr_1fr_auto] lg:grid gap-x-4">
         <ul className="flex gap-10">
