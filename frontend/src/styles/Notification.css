@@ -1,0 +1,155 @@
+.notification__wrapper h3 {
+  font-family: Outfit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  color: #161518;
+}
+
+.notification__wrapper .notification__subtext {
+  font-family: Outfit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #565560;
+  margin: 1rem 0rem;
+}
+
+.notification__wrapper ul {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+  border-bottom: 1px solid #dcdbe0;
+  margin-top: 2rem;
+}
+
+.notification__wrapper li {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  height: 40px;
+  text-align: left;
+  color: #82808f;
+}
+
+.notification__wrapper .active {
+  border-bottom: 2px solid #ef6820;
+  color: #ef6820;
+}
+
+.notification__wrapper section {
+  padding: 2rem 0rem;
+  border-bottom: 1px solid #dcdbe0;
+}
+
+.notification-content h5 {
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #161518;
+}
+
+.notification-content p {
+  font-family: Outfit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #565560;
+  margin: 0.5rem 0rem;
+}
+
+.notification-content__wrapper {
+  margin-top: 1rem;
+}
+
+.notification__ind {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.notification__ind:last-child {
+  margin-bottom: 0rem;
+}
+
+.notification__ind input {
+  height: 21.85714340209961px;
+  width: 29px;
+  left: 309px;
+  top: 425px;
+  border-radius: 0px;
+  padding: 7px 9px 7px 9px;
+  accent-color: #ef6820;
+}
+
+.notification__ind h6 {
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #2b2a30;
+  margin-bottom: 0.5rem;
+}
+
+.notification__ind p {
+  font-family: Outfit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: #82808f;
+}
+
+@media (max-width: 600px) {
+  .notification__wrapper .notification__subtext {
+    margin: 0.5rem 0rem;
+  }
+
+  .notification__wrapper ul {
+    margin-top: 1rem;
+  }
+
+  .notification__wrapper section {
+    padding: 1.5rem 0rem;
+  }
+
+  .notification__ind {
+
+    margin-bottom: 1rem;
+  }
+
+  .notification__ind h6 {
+    margin-bottom: 0.2rem;
+    font-size: 16px;
+  }
+
+  .notification__ind p {
+
+    font-size: 14px;
+    margin-top: 0rem;
+  }
+
+  .notification__ind input {
+    height: 15px;
+    width: 14.5px;
+    left: 0px;
+    top: 0px;
+    border-radius: 0px;
+    padding: 7px 9px 7px 9px;
+    accent-color: #ef6820;
+  }
+}

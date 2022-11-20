@@ -3,6 +3,8 @@ services:
         fastapi:
                 build: ./backend
                 command: ["uvicorn", "main:app", "--reload"]
+                environment:
+                        - OPEN_WEATHER_API_KEY : ${OPEN_WEATHER_API_KEY}
                 volumes:
                         - ./backend:/app/backend
                 ports:
