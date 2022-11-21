@@ -27,7 +27,7 @@ export default function Hero() {
 
         <div className="single--fig--container">
           <figure className="single--figure">
-            <img src="/img/figimage.png" alt="" />
+            <img src="SingleNews/img/figimage.png" alt="" />
             <figcaption className="single--figcaption">The Sun is about 4.6 billion years old</figcaption>
           </figure>
         </div>

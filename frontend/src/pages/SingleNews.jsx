@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/SingleNews.css';
 import Hero from '../components/SingleNews/Hero';
 import Maine from '../components/SingleNews/Maine';
 
