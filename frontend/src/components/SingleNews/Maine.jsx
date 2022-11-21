@@ -7,14 +7,14 @@ export default function Maine() {
         <article className="single--sarticle">
           <p>
             The Sun, which governs the weather, ocean currents, seasons,
-            and climate as well as permitting plant life through photosynthesis,
+            and climate as well as permitting plant life, through photosynthesis,
             has a significant impact on planet earth. The sun origins and demise
             have long attracted the attention of scientists.
             <br />
           </p>
           <p>
             According to the National Geographic,about 4.5 billion years ago, the
-            sun began to take shape from a molecular cloud that was mainly composed
+            sun began to take shape from a molecular, cloud that was mainly composed
             of hydrogen and helium. A nearby supernova emitted a shockwave, which
             came in contact with the molecular cloud and energized it. The sun is
             about 150 million kilometers (93 million miles) from Earth.
