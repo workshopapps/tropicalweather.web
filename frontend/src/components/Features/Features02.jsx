@@ -33,7 +33,7 @@ function Features02() {
                 <input type="text" placeholder="Choose a Location" />
                 <button type="button"> Search </button>
               </div>
-              <a href="/"> Weather settings</a>
+              <a href="/"> Weather settings_feature</a>
             </nav>
           </div>
           <Picture />
