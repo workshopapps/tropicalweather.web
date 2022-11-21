@@ -245,12 +245,6 @@
     border-radius: 8px;
 }
 
-@media (max-width: 1000px) {
-  .single--figure img {
-    /* height: 300px !important; */
-  }
-}
-
 @media (max-width: 1315px) {
   .single--figure img {
     display: flex;
