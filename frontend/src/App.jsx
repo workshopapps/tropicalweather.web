@@ -15,7 +15,6 @@ import AppLayout from './components/AppLayout';
 import Notification from './pages/Notification';
 import AirQuality from './pages/AirQuality';
 import Culture from './pages/Culture';
-import SingleNews from './pages/SingleNews';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +31,6 @@ const router = createBrowserRouter(
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/culture" element={<Culture />} />
-      <Route path="/single-news" element={<SingleNews />} />
     </Route>,
   ),
 );
