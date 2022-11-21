@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+
+
+
+/* Hero -- Heading  */
+
+.single--hero--heading {
+  width: 80vw;
+  margin-top: 100px;
+  margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 700px) {
+  .single--hero--heading {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--hero--heading {
+    margin-top: 50px;
+  }
+}
+
+.single--hero--heading h1 {
+  font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 88px;
+    line-height: 96px;
+    text-align: center;
+    font-feature-settings: 'liga' off;
+    color: #2B2A30;
+}
+
+@media (max-width: 1000px) {
+  .single--hero--heading h1 {
+    font-size: 46px;
+  }
+}
+
+@media (max-width: 700px) {
+  .single--hero--heading h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--hero--heading h1 {
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+
+  }
+    br {
+      display: none;
+    }
+}
+
+
+
+.single--paragraf {
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+    /* position: absolute; */
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+    margin-top: 100px;
+}
+
+@media (max-width: 1315px) {
+  .single--paragraf {
+    height: 140px;
+    /* margin-bottom: 500px !important; */
+  }
+}
+
+@media (max-width: 1200px) {
+  .single--paragraf {
+    height: min-content;
+    gap: 56px;
+  }
+}
+
+@media (max-width: 700px) {
+  .single--paragraf {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100vw;
+    height: min-content;
+    gap: 56px;
+    /* margin-left: auto; */
+    margin-right: auto;
+
+  }
+}
+
+
+
+@media (max-width: 500px) {
+  .single--paragraf {
+    display: flex;
+    margin-top: 40px !important;
+    gap: 10px !important;
+  }
+}
+
+
+.single--paragraf p {
+  width: 80vw;
+    height: 48px;
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.025em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #2B2A30;
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .single--paragraf p {
+    width: 80vw;
+    margin-top: 15px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .single--paragraf p {
+    height: min-content;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--paragraf p {
+    font-size: 14px;
+      line-height: 20px;
+  }
+}
+
+
+.single--fig--container {
+  border: 1px solid white;
+}
+
+@media (max-width: 650px) {
+  .single--fig--container {
+    margin-top: 50px;
+    /* border: 1px solid black; */
+  }
+}
+
+@media (max-width: 420px) {
+  .single--fig--container {
+    margin-top: 60px;
+
+  }
+}
+
+.single--figure {
+  display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0px;
+    gap: 32px;
+    /* position: absolute; */
+    height: 692px;
+    /* left: 5.29%; */
+    /* right: 5.49%; */
+    margin-top: 114px;
+    background: #F3F3F4;
+    border-radius: 8px;
+    /* margin-left: 15%; */
+    width: 70vw;
+    margin-right: auto;
+    margin-left: auto !important;
+}
+
+@media (max-width: 1400px) {
+  .single--figure {
+    height: 500px;
+  }
+}
+
+@media (max-width: 1315px) {
+  .single--figure {
+    display: flex;
+    /* position: absolute; */
+    margin-top: 200px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .single--figure {
+    height: 350px;
+    /* border: 1px solid black; */
+  }
+}
+
+@media (max-width: 650px) {
+  .single--figure {
+    margin-top: 30px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .single--figure {
+    height: 250px;
+  }}
+
+  @media (max-width: 420px) {
+    .single--figure {
+      height: 190px;
+      gap: 15px;
+      width: 85vw;
+      margin-top: 0px;
+    }
+  }
+
+
+
+.single--figure img {
+  width: 100%;
+    height: 588px;
+    /* background: url(image.png); */
+    border-radius: 8px;
+}
+
+@media (max-width: 1315px) {
+  .single--figure img {
+    display: flex;
+    /* position: absolute; */
+    /* margin-top: 1800px !important; */
+  }
+}
+
+@media (max-width: 1400px) {
+  .single--figure img {
+    height: 448px;
+  }
+}
+
+@media (max-width: 650px) {
+  .single--figure img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--figure img {
+    height: 210px;
+  }
+}
+
+
+
+.single--figcaption {
+  width: 100%;
+    height: 72px;
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: left;
+    letter-spacing: -0.025em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #565560;
+    /* margin-left: -100px; */
+}
+
+@media (max-width: 600px) {
+  .single--figcaption {
+    font-size: 18px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--figcaption {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.single--article {
+  padding-bottom: 100px;
+}
+
+@media (max-width: 650px) {
+ .single--article {
+  /* border: 1px solid black; */
+  margin-top: 50px;
+ }}
+
+@media (max-width: 420px) {
+  .single--article {
+    margin-top: 30px;
+    /* border: 1px solid black; */
+  }
+}
+
+.single--sarticle {
+  /* width: 60vw; */
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+    /* position: absolute; */
+      height:min-content;
+      margin-top: 80px;
+}
+
+@media (max-width: 650px) {
+  .single--sarticle {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .single--sarticle {
+    width: 80%;
+    line-height: 150%;
+      /* or 150% */
+    gap: 20px;
+    letter-spacing: 0.01em;
+    margin-top: 50px;
+  }
+}
+
+
+.single--sarticle p {
+  /* position: absolute; */
+    height:fit-content;
+    /* left: 12.9%; */
+    /* right: 12.9%; */
+    top: 1010px;
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #565560;
+}
+
+@media (max-width: 420px) {
+  .single--sarticle p {
+    font-size: 16px;
+      line-height: 24px;
+      padding-top: 8%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

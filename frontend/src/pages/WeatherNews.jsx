@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/weatherNews.css';
 import { CiSearch } from 'react-icons/ci';
 import {
@@ -110,7 +111,7 @@ export default function WeatherNews() {
                   <p className="weather_news-info">{item.info}</p>
                   <p className="weather_news-text">{item.text}</p>
                   <p className="weather_news-continue">
-                    <a href="/weather-news">Continue reading</a>
+                    <Link to="/single-news">Continue reading</Link>
                   </p>
                   <p className="weather_news-date">10th November 2022</p>
                 </div>
