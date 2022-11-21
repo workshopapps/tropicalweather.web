@@ -3,7 +3,7 @@ services:
         fastapi:
                 build: ./backend
                 working_dir: /backend/app
-                command: ["uvicorn", "main:app", "--reload"]
+                command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
                 volumes:
                         - ./backend:/app/backend
                 ports:
