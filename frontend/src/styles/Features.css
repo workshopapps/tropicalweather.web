@@ -193,6 +193,9 @@
       .box_div{
         width: 30%;
       }
+      .box_div div{
+        display: flex;
+      }
       #places{
         width: 250px;
         padding: 10px 30px;
@@ -254,14 +257,14 @@
             margin: 20px;
             
           }
-          .Weather_feature{
+        
+          /* .Weather_feature{
             display: flex;
             align-items: center;
-          }
-          
+          } */
           .cloud_feature{
-            display: flex;
-            padding: 2px;
+           display: flex;
+           padding: 10px;
           }
           .cloud_feature div{
             padding: 5px 5px;
@@ -274,12 +277,14 @@
             background-color: white;
           }
           .background_feature{
+           background: url(../components/Features/img/background.png);
             /* background: url(./img/background.png) no-repeat; */
             background-size: cover;
             height: 350px;
             width: 500px;
             padding: 40px;
           }
+          
           .wrapper_feature{
             display: flex;
             align-items: center;
@@ -336,7 +341,14 @@
           .break_down_feature p{
             font-size: 14px;
           }
-
+          .Weather_feature{
+            display: flex;
+            
+          }
+.cloud_place_feature{
+  display: flex;
+  flex-direction: column;
+}
           @media screen and (max-width: 480px){
             .hero_writeup_feature h1{
               font-weight: 700;
@@ -522,14 +534,14 @@
         margin: 10px;
         
       }
-      .cloud{
+      .cloud_feature{
         display: flex;
         padding: 2px;
       }
-      .cloud div{
+      .cloud_feature div{
         padding: 2px 2px;
       }
-      .cloud h4{
+      .cloud_feature h4{
         font-size: 8px;
         line-height: 1px;
       }
@@ -542,11 +554,14 @@
         padding: 10px;
         margin-left: -95px;
       }
-      .cloud_place h1{
+      .cloud_place_feature{
+        display: flex;
+      }
+      .cloud_place_feature h1{
         font-size: 10px;
       }
       
-      .cloud img{
+      .cloud_feature img{
         width: 15px;
         margin: 1px ;
       }

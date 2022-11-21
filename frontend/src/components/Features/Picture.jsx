@@ -12,7 +12,7 @@ function Picture() {
       <div className="Weather_feature">
         <div className="cloud_place_feature">
           <h1> Lagos, Nigeria</h1>
-          <div className="cloud_feauture">
+          <div className="cloud_feature">
             <div className="box_div">
               <h4> Sunny</h4>
               <img src={sun} alt="" />
