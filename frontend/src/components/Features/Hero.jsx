@@ -24,7 +24,7 @@ function Hero() {
           </p>
           <div className="button_">
             <button className="button_feature" type="button"> Get started</button>
-            <a className="dot_button_feature" href="/"> View all features</a>
+            <button type="button"> View all feature</button>
           </div>
         </div>
         <div className="feature_img">

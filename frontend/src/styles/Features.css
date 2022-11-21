@@ -7,16 +7,17 @@
     flex-wrap: wrap;
   }
   .hero_writeup_feature h1{
-    font-size: 4em;
+    font-size: 6em;
     color: #161518;
+    font-weight: bolder;
   }
   .hero_writeup_feature h3{
-    font-size: 16px;
+    font-size: 20px;
     text-decoration: underline #EF6820;
     color: #2B2A30;
   }
   .hero_writeup_feature p{
-    font-size: 1em;
+    font-size: 1.5em;
     color: #565560;
     line-height: 30px; 
   }
@@ -35,7 +36,7 @@
   }
   .hero_writeup_feature a{
     text-decoration: none;
-    border: 2px dotted #F05513;
+    border: 2px solid #F05513;
     padding:8px 28px 8px 28px;
     color: #EF6820;
     font-size: 20px;
