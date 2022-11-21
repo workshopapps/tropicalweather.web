@@ -2,7 +2,7 @@ version: '3'
 services:
         fastapi:
                 build: ./backend
-                command: ["cd", "/backend/app"]
+                working_dir: /backend/app
                 command: ["uvicorn", "main:app", "--reload"]
                 volumes:
                         - ./backend:/app/backend
