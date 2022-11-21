@@ -1,13 +1,9 @@
-
-.header{
-    background-image: url('../assets/weatherBusinessImgs/Map.png');
-    /* height: 600px; */
-  }
+.header {
+  background-image: url('../assets/weatherBusinessImgs/Map.png');
+}
 
 .customCard {
   background-color: #F3F3F4;
-  /* height: 451px; */
-  /* width: 449px; */
   border-radius: 8px;
 
 }
@@ -49,10 +45,8 @@
   border-radius: 8px;
 }
 
-.WeatherForm input{
-    height: 44px;
-  /* width: 380px; */
-
+.WeatherForm input {
+  height: 44px;
   background: #E8E7EA !important;
   border-radius: 8px;
 }
@@ -71,4 +65,3 @@
 }
 
 /* TABLET SCREENS */
-

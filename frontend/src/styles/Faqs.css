@@ -35,6 +35,7 @@
   margin-bottom: 41px;
   color: #fbfbfc;
 }
+
 .faq-search {
   padding: 12px 24px;
   margin: 0 auto;
@@ -43,11 +44,13 @@
   border-bottom: 1px solid #e8e7ea;
   border-radius: 8px;
 }
+
 @media (max-width: 950px) {
   .faq-search {
     width: 60%;
   }
 }
+
 @media (max-width: 800px) {
   .faq-search {
     width: 50%;
@@ -58,37 +61,45 @@
   .faq-header {
     padding: 24px;
   }
+
   .faq-header__title {
     font-size: 30px;
     font-weight: 700;
     line-height: 40px;
   }
+
   .faq-header__description {
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
     margin-bottom: 24px;
   }
+
   .faq-search {
     padding: 12px 0px;
   }
 }
+
 .test {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .faq-search-bar {
   width: 74%;
   display: flex;
 }
+
 .faq-search-bar input {
   border: none;
   width: 100%;
 }
+
 .faq-search-bar input:focus {
   outline: none;
 }
+
 .faq-search-bar input::placeholder {
   font-family: "Outfit";
   font-style: normal;
@@ -100,22 +111,26 @@
 
   opacity: 0.4;
 }
+
 .faq-search-btn {
   display: flex;
   align-items: center;
   width: 31%;
   justify-content: flex-end;
 }
+
 .faq-header__arrowdown--icon {
   padding: 12px 8px;
   opacity: 0.4;
   margin-right: 8px;
   margin-left: 8px;
 }
+
 .faq-header__icon {
   padding: 12px 8px;
   opacity: 0.4;
 }
+
 .faq-search-cta-btn {
   padding: 12px 24px;
   font-family: "Outfit";
@@ -129,10 +144,12 @@
   background: #f05513;
   border-radius: 8px;
 }
+
 @media (max-width: 800px) {
   .faq-search {
     width: 80%;
   }
+
   .faq-search-btn {
     display: none;
   }
@@ -141,16 +158,19 @@
 .faqs {
   padding: 80px;
 }
+
 @media (max-width: 800px) {
   .faqs {
     padding: 48px;
   }
 }
+
 @media (max-width: 600px) {
   .faqs {
     padding: 24px;
   }
 }
+
 @media (max-width: 400px) {
   .faqs {
     padding: 24px;
@@ -160,31 +180,37 @@
 .faq {
   width: 70%;
 }
+
 .faq-text {
   display: flex;
   justify-content: space-between;
   gap: 16px;
 }
+
 @media (max-width: 1200px) {
   .faq {
     width: 85%;
   }
 }
+
 @media (max-width: 1000px) {
   .faq {
     width: 90%;
   }
 }
+
 @media (max-width: 800px) {
   .faq {
     width: 92%;
   }
 }
+
 @media (max-width: 700px) {
   .faq {
     width: 95%;
   }
 }
+
 @media (max-width: 500px) {
   .faq {
     width: 100%;
@@ -197,6 +223,7 @@
   border-top: #eaecf0 1px solid;
   align-items: center;
 }
+
 .faq-question__text {
   font-family: "Outfit";
   font-style: normal;
@@ -208,9 +235,11 @@
   letter-spacing: -0.01em;
   color: #2b2a30;
 }
+
 .toggle-icon {
   color: #f05513;
 }
+
 .faq-answer__text {
   font-family: "Outfit";
   font-style: normal;
@@ -236,11 +265,13 @@
   gap: 24px;
   margin-top: 78px;
 }
+
 @media (max-width: 800px) {
   .faqs__customer--line {
     margin-top: 34px;
   }
 }
+
 .faqs__customer--line--heading {
   font-family: "Outfit";
   font-style: normal;
@@ -252,6 +283,7 @@
   font-feature-settings: "tnum" on, "lnum" on;
   color: #2b2a30;
 }
+
 .faqs__customer--line--supporting-text {
   font-family: "Outfit";
   font-style: normal;
@@ -262,6 +294,7 @@
   letter-spacing: -0.01em;
   color: #82808f;
 }
+
 .faqs__customer--line--btn {
   background: #ef6820;
   border-radius: 8px;
@@ -279,23 +312,27 @@
   border-radius: 16px;
   margin-top: 78px;
 }
+
 @media (max-width: 800px) {
   .faqs__mobile--app {
     margin-top: 34px;
   }
 }
+
 .faqs__mobile--app--text-container {
   margin-left: 64px;
   width: 39%;
   margin-top: 61px;
   margin-bottom: 47px;
 }
+
 @media (max-width: 800px) {
   .faqs__mobile--app--text-container {
     width: 70%;
     margin-left: 44px;
   }
 }
+
 @media (max-width: 600px) {
   .faqs__mobile--app--text-container {
     width: 100%;
@@ -304,8 +341,9 @@
     margin-left: 0;
   }
 }
-@media (max-width: 600px) {
-}
+
+@media (max-width: 600px) {}
+
 .faqs__mobile--app--heading {
   font-family: "Outfit";
   font-style: normal;
@@ -325,6 +363,7 @@
   font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
 }
+
 .faqs__mobile--app--heading--description {
   font-family: "Outfit";
   font-style: normal;
@@ -334,6 +373,7 @@
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
+
 .options-container {
   display: flex;
   gap: 24px;
@@ -345,11 +385,13 @@
     width: 130px;
     height: 50px;
   }
+
   .playstore-icon {
     width: 130px;
     height: 50px;
   }
 }
+
 @media (max-width: 390px) {
   .options-container {
     display: flex;
