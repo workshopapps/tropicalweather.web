@@ -1,6 +1,5 @@
 import PropTypes, { string } from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function RectangleCard({
     image, image2, heading, info, text,
@@ -16,7 +15,7 @@ export default function RectangleCard({
         <p className="weather_news-info">{info}</p>
         <p className="weather_news-text">{text}</p>
         <p className="weather_news-continue">
-          <Link to="/single-news">Continue reading</Link>
+          <a href="/weather-news">Continue reading</a>
         </p>
         <p className="weather_news-date">10th November 2022</p>
       </div>
