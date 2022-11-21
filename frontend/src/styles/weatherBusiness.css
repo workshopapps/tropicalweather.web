@@ -9,10 +9,8 @@
 }
 
 .weatheryBusinessProducts button {
-  /* padding: 14px 10px; */
   width: 200px;
   height: 50px;
-  /* gap: 8px; */
   background: #EF6820;
   border-radius: 4px;
 }
@@ -40,7 +38,6 @@
 
 .WeatherIndustryCard {
   width: 371px;
-  /* height: 226px; */
   border: 1px solid #565560;
   border-radius: 8px;
 }
