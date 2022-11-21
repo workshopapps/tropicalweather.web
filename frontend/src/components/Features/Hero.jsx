@@ -4,7 +4,7 @@ import heroimg from './img/heroimg.png';
 
 function Hero() {
   return (
-    <body>
+    <div>
       <div className="hero_feature">
         <div className="hero_writeup_feature">
           <h3 className="feature_line"> FEATURES</h3>
@@ -32,7 +32,7 @@ function Hero() {
           <img src={heroimg} alt="" />
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

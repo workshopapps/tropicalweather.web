@@ -5,7 +5,7 @@ import Icon4 from './img/Icon4.png';
 
 function BoxMage() {
   return (
-    <body>
+    <div>
       <div className="box-mage_feature">
         <div className="box_feature">
           <img src={Icon1} alt="" />
@@ -54,7 +54,7 @@ function BoxMage() {
           </p>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import Icon5 from './img/Icon5.png';
 
 function Frequently() {
   return (
-    <body>
+    <div>
       <div className="frequent_feature">
         <div className="break_down_feature">
           <h1> Frequently Asked Questions</h1>
@@ -84,7 +84,7 @@ function Frequently() {
             <li>
               {' '}
               Select manage notification at the bottom of the screen
-              <li>
+              <p>
                 {' '}
                 Then tap the circle beside the location
                 <br />
@@ -93,7 +93,7 @@ function Frequently() {
                 <br />
                 {' '}
                 receive notification for
-              </li>
+              </p>
             </li>
             <li> A check mark will then appear in the circle to confirm your request </li>
           </ol>
@@ -143,7 +143,7 @@ function Frequently() {
           <img src={Icon5} alt="" />
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

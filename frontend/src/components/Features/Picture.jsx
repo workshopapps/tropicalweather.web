@@ -8,7 +8,7 @@ import background from './img/background.png';
 
 function Picture() {
   return (
-    <body>
+    <div>
       <div className="Weather_feature">
         <div className="cloud_place_feature">
           <h1> Lagos, Nigeria</h1>
@@ -67,14 +67,14 @@ function Picture() {
           <div>
             <div className="wrapper_feature">
               <div className="background_feature">
-                <img src={background} alt="" />
+                <img src={background} alt="background" className="background_feature_img" />
                 <div className="small_box_feature">
                   <ul>
                     <li> Today • 9:41am</li>
-                    <img src={dot} alt="" />
+                    <img src={dot} alt="dot" />
                   </ul>
-                  <img src={spark} alt="" />
-                  <h1>
+                  <img src={spark} alt="spark" />
+                  <p className="background_feature_text">
                     {' '}
                     Expect rain and scattered
                     <br />
@@ -84,7 +84,7 @@ function Picture() {
                     {' '}
                     12:00pm.
                     {' '}
-                  </h1>
+                  </p>
                 </div>
               </div>
               <div className="cast_feature">
@@ -120,7 +120,7 @@ function Picture() {
           </div>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

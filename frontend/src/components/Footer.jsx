@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col justify-between gap-4 pt-5 border-t border-t-white md:flex-row">
           <p className="order-last text-sm md:order-first md:text-base">© 2022 Weathery, All rights reserved to Team Gear</p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <span className="flex items-center gap-2">
               <BsGlobe />
               <span className="hidden md:block">English</span>

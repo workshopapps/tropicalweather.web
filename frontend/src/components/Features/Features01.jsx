@@ -5,7 +5,7 @@ import icon from './img/Icon.png';
 
 function Features01() {
   return (
-    <body>
+    <div>
       <div className="part_01_feature">
         <div className="Num_feature">
           <h1> 01 </h1>
@@ -96,7 +96,7 @@ function Features01() {
           </div>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 

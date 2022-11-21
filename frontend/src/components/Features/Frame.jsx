@@ -3,11 +3,11 @@ import Frameimg from './img/Frameimg.png';
 
 function Frame() {
   return (
-    <body>
+    <div>
       <div className="Frame_feature">
         <img className="show_feature" src={Frameimg} alt="" />
       </div>
-    </body>
+    </div>
   );
 }
 

@@ -5,7 +5,7 @@ import Picture from './Picture';
 
 function Features02() {
   return (
-    <body>
+    <div>
       <div className="part_01_feature">
 
         <div className="Num_feature">
@@ -40,7 +40,7 @@ function Features02() {
         </div>
       </div>
 
-    </body>
+    </div>
   );
 }
 
