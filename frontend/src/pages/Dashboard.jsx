@@ -34,7 +34,7 @@ export default function Dashboard() {
     },
   ];
 
-  const weather = [...threeDayForcast];
+  const weather = [...threeDayForcast, ...threeDayForcast];
 
   return (
     <div className="px-4 md:px-16 text-grey-900">
@@ -57,7 +57,7 @@ export default function Dashboard() {
             </div>
 
             <section id="weather-forecast" className="py-6 md:py-10 w-[300px] md:w-full">
-              <ul className="flex gap-4 overflow-x-auto">
+              <ul className="flex gap-4 overflow-scroll">
                 {weather.map((weather) => (
                   <li key={weather.date}>
                     <WeatherForecast

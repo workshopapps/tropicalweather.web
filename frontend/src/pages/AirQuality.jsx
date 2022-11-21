@@ -15,7 +15,7 @@ function AirQuality() {
   return (
     <div className=" w-[90%] mx-auto">
       <h1 className="font-bold text-2xl mb-[2rem]">Lagos, Nigeria</h1>
-      <div className="flex gap-[10px] mb-[30px] overflow-hidden">
+      <div className="flex gap-[10px] mb-[30px] overflow-scroll">
         <WeatherCard weather="Sunny" src="Sunny.png" time="Now" />
         <WeatherCard weather="Rain" src="Heavy-rain.png" time="2:00PM" />
         <WeatherCard weather="Rain" src="Heavy-rain.png" time="3:00PM" />
