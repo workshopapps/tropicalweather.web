@@ -4,14 +4,15 @@ import rainy from './img/rainy.png';
 import dot from './img/dot.png';
 import spark from './img/spark.png';
 import cloud from './img/cloud.png';
+import background from './img/background.png';
 
 function Picture() {
   return (
     <body>
-      <div className="Weather">
-        <div className="cloud_place">
+      <div className="Weather_feature">
+        <div className="cloud_place_feature">
           <h1> Lagos, Nigeria</h1>
-          <div className="cloud-feauture">
+          <div className="cloud_feauture">
             <div className="box_div">
               <h4> Sunny</h4>
               <img src={sun} alt="" />
@@ -66,6 +67,7 @@ function Picture() {
           <div>
             <div className="wrapper_feature">
               <div className="background_feature">
+                <img src={background} alt="" />
                 <div className="small_box_feature">
                   <ul>
                     <li> Today • 9:41am</li>

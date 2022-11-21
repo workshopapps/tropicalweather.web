@@ -254,19 +254,19 @@
             margin: 20px;
             
           }
-          .Weather{
+          .Weather_feature{
             display: flex;
             align-items: center;
           }
           
-          .cloud{
+          .cloud_feature{
             display: flex;
             padding: 2px;
           }
-          .cloud div{
+          .cloud_feature div{
             padding: 5px 5px;
           }
-          .cloud h4{
+          .cloud_feature h4{
             font-size: 14px;
             line-height: 1px;
           }
