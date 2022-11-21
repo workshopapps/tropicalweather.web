@@ -193,6 +193,12 @@
       .box_div{
         width: 30%;
       }
+      .box1_feature{
+        border: 2px solid #D1FADF;
+      padding: 45px 60px;
+      background-color: #D1FADF;
+      line-height: 30px;
+      }
       .box_div div{
         display: flex;
       }
@@ -215,7 +221,7 @@
       }
       .box_feature{
         border: 2px solid #D0D0D5;
-        padding: 20px;
+        padding: 55px 60px;
       }
       .box_feature h4{
         font-size: 20px;
@@ -344,6 +350,9 @@
           .Weather_feature{
             display: flex;
             
+          }
+          .small_box_feature{
+            margin-top: -200px;
           }
 .cloud_place_feature{
   display: flex;
