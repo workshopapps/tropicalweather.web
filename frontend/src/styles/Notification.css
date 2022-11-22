@@ -1,3 +1,8 @@
+.notification__wrapper{
+  width: 90%;
+margin: auto;
+}
+
 .notification__wrapper h3 {
   font-family: Outfit;
   font-size: 24px;
