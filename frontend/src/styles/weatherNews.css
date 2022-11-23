@@ -118,12 +118,6 @@
   border-radius: 6px;
 }
 
-@media (min-width: 600px) {
-  input:focus {
-    padding: 0.6rem 1rem;
-  }
-}
-
 .weather_news-cards {
   display: flex;
   justify-content: center;

@@ -7,6 +7,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { SlOptionsVertical } from 'react-icons/sl';
 import WeatherForecast from '../components/Dashboard/WeatherForecast';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
+import useCity from '../hooks/useCity';
 
 const threeDayForcast = [
   {
@@ -35,8 +36,8 @@ const threeDayForcast = [
 export default function Dashboard() {
   const time = new Date().toLocaleTimeString();
   const [savedLocations, setSavedLocations] = useState([]);
-  const [count, setCount] = useState(0);
-  const currentLocation = `Lagos, Nigeria [${count}]`;
+  const [toast, setToast] = useState('');
+  const currentLocation = useCity();
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -55,7 +56,12 @@ export default function Dashboard() {
     localStorage.setItem('saved-locations', JSON.stringify(loc));
     setSavedLocations(loc);
   };
-
+  const showToast = (type) => {
+    setToast(type);
+    setTimeout(() => {
+      setToast('');
+    }, 1000);
+  };
   const addLocation = (location) => {
     if (savedLocations.some((loc) => loc.location === location)) return;
     // Update location in local storage and state
@@ -67,10 +73,9 @@ export default function Dashboard() {
       description: 'Sunny with a high of 75F',
       time: '6:00 PM',
     });
-
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
-    setCount(count + 1);
+    showToast('SUCCESS');
   };
 
   const isSaved = savedLocations.some(
@@ -84,7 +89,8 @@ export default function Dashboard() {
           <span className="text-lg">Back</span>
         </span>
         <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
-          <div className="w-full">
+          <div className="relative w-full">
+            {toast !== '' ? <div>Hi</div> : null}
             <div className="flex items-center md:justify-between">
               <h1 className="mb-5 text-2xl font-bold md:text-5xl">
                 {currentLocation}
