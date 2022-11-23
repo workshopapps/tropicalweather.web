@@ -40,7 +40,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
-    console.log(data);
     if (!data || data.length === 0) {
       setSavedLocations(threeDayForcast);
       localStorage.setItem('saved-locations', JSON.stringify(threeDayForcast));
@@ -72,11 +71,10 @@ export default function Dashboard() {
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     setCount(count + 1);
-    alert('location saved');
   };
 
   const isSaved = savedLocations
-    .filter((item) => true)
+    .filter(() => true)
     .some((item) => item.location === currentLocation);
   return (
     <div className="px-4 md:px-16 text-grey-900">
