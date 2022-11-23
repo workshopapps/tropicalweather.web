@@ -73,9 +73,9 @@ export default function Dashboard() {
     setCount(count + 1);
   };
 
-  const isSaved = savedLocations
-    .filter(() => true)
-    .some((item) => item.location === currentLocation);
+  const isSaved = savedLocations.some(
+    (item) => item.location === currentLocation
+  );
   return (
     <div className="px-4 md:px-16 text-grey-900">
       <div className="pt-6">

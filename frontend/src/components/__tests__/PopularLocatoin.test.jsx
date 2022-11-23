@@ -12,16 +12,16 @@ test("loads and display a location's brief forecast", async () => {
         state="CLOUDY"
         location="Port Harcourt, Nigeria"
       />
-    </BrowserRouter>
+    </BrowserRouter>,
   );
 
   // ASSERT
   expect(container.querySelector('h3')).toHaveTextContent(
-    'Port Harcourt, Nigeria'
+    'Port Harcourt, Nigeria',
   );
   expect(container.querySelector('h5')).toHaveTextContent('CLOUDY');
   expect(container.querySelector('p')).toHaveTextContent(
-    'Expect rain and scattered thunderstorms by 12:00pm.'
+    'Expect rain and scattered thunderstorms by 12:00pm.',
   );
   expect(container.querySelector('a')).toHaveAttribute('href', '/dashboard');
 });
