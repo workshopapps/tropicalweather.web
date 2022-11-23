@@ -60,7 +60,7 @@ export default function Dashboard() {
     setToast(type);
     setTimeout(() => {
       setToast('');
-    }, 1000);
+    }, 3000);
   };
   const addLocation = (location) => {
     if (savedLocations.some((loc) => loc.location === location)) return;
@@ -82,7 +82,28 @@ export default function Dashboard() {
     (item) => item.location === currentLocation
   );
   return (
-    <div className="px-4 md:px-16 text-grey-900">
+    <div className="relative px-4 md:px-16 text-grey-900">
+      {toast !== '' ? (
+        <div
+          className="absolute p-1 rounded-lg bg-gray-200"
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'fit-content',
+          }}
+        >
+          <p
+            className="rounded-lg"
+            style={{
+              color: 'green',
+              padding: '3px 20px',
+              border: '1px solid green',
+            }}
+          >
+            Location added to saved cities
+          </p>
+        </div>
+      ) : null}
       <div className="pt-6">
         <span className="items-center hidden mb-6 md:flex">
           <TfiAngleLeft className="mr-2 text-lg" />
@@ -90,7 +111,6 @@ export default function Dashboard() {
         </span>
         <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
           <div className="relative w-full">
-            {toast !== '' ? <div>Hi</div> : null}
             <div className="flex items-center md:justify-between">
               <h1 className="mb-5 text-2xl font-bold md:text-5xl">
                 {currentLocation}

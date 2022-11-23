@@ -83,7 +83,7 @@ export default function Header() {
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
-            <ul className="absolute  w-full shadow bg-white py-4 max-h-96 overflow-y-auto">
+            <ul className="absolute z-10 w-full shadow bg-white py-4 max-h-96 overflow-y-auto">
               {query.length < 3 ? (
                 <p className="text-gray-500 text-center">
                   Type at least three characters
