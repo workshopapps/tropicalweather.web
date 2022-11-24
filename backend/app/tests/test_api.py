@@ -154,3 +154,23 @@ class TestWeatherDataAPI:
 
         data: dict = response.json()
         assert data["detail"]
+
+class Test_get_tommorrows_weather: 
+    def test_get_tommorrows_weather(self, mocker):
+        mocker.patch(
+            'app.routers.weather.immediate_weather_api_call_tommorrow',
+            return_value = {
+                
+                "main": "Rain",
+                "description": "light rain",
+                "date": "",
+                "time": ""
+                       } )
+        response = client.get("/weather/forecasts/tomorrow/immediate?lat=6.46542&lon=3.406448")
+        assert response.status_code == 200
+        
+        data: dict = response.json()
+        assert data['main'] == "Rain"
+        assert data['description']=="light rain"
+        #assert data['date']
+        #assert data['time']
