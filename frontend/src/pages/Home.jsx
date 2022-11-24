@@ -63,11 +63,11 @@ export default function Home() {
               <p className="text-[#565560]">Update a minute ago</p>
             </div>
             <button type="button" className="text-[#565560]">
-              Daily
+              {' '}
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
-            <div className="rounded-lg shadow-md px-[40px] py-4">
+            <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">
                 Hourly Updates
               </h5>
@@ -99,7 +99,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="rounded-lg shadow-md px-[40px]">
+            <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">Risk</h5>
               <div className="flex flex-col gap-[32px]">
                 <Risk
@@ -142,7 +142,10 @@ export default function Home() {
               <h3 className="landing_header_md">Popular locations</h3>
               <h6>upated a minute ago</h6>
             </div>
-            <div ref={slider} className="landing_locations_container">
+            <div
+              ref={slider}
+              className="landing_locations_container max-[768px]:bg-[white] max-[768px]:p-2"
+            >
               <PopularLocation
                 forecast="Expect rain and scattered thunderstorms by 12:00pm."
                 state="CLOUDY"
@@ -289,7 +292,7 @@ export default function Home() {
               View full
             </button>
           </div>
-          <div className="p-3 flex flex-col gap-8">
+          <div className="sm:p-3 flex flex-col gap-8">
             <Faq
               question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
               answer=" Weathery keeps track of your last five locations' searches. Click

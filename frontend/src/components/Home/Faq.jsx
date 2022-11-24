@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export default function Faq({ question, answer, open }) {
   const [show, setShow] = useState(false);
   return (
-    <article className="flex flex-col gap-4 p-[31px] shadow rounded-sm">
+    <article className="flex flex-col gap-4 p-[15px] sm:p-[31px] shadow rounded-sm">
       <div
         role="button"
         tabIndex={0}
@@ -15,9 +15,15 @@ export default function Faq({ question, answer, open }) {
       >
         <h4 className="text-[20px] font-bold">{question}</h4>
         {show ? (
-          <BiMinusCircle color="var(--l-primary-color)" />
+          <BiMinusCircle
+            color="var(--l-primary-color)"
+            style={{ flexShrink: 0 }}
+          />
         ) : (
-          <BiPlusCircle color="var(--l-primary-color)" />
+          <BiPlusCircle
+            color="var(--l-primary-color)"
+            style={{ flexShrink: 0 }}
+          />
         )}
       </div>
       {show && (

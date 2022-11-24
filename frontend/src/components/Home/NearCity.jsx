@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default function NearCity({ city, state }) {
   return (
     <article className="flex w-fit-content items-center p-2 gap-4">
-      <img src="/Home/city.png" alt="" />
+      <img src="/Home/city.png" alt="" className="max-[350px]:w-[40px]" />
       <div>
         <p>{city}</p>
         <p className="text-[#565560]">{state}</p>
