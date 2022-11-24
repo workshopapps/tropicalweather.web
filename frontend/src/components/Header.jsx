@@ -44,33 +44,16 @@ export default function Header() {
     query.length < 3 ? [] : cities.filter((city) => city.includes(query));
 
   return (
-    <header className="flex items-center justify-between px-4 py-4 lg:justify-start md:px-16 lg:gap-10">
+    <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
       <div>
         <Link to="/">
           <img src="/logo.png" alt="logo" />
         </Link>
       </div>
-      <div className="items-center hidden w-full grid-cols-[1fr_1fr_auto] lg:grid gap-x-4">
-        <ul className="flex gap-10">
-          <li>
-            <Link to="/about-us" className="link link-hover">
-              About Us
-            </Link>
-          </li>
-          <li>
-            <Link to="/features" className="link link-hover">
-              Features
-            </Link>
-          </li>
-          <li>
-            <Link to="/business" className="link link-hover">
-              For Business
-            </Link>
-          </li>
-        </ul>
+      <div className="items-center justify-end hidden w-full lg:flex gap-x-4">
         <label
           htmlFor="search"
-          className="relative w-full border-b justify-self-end border-grey-200"
+          className="relative w-full py-4 border-b justify-self-end border-grey-200"
         >
           <input
             type="text"
@@ -108,9 +91,9 @@ export default function Header() {
         </label>
         <button
           type="button"
-          className="px-6 py-4 text-white rounded-lg justify-self-end bg-primary-btn w-max"
+          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max"
         >
-          Sign up
+          Get App
         </button>
       </div>
       <MobileHeaderToggle handleToggle={handleToggle} toggle={toggle} />

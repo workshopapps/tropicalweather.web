@@ -182,3 +182,49 @@ def convert():
         hour=0, minute=0, second=0, microsecond=0)
     epoch = int(datetime_object.timestamp())
     return epoch
+
+
+def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
+    
+    try:
+
+        weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
+        
+        tommorows_date = datetime.now() + timedelta(days=1)
+        filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        tommorrows_timestamp = int(filter_date.timestamp())
+        
+        tommorrow_weather_data = 0
+      
+        for data in weather_conditions: #getting tommorrows weather data 
+         
+            if data['dt'] >= tommorrows_timestamp: 
+                tommorrow_weather_data = data
+                break 
+     
+        main = tommorrow_weather_data['weather'][0]['main']
+  
+        description = tommorrow_weather_data['weather'][0]['description']
+        date = tommorrow_weather_data['dt'] 
+        
+        r = {
+            "a": "ab",
+            "c": "ac"
+        }
+        pre_result = {
+            "main": str(main),
+            "description": str(description)
+            }
+        result = dict(pre_result)
+        res = convert_epoch_to_datetime(date)
+        result.update(res)
+        
+        return result
+
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail= f"Weather conditon not found.Please retry again"
+        )
+
+
