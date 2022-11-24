@@ -96,11 +96,9 @@ async def get_tommorrows_weather(lat: float, lon: float):
             status_code=status.HTTP_404_NOT_FOUND,
             detail= f"invalid longitute and latitude"
         )
-    
+
     try:
-        
         tommorows_weather = immediate_weather_api_call_tommorrow(lon, lat) #returns a dictionary   
-        
         return tommorows_weather
         
     except Exception as e:
