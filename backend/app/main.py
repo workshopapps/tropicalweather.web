@@ -10,7 +10,11 @@ sys.path.append(str(BASE))
 from app.routers import weather  # noqa: E402
 from app.routers import location
 
+from app.database import create_database
+
 # internal import
+
+create_database()
 
 # Application initilization
 app = FastAPI()

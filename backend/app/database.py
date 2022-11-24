@@ -13,6 +13,7 @@ def get_db_engine():
     DB_PASSWORD = config("DB_PASSWORD")
     DB_HOST = config("DB_HOST")
     DB_PORT = config("DB_PORT")
+    DB_NAME = config("DB_NAME")
    
     DATABASE_URL = ""
 
@@ -22,8 +23,10 @@ def get_db_engine():
 
     if DB_TYPE == "mysql":
         DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
     elif DB_TYPE == "postgresql":
-        DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        DATABASE_URL = "postgresql://kufre:password@localhost/fastapi"
+        # f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     else:
         DATABASE_URL = "sqlite:///./database.db"
 
