@@ -1,6 +1,6 @@
-.notification__wrapper{
+.notification__wrapper {
   width: 90%;
-margin: auto;
+  margin: auto;
 }
 
 .notification__wrapper h3 {
@@ -118,7 +118,7 @@ margin: auto;
   color: #82808f;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .notification__wrapper .notification__subtext {
     margin: 0.5rem 0rem;
   }
