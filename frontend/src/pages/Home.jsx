@@ -341,17 +341,29 @@ function FaqSection() {
         />
         <Faq
           question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          answer=" Weathery keeps track of your last five locations' searches. Click
+          the drop-down arrow to the top right side of the page, and you should
+          see your most recently viewed 5 locations. When you search for
+          additional locations, they will be replaced by new ones. However,
+          clearing your cookies will remove all saved locations."
           open={openAll}
         />
         <Faq
           question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          answer=" Weathery keeps track of your last five locations' searches. Click
+          the drop-down arrow to the top right side of the page, and you should
+          see your most recently viewed 5 locations. When you search for
+          additional locations, they will be replaced by new ones. However,
+          clearing your cookies will remove all saved locations."
           open={openAll}
         />
         <Faq
           question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          answer=" Weathery keeps track of your last five locations' searches. Click
+          the drop-down arrow to the top right side of the page, and you should
+          see your most recently viewed 5 locations. When you search for
+          additional locations, they will be replaced by new ones. However,
+          clearing your cookies will remove all saved locations."
           open={openAll}
         />
       </div>
