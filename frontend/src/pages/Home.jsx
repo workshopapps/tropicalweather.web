@@ -43,9 +43,21 @@ export default function Home() {
                 </Link>
                 <Link
                   to="/app"
-                  className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm"
+                  className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm flex items-center justify-center gap-2"
                 >
                   Download
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 3.97C7.59 3.97 3.97 7.59 3.97 12C3.97 16.41 7.59 20.03 12 20.03C16.41 20.03 20.03 16.41 20.03 12C20.03 7.59 16.41 3.97 12 3.97ZM12 2C17.54 2 22 6.46 22 12C22 17.54 17.54 22 12 22C6.46 22 2 17.54 2 12C2 6.46 6.46 2 12 2ZM13.88 11.53L16 13.64V8H10.36L12.47 10.12L7.5 15.1L8.9 16.5"
+                      fill="white"
+                    />
+                  </svg>
                 </Link>
               </div>
             </div>
@@ -74,7 +86,7 @@ export default function Home() {
               </h5>
               <div className="flex flex-col gap-[32px]">
                 <HourlyUpdate
-                  time="10:00 am"
+                  time="09:00 am"
                   day="Today, Thursday"
                   forecast="Rainy"
                 />
@@ -84,17 +96,17 @@ export default function Home() {
                   forecast="Rainy"
                 />
                 <HourlyUpdate
-                  time="10:00 am"
+                  time="11:00 am"
                   day="Today, Thursday"
                   forecast="Cloudy"
                 />
                 <HourlyUpdate
-                  time="10:00 am"
+                  time="12:00 pm"
                   day="Today, Thursday"
                   forecast="Clear"
                 />
                 <HourlyUpdate
-                  time="10:00 am"
+                  time="01:00 pm"
                   day="Today, Thursday"
                   forecast="Sunny"
                 />
@@ -190,12 +202,12 @@ export default function Home() {
           <div className="w-full flex flex-col gap-[56px]">
             <h4 className="text-[20px] font-bold">Cities near you</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
-              <NearCity city="Ibadan" state="Oyo" />
-              <NearCity city="Ibadan" state="Oyo" />
-              <NearCity city="Ibadan" state="Oyo" />
-              <NearCity city="Ibadan" state="Oyo" />
-              <NearCity city="Ibadan" state="Oyo" />
-              <NearCity city="Ibadan" state="Oyo" />
+              <NearCity city="Aba" state="Nigeria" />
+              <NearCity city="Ile-Ife" state="Osun state" />
+              <NearCity city="Onitsha" state="Lokoja" />
+              <NearCity city="Oyo" state="Nigeria" />
+              <NearCity city="Ibadan" state="Oyo State" />
+              <NearCity city="Onitsha" state="Lokoja" />
             </div>
           </div>
         </div>
