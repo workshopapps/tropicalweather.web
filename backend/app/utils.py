@@ -8,6 +8,8 @@ import datetime
 from decouple import config
 from fastapi import HTTPException, status
 from app.schemas import ImmediateForecastResponse
+from app.client import weather
+#from datetime import datetime
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -31,12 +33,13 @@ def convert_epoch_to_datetime(epoch_time: int) -> Dict[str, str]:
     :return: dict of date, time
     :rtype: Dict[str, str]
     """
-
+    
     time_format = datetime.datetime.fromtimestamp(epoch_time)
     date = time_format.strftime('%d %b, %Y')
     am_or_pm = time_format.strftime('%p')
     hour_minute = time_format.strftime('%I:%M')
     time_output = f"{hour_minute}{am_or_pm.lower()}"
+    
     return {
         "date": date,
         "time": time_output
@@ -187,36 +190,37 @@ def convert():
 def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
     
     try:
-
+        
         weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
         
-        tommorows_date = datetime.now() + timedelta(days=1)
+        tommorows_date = datetime.datetime.now() + timedelta(days=1)
         filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
         tommorrows_timestamp = int(filter_date.timestamp())
         
-        tommorrow_weather_data = 0
-      
+        tommorrow_weather_data = None
+        
         for data in weather_conditions: #getting tommorrows weather data 
          
             if data['dt'] >= tommorrows_timestamp: 
                 tommorrow_weather_data = data
                 break 
-     
+        
         main = tommorrow_weather_data['weather'][0]['main']
-  
+        
         description = tommorrow_weather_data['weather'][0]['description']
         date = tommorrow_weather_data['dt'] 
         
-        r = {
-            "a": "ab",
-            "c": "ac"
-        }
+        
+        
         pre_result = {
             "main": str(main),
             "description": str(description)
             }
+        
         result = dict(pre_result)
+        
         res = convert_epoch_to_datetime(date)
+        
         result.update(res)
         
         return result

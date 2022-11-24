@@ -85,9 +85,11 @@ class TestLocationAPI:
 
         assert data == {
             "city": "Etche",
-            "state": "Rivers State"
+            "state": "Rivers State",
+            "lat" : 5.12,
+            "lon" : 7.03
             }
-        assert len(data) == 2
+        assert len(data) == 4
 
 
     def test_get_locations_invalid(self, mocker):
