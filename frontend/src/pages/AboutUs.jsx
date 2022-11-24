@@ -6,7 +6,7 @@ import AboutProductSection from '../components/AboutUsPage/AboutProductSection';
 
 export default function AboutUs() {
   return (
-    <div>
+    <div className="px-4 md:px-16">
       <AboutHeroSection />
       <AboutWeatherySection />
       <WhyWeatherSection />
