@@ -8,6 +8,7 @@ import datetime
 from decouple import config
 from fastapi import HTTPException, status
 from app.schemas import ImmediateForecastResponse
+from app.client import weather
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -186,11 +187,23 @@ def convert():
 
 def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
     
+    """Gimmediate_weather_api_call_tommorrow, return dict of next day
+        forcast
+
+        :param lon: lon
+        :type lon: float
+        :param: lat: lat
+        :type lat: float
+        :raises HTTPException: if location info is not found
+        :return: dict of main, description
+        :rtype: Dict -> result
+    """
+    
     try:
 
         weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
         
-        tommorows_date = datetime.now() + timedelta(days=1)
+        tommorows_date = datetime.datetime.now() + timedelta(days=1)
         filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
         tommorrows_timestamp = int(filter_date.timestamp())
         
