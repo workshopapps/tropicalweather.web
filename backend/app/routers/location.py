@@ -19,7 +19,7 @@ router = APIRouter(
 async def get_location(lat: float, lon: float):
     try:
         reverse_geocode = reverse_geocoding(lat, lon)
-        
+        print(reverse_geocode)
     except Exception as e:
         print(e)
         raise HTTPException(
@@ -30,12 +30,10 @@ async def get_location(lat: float, lon: float):
     for location in reverse_geocode:
         city = location.get('name')
         state = location.get('state')
-        
+
     response = {
         'city': city,
-        'state': state,
-        'lat': lat,
-        'lon': lon
+        'state': state
     }
 
     return response
