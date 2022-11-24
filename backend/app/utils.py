@@ -8,6 +8,7 @@ import datetime
 from decouple import config
 from fastapi import HTTPException, status
 from app.schemas import ImmediateForecastResponse
+from app.client import weather
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -108,11 +109,19 @@ def geocode_address(
     }
 
 
-# function to call the open weather api and fetch the required data
-# Required data = "lon" and "lat"
-def weather_api_call(lon, lat, *args, **kwargs):
+def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
+    """Get the current weather data from the OpenWeatherMap API.
 
-    API_key = config("API_KEY")
+    :param lon: longitude
+    :type lon: float
+    :param lat: latitude
+    :type lat: float
+    :raises HTTPException: if address is not found
+    :return: weather data with keys: main, description and dt
+    :rtype: Dict[str, str]
+    """
+
+    API_key = config("OPEN_WEATHER_API_KEY")
 
     # converts given parameters into required types
     lon = float(lon)
@@ -122,26 +131,24 @@ def weather_api_call(lon, lat, *args, **kwargs):
     open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"  # noqa
 
     try:
-        response = requests.get(open_weather_url).json()
+        response = requests.get(open_weather_url)
 
         # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
-            return "Can't retrive weather data for this location"
+            raise Exception
 
-        weather_conditions = response['weather']  # returns a lists
-
-        for detail in weather_conditions:
-            current_weather = detail['main']
-            weather_description = detail['description']
+        data: dict = response.json()
+        weather_conditions = data['weather'][0]
 
         return {
-            "current_weather": current_weather,
-            "weather_description": weather_description
+            'main': weather_conditions['main'],
+            'description': weather_conditions['description'],
+            'dt': data['dt']
         }
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Weather conditon not found.Please retry again"
+            detail="Weather conditon not found. Please retry again"
         )
 
 
@@ -186,11 +193,23 @@ def convert():
 
 def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
     
+    """Gimmediate_weather_api_call_tommorrow, return dict of next day
+        forcast
+
+        :param lon: lon
+        :type lon: float
+        :param: lat: lat
+        :type lat: float
+        :raises HTTPException: if location info is not found
+        :return: dict of main, description
+        :rtype: Dict -> result
+    """
+    
     try:
 
         weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
         
-        tommorows_date = datetime.now() + timedelta(days=1)
+        tommorows_date = datetime.datetime.now() + timedelta(days=1)
         filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
         tommorrows_timestamp = int(filter_date.timestamp())
         
