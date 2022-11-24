@@ -25,19 +25,32 @@ export default function Home() {
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
-          <div className="landing_header_content_container">
-            <div className="landing_weather_brief">
-              <img src="/Home/outline.svg" alt="" />
-              <p>clear</p>
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col lg:mt-[-80px] items-center text-center md:items-start md:text-left gap-[14px]">
+              <h1 className="text-[60px] leading-[88px]">
+                Weather forecasts in tropical regions
+              </h1>
+              <p className="text-[30px] font-[400]">
+                Plan your outdoor event or get your umberella
+              </p>
+              <div className="flex flex-col mt-[20px] gap-4 min-[350px]:flex-row ">
+                <Link
+                  to="/dashboard"
+                  className="landing_hero_link rounded-sm border-solid border border-[#ffff]"
+                >
+                  View more
+                </Link>
+                <Link
+                  to="/app"
+                  className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm"
+                >
+                  Download
+                </Link>
+              </div>
             </div>
-            <h1 className="landing_header_message">
-              Expect rain and scattered thunderstorms by 12:00pm.
-            </h1>
-            <div className="landing_warning">
-              <img src="/Home/Icon.svg" alt="" />
-              <p>There is a high risk of flooding in your area</p>
+            <div className="hidden w-4/6 md:block">
+              <img src="/Home/hero-phone.png" alt="" />
             </div>
-            <Link to="/dashboard">View more</Link>
           </div>
         </div>
       </header>
