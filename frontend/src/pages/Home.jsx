@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
 import Faq from '../components/Home/Faq';
 import HourlyUpdate from '../components/Home/HoulyUpdate';
@@ -284,42 +285,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <section className="flex flex-col gap-8 w-full pb-[96px]">
-          <div className="flex items-center justify-between">
-            <h3 className="landing_header_md">Explore FAQs</h3>
-            <button type="button" className="text-[#565560]">
-              View full
-            </button>
-          </div>
-          <div className="sm:p-3 flex flex-col gap-8">
-            <Faq
-              question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
-              answer=" Weathery keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
-              open={false}
-            />
-            <Faq
-              question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-              answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
-              open={false}
-            />
-            <Faq
-              question="3. HOW DO I VIEW THE RADAR MAP?"
-              answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
-              open={false}
-            />
-            <Faq
-              question="4. HOW DO I MANAGE THE NOTIFICATION?"
-              answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
-              open={false}
-            />
-          </div>
-        </section>
-
+        <FaqSection />
         <section id="landing_download_app">
           <div className="landing_download_container">
             <p>Go Mobile</p>
@@ -344,5 +310,51 @@ export default function Home() {
         </section>
       </div>
     </div>
+  );
+}
+
+function FaqSection() {
+  const [openAll, toggleOpenAll] = useState(false);
+  return (
+    <section className="flex flex-col gap-8 w-full pb-[96px]">
+      <div className="flex items-center justify-between">
+        <h3 className="landing_header_md">Explore FAQs</h3>
+        <button
+          type="button"
+          className="flex items-center gap-2 text-[#565560]"
+          onClick={() => toggleOpenAll((prv) => !prv)}
+        >
+          View full
+          {openAll ? <FaAngleUp /> : <FaAngleDown />}
+        </button>
+      </div>
+      <div className="sm:p-3 flex flex-col gap-8">
+        <Faq
+          position={1}
+          question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
+          answer=" Weathery keeps track of your last five locations' searches. Click
+          the drop-down arrow to the top right side of the page, and you should
+          see your most recently viewed 5 locations. When you search for
+          additional locations, they will be replaced by new ones. However,
+          clearing your cookies will remove all saved locations."
+          open={openAll}
+        />
+        <Faq
+          question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
+          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          open={openAll}
+        />
+        <Faq
+          question="3. HOW DO I VIEW THE RADAR MAP?"
+          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          open={openAll}
+        />
+        <Faq
+          question="4. HOW DO I MANAGE THE NOTIFICATION?"
+          answer="well we were just asked by mark to make it we also do not understand the purpose and this text is just dummy"
+          open={openAll}
+        />
+      </div>
+    </section>
   );
 }

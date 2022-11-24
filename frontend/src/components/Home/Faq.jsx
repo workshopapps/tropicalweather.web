@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiMinusCircle, BiPlusCircle } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 
-export default function Faq({ question, answer, open }) {
-  const [show, setShow] = useState(false);
+export default function Faq({ question, answer, position, open }) {
+  const [show, setShow] = useState(position === 1);
+  useEffect(() => setShow(open), [open]);
+
   return (
     <article className="flex flex-col gap-4 p-[15px] sm:p-[31px] shadow rounded-sm">
       <div
@@ -37,4 +39,5 @@ Faq.propTypes = {
   question: PropTypes.string.isRequired,
   answer: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
+  position: PropTypes.number,
 };
