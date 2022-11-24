@@ -53,7 +53,7 @@ export default function Home() {
               Daily
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
             <div className="rounded-lg shadow-md px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">
                 Hourly Updates
@@ -149,21 +149,21 @@ export default function Home() {
             <div className="landing_scroll_indicator">
               <div
                 style={{
-                  backgroundColor: curr === 0 ? 'var(--primary-color)' : '',
+                  backgroundColor: curr === 0 ? 'var(--l-primary-color)' : '',
                 }}
               >
                 {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 1 ? 'var(--primary-color)' : '',
+                  backgroundColor: curr === 1 ? 'var(--l-primary-color)' : '',
                 }}
               >
                 {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 2 ? 'var(--primary-color)' : '',
+                  backgroundColor: curr === 2 ? 'var(--l-primary-color)' : '',
                 }}
               >
                 {' '}
@@ -172,7 +172,7 @@ export default function Home() {
           </div>
           <div className="w-full flex flex-col gap-[56px]">
             <h4 className="text-[20px] font-bold">Cities near you</h4>
-            <div className="w-full grid grid-cols-3">
+            <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Ibadan" state="Oyo" />
               <NearCity city="Ibadan" state="Oyo" />
               <NearCity city="Ibadan" state="Oyo" />
