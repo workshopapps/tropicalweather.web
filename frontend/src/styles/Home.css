@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --primary-color: #EF6820;
+  --l-primary-color: #EF6820;
   font-family: 'Outfit';
 }
 
@@ -18,7 +18,6 @@
   flex-direction: column;
   width: min(100%, 1400px);
   align-items: center;
-  gap: 100px;
   margin-inline: auto;
   padding-inline: 88px;
 }
@@ -175,7 +174,7 @@
   line-height: 24px;
   letter-spacing: 0.01em;
   font-feature-settings: 'tnum' on, 'lnum' on;
-  color: var(--primary-color);
+  color: var(--l-primary-color);
 }
 
 .landing_features_and_globe {
@@ -264,7 +263,7 @@
 }
 
 .landing_download_container p {
-  color: var(--primary-color)
+  color: var(--l-primary-color)
 }
 
 .landing_download_container h3 {
