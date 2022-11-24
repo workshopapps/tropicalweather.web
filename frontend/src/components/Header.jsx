@@ -50,10 +50,10 @@ export default function Header() {
           <img src="/logo.png" alt="logo" />
         </Link>
       </div>
-      <div className="items-center justify-end hidden w-full lg:flex gap-x-4">
+      <div className="items-center justify-end hidden w-full m lg:flex gap-x-4">
         <label
           htmlFor="search"
-          className="relative w-full py-4 border-b justify-self-end border-grey-200"
+          className="relative w-full max-w-xl border-b justify-self-end border-grey-200"
         >
           <input
             type="text"
