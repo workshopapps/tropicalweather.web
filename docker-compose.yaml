@@ -16,7 +16,7 @@ services:
                         - ./frontend:/app/frontend
                 ports:
                         - "3000:3000"
-		networks:
+                networks:
 			- internal-net
 	redis:
 		image: redis
@@ -24,7 +24,7 @@ services:
 			- "6379:6379"
 		volumes:
 			- redis-volume:/usr/local/etc/redis
-		networks:
+                networks:
 			- internal-net
 
 volumes:
