@@ -20,22 +20,13 @@ from app.schemas import PacketModel  # noqa: E402
 from app.routers import location  # noqa: E402
 from app.routers import weather  # noqa: E402
 from app.utils import get_room_name, get_status  # noqa: E402
-from app.database import SessionLocal, engine  # noqa: E402
+from app.database import engine  # noqa: E402
 from app import models  # noqa: E402
 
 models.Base.metadata.create_all(bind=engine)
 
 # Application initilization
 app = FastAPI()
-
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 app.add_middleware(

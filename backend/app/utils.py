@@ -2,14 +2,16 @@
 
 import datetime
 from datetime import timedelta
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 import geocoder
 import requests
 from app.client import get_location_alerts, weather
+from app.models import Location
 from app.schemas import ImmediateForecastResponse
 from decouple import config
 from fastapi import HTTPException, Request, status
+from sqlalchemy.orm import Session
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
@@ -122,6 +124,32 @@ def geocode_address(
     }
 
 
+def reverse_geocode(lat: float, lon: float):
+    """Reverse geocode the latitude and longitude to get the address
+
+    :param lat: latitude
+    :type lat: float
+    :param lon: longitude
+    :type lon: float
+    :raises HTTPException: if address is not found
+    :return: city, state
+    :rtype: str
+    """
+
+    g = geocoder.osm([lat, lon], method='reverse')
+
+    if not g.ok:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Address not found. Please retry again",
+        )
+
+    return {
+        'city': g.city,
+        'state': g.state
+    }
+
+
 def get_location_alerts_by_address(address: str):
     """Get the location alerts for a given address
 
@@ -184,7 +212,8 @@ def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
 def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
     # Call API and converts response into dictionary
-    open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={OPEN_WEATHER_API_KEY}"
+    open_weather_url = f"https://api.openweathermap.org/data/2.5/\
+weather?lat={lat}&lon={lng}&appid={OPEN_WEATHER_API_KEY}"
     response = requests.get(open_weather_url)
     error = Exception("Invalid Request")
 
@@ -220,9 +249,9 @@ def convert():
     return epoch
 
 
-def immediate_weather_api_call_tommorrow(lon: float, lat: float, *args, **kwargs):
-    """Gimmediate_weather_api_call_tommorrow, return dict of next day
-        forcast
+def immediate_weather_api_call_tommorrow(lon: float, lat: float):
+    """Get immediate_weather_api_call_tommorrow,
+    return dict of next day forcast
 
         :param lon: lon
         :type lon: float
@@ -256,10 +285,6 @@ def immediate_weather_api_call_tommorrow(lon: float, lat: float, *args, **kwargs
         description = tommorrow_weather_data['weather'][0]['description']
         date = tommorrow_weather_data['dt']
 
-        r = {
-            "a": "ab",
-            "c": "ac"
-        }
         pre_result = {
             "main": str(main),
             "description": str(description)
@@ -270,11 +295,19 @@ def immediate_weather_api_call_tommorrow(lon: float, lat: float, *args, **kwargs
 
         return result
 
-    except:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Weather conditon not found.Please retry again"
+            detail="Weather conditon not found.Please retry again"
         )
+
+
+def get_location_obj(
+    session: Session, city: str, state: str
+) -> Optional[Location]:
+    location_weather_info = session.query(
+        Location).filter_by(city=city, state=state).first()
+    return location_weather_info
 
 
 def get_status(request: Request):
@@ -285,7 +318,7 @@ def get_status(request: Request):
             forecasts = 'up'
         else:
             forecasts = 'down'
-    except Exception as e:
+    except Exception:
         forecasts = 'down'
     try:
         current_response = requests.get(
@@ -294,35 +327,39 @@ def get_status(request: Request):
             current = 'up'
         else:
             current = 'down'
-    except Exception as e:
+    except Exception:
         current = 'down'
+
     try:
         tomorrow_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow?lat=3&lon=4')
+            'https://api.weathery.hng.tech/weather/forecasts/tomorrow?lat=3&lon=4')  # noqa
         if tomorrow_response.status_code == 200:
             tomorrow = 'up'
         else:
             tomorrow = 'down'
-    except Exception as e:
+    except Exception:
         tomorrow = 'down'
+
     try:
         immediate_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/immediate?lat=3&lng=4')
+            'https://api.weathery.hng.tech/weather/forecasts/immediate?lat=3&lng=4')  # noqa
         if immediate_response.status_code == 200:
             immediate = 'up'
         else:
             immediate = 'down'
-    except Exception as e:
+    except Exception:
         immediate = 'down'
+
     try:
         tomorrow_im_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow/immediate?lat=3&lon=4')
+            'https://api.weathery.hng.tech/weather/forecasts/tomorrow/immediate?lat=3&lon=4')  # noqa
         if tomorrow_im_response.status_code == 200:
             tomorrow_im = 'up'
         else:
             tomorrow_im = 'down'
-    except Exception as e:
+    except Exception:
         tomorrow_im = 'down'
+
     try:
         location_response = requests.get(
             'https://api.weathery.hng.tech/location?lat=3&lon=4')
@@ -330,8 +367,9 @@ def get_status(request: Request):
             location = 'up'
         else:
             location = 'down'
-    except Exception as e:
+    except Exception:
         location = 'down'
+
     try:
         risk_response = requests.get(
             'https://api.weathery.hng.tech/weather/risk?lat=3&lon=4')
@@ -339,8 +377,9 @@ def get_status(request: Request):
             risk = 'up'
         else:
             risk = 'down'
-    except Exception as e:
+    except Exception:
         risk = 'down'
+
     try:
         alert_city_response = requests.get(
             'https://api.weathery.hng.tech/weather/alerts/gberigbe')
@@ -348,8 +387,9 @@ def get_status(request: Request):
             alert_city = 'up'
         else:
             alert_city = 'down'
-    except Exception as e:
+    except Exception:
         alert_city = 'down'
+
     try:
         alert_list_response = requests.get(
             'https://api.weathery.hng.tech/weather/alerts/lists')
@@ -357,8 +397,9 @@ def get_status(request: Request):
             alert_list = 'up'
         else:
             alert_list = 'down'
-    except Exception as e:
+    except Exception:
         alert_list = 'down'
+
     return {
         "request": request,
         "forecasts": forecasts,

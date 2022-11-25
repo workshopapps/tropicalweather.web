@@ -1,11 +1,15 @@
-# database.py
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from decouple import config
 
 
-def get_db_engine():
+def get_db_engine(test_mode: bool = False):
+
+    if test_mode:
+        DATABASE_URL = "sqlite:///./test.db"
+        return create_engine(
+            DATABASE_URL, connect_args={"check_same_thread": False})
 
     MYSQL_DRIVER = config("MYSQL_DRIVER")
     DB_TYPE = config("DB_TYPE")
@@ -18,7 +22,7 @@ def get_db_engine():
     DATABASE_URL = ""
 
     if DB_TYPE == "mysql":
-        DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"  # noqa: E501
 
     elif DB_TYPE == "postgresql":
         DATABASE_URL = "postgresql://kufre:password@localhost/fastapi"
@@ -46,9 +50,9 @@ Base = declarative_base()
 #     return Base.metadata.create_all(bind=engine)
 
 
-# def get_db():
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

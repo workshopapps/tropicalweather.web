@@ -6,7 +6,6 @@ from app.main import app
 client = TestClient(app)
 
 
-
 class TestStatus:
     def test_status(self, mocker):
         """Test status endpoint"""
