@@ -8,7 +8,6 @@ import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 import Notification from './pages/Notification';
 import AirQuality from './pages/AirQuality';
-import Culture from './pages/Culture';
 import Landingex from './pages/landingex';
 import Promotions from './pages/Promotions';
 
@@ -20,7 +19,6 @@ const router = createBrowserRouter(
       <Route path="/notification" element={<Notification />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/air-quality" element={<AirQuality />} />
-      <Route path="/culture" element={<Culture />} />
       <Route path="/landing" element={<Landingex />} />
       <Route path="/promotions" element={<Promotions />} />
     </Route>,
