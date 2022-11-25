@@ -14,12 +14,8 @@ def get_db_engine():
     DB_HOST = config("DB_HOST")
     DB_PORT = config("DB_PORT")
     DB_NAME = config("DB_NAME")
-   
+
     DATABASE_URL = ""
-
-
-
-
 
     if DB_TYPE == "mysql":
         DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -34,8 +30,9 @@ def get_db_engine():
         engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
     else:
         engine = create_engine(DATABASE_URL)
-    
+
     return engine
+
 
 engine = get_db_engine()
 
