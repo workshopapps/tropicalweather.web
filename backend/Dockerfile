@@ -6,10 +6,10 @@ ENV DB_TYPE = "postgresql"
 ENV DB_NAME = "fastapi"
 ENV DB_USER = "teamgear"
 ENV DB_PASSWORD = "12345"
-ENV DB_HOST = "localhost"
+ENV DB_HOST = 172.31.17.98
 ENV DB_PORT = 5432
 ENV MYSQL_DRIVER = "mysql driver"
-ENV SQLALCHEMY_URL = postgresql://teamgear:12345@localhost/fastapi
+ENV SQLALCHEMY_URL = postgresql://teamgear:12345@172.31.17.98/fastapi
 RUN mkdir /backend
 WORKDIR /backend
 COPY requirements.txt /backend/requirements.txt
