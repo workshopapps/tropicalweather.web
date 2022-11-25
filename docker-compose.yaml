@@ -7,6 +7,8 @@ services:
                         - ./backend:/app/backend
                 ports:
                         - "8000:8000"
+		networks:
+			- internal-net
         frontend:
                 build: ./frontend
                 command: ["npm", "start"]
@@ -14,5 +16,20 @@ services:
                         - ./frontend:/app/frontend
                 ports:
                         - "3000:3000"
+		networks:
+			- internal-net
+	redis:
+		image: redis
+		ports:
+			- "6379:6379"
+		volumes:
+			- redis-volume:/usr/local/etc/redis
+		networks:
+			- internal-net
+
 volumes:
         node-modules:
+	redis-volume:
+
+networks:
+	internal-net:
