@@ -10,6 +10,10 @@ from fastapi import HTTPException, status
 from app.schemas import ImmediateForecastResponse
 from app.client import weather
 #from datetime import datetime
+from app.database import SessionLocal
+from app.models import Location, Alert
+
+session = SessionLocal()
 
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -231,4 +235,12 @@ def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs
             detail= f"Weather conditon not found.Please retry again"
         )
 
+def get_location_id(city, state):
 
+    location_weather_info = session.query(Location).filter_by(city=city, state=state).first()
+    return location_weather_info
+
+def get_location_alert(location_id): 
+    location_weather_alert = session.query(Alert).filter_by(location_id= location_id).all()
+    
+    return location_weather_alert
