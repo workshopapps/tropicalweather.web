@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import PopularLocation from '../PopularLocation';
 
