@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+.header {
+    font-family: 'Outfit';
+    color: #161518;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: initial;
+}
+
+.header_text {
+    color: #565560;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.search {
+    display: flex;
+    padding: 12px 24px;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(34, 34, 34, 0.12);
+    border-radius: 8px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E8E7EA;
+    width: fit-content;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.search button {
+    /* width: 10px; */
+    height: 48px;
+    color: #EF6820;
+    border-radius: 8px;
+}
+
+.search_logo {
+    margin-right: 12px;
+    color:#E8E7EA;
+}
+
+.search input {
+    font-size: small;
+}
+
+.first_section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.first_section_left {
+    width: min-content;
+    margin-right: 51px;
+}
+
+.img img {
+    width: 632px;
+    max-height:808px ;
+}
