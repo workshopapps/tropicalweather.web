@@ -3,8 +3,8 @@ from typing import List
 from app.client import weather
 from app.dependencies import get_db
 from app.schemas import *  # noqa: F401, F403
-from app.schemas import (AlertsResponse, CurrentWeatherResponse,
-                         SingleWeatherResponse, RiskResponse, RiskLevel, RiskEvent,)
+from app.schemas import (AlertsResponse, CurrentWeatherResponse, RiskEvent,
+                         RiskLevel, RiskResponse, SingleWeatherResponse)
 from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
                        get_immediate_weather_api_call, get_location_obj,
                        get_weather_forecast,
