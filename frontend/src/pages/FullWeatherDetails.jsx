@@ -1,79 +1,39 @@
-import React from 'react';
-import AirIndex from '../components/AirQualityComponents/AirIndex';
-import AllPolutants from '../components/AirQualityComponents/AllPolutants';
-import TodayAirQuality from '../components/AirQualityComponents/TodayAirQuality';
-import WeatherCard from '../components/AirQualityComponents/WeatherCard';
+import React, { useState } from 'react';
+import { KEY, WEATHER_API_URL } from '../components/FullWeatherComponents/api';
+import CurrentWeather from '../components/FullWeatherComponents/CurrentWeather';
+import Forecast from '../components/FullWeatherComponents/Forecast';
+import FullWeatherSearchBar from '../components/FullWeatherComponents/FullWeatherSearch';
+import '../styles/FullWeatherDetails.css';
 
 export default function FullWeatherDetails() {
-    const [show, setShow] = React.useState(false);
-    const handleShow = () => {
-        setShow(!show);
-    };
-    const handleKeyDown = () => {
+    const [currentWeather, setCurrentWeather] = useState(null);
+    const [currentForecast, setCurrentForecast] = useState(null);
 
+    const handleOnSearchChange = (searchData) => {
+        const [lat, lon] = searchData.value.split(' ');
+
+        const currenWeatherFetch = fetch(`${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric`);
+        const forecastFetch = fetch(`${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric`);
+
+        Promise.all([currenWeatherFetch, forecastFetch])
+        .then(async (response) => {
+            const weatherResponse = await response[0].json();
+            const forecastResponse = await response[1].json();
+
+            setCurrentWeather({ city: searchData.label, ...weatherResponse });
+            setCurrentForecast({ city: searchData.label, ...forecastResponse });
+        })
+        .catch((err) => console.log(err));
     };
+
   return (
-    <div className=" w-[90%] mx-auto">
-      <h1 className="font-bold text-2xl mb-[2rem]">Lagos, Nigeria</h1>
-      <div className="flex gap-[10px] mb-[30px] overflow-scroll">
-        <WeatherCard weather="Sunny" src="Sunny.png" time="Now" />
-        <WeatherCard weather="Rain" src="Heavy-rain.png" time="2:00PM" />
-        <WeatherCard weather="Rain" src="Heavy-rain.png" time="3:00PM" />
-        <WeatherCard weather="Rain" src="Heavy-rain.png" time="4:00PM" />
-        <WeatherCard weather="Cloudy" src="Cloudy.png" time="5:00PM" />
-        <WeatherCard weather="Cloudy" src="Cloudy.png" time="5:00PM" />
-        <WeatherCard weather="Cloudy" src="Cloudy.png" time="5:00PM" />
-
+    <div className=" w-[90%] mx-auto container">
+      <h1 className="heading">Full Weather Details</h1>
+      <FullWeatherSearchBar onSearchChange={handleOnSearchChange} />
+      <div className="weather_details">
+        {currentWeather && <CurrentWeather data={currentWeather} />}
+        {currentForecast && <Forecast data={currentForecast} />}
       </div>
-      <div className="grid grid-rows-10 md:grid-cols-3 md:grid-rows-none gap-[2rem] mb-[3rem]">
-        <div className=" row-span-8 md:col-span-2 md:row-span-1">
-          <TodayAirQuality />
-          <div className=" bg-[#FEF2F2] mt-[3rem] p-[2rem] rounded-lg">
-            <h1 className="font-bold mb-[2rem] text-2xl">Air Pollutants</h1>
-            <div className="grid">
-              <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="95small.png" name="PM2.5 (Particulate matter less than 2.5 microns)" quantity="Moderate" amount="21.16ug/m3" />
-                <AllPolutants src="2.png" name="CO (Carbon Monoxide)" quantity="Good" amount="628.34 ug/m3" />
-              </div>
-              <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
-              <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="49.png" name="NO2(Nitrogen Dioxide)" quantity="Good" amount="21.16ug/m3" />
-                <AllPolutants src="20.png" name="O3(Ozone)" quantity="Good" amount="21.16ug/m3" />
-              </div>
-              <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
-              <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="20.png" name="PM10 (Particulate matter less than 10 microns)" quantity="Good" amount="32.97ug/m3" />
-                <AllPolutants src="2.png" name="SO2 (Sulphur Dioxide)" quantity="Good" amount="2.33ug/m3" />
-              </div>
-              <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
-            </div>
-            <div className="flex items-center mt-[3rem]">
-              <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
-                <img src="AirQuality/Info.png" alt="" />
-              </button>
-              <p className="">Air Quality Index</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#FEF2F2] rounded-lg  py-[2rem] h-fit">
-          <h1 className="font-bold  px-[1rem]">Stay Safe</h1>
-          <div className="flex gap-[.7rem]">
-            <img src="AirQuality/Notebook.png" alt="" />
-            <div>
-              <h1 className="p-[.5rem] bg-[#FDEAD7] text-[orange] font-bold w-fit rounded-lg mb-[.7rem] ">FEATURES</h1>
-              <p>Featured stories, photo essays and more by Weathery</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <AirIndex
-        handleShow={show}
-        changeVal={() => {
-          setShow((prev) => !prev);
-}}
-      />
     </div>
   );
 }
