@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --primary-color: #EF6820;
+  --l-primary-color: #EF6820;
   font-family: 'Outfit';
 }
 
@@ -10,7 +10,8 @@
   background-image: url("/public/Home/bg.jpg");
   background-size: cover;
   color: white;
-  padding-block: 235px;
+  padding-block: 50px;
+  padding-bottom: 150px;
 }
 
 .landing_sections_wrapper {
@@ -18,7 +19,6 @@
   flex-direction: column;
   width: min(100%, 1400px);
   align-items: center;
-  gap: 100px;
   margin-inline: auto;
   padding-inline: 88px;
 }
@@ -31,16 +31,10 @@
   gap: 16px;
 }
 
-.landing_header_content_container a {
-  margin-top: calc(48px - 16px);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 16px 32px;
-  gap: 8px;
-  border: 1px solid white;
-  border-radius: 8px;
+.landing_hero_link {
+  width: 150px;
+  padding: 16px 0;
+  text-align: center;
 }
 
 .landing_weather_brief {
@@ -55,15 +49,6 @@
   font-size: 24px;
   line-height: 140%;
   text-transform: uppercase;
-}
-
-.landing_header_message {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 56px;
-  line-height: 72px;
-  text-align: center;
-  font-feature-settings: 'liga' off;
 }
 
 .landing_warning {
@@ -175,7 +160,7 @@
   line-height: 24px;
   letter-spacing: 0.01em;
   font-feature-settings: 'tnum' on, 'lnum' on;
-  color: var(--primary-color);
+  color: var(--l-primary-color);
 }
 
 .landing_features_and_globe {
@@ -264,7 +249,7 @@
 }
 
 .landing_download_container p {
-  color: var(--primary-color)
+  color: var(--l-primary-color)
 }
 
 .landing_download_container h3 {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import '../styles/Home.css';
+import '../../styles/Home.css';
 
 export default function PopularLocation({ location, state, forecast }) {
   return (
@@ -13,9 +13,7 @@ export default function PopularLocation({ location, state, forecast }) {
       </div>
       <div className="landing_location_body">
         <h5>{state}</h5>
-        <p>
-          {forecast}
-        </p>
+        <p>{forecast}</p>
         <Link to="/dashboard" className="landing_link_button">
           View more info →
         </Link>
