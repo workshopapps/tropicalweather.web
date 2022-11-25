@@ -2,7 +2,7 @@
 from typing import List
 
 from app.client import weather
-from app.models import CurrentWeatherResponse, SingleWeatherResponse
+from app.schemas import CurrentWeatherResponse, SingleWeatherResponse
 # Internal import
 from app.schemas import *  # noqa: F401, F403
 from app.utils import (convert, convert_epoch_to_datetime, geocode_address,

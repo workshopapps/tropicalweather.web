@@ -1,7 +1,7 @@
 # FastApi imports
 from typing import List
 
-from app.models import locationResponse
+from app.schemas import locationResponse
 from fastapi import APIRouter
 from fastapi import HTTPException, status
 
@@ -37,4 +37,3 @@ async def get_location(lat: float, lon: float):
     }
 
     return response
-

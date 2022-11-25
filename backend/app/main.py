@@ -16,13 +16,27 @@ from socketio.asyncio_namespace import AsyncNamespace
 BASE = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE))
 
+from app.schemas import PacketModel  # noqa: E402
 from app.routers import location  # noqa: E402
 from app.routers import weather  # noqa: E402
-from app.utils import get_status, get_room_name  # noqa: E402
-from app.models import PacketModel  # noqa: E402
+from app.utils import get_room_name, get_status  # noqa: E402
+from app.database import SessionLocal, engine  # noqa: E402
+from app import models  # noqa: E402
+
+models.Base.metadata.create_all(bind=engine)
 
 # Application initilization
 app = FastAPI()
+
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 app.add_middleware(
     CORSMiddleware,
