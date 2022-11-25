@@ -15,6 +15,7 @@ import AppLayout from './components/AppLayout';
 import Notification from './pages/Notification';
 import AirQuality from './pages/AirQuality';
 import Culture from './pages/Culture';
+import Landingex from './pages/landingex';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/culture" element={<Culture />} />
+      <Route path="/landing" element={<Landingex />} />
     </Route>,
   ),
 );
