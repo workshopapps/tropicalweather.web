@@ -219,3 +219,48 @@ class Test_get_tommorrows_weather:
         assert data['description'] == "light rain"
         #assert data['date']
         #assert data['time']
+    
+    class Test_get_alert_list: 
+        def test_get_weather_alerts(self, mocker): 
+            mocker.patch(
+                'app.router.weather.reverse_geocoding',
+                return_value = {
+                    "city" : "Badagry",
+                    "state" : "Lagos"
+                }
+            )
+
+            mocker.patch(
+                'app.router.weather.get_location_id',
+                return_value = 1
+            )
+
+            mocker.patch('app.weather.get_location_alert'), 
+            return_value = [
+                {
+                    "location_id": 1,
+                    "event" : "heavy downpour",
+                    "message": "Heavy flood at Badagry",
+                    "end_time": "2022-09-08 12:00:00"               
+                },
+
+                {
+                    "location_id": 1,
+                    "event": "High Dust levels",
+                    "message": "High humidity at Badagry",
+                    "endtime" : "2022-09-08 12:00:00"
+               }
+    
+            ]
+
+            response = client.get("/weather/forecasts/tomorrow/immediate?lat=6.46542&lon=3.406448")
+
+            assert response.status_code==200
+            
+            data: list[dict] = response.json()
+            assert[0]['event'] == "heavy downpour"
+            assert[0]['message'] == "Heavy flood at Badagry"
+            assert[0]['end_time'] == "2022-09-08 12:00:00"
+            assert[1]['event'] == "2022-09-08 12:00:00"
+
+        

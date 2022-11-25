@@ -5,15 +5,20 @@ from app.client import weather
 from app.models import CurrentWeatherResponse, SingleWeatherResponse
 # Internal import
 from app.schemas import *  # noqa: F401, F403
-from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
-                       get_immediate_weather_api_call, get_weather_forecast,
-                       immediate_weather_api_call_tommorrow, weather_api_call)
+from app.client import weather
+from app.utils import (
+    get_weather_forecast,
+    convert_epoch_to_datetime,
+    get_immediate_weather_api_call, convert, immediate_weather_api_call_tommorrow, weather_api_call, get_location_id, get_location_alert)
+
 from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter(
     prefix="/weather",
     tags=['weather']
 )
+
+
 
 
 @router.get('/forecasts', response_model=List[SingleWeatherResponse])
@@ -132,3 +137,31 @@ async def get_tommorrows_weather(lat: float, lon: float):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Can't retrive weather data for this location"
         )
+
+@router.get('/alerts/list')
+def get_alert_list(lon: float, lat: float(), *args, **kwargs):
+    reverse_geocode = reverse_geocoding(lat,lon)
+    city = reverse_geocode.get('city')
+
+
+    #query = session.query(Location).filter_by(city=city, state=state).first()
+    query = get_location_id(city, state)
+    location_id = query.id 
+
+    #location_alert = session.query(Alerts).filter_by(location=location_id)
+    location_alert = get_location_alert(location_id)
+    data = []
+    for mydata in location_alert:
+        
+        alert_instance = {
+        'event' : mydata.get('event'),
+        'message' : mydata.get('message'),
+        'end_time' : mydata.get('end_time')
+        }
+         
+        data.append(alert_instance)
+        
+    return data
+
+    
+
