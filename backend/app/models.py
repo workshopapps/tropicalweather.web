@@ -1,17 +1,26 @@
-from pydantic import BaseModel
+from app.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 
-class SingleWeatherResponse(BaseModel):
-    main: str
-    description: str
-    date: str
-    time: str
+class Location(Base):
+    __tablename__ = "locations"
+
+    id = Column(Integer, primary_key=True, index=True, nullable=False)
+    city = Column(String(255), nullable=False)
+    state = Column(String(255), nullable=False)
+    alerts: list["Alert"] = relationship("Alert", back_populates="location")
 
 
-class locationResponse(BaseModel):
-    city: str
-    state: str
+class Alert(Base):
+    __tablename__ = "alerts"
 
-
-class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
-    pass
+    id = Column(Integer, primary_key=True, index=True, nullable=False)
+    location_id = Column(Integer, ForeignKey(
+        "locations.id", ondelete="CASCADE"))
+    start = Column(Integer, nullable=False)
+    end = Column(Integer, nullable=False)
+    event = Column(String, nullable=False)
+    message = Column(String, nullable=False)
+    hash = Column(String, nullable=False)
+    location = relationship("Location", back_populates="alerts")
