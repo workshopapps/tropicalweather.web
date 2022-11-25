@@ -1,9 +1,6 @@
 import pytest
 from app.database import Base, get_db_engine
 from sqlalchemy.orm import Session
-from app.routers.weather import get_db, router
-from app.main import app
-from fastapi import Depends
 
 
 @pytest.fixture
@@ -35,15 +32,18 @@ def session(engine, tables):
 
 
 @pytest.fixture
-def override_db_session(session):
-    """Overrides the session with a new session"""
-    def override_get_db():
-        try:
-            yield session
-        finally:
-            session.close()
-            pass
+def override_get_db_celery(session, mocker):
+    mocker.patch(
+        'app.celery_tasks.tasks.get_db',
+        return_value=session
+    )
 
-    router.dependencies[get_db] = Depends(override_get_db)
 
-    # yield session
+@pytest.fixture
+def override_get_db_main(session, mocker):
+    def func():
+        yield session
+    mocker.patch(
+        'app.main.get_db',
+        return_value=func()
+    )

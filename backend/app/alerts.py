@@ -7,7 +7,7 @@ BASE = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(BASE))
 
 from utils import get_room_name  # noqa: E402
-from app.models import PacketModel  # noqa: E402
+from app.schemas import PacketModel  # noqa: E402
 
 sio = socketio.Client()
 NAMESPACE = "/Alert"

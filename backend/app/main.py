@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
+from decouple import config
 
 BASE = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE))
@@ -20,7 +21,7 @@ from app.schemas import PacketModel  # noqa: E402
 from app.routers import location  # noqa: E402
 from app.routers import weather  # noqa: E402
 from app.utils import get_room_name, get_status  # noqa: E402
-from app.database import engine  # noqa: E402
+from app.database import engine, get_db  # noqa: E402
 from app import models  # noqa: E402
 
 models.Base.metadata.create_all(bind=engine)
@@ -92,6 +93,16 @@ class AlertNameSpace(AsyncNamespace):
         self.room_name = get_room_name(city, state)
 
         self.enter_room(sid, self.room_name)
+
+        # Add the location to the database
+        db = next(get_db())
+        try:
+            db.add(models.Location(city=city, state=state))
+            db.commit()
+            print('commited')
+        finally:
+            db.close()
+
         info(f"Connected to {self.room_name}")
 
     async def on_packet(self, *args, **kwargs):  # on packet event
@@ -126,7 +137,7 @@ class AlertNameSpace(AsyncNamespace):
 
 # Message Queue is for working with distributed applications
 mgr = socketio.AsyncRedisManager(
-    "redis://localhost/0"
+    config("WEBSOCKET_REDIS_URL")
 )
 
 sio = socketio.AsyncServer(
