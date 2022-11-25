@@ -1,3 +1,8 @@
+.notification__wrapper {
+  width: 90%;
+  margin: auto;
+}
+
 .notification__wrapper h3 {
   font-family: Outfit;
   font-size: 24px;
@@ -9,7 +14,6 @@
 }
 
 .notification__wrapper .notification__subtext {
-  font-family: Outfit;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
@@ -114,7 +118,7 @@
   color: #82808f;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .notification__wrapper .notification__subtext {
     margin: 0.5rem 0rem;
   }
