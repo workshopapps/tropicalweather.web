@@ -44,7 +44,7 @@ def get_location_alerts_api(location: Location):
 
 
 def create_events(
-    db: Session, location: Location, alerts: list[dict[str, str]]
+    db: Session, location: Location, alerts: List[dict[str, str]]
 ):
     """Create new alerts for the
     location
@@ -76,7 +76,7 @@ def delete_alert(db: Session, alert: Alert):
     db.commit()
 
 
-def send_websocket_message(location: Location, events: list[dict[str, str]]):
+def send_websocket_message(location: Location, events: List[dict[str, str]]):
     """Send websocket message to the clients
     subscribed to the alert location.
     """

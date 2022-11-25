@@ -1,10 +1,11 @@
-from fastapi.testclient import TestClient
-from fastapi import HTTPException, status
-from sqlalchemy.orm import Session
-from app.models import Location, Alert
-from app.utils import convert_epoch_to_datetime
-from app.main import app
+from typing import List
 
+from app.main import app
+from app.models import Alert, Location
+from app.utils import convert_epoch_to_datetime
+from fastapi import HTTPException, status
+from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
 
 client = TestClient(app)
 
@@ -38,7 +39,7 @@ class TestWeatherForecastsAPI:
 
         response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")
         assert response.status_code == 200
-        data: list[dict] = response.json()
+        data: List[dict] = response.json()
 
         assert len(data) == 2
         assert data[0]["date"]
@@ -179,7 +180,7 @@ class TestWeatherDataAPI:
             "/weather/forecasts/tomorrow?lat=7.5629&lon=4.5200")
         print(response.json())
         assert response.status_code == 200
-        data: list[dict] = response.json()
+        data: List[dict] = response.json()
 
         assert len(data) == 1
         assert data[0]["date"]
@@ -268,7 +269,7 @@ class TestGetAlerts:
 
         assert response.status_code == 200
 
-        data: list[dict] = response.json()
+        data: List[dict] = response.json()
         assert data[0]['event'] == "Heavy downpour"
         assert data[0]['message'] == "Heavy flood at Ikorodu"
         assert data[0]['date'] == convert_epoch_to_datetime(1628494000)['date']
@@ -293,7 +294,7 @@ class TestGetAlerts:
 
         assert response.status_code == 200
 
-        data: list[dict] = response.json()
+        data: List[dict] = response.json()
         assert data == []
 
     def test_get_alerts_error(self, mocker):

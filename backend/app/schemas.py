@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 from enum import Enum
 
 from pydantic import BaseModel
@@ -50,7 +50,12 @@ class ImmediateForecastResponse(BaseModel):
 
 
 class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
-    pass
+    main: str
+    description: str
+    date: str
+    time: str
+    city: Optional[str]
+    state: str
 
 
 class PacketModel(BaseModel):

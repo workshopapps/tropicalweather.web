@@ -1,6 +1,7 @@
 from app.database import Base
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from typing import List
 
 
 class Location(Base):
@@ -9,7 +10,7 @@ class Location(Base):
     id = Column(Integer, primary_key=True, index=True, nullable=False)
     city = Column(String(255), nullable=False)
     state = Column(String(255), nullable=False)
-    alerts: list["Alert"] = relationship("Alert", back_populates="location")
+    alerts: List["Alert"] = relationship("Alert", back_populates="location")
 
 
 class Alert(Base):

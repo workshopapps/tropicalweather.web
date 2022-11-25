@@ -158,7 +158,7 @@ def get_location_alerts_by_address(address: str):
     :raises Exception: If the request fails
     :raises Exception: If the response is invalid
     :return: The location alerts
-    :rtype: list[Dict[str, str]]
+    :rtype: List[Dict[str, str]]
     """
     geo_addr = geocode_address(address)
     lat = geo_addr['lat']
