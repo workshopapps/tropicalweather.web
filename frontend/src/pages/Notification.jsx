@@ -3,14 +3,9 @@ import '../styles/Notification.css';
 
 export default function Notification() {
   const [reminderNotification, setReminderNotification] = useState('');
-  const [activity, setActivity] = useState('');
 
   const handleReminderNotification = (e) => {
     setReminderNotification(e.currentTarget.value);
-  };
-
-  const handleActivity = (e) => {
-    setActivity(e.currentTarget.value);
   };
 
   const dataForSectionOne = [
@@ -38,15 +33,6 @@ export default function Notification() {
     {
       title: 'All reminders',
       text: 'Notify me for all reminders.',
-    },
-  ];
-  const dataForSectionThree = [
-    {
-      title: 'Do not notify me',
-    },
-    {
-      title: 'All reminders',
-      text: 'Thsese are  notifications for posts on your profile, details and list of notifications',
     },
   ];
 
@@ -91,29 +77,6 @@ export default function Notification() {
                   value={title}
                   name={reminderNotification}
                   onChange={handleReminderNotification}
-                />
-                <div className="notification__ind-right">
-                  <h6>{title}</h6>
-                  <p>{text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="notification-content">
-          <h5>More activity about you</h5>
-          <p>
-            Thsese are notifications for posts on your profile,details and list
-            of notifications
-          </p>
-          <div className="notification-content__wrapper">
-            {dataForSectionThree.map(({ title, text }) => (
-              <div className="notification__ind" key={text}>
-                <input
-                  type="radio"
-                  value={title}
-                  name={activity}
-                  onChange={handleActivity}
                 />
                 <div className="notification__ind-right">
                   <h6>{title}</h6>
