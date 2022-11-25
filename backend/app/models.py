@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Any
 
 
 class SingleWeatherResponse(BaseModel):
@@ -15,3 +16,8 @@ class locationResponse(BaseModel):
 
 class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
     pass
+
+
+class PacketModel(BaseModel):
+    content: Any
+    content_type: str
