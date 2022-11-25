@@ -16,9 +16,10 @@ app = create_celery()
 
 @app.on_after_configure.connect
 def schedule_periodic_tasks(sender, **kwargs):
-    # Check for new events every time
+    # Check for new events every 3 hours
     sender.add_periodic_task(
-        10.0, auto_update_alert_events.s(), name="update_alert_events"
+        crontab(hour="*/3"),
+        auto_update_alert_events.s(), name="update_alert_events"
     )
 
 
