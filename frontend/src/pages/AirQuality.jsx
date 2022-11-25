@@ -32,18 +32,18 @@ function AirQuality() {
             <h1 className="font-bold mb-[2rem] text-2xl">Air Pollutants</h1>
             <div className="grid">
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="95small.png" name="PM2.5 (Particulate matter less than 2.5 microns)" quantity="Moderate" amount="21.16ug/m3" />
-                <AllPolutants src="2.png" name="CO (Carbon Monoxide)" quantity="Good" amount="628.34 ug/m3" />
+                <AllPolutants src="95small.png" nam="PM2.5 (Particulate matter less than 2.5 microns)" quantity="Moderate" amount="21.16ug/m3" />
+                <AllPolutants src="2.png" nam="CO (Carbon Monoxide)" quantity="Good" amount="628.34 ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="49.png" name="NO2(Nitrogen Dioxide)" quantity="Good" amount="21.16ug/m3" />
-                <AllPolutants src="20.png" name="O3(Ozone)" quantity="Good" amount="21.16ug/m3" />
+                <AllPolutants src="49.png" nam="NO2(Nitrogen Dioxide)" quantity="Good" amount="21.16ug/m3" />
+                <AllPolutants src="20.png" nam="O3(Ozone)" quantity="Good" amount="21.16ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="20.png" name="PM10 (Particulate matter less than 10 microns)" quantity="Good" amount="32.97ug/m3" />
-                <AllPolutants src="2.png" name="SO2 (Sulphur Dioxide)" quantity="Good" amount="2.33ug/m3" />
+                <AllPolutants src="20.png" nam="PM10 (Particulate matter less than 10 microns)" quantity="Good" amount="32.97ug/m3" />
+                <AllPolutants src="2.png" nam="SO2 (Sulphur Dioxide)" quantity="Good" amount="2.33ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
             </div>
