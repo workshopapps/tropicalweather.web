@@ -1,3 +1,3 @@
-const BASEURL = 'http://172.105.82.95';
+const BASEURL = 'https://api.weathery.hng.tech';
 
 export default BASEURL;
