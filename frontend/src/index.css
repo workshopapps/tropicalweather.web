@@ -6,3 +6,8 @@
 html {
   font-family: 'Outfit', sans-serif;
 }
+
+.active {
+  color: #EF6820;
+  background: #FDEAD7;
+}

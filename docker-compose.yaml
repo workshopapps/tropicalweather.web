@@ -2,7 +2,8 @@ version: '3'
 services:
         fastapi:
                 build: ./backend
-                command: ["uvicorn", "main:app", "--reload"]
+                working_dir: /backend/app
+                command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--reload"]
                 volumes:
                         - ./backend:/app/backend
                 ports:
@@ -10,8 +11,6 @@ services:
         frontend:
                 build: ./frontend
                 command: ["npm", "start"]
-                environment: 
-                        PROXY_API: http://localhost:8000
                 volumes:
                         - ./frontend:/app/frontend
                 ports:
