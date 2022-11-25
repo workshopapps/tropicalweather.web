@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 import Notification from './pages/Notification';
 import AirQuality from './pages/AirQuality';
+import FullWeatherDetails from './pages/FullWeatherDetails';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="/notification" element={<Notification />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/air-quality" element={<AirQuality />} />
+      <Route path="/weather-details" element={<FullWeatherDetails />} />
     </Route>,
   ),
 );
