@@ -5,6 +5,7 @@ import {
   Route,
   createRoutesFromElements,
 } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from 'react-query';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Dashboard from './pages/Dashboard';
@@ -14,6 +15,7 @@ import AirQuality from './pages/AirQuality';
 import LandingPage from './pages/LandingPage';
 // import Promotions from './pages/Promotions';
 
+const queryClient = new QueryClient();
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<AppLayout />}>
@@ -28,5 +30,9 @@ const router = createBrowserRouter(
   )
 );
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
