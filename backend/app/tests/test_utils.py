@@ -1,7 +1,10 @@
 import pytest
-from fastapi import HTTPException
-from app.utils import (convert_epoch_to_datetime, get_weather_forecast,
+from app.models import Location, Alert
+from app.utils import (convert_epoch_to_datetime,
+                       get_location_obj, get_weather_forecast,
                        weather_api_call)
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 
 def test_convert_epoch_to_datetime():
@@ -116,3 +119,45 @@ class TestGetWeatherForecast:
 
         with pytest.raises(Exception):
             get_weather_forecast(6.5244, 3.3792)
+
+
+class TestDBUtils:
+    def test_get_location_obj(self, session: Session):
+        """Test get location object"""
+        location = Location(
+            state="Lagos",
+            city="Ikeja"
+        )
+        session.add(location)
+        session.commit()
+
+        assert get_location_obj(session, "Ikeja", "Lagos") == location
+
+    def test_get_location_obj_error(self, session: Session):
+        """Test get location object"""
+        assert get_location_obj(session, "Ikeja", "Lagos") is None
+
+    def test_db_location_alerts(self, session: Session):
+        """Test get location alert"""
+        location = Location(
+            state="Lagos",
+            city="Ikeja"
+        )
+
+        # Add some alerts
+        location.alerts = [
+            Alert(
+                start=1612904800,
+                end=1612904800,
+                event="Rain",
+                message="It will rain",
+                hash="1234567890"
+            )
+        ]
+
+        session.add(location)
+        session.commit()
+
+        alerts = location.alerts
+        assert len(alerts) == 1
+        assert alerts[0].event == "Rain"

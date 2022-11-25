@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
 from fastapi import HTTPException, status
-
+from sqlalchemy.orm import Session
+from app.models import Location, Alert
+from app.utils import convert_epoch_to_datetime
 from app.main import app
 
 
@@ -217,50 +219,93 @@ class Test_get_tommorrows_weather:
         data: dict = response.json()
         assert data['main'] == "Rain"
         assert data['description'] == "light rain"
-        #assert data['date']
-        #assert data['time']
-    
-    class Test_get_alert_list: 
-        def test_get_weather_alerts(self, mocker): 
-            mocker.patch(
-                'app.router.weather.reverse_geocoding',
-                return_value = {
-                    "city" : "Badagry",
-                    "state" : "Lagos"
-                }
+
+
+class TestGetAlerts:
+    def test_get_alerts(self, session: Session, mocker):
+
+        # Add some location and alerts to db
+        location = Location(
+            city="Ikorodu",
+            state="Lagos",
+        )
+
+        location.alerts = [
+            Alert(
+                event="Heavy downpour",
+                message="Heavy flood at Ikorodu",
+                start=1628500000,
+                end=1628494000,
+                hash="1234567890",
+            ),
+            Alert(
+                event="High Dust levels",
+                message="High humidity at Ikorodu",
+                start=1628500000,
+                end=1628434000,
+                hash="1234567890",
+            ),
+        ]
+
+        session.add(location)
+        session.commit()
+
+        mocker.patch(
+            'app.routers.weather.reverse_geocode',
+            return_value={
+                "city": "Ikorodu",
+                "state": "Lagos"
+            }
+        )
+
+        mocker.patch(
+            'app.routers.weather.get_location_obj',
+            return_value=location
+        )
+
+        response = client.get(
+            "/weather/alerts/list?lat=6.46542&lon=3.406448")
+
+        assert response.status_code == 200
+
+        data: list[dict] = response.json()
+        assert data[0]['event'] == "Heavy downpour"
+        assert data[0]['message'] == "Heavy flood at Ikorodu"
+        assert data[0]['date'] == convert_epoch_to_datetime(1628494000)['date']
+        assert data[0]['time'] == convert_epoch_to_datetime(1628494000)['time']
+
+        assert data[1]['event'] == "High Dust levels"
+        assert data[1]['message'] == "High humidity at Ikorodu"
+        assert data[1]['date'] == convert_epoch_to_datetime(1628434000)['date']
+        assert data[1]['time'] == convert_epoch_to_datetime(1628434000)['time']
+
+    def test_get_alerts_none(self, mocker):
+        mocker.patch(
+            'app.routers.weather.reverse_geocode',
+            return_value={
+                "city": "Ikorodu",
+                "state": "Lagos"
+            }
+        )
+
+        response = client.get(
+            "/weather/alerts/list?lat=6.46542&lon=3.406448")
+
+        assert response.status_code == 200
+
+        data: list[dict] = response.json()
+        assert data == []
+
+    def test_get_alerts_error(self, mocker):
+        mocker.patch(
+            'app.routers.weather.reverse_geocode',
+            side_effect=HTTPException(
+                status_code=400,
+                detail="Invalid request"
             )
+        )
 
-            mocker.patch(
-                'app.router.weather.get_location_id',
-                return_value = 1
-            )
+        response = client.get(
+            "/weather/alerts/list?lat=6.46542&lon=3.406448")
 
-            mocker.patch('app.weather.get_location_alert'), 
-            return_value = [
-                {
-                    "location_id": 1,
-                    "event" : "heavy downpour",
-                    "message": "Heavy flood at Badagry",
-                    "end_time": "2022-09-08 12:00:00"               
-                },
-
-                {
-                    "location_id": 1,
-                    "event": "High Dust levels",
-                    "message": "High humidity at Badagry",
-                    "endtime" : "2022-09-08 12:00:00"
-               }
-    
-            ]
-
-            response = client.get("/weather/forecasts/tomorrow/immediate?lat=6.46542&lon=3.406448")
-
-            assert response.status_code==200
-            
-            data: list[dict] = response.json()
-            assert[0]['event'] == "heavy downpour"
-            assert[0]['message'] == "Heavy flood at Badagry"
-            assert[0]['end_time'] == "2022-09-08 12:00:00"
-            assert[1]['event'] == "2022-09-08 12:00:00"
-
-        
+        assert response.status_code == 400

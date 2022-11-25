@@ -1,24 +1,22 @@
-# FastApi imports
 from typing import List
 
 from app.client import weather
-from app.models import CurrentWeatherResponse, SingleWeatherResponse
-# Internal import
+from app.dependencies import get_db
 from app.schemas import *  # noqa: F401, F403
-from app.client import weather
-from app.utils import (
-    get_weather_forecast,
-    convert_epoch_to_datetime,
-    get_immediate_weather_api_call, convert, immediate_weather_api_call_tommorrow, weather_api_call, get_location_id, get_location_alert)
-
-from fastapi import APIRouter, HTTPException, status
+from app.schemas import (AlertsResponse, CurrentWeatherResponse,
+                         SingleWeatherResponse)
+from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
+                       get_immediate_weather_api_call, get_location_obj,
+                       get_weather_forecast,
+                       immediate_weather_api_call_tommorrow, reverse_geocode,
+                       weather_api_call)
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
 
 router = APIRouter(
     prefix="/weather",
     tags=['weather']
 )
-
-
 
 
 @router.get('/forecasts', response_model=List[SingleWeatherResponse])
@@ -74,7 +72,7 @@ async def immediate_weather_forecast(lat: float = None, lng: float = None):
     if lat is None and lng is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"invalid longitute and latitude"
+            detail="invalid longitute and latitude"
         )
     result = get_immediate_weather_api_call(lat, lng)
 
@@ -85,7 +83,7 @@ async def immediate_weather_forecast(lat: float = None, lng: float = None):
 async def weather_data(lat: float, lon: float):
     try:
         result = weather(lat, lon)
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Can't retrive weather data for this location"
@@ -95,7 +93,6 @@ async def weather_data(lat: float, lon: float):
 
     starting_point = None
 
-    # print(result)
     for index, _data in enumerate(result):
         if _data['dt'] >= epoch:
             starting_point = index
@@ -104,7 +101,7 @@ async def weather_data(lat: float, lon: float):
     if starting_point is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Weather condition not found, Please try again"
+            detail="Weather condition not found, Please try again"
         )
     result = result[starting_point:10]
     bus = []
@@ -116,14 +113,13 @@ async def weather_data(lat: float, lon: float):
     return bus
 
 
-# response_model=List[SingleWeatherResponse]
 @router.get('/forecasts/tomorrow/immediate')
 async def get_tommorrows_weather(lat: float, lon: float):
 
     if lat is None and lon is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"invalid longitute and latitude"
+            detail="invalid longitute and latitude"
         )
 
     try:
@@ -138,30 +134,30 @@ async def get_tommorrows_weather(lat: float, lon: float):
             detail="Can't retrive weather data for this location"
         )
 
-@router.get('/alerts/list')
-def get_alert_list(lon: float, lat: float(), *args, **kwargs):
-    reverse_geocode = reverse_geocoding(lat,lon)
-    city = reverse_geocode.get('city')
 
+@router.get('/alerts/list', response_model=List[AlertsResponse])
+def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
-    #query = session.query(Location).filter_by(city=city, state=state).first()
-    query = get_location_id(city, state)
-    location_id = query.id 
+    latlng = reverse_geocode(lat, lon)
+    city = latlng.get('city')
+    state = latlng.get('state')
 
-    #location_alert = session.query(Alerts).filter_by(location=location_id)
-    location_alert = get_location_alert(location_id)
+    loc_obj = get_location_obj(db, city, state)
+
     data = []
-    for mydata in location_alert:
-        
-        alert_instance = {
-        'event' : mydata.get('event'),
-        'message' : mydata.get('message'),
-        'end_time' : mydata.get('end_time')
-        }
-         
-        data.append(alert_instance)
-        
+
+    if loc_obj is not None:
+        for mydata in loc_obj.alerts:
+
+            date_time = convert_epoch_to_datetime(mydata.end)
+
+            alert_instance = {
+                'event': mydata.event,
+                'message': mydata.message,
+                'date': date_time['date'],
+                'time': date_time['time']
+            }
+
+            data.append(alert_instance)
+
     return data
-
-    
-

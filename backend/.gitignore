@@ -63,6 +63,9 @@ db.sqlite3-journal
 static/
 media/
 
+# Fast api
+*.db
+
 # Flask stuff:
 instance/
 .webassets-cache
@@ -99,6 +102,10 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
+*.bak
+*.dir
+*.dat
+
 
 # SageMath parsed files
 *.sage.py
