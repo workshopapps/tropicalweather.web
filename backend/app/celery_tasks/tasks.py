@@ -29,28 +29,6 @@ from app.models import Alert, Location  # noqa: E402
 from app.utils import get_location_alerts_by_address  # noqa: E402
 
 
-def depends(func):
-    """
-    Dependency to get the db session.
-    This function passes the db session to the
-    decorated function.
-    It also closes the db session after the function
-
-    :param db: Database session generator
-    :type db: Session generator
-    """
-    def inner(*args, **kwargs):
-        db_obj = get_db()
-        val = func(next(db_obj), *args, **kwargs)
-        try:
-            next(db_obj)
-        except StopIteration:
-            pass
-        return val
-    return inner
-
-
-@depends
 def get_db_locations(db: Session) -> List[Location]:
     """Get the alert locations from db
     """
@@ -65,7 +43,6 @@ def get_location_alerts_api(location: Location):
     return get_location_alerts_by_address(address)
 
 
-@depends
 def create_events(
     db: Session, location: Location, alerts: list[dict[str, str]]
 ):
@@ -80,7 +57,7 @@ def create_events(
         event_hash = hash_alert(alert)
         alert = Alert(
             event=event,
-            description=description,
+            message=description,
             start=start,
             end=end,
             hash=event_hash,
@@ -92,7 +69,6 @@ def create_events(
     db.commit()
 
 
-@depends
 def delete_alert(db: Session, alert: Alert):
     """Delete event from the db
     """
@@ -131,7 +107,12 @@ def hash_alert(event) -> str:
 def update_alert_events():
     """Update the alert events
     """
-    locations: List[Location] = get_db_locations()
+    from logging import info
+
+    info("Updating alert events")
+
+    db = get_db()
+    locations: List[Location] = get_db_locations(db)
     for location in locations:
         api_alerts = get_location_alerts_api(location)
         db_alerts = location.alerts
@@ -143,8 +124,8 @@ def update_alert_events():
             if event_hash in api_alerts_hash:
                 del api_alerts_hash[event_hash]
             else:
-                delete_alert(db_event)
+                delete_alert(db, db_event)
 
         new_alerts = list(api_alerts_hash.values())
-        create_events(location, new_alerts)
+        create_events(db, location, new_alerts)
         send_websocket_message(location, new_alerts)
