@@ -3,7 +3,6 @@ import moment from 'moment/moment';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
 import { FiAlertCircle } from 'react-icons/fi';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { SlOptionsVertical } from 'react-icons/sl';
 import WeatherForecast from '../components/Dashboard/WeatherForecast';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
@@ -203,13 +202,6 @@ export default function Dashboard() {
         <section id="saved-locations" className="mt-20 md:mt-40">
           <div className="flex items-center justify-between w-full">
             <h2 className="text-2xl font-bold">Saved Locations</h2>
-            <button
-              type="button"
-              className="flex items-center gap-4 p-3 border rounded-lg text-primary-btn border-primary-btn"
-            >
-              <span>Add City </span>
-              <AiOutlinePlus />
-            </button>
           </div>
 
           {savedLocations.length < 1 ? (

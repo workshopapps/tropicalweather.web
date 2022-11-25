@@ -11,55 +11,88 @@ automatically sends websocket message to the clients subscribed to the location
 
 """
 
-from app.utils import get_location_alerts_by_address
 import hashlib
-from app.alerts import send_message_to_room, close_connection
+import sys
+from pathlib import Path
+from typing import List
+
+from sqlalchemy.orm import Session
+
+BASE = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE))
 
 
-def get_alert_locations():
+from app.alerts import send_message_to_room  # noqa: E402
+from app.alerts import close_connection, create_connection  # noqa: E402
+from app.database import get_db  # noqa: E402
+from app.models import Alert, Location  # noqa: E402
+from app.utils import get_location_alerts_by_address  # noqa: E402
+
+
+def get_db_locations(db: Session) -> List[Location]:
     """Get the alert locations from db
     """
-    pass
+    return db.query(Location).all()
 
 
-def get_alert_events(alert):
-    """Get the events of the alert location.
-    """
-    pass
-
-
-def get_alert_events_api(alert):
-    """Get the events of the alert location
+def get_location_alerts_api(location: Location):
+    """Get the alerts of this location
     from the api
     """
-    address = f"{alert.city} {alert.state}"
+    address = f"{location.city} {location.state}"
     return get_location_alerts_by_address(address)
 
 
-def create_events(alert, events):
-    """Create new events in the db
+def create_events(
+    db: Session, location: Location, alerts: List[dict[str, str]]
+):
+    """Create new alerts for the
+    location
     """
-    pass
+    for alert in alerts:
+        event = alert["event"]
+        description = alert["description"]
+        start = alert["start"]
+        end = alert["end"]
+        event_hash = hash_alert(alert)
+        alert = Alert(
+            event=event,
+            message=description,
+            start=start,
+            end=end,
+            hash=event_hash,
+            location=location,
+        )
+        location.alerts.append(alert)
+
+    db.add(location)
+    db.commit()
 
 
-def delete_event(db_event):
+def delete_alert(db: Session, alert: Alert):
     """Delete event from the db
     """
-    pass
+    db.delete(alert)
+    db.commit()
 
 
-def send_websocket_message(alert, events: list[dict[str, str]]):
+def send_websocket_message(location: Location, events: List[dict[str, str]]):
     """Send websocket message to the clients
     subscribed to the alert location.
     """
-    for event in events:
-        event_title = event["event"]
-        message = event["description"]
-        send_message_to_room(alert.city, alert.state, event_title, message)
-    close_connection()
+    create_connection(location.city, location.state)
+    try:
+        for event in events:
+            event_title = event["event"]
+            message = event["description"]
+            send_message_to_room(
+                location.city, location.state, event_title, message
+            )
+    finally:
+        close_connection()
 
 
-def hash_event(event) -> str:
+def hash_alert(event) -> str:
     """
     Compute a hash for an event. This is used to compare events
     """
@@ -74,20 +107,25 @@ def hash_event(event) -> str:
 def update_alert_events():
     """Update the alert events
     """
-    alert_locations = get_alert_locations()
-    for alert in alert_locations:
-        api_events = get_alert_events_api(alert)
-        db_events = get_alert_events(alert)
+    from logging import info
 
-        api_events_hash = {hash_event(event): event for event in api_events}
+    info("Updating alert events")
 
-        for db_event in db_events:
+    db = get_db()
+    locations: List[Location] = get_db_locations(db)
+    for location in locations:
+        api_alerts = get_location_alerts_api(location)
+        db_alerts = location.alerts
+
+        api_alerts_hash = {hash_alert(event): event for event in api_alerts}
+
+        for db_event in db_alerts:
             event_hash = db_event.hash
-            if event_hash in api_events_hash:
-                del api_events_hash[event_hash]
+            if event_hash in api_alerts_hash:
+                del api_alerts_hash[event_hash]
             else:
-                delete_event(db_event)
+                delete_alert(db, db_event)
 
-        new_events = list(api_events_hash.values())
-        create_events(alert, new_events)
-        send_websocket_message(alert, new_events)
+        new_alerts = list(api_alerts_hash.values())
+        create_events(db, location, new_alerts)
+        send_websocket_message(location, new_alerts)

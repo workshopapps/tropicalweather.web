@@ -29,3 +29,21 @@ def session(engine, tables):
         session.close()
         transaction.rollback()
         connection.close()
+
+
+@pytest.fixture
+def override_get_db_celery(session, mocker):
+    mocker.patch(
+        'app.celery_tasks.tasks.get_db',
+        return_value=session
+    )
+
+
+@pytest.fixture
+def override_get_db_main(session, mocker):
+    def func():
+        yield session
+    mocker.patch(
+        'app.main.get_db',
+        return_value=func()
+    )

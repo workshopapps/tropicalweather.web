@@ -1,6 +1,6 @@
 
 from decouple import config
-from typing import Dict, Union
+from typing import Dict, Union, List
 import requests
 
 BASE_URL = 'https://api.openweathermap.org'
@@ -85,7 +85,7 @@ def reverse_geocoding(lat: float, long: float) -> list:
     return res
 
 
-def get_location_alerts(lat: float, long: float) -> list[Dict[str, str]]:
+def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
     """Get the location alerts for a given latitude and longitude
 
     Sample response:
@@ -109,14 +109,14 @@ def get_location_alerts(lat: float, long: float) -> list[Dict[str, str]]:
     :raises Exception: If the request fails
     :raises Exception: If the response is invalid
     :return: The location alerts
-    :rtype: list[Dict[str, str]]
+    :rtype: List[Dict[str, str]]
     """
     res = get("data/3.0/onecall", {"lat": lat,
               "lon": long, "exclude": "hourly,daily"})
     if not res:
         raise Exception("Invalid request")
 
-    alerts: list[dict] = res.get("alerts")
+    alerts: List[dict] = res.get("alerts")
     if not alerts:
         raise Exception("Invalid request")
 

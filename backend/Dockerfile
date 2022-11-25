@@ -1,5 +1,5 @@
 
-FROM python:3.8-alpine
+FROM python:3.9-alpine
 ENV PYTHONUNBUFFERED 1
 ENV OPEN_WEATHER_API_KEY bd7fbd53339fa23cdc6fc863e601bd9e
 ENV DB_TYPE = "postgresql"
