@@ -1,43 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
+import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
-import { FiAlertCircle } from 'react-icons/fi';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { SlOptionsVertical } from 'react-icons/sl';
-import WeatherForecast from '../components/Dashboard/WeatherForecast';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
 
-const threeDayForcast = [
-  {
-    location: 'Abuja, Nigeria',
-    date: moment().add(1, 'days').calendar().split(' ')[0],
-    weather: 'Sunny',
-    description: 'Sunny with a high of 75F',
-    time: '1:00PM',
-  },
-  {
-    location: 'Kaduna, Nigeria',
-    date: moment().add(2, 'days').format('ll'),
-    weather: 'Rain',
-    description: 'Sunny with a high of 40C',
-    time: '3:00 PM',
-  },
-  {
-    location: 'Lagos, Nigeria',
-    date: moment().add(3, 'days').format('ll'),
-    weather: 'Sunny',
-    description: 'Sunny with a high of 75F',
-    time: '6:00 PM',
-  },
-];
-
 export default function Dashboard() {
+  const APIURL = 'https://api.weathery.hng.tech';
   const time = new Date().toLocaleTimeString();
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState('');
-  const currentLocation = useCity();
+  const [geoLocation, setGeoLocation] = useState({});
+  const [userLocation, setUserLocation] = useState(null);
+  const [threeDayForcast, setThreeDayForcast] = useState([]);
+  const [currentWeather, setCurrentWeather] = useState({});
+  const currentLocation = useCity() || userLocation;
+
+  const { coords } =
+    useGeolocated({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      userDecisionTimeout: 5000,
+    });
+
+  const getCurrentLocationFromCoords = async () => {
+    const { latitude, longitude } = geoLocation;
+    const response = await fetch(`${APIURL}/location`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        lat: latitude,
+        lng: longitude,
+      }),
+    });
+    const data = await response.json();
+    const location = `${data.state}, ${data.city}`;
+    setUserLocation(location);
+  };
+
+  const getThreeDayForcast = async () => {
+    const { latitude, longitude } = geoLocation;
+    const response = await fetch(`${APIURL}/weather/forecasts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        lat: latitude,
+        lng: longitude,
+      }),
+    });
+    const data = await response.json();
+    setThreeDayForcast(data.slice(0, 3));
+  };
+
+  const getCurrentForecastFromLocation = async () => {
+    const response = await fetch(`${APIURL}/weather/current`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        address: currentLocation,
+      }),
+    });
+    const data = await response.json();
+    setCurrentWeather(data);
+  };
+
+  useEffect(() => {
+    if (coords) {
+      const { latitude, longitude } = coords;
+      setGeoLocation({ latitude, longitude });
+      getCurrentLocationFromCoords();
+      getThreeDayForcast();
+      getCurrentForecastFromLocation();
+    }
+  }, [coords]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -48,8 +92,6 @@ export default function Dashboard() {
       setSavedLocations(data);
     }
   }, []);
-
-  const weather = [...threeDayForcast, ...threeDayForcast];
 
   const removeLocation = (location) => {
     const loc = savedLocations.filter((item) => item.location !== location);
@@ -85,7 +127,7 @@ export default function Dashboard() {
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast !== '' ? (
         <div
-          className="absolute p-1 rounded-lg bg-gray-200"
+          className="absolute p-1 bg-gray-200 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
@@ -111,8 +153,8 @@ export default function Dashboard() {
         </span>
         <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
           <div className="relative w-full">
-            <div className="flex items-center md:justify-between">
-              <h1 className="mb-5 text-2xl font-bold md:text-5xl">
+            <div className="flex items-center mb-5 md:justify-between">
+              <h1 className="text-2xl font-bold md:text-5xl">
                 {currentLocation}
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
@@ -126,39 +168,11 @@ export default function Dashboard() {
                     <span>Save city</span>
                   </button>
                 )}
-                <SlOptionsVertical />
               </div>
             </div>
-
-            <section
-              id="weather-forecast"
-              className="py-6 md:py-10 w-[300px] md:w-full"
-            >
-              <ul className="flex gap-4 overflow-scroll">
-                {weather.map((weather) => (
-                  <li key={weather.date}>
-                    <WeatherForecast
-                      weather={weather.weather}
-                      icon={
-                        weather.weather === 'Rain'
-                          ? '/dashboard/rain.png'
-                          : '/dashboard/sunny.png'
-                      }
-                      time={weather.time}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </section>
             <div>
               <div
-                className="pt-6 text-white rounded-lg w-full max-w-5xl hero h-[549px] flex flex-col justify-between"
-                style={{
-                  background: `url('${process.env.PUBLIC_URL}/dashboard/weather.png')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                }}
+                className="pt-6 text-black rounded-lg w-full max-w-5xl hero h-[549px] flex flex-col justify-between bg-[#F2F2F2]"
               >
                 <div className="flex justify-between px-6">
                   <span>{`Today . ${time} `}</span>
@@ -167,37 +181,29 @@ export default function Dashboard() {
                   </button>
                 </div>
                 <div className="px-6">
-                  <img src="/dashboard/rain-icon.png" alt="rain" />
-                  <p>RAINY</p>
+                  <p>{currentWeather.main || 'Data is not available yet'}</p>
 
                   <div className="w-full max-w-[500px]">
                     <span className="text-4xl font-bold">
-                      Expect rain and scattered thunderstorms by
-                      <br />
-                      12:00pm.
+                      {currentWeather.description || 'Data is not available yet'}
                     </span>
                   </div>
-                </div>
-                <div className="px-6 py-4 bg-black/50">
-                  <span className="flex items-center">
-                    Flooding risk
-                    <FiAlertCircle className="ml-2 text-sm text-red-500" />
-                  </span>
-                  <p>Very High</p>
                 </div>
               </div>
             </div>
           </div>
           <section id="three-day-forcast" className="">
             <p className="mb-4 text-xl font-bold">3 day forecast</p>
-            {threeDayForcast.map((day) => (
-              <WeatherPreview
-                date={day.date}
-                description={day.description}
-                weather={day.weather}
-                key={day.date}
-              />
-            ))}
+            {threeDayForcast.length > 0 ? (
+              threeDayForcast.map((day) => (
+                <WeatherPreview
+                  date={day.date}
+                  description={day.description}
+                  weather={day.main}
+                  key={day.date}
+                />
+              ))) :
+              <p className="text-xl font-semibold">Loading...</p>}
           </section>
         </div>
         <section id="saved-locations" className="mt-20 md:mt-40">

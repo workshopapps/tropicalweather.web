@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BsArrowRight } from 'react-icons/bs';
+// import { BsArrowRight } from 'react-icons/bs';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { AiOutlineDelete } from 'react-icons/ai';
 
@@ -19,7 +19,7 @@ export default function WeatherPreview({
         </span>
       )}
       {location && (
-        <div className="flex items-center justify-content justify-between">
+        <div className="flex items-center justify-between justify-content">
           <div className="flex items-center gap-2 mb-2">
             <HiOutlineLocationMarker className="text-lg text-primary-btn" />
             <span className="text-sm font-bold capitalize md:text-xl">
@@ -39,13 +39,13 @@ export default function WeatherPreview({
         {weather}
       </span>
       <span className="text-xl md:text-2xl">{description}</span>
-      <button
+      {/* <button
         type="button"
         className="flex items-center gap-3 text-xs text-primary-btn w-max md:text-sm"
       >
         <span>View more info </span>
         <BsArrowRight />
-      </button>
+      </button> */}
     </div>
   );
 }
@@ -55,5 +55,5 @@ WeatherPreview.propTypes = {
   weather: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   location: PropTypes.string,
-  remove: PropTypes.func.isRequired,
+  remove: PropTypes.func,
 };
