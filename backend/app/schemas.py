@@ -1,4 +1,5 @@
 from typing import Any
+from enum import Enum
 
 from pydantic import BaseModel
 
@@ -15,6 +16,25 @@ class SingleWeatherResponse(BaseModel):
     description: str
     date: str
     time: str
+
+
+class RiskLevel(str, Enum):
+    LOW = 'low'
+    MODERATE = 'moderate'
+    HIGH = 'high'
+    EXTREME = 'extreme'
+
+
+class RiskEvent(str, Enum):
+    FLOOD = 'Flood'
+    SUNBURN = 'Sunburn'
+    DUST = 'Dust'
+    FOG = 'Fog'
+
+
+class RiskResponse(BaseModel):
+    risk: RiskEvent
+    level: RiskLevel
 
 
 class locationResponse(BaseModel):
