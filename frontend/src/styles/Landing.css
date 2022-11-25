@@ -428,6 +428,9 @@ form{
   .sub-foot{
     padding: 100px 0px 20px 0px;
   }
+  .imgfoot{
+    position: relative;
+  }
   .textfoot{
     position: absolute;
     margin-top: -300px;
@@ -735,6 +738,9 @@ form{
         padding: 20px 30px;
         color: #2B2A30;
       }
+      .imgfoot{
+        display: none;
+      }
       .sub-foot{
         width: 90%;
         height: 100%;
@@ -928,6 +934,9 @@ form{
         text-align: center;
     }
     .state2{
+        display: none;
+      }
+      .imgfoot{
         display: none;
       }
       .sub-foot{

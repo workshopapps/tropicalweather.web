@@ -353,6 +353,7 @@ export default function Culture() {
         </div>
         <div className="sub-foot">
           <div className="footimg">
+            <img src="assets/landingex/android part.png" alt="" className="imgfoot" />
             <div className="textfoot">
               <h1 className="gomobile">GO MOBILE</h1>
               <p className="use-free">Use the Free Weathery app</p>
