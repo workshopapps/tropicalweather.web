@@ -353,21 +353,17 @@ function FaqSection() {
           the drop-down arrow to the top right side of the page, and you should
           see your most recently viewed 5 locations. When you search for
           additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
+          clearing your local storage will remove all saved locations."
           open={openAll}
         />
         <Faq
           question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer=" Weathery keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
+          answer="Weathery only uses your location data to give you up to date weather reports and nothing else!"
           open={openAll}
         />
         <Faq
           question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer=" Weathery keeps track of your last five locations' searches. Click
+          answer="Weathery keeps track of your last five locations' searches. Click
           the drop-down arrow to the top right side of the page, and you should
           see your most recently viewed 5 locations. When you search for
           additional locations, they will be replaced by new ones. However,
@@ -376,7 +372,7 @@ function FaqSection() {
         />
         <Faq
           question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer=" Weathery keeps track of your last five locations' searches. Click
+          answer="Weathery keeps track of your last five locations' searches. Click
           the drop-down arrow to the top right side of the page, and you should
           see your most recently viewed 5 locations. When you search for
           additional locations, they will be replaced by new ones. However,
