@@ -2,21 +2,21 @@ import { BiSearch } from 'react-icons/bi';
 import '../styles/Promotions.css';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PopularLocation from '../components/PopularLocation';
+import PopularLocation from '../components/Home/PopularLocation';
 import '../styles/Home.css';
 
 function Promotions() {
-    const slider = useRef(null);
-    const [curr, setCurr] = useState(0);
-    useEffect(() => {
-      slider.current.addEventListener('scroll', () => {
-        let { width } = window.getComputedStyle(slider.current);
-        width = width.substring(0, width.length - 2);
-        const scrollPos = slider.current.scrollLeft;
-        const widthNum = Math.floor(Number(width));
-        setCurr(Math.floor(scrollPos / widthNum));
-      });
-    }, []);
+  const slider = useRef(null);
+  const [curr, setCurr] = useState(0);
+  useEffect(() => {
+    slider.current.addEventListener('scroll', () => {
+      let { width } = window.getComputedStyle(slider.current);
+      width = width.substring(0, width.length - 2);
+      const scrollPos = slider.current.scrollLeft;
+      const widthNum = Math.floor(Number(width));
+      setCurr(Math.floor(scrollPos / widthNum));
+    });
+  }, []);
   return (
     <>
       <div className="first_section">
@@ -110,8 +110,8 @@ function Promotions() {
                   Never Worry about Figures and Statistics
                 </h3>
                 <p>
-                  Weathery helps to analyze your Weather forecast in South America and
-                  untie you from the realm of weather imagination.
+                  Weathery helps to analyze your Weather forecast in South
+                  America and untie you from the realm of weather imagination.
                   Weathery analyzes the weather for you in order to provide you
                   with a self-explanatory forecast, so you never have to worry
                   about the weather and can have a more smooth experience.
@@ -126,11 +126,12 @@ function Promotions() {
                 <p>Features</p>
                 <h3>Add multiple locations</h3>
                 <p>
-                  Have you ever wondered about not being worried about the weather in your
-                  current locations in South America? Seems good! But what matters
-                  is also staying informed about the weather in other places or locations!
-                  With weathery, you can add and delete multiple locations to plan your daily
-                  movement effectively. It is free
+                  Have you ever wondered about not being worried about the
+                  weather in your current locations in South America? Seems
+                  good! But what matters is also staying informed about the
+                  weather in other places or locations! With weathery, you can
+                  add and delete multiple locations to plan your daily movement
+                  effectively. It is free
                 </p>
                 <Link to="/signup" className="landing_link_button">
                   Get started
@@ -159,11 +160,11 @@ function Promotions() {
                 <p>
                   At Weathery, we ensure you have a safe weather forecast every
                   day without compromise Guess what? Would you like to know how
-                  the weather would be in South America and its environs, be it in the
-                  next second, minutes, the next few hours, or perhaps, throughout the day?
-                  Weathery provides you with seamless and accurate weather forecasts that
-                  communicate the daily weather status of its user free of cost. Viola!
-
+                  the weather would be in South America and its environs, be it
+                  in the next second, minutes, the next few hours, or perhaps,
+                  throughout the day? Weathery provides you with seamless and
+                  accurate weather forecasts that communicate the daily weather
+                  status of its user free of cost. Viola!
                 </p>
                 <Link to="/signup" className="landing_link_button">
                   Get started
