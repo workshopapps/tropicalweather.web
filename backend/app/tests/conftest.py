@@ -1,9 +1,6 @@
 import pytest
 from app.database import Base, get_db_engine
 from sqlalchemy.orm import Session
-from app.routers.weather import get_db, router
-from app.main import app
-from fastapi import Depends
 
 
 @pytest.fixture
@@ -32,18 +29,3 @@ def session(engine, tables):
         session.close()
         transaction.rollback()
         connection.close()
-
-
-@pytest.fixture
-def override_db_session(session):
-    """Overrides the session with a new session"""
-    def override_get_db():
-        try:
-            yield session
-        finally:
-            session.close()
-            pass
-
-    router.dependencies[get_db] = Depends(override_get_db)
-
-    # yield session
