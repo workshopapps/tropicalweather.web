@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
+from decouple import config
 
 BASE = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE))
@@ -136,7 +137,7 @@ class AlertNameSpace(AsyncNamespace):
 
 # Message Queue is for working with distributed applications
 mgr = socketio.AsyncRedisManager(
-    "redis://localhost/0"
+    config("WEBSOCKET_REDIS_URL")
 )
 
 sio = socketio.AsyncServer(
