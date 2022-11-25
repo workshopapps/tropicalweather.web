@@ -3,8 +3,8 @@ from typing import List
 from app.client import weather
 from app.dependencies import get_db
 from app.schemas import *  # noqa: F401, F403
-from app.schemas import (AlertsResponse, CurrentWeatherResponse,
-                         SingleWeatherResponse)
+from app.schemas import (AlertsResponse, CurrentWeatherResponse, RiskEvent,
+                         RiskLevel, RiskResponse, SingleWeatherResponse)
 from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
                        get_immediate_weather_api_call, get_location_obj,
                        get_weather_forecast,
@@ -127,8 +127,7 @@ async def get_tommorrows_weather(lat: float, lon: float):
             lon, lat)  # returns a dictionary
         return tommorows_weather
 
-    except Exception as e:
-        print(e)
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Can't retrive weather data for this location"
@@ -161,3 +160,26 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
             data.append(alert_instance)
 
     return data
+
+
+@router.get('/risk', response_model=List[RiskResponse])
+async def get_location_weather_risk(lat: float, lon: float):
+
+    return [
+        {
+            "risk": RiskEvent.FLOOD,
+            "level": RiskLevel.HIGH,
+        },
+        {
+            "risk": RiskEvent.SUNBURN,
+            "level": RiskLevel.LOW,
+        },
+        {
+            "risk": RiskEvent.DUST,
+            "level": RiskLevel.MODERATE,
+        },
+        {
+            "risk": RiskEvent.FOG,
+            "level": RiskLevel.EXTREME,
+        }
+    ]
