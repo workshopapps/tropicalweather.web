@@ -17,7 +17,7 @@ services:
                 ports:
                         - "3000:3000"
                 networks:
-                        - internat-net
+                        - internal-net
         redis:
                 image: redis
                 volumes:
