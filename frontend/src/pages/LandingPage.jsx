@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Landing.css';
+import '../styles/LandingPage.css';
 
-export default function Culture() {
+export default function Landing() {
   return (
     <div className="cont">
       <div className="head">
@@ -315,7 +315,7 @@ export default function Culture() {
         <div className="numlist">
           <div className="content">
             <div className="top">
-              <h1 className="how">1. HOW DO I ADD, SAVE OR DELETE A LOCATION?</h1>
+              <p className="how">1. HOW DO I ADD, SAVE OR DELETE A LOCATION?</p>
               <img src="assets/landingex/minus icon.png" alt="" className="minus" />
             </div>
             <p className="weat">
@@ -328,25 +328,25 @@ export default function Culture() {
           </div>
           <div className="content2">
             <div className="top">
-              <h1 className="how">2. WHAT ARE YOU DOING WITH MY LOCATION DATA?</h1>
+              <p className="how">2. WHAT ARE YOU DOING WITH MY LOCATION DATA?</p>
               <img src="assets/landingex/add.png" alt="" className="minus" />
             </div>
           </div>
           <div className="content2">
             <div className="top">
-              <h1 className="how">3. HOW DO I VIEW THE RADAR MAP?</h1>
+              <p className="how">3. HOW DO I VIEW THE RADAR MAP?</p>
               <img src="assets/landingex/add.png" alt="" className="minus" />
             </div>
           </div>
           <div className="content2">
             <div className="top">
-              <h1 className="how">4. HOW DO I MANAGE THE NOTIFICATION?</h1>
+              <p className="how">4. HOW DO I MANAGE THE NOTIFICATION?</p>
               <img src="assets/landingex/add.png" alt="" className="minus" />
             </div>
           </div>
           <div className="content2">
             <div className="top">
-              <h1 className="how">5. WHERE IS THE WEATHER NEWS SECTION?</h1>
+              <p className="how">5. WHERE IS THE WEATHER NEWS SECTION?</p>
               <img src="assets/landingex/add.png" alt="" className="minus" />
             </div>
           </div>
@@ -355,7 +355,7 @@ export default function Culture() {
           <div className="footimg">
             <img src="assets/landingex/android part.png" alt="" className="imgfoot" />
             <div className="textfoot">
-              <h1 className="gomobile">GO MOBILE</h1>
+              <p className="gomobile">GO MOBILE</p>
               <p className="use-free">Use the Free Weathery app</p>
               <p className="discover">Discover the convenience and flexibility of using our Weathery App on the go!</p>
               <div className="applink">
