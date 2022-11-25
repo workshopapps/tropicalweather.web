@@ -11,6 +11,7 @@ import NearCity from '../components/Home/NearCity';
 export default function Home() {
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
+  const coord = useRef({ lon: 0, lat: 0 });
 
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
@@ -20,6 +21,20 @@ export default function Home() {
       const widthNum = Math.floor(Number(width));
       setCurr(Math.floor(scrollPos / widthNum));
     });
+  }, []);
+
+  useEffect(() => {
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          coord.current = {
+            lon: position.coords.longitude,
+            lat: position.coords.latitude,
+          };
+        });
+      }
+    }
+    getLocation();
   }, []);
 
   return (
@@ -161,21 +176,9 @@ export default function Home() {
               ref={slider}
               className="landing_locations_container max-[768px]:bg-[white] max-[768px]:p-2"
             >
-              <PopularLocation
-                forecast="Expect rain and scattered thunderstorms by 12:00pm."
-                state="CLOUDY"
-                location="Port Harcourt, Nigeria"
-              />
-              <PopularLocation
-                forecast="Expect Cloudy skies all through the Day."
-                state="CLOUDY"
-                location="Lagos, Nigeria"
-              />
-              <PopularLocation
-                forecast="Expect warm Sun and light drizzle through the night."
-                state="RAINY"
-                location="Kaduna, Nigeria"
-              />
+              <PopularLocation location="Port Harcourt, Nigeria" />
+              <PopularLocation location="Lagos, Nigeria" />
+              <PopularLocation location="Abuja, Nigeria" />
             </div>
             <div className="landing_scroll_indicator">
               <div
