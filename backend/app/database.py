@@ -21,8 +21,8 @@ def get_db_engine():
         DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     elif DB_TYPE == "postgresql":
-        DATABASE_URL = "postgresql://kufre:password@localhost/fastapi"
-        # f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        #DATABASE_URL = "postgresql://teamgear:12345@localhost/fastapi"
+        DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     else:
         DATABASE_URL = "sqlite:///./database.db"
 
