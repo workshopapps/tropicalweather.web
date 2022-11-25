@@ -41,8 +41,10 @@ export default function Home() {
                 >
                   View more
                 </Link>
-                <Link
-                  to="/app"
+                <a
+                  href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                  target="_BLANK"
+                  rel="noreferrer"
                   className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm flex items-center justify-center gap-2"
                 >
                   Download
@@ -58,7 +60,7 @@ export default function Home() {
                       fill="white"
                     />
                   </svg>
-                </Link>
+                </a>
               </div>
             </div>
             <div className="hidden w-4/6 md:block">
