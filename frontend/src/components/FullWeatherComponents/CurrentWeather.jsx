@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import '../../styles/CurrentWeather.css';
 // import '../../../public/FullWeather';
 import Proptypes from 'prop-types';

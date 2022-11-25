@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import {
   Accordion,
@@ -21,6 +22,7 @@ export default function Forecast({ data }) {
       <h3 className="forecast_heading">Seven Day Forecast:</h3>
       <Accordion allowZeroExpanded>
         {data.list.splice(0, 7).map((item, idx) => (
+          // eslint-disable-next-line react/no-array-index-key
           <AccordionItem key={idx}>
             <AccordionItemHeading>
               <AccordionItemButton>
@@ -49,7 +51,10 @@ export default function Forecast({ data }) {
                 </div>
                 <div className="daily-details-grid-item">
                   <label>Clouds:</label>
-                  <label>{item.clouds.all}%</label>
+                  <label>
+                    {item.clouds.all}
+                    %
+                  </label>
                 </div>
                 <div className="daily-details-grid-item">
                   <label>Wind speed:</label>
