@@ -174,7 +174,7 @@ export default function Home() {
             </div>
             <div
               ref={slider}
-              className="landing_locations_container max-[768px]:bg-[white] max-[768px]:p-2"
+              className="landing_locations_container max-[768px]:p-2"
             >
               <PopularLocation location="Port Harcourt, Nigeria" />
               <PopularLocation location="Lagos, Nigeria" />
