@@ -1,63 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+        <meta charset="UTF-8">
         <title>Weathery API Status</title>
-        <style>
-            .main {
-                display: block;
-                width: 150px;
-                height: 200px;
-                padding-top: 50px;
-            }
-
-            .hidden {
-                display: none;
-            }
-
-            .styled-table {
-                border-collapse: collapse;
-                margin: 25px 0;
-                font-size: 0.9em;
-                font-family: sans-serif;
-                min-width: 400px;
-                box-shadow: 0 0 20px rbga(0, 0, 0, 0.15);
-            }
-
-            .styled-table thead tr {
-                background-color: #009879;
-                color: #ffffff;
-                text-align: left;
-            }
-
-            .styled-table th, .styled-table td {
-                padding: 12px 15px;
-            }
-
-            .styled-table tbody tr {
-                border-bottom: 1px solid #dddddd;
-            }
-
-            .styled-table tbody tr:nth-of-type(even) {
-                background-color: #f3f3f3;
-            }
-
-            .styled-table tbody tr:last-of-type {
-                border-bottom: 2px solid #009879;
-            }
-            
-            .up {
-                background-color: green;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-            }
-
-            .down {
-                background-color: red;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ url_for('cssfile', path='/styles.css') }}">
   </head>
   <body>
         <div class="main">
