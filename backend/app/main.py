@@ -1,7 +1,7 @@
 # application initilization starts here
-import asyncio
+#import asyncio
 import sys
-from functools import wraps
+#from functools import wraps
 from logging import info
 from pathlib import Path
 
@@ -9,10 +9,15 @@ import socketio
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
 from decouple import config
+import redis
+import ast
+
 
 BASE = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE))
@@ -44,32 +49,28 @@ app.include_router(weather.router)
 app.include_router(location.router)
 
 
+# Mount /cssfile for Jinja2Templates
+app.mount('/cssfile', StaticFiles(directory="cssfile"), name="cssfile")
+
 # Status page
-def cache_response(func):
-    """
-    Decorator that caches the response of a FastAPI async function.
-    """
-    response = None
+templates = Jinja2Templates(directory="templates")
 
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        nonlocal response
-        if not response:
-            response = await func(*args, **kwargs)
-    return wrapper
-
-
-BASE_DIR = Path(__file__).resolve().parent
-
-templates = Jinja2Templates(directory=str(Path(BASE_DIR, "templates")))
-
+rd = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
 @app.get('/status', response_class=HTMLResponse)
-@cache_response
 async def status_page(request: Request):
-    await asyncio.sleep(2)
-    return templates.TemplateResponse(
-        "status.html", get_status(request=request))
+    the_request = {'request': request}
+    cache = rd.get('status')
+
+    if cache:
+        data = ast.literal_eval(cache)
+        return templates.TemplateResponse("status.html", {**the_request, **data})
+    else:
+        data = get_status()
+        rd.set('status', str(data))
+        rd.expire('status', 120)
+    return templates.TemplateResponse("status.html", {**the_request, **data})
+
 
 
 class AlertNameSpace(AsyncNamespace):

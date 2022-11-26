@@ -10,7 +10,7 @@ from app.client import get_location_alerts, weather
 from app.models import Location
 from app.schemas import ImmediateForecastResponse
 from decouple import config
-from fastapi import HTTPException, Request, status
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -310,7 +310,7 @@ def get_location_obj(
     return location_weather_info
 
 
-def get_status(request: Request):
+def get_status():
     try:
         forecast_response = requests.get(
             'https://api.weathery.hng.tech/weather/forecasts?lat=3&lon=4')
@@ -401,7 +401,6 @@ def get_status(request: Request):
         alert_list = 'down'
 
     return {
-        "request": request,
         "forecasts": forecasts,
         "current": current,
         "immediate": immediate,
