@@ -1,7 +1,7 @@
 # application initilization starts here
-import asyncio
+#import asyncio
 import sys
-from functools import wraps
+#from functools import wraps
 from logging import info
 from pathlib import Path
 
@@ -9,7 +9,12 @@ import socketio
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
+from redis import asyncio as aioredis
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
 from decouple import config
@@ -44,32 +49,22 @@ app.include_router(weather.router)
 app.include_router(location.router)
 
 
+# Mount /cssfile for Jinja2Templates
+app.mount('/cssfile', StaticFiles(directory="cssfile"), name="cssfile")
+
 # Status page
-def cache_response(func):
-    """
-    Decorator that caches the response of a FastAPI async function.
-    """
-    response = None
-
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        nonlocal response
-        if not response:
-            response = await func(*args, **kwargs)
-    return wrapper
-
-
-BASE_DIR = Path(__file__).resolve().parent
-
-templates = Jinja2Templates(directory=str(Path(BASE_DIR, "templates")))
-
+templates = Jinja2Templates(directory="templates")
 
 @app.get('/status', response_class=HTMLResponse)
-@cache_response
+@cache(expire=120)
 async def status_page(request: Request):
-    await asyncio.sleep(2)
-    return templates.TemplateResponse(
-        "status.html", get_status(request=request))
+    data = get_status(request=request)
+    return templates.TemplateResponse("status.html", data)
+
+@app.on_event("startup")
+async def startup():
+    redis = aioredis.from_url(config("WEBSOCKET_REDIS_URL"), encoding="utf8", decode_responses=True)
+    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
 
 
 class AlertNameSpace(AsyncNamespace):
