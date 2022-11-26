@@ -5,8 +5,36 @@ services:
                 command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--reload"]
                 volumes:
                         - ./backend:/app/backend
+                environment:
+                        - PYTHONUNBUFFERED = 1
+                        - OPEN_WEATHER_API_KEY = "bd7fbd53339fa23cdc6fc863e601bd9e"
+                        - DB_TYPE = "postgresql"
+                        - DB_NAME = "fastapi"
+                        - DB_USER = "teamgear"
+                        - DB_PASSWORD = "12345"
+                        - DB_HOST = db
+                        - DB_PORT = 5432
+                        - MYSQL_DRIVER = "mysql driver"
+                        - SQLALCHEMY_URL = postgresql://teamgear:12345@172.31.17.98/fastapi
                 ports:
                         - "8000:8000"
+                links:
+                        - redis
+                        - db
+        redis: 
+                image: redis:6.0.8
+                ports:
+                        - "6379:6379"
+        db:
+                image: postgres:12-alpine
+                volumes:
+                        - postgres_data:/var/lib/postgresql/data
+                environment:
+                        - DB_NAME = "fastapi"
+                        - DB_USER = "teamgear"
+                        - DB_PASSWORD = "12345"
+                ports:
+                        - "5432:5432"                
         frontend:
                 build: ./frontend
                 command: ["npm", "start"]
@@ -16,3 +44,4 @@ services:
                         - "3000:3000"
 volumes:
         node-modules:
+        postgres_data:
