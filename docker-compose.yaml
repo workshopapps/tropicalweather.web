@@ -10,13 +10,13 @@ services:
                         - PYTHONUNBUFFERED = 1
                         - OPEN_WEATHER_API_KEY = "bd7fbd53339fa23cdc6fc863e601bd9e"
                         - DB_TYPE = "postgresql"
-                        - DB_NAME = "fastapi"
-                        - DB_USER = "teamgear"
-                        - DB_PASSWORD = "12345"
+                        - DB_NAME = "postgres"
+                        - DB_USER = "postgres"
+                        - DB_PASSWORD = "password"
                         - DB_HOST = db
                         - DB_PORT = 5432
                         - MYSQL_DRIVER = "mysql driver"
-                        - SQLALCHEMY_URL = postgresql://teamgear:12345@db/fastapi
+                        - SQLALCHEMY_URL = postgresql://postgres:password@db/postgres
                 ports:
                         - "8000:8000"
                 links:
@@ -29,9 +29,9 @@ services:
                 volumes:
                         - postgres_data:/var/lib/postgresql/data
                 environment:
-                        - DB_NAME = "fastapi"
-                        - DB_USER = "teamgear"
-                        - DB_PASSWORD = "12345"
+                        - POSTGRES_DB = "postgres"
+                        - POSTGRES_USER = "postgres"
+                        - POSTGRES_PASSWORD = "password"
                 ports:
                         - "5432:5432"
                 networks:
