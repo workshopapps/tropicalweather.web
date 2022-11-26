@@ -24,8 +24,7 @@ export default function FullWeatherDetails() {
             setCurrentForecast({ city: searchData.label, ...forecastResponse });
         })
         .catch((err) => console.log(err));
-    };
-
+      };
   return (
     <div className=" w-[90%] mx-auto container">
       <h1 className="heading">Full Weather Details</h1>

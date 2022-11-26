@@ -1,5 +1,4 @@
 import '../../styles/CurrentWeather.css';
-// import '../../../public/FullWeather';
 import Proptypes from 'prop-types';
 
 export default function CurrentWeather({ data }) {
@@ -22,9 +21,6 @@ export default function CurrentWeather({ data }) {
             °C
           </p>
           <div className="details">
-            <div className="parameter-row">
-              <span className="parameter-label">Details</span>
-            </div>
             <div className="parameter-row">
               <span className="parameter-label">Feels like</span>
               <span className="parameter-value">
