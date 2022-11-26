@@ -372,7 +372,7 @@ function FaqSection() {
         />
         <Faq
           question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications as you please."
+          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
           open={openAll}
         />
       </div>
