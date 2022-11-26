@@ -57,6 +57,6 @@ services:
 volumes:
         node-modules:
         redis-volume:
-       postgres_data:
+        postgres_data:
 networks:
         internal-net:
