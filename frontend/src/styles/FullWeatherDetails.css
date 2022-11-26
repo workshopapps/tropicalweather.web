@@ -16,7 +16,7 @@
 }
 
 @media screen and (max-width: 42.5em){
-    .weather_details{
-        flex-direction: column;
+    .heading{
+        font-size: 2rem;
     }
 }
