@@ -4,7 +4,8 @@ from app.client import weather
 from app.dependencies import get_db
 from app.schemas import *  # noqa: F401, F403
 from app.schemas import (AlertsResponse, CurrentWeatherResponse, RiskEvent,
-                         RiskLevel, RiskResponse, SingleWeatherResponse)
+                         RiskLevel, RiskResponse, SingleWeatherResponse,
+                         ImmediateForecastResponse)
 from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
                        get_immediate_weather_api_call, get_location_obj,
                        get_weather_forecast,
@@ -66,7 +67,7 @@ async def get_current_weather(address: str):
     }
 
 
-@router.get("/forecasts/immediate")
+@router.get("/forecasts/immediate", response_model=ImmediateForecastResponse)
 async def immediate_weather_forecast(lat: float = None, lng: float = None):
 
     if lat is None and lng is None:
