@@ -1,0 +1,111 @@
+<html>
+  <head>
+        <title>Weathery API Status</title>
+        <style>
+            .main {
+                display: block;
+                width: 150px;
+                height: 200px;
+                padding-top: 50px;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .styled-table {
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                font-family: sans-serif;
+                min-width: 400px;
+                box-shadow: 0 0 20px rbga(0, 0, 0, 0.15);
+            }
+
+            .styled-table thead tr {
+                background-color: #009879;
+                color: #ffffff;
+                text-align: left;
+            }
+
+            .styled-table th, .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .styled-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }
+
+            .styled-table tbody tr:last-of-type {
+                border-bottom: 2px solid #009879;
+            }
+            
+            .up {
+                background-color: green;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+            }
+
+            .down {
+                background-color: red;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+            }
+        </style>
+  </head>
+  <body>
+        <div class="main">
+            <h2>Status Page</h2>
+            <table class="styled-table">
+                <thead>
+                    <th>Endpoint</th>
+                    <th>Status</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/weather/forecasts</td>
+                        <td><div class="{{ forecasts }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/current</td>
+                        <td><div class="{{ current }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/forecasts/immediate</td>
+                        <td><div class="{{ immediate }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/forecasts/tomorrow</td>
+                        <td><div class="{{ tomorrow }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/forecasts/tomorrow/immediate</td>
+                        <td><div class="{{ tomorrow_im}}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/location</td>
+                        <td><div class="{{ location }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/risk</td>
+                        <td><div class="{{ risk }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/alerts/city_name</td>
+                        <td><div class="{{ alert_city }}"></div></td>
+                    </tr>
+                    <tr>
+                        <td>/weather/alerts/list</td>
+                        <td><div class="{{ alert_list }}"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  </body>
+</html>
