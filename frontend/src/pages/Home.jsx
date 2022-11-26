@@ -372,11 +372,7 @@ function FaqSection() {
         />
         <Faq
           question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="Weathery keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
+          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications as you please."
           open={openAll}
         />
       </div>
