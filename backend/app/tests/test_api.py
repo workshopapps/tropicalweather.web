@@ -122,7 +122,7 @@ class TestLocationAPI:
                           'state': 'Rivers State'}
                      ])
 
-        response = client.get("/location/?lat=5.12&lon=7.03")
+        response = client.get("/location?lat=5.12&lon=7.03")
 
         assert response.status_code == 200
 
@@ -139,7 +139,7 @@ class TestLocationAPI:
             'app.routers.location.get_location',
             side_effect=Exception("Invalid request")
         )
-        response = client.get("/location/?lat=5.12&lon=700000.03")
+        response = client.get("/location?lat=5.12&lon=700000.03")
         assert response.status_code == 400
 
         data: dict = response.json()

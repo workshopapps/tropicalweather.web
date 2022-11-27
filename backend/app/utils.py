@@ -313,7 +313,7 @@ def get_location_obj(
 def get_status():
     try:
         forecast_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts?lat=6.605407&lon=3.279887')
+            'https://api.weathery.hng.tech/weather/forecasts?lat=6.605407&lon=3.279887')  # noqa
         if forecast_response.status_code == 200:
             forecasts = 'up'
         else:
@@ -322,7 +322,7 @@ def get_status():
         forecasts = 'down'
     try:
         current_response = requests.get(
-            'https://api.weathery.hng.tech/weather/current?address=Iyana%20Ipaja')
+            'https://api.weathery.hng.tech/weather/current?address=Iyana%20Ipaja')  # noqa
         if current_response.status_code == 200:
             current = 'up'
         else:
@@ -372,7 +372,7 @@ def get_status():
 
     try:
         risk_response = requests.get(
-            'https://api.weathery.hng.tech/weather/risk?lat=6.605407&lon=3.279887')
+            'https://api.weathery.hng.tech/weather/risk?lat=6.605407&lon=3.279887')  # noqa
         if risk_response.status_code == 200:
             risk = 'up'
         else:
@@ -392,7 +392,7 @@ def get_status():
 
     try:
         alert_list_response = requests.get(
-            'https://api.weathery.hng.tech/weather/alerts/lists?lat=6.605407&lon=3.279887')
+            'https://api.weathery.hng.tech/weather/alerts/lists?lat=6.605407&lon=3.279887')  # noqa
         if alert_list_response.status_code == 200:
             alert_list = 'up'
         else:
