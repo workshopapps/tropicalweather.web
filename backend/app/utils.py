@@ -10,7 +10,7 @@ from app.client import get_location_alerts, weather
 from app.models import Location
 from app.schemas import ImmediateForecastResponse
 from decouple import config
-from fastapi import HTTPException, Request, status
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
@@ -310,10 +310,10 @@ def get_location_obj(
     return location_weather_info
 
 
-def get_status(request: Request):
+def get_status():
     try:
         forecast_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts?lat=3&lon=4')
+            'https://api.weathery.hng.tech/weather/forecasts?lat=6.605407&lon=3.279887')  # noqa
         if forecast_response.status_code == 200:
             forecasts = 'up'
         else:
@@ -322,7 +322,7 @@ def get_status(request: Request):
         forecasts = 'down'
     try:
         current_response = requests.get(
-            'https://api.weathery.hng.tech/weather/current?lat=3&lng=4')
+            'https://api.weathery.hng.tech/weather/current?address=Iyana%20Ipaja')  # noqa
         if current_response.status_code == 200:
             current = 'up'
         else:
@@ -332,7 +332,7 @@ def get_status(request: Request):
 
     try:
         tomorrow_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow?lat=3&lon=4')  # noqa
+            'https://api.weathery.hng.tech/weather/forecasts/tomorrow?lat=6.605407&lon=3.279887')  # noqa
         if tomorrow_response.status_code == 200:
             tomorrow = 'up'
         else:
@@ -342,7 +342,7 @@ def get_status(request: Request):
 
     try:
         immediate_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/immediate?lat=3&lng=4')  # noqa
+            'https://api.weathery.hng.tech/weather/forecasts/immediate?lat=6.605407&lon=3.279887')  # noqa
         if immediate_response.status_code == 200:
             immediate = 'up'
         else:
@@ -352,7 +352,7 @@ def get_status(request: Request):
 
     try:
         tomorrow_im_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow/immediate?lat=3&lon=4')  # noqa
+            'https://api.weathery.hng.tech/weather/forecasts/tomorrow/immediate?lat=6.605407&lon=3.279887')  # noqa
         if tomorrow_im_response.status_code == 200:
             tomorrow_im = 'up'
         else:
@@ -362,7 +362,7 @@ def get_status(request: Request):
 
     try:
         location_response = requests.get(
-            'https://api.weathery.hng.tech/location?lat=3&lon=4')
+            'https://api.weathery.hng.tech/location?lat=6.605407&lon=3.279887')
         if location_response.status_code == 200:
             location = 'up'
         else:
@@ -372,7 +372,7 @@ def get_status(request: Request):
 
     try:
         risk_response = requests.get(
-            'https://api.weathery.hng.tech/weather/risk?lat=3&lon=4')
+            'https://api.weathery.hng.tech/weather/risk?lat=6.605407&lon=3.279887')  # noqa
         if risk_response.status_code == 200:
             risk = 'up'
         else:
@@ -392,7 +392,7 @@ def get_status(request: Request):
 
     try:
         alert_list_response = requests.get(
-            'https://api.weathery.hng.tech/weather/alerts/lists')
+            'https://api.weathery.hng.tech/weather/alerts/lists?lat=6.605407&lon=3.279887')  # noqa
         if alert_list_response.status_code == 200:
             alert_list = 'up'
         else:
@@ -401,7 +401,6 @@ def get_status(request: Request):
         alert_list = 'down'
 
     return {
-        "request": request,
         "forecasts": forecasts,
         "current": current,
         "immediate": immediate,
