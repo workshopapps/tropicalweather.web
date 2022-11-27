@@ -68,3 +68,13 @@
 .parameter-label.top {
   border-bottom: 3px solid #fff;
 }
+
+@media screen and (max-width: 42.5em){
+  .weather{
+    max-width: 20rem;
+  }
+
+  .temperature{
+    font-size: 1.9rem;
+  }
+}
