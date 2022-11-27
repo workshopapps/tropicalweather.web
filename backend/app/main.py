@@ -11,13 +11,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+<<<<<<< HEAD
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from fastapi_cache.decorator import cache
 from redis import asyncio as aioredis
+=======
+
+>>>>>>> e7c3f1070009a8b4a46fd3a8398a7bc25892c6b7
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
 from decouple import config
+import redis
+import ast
+
 
 BASE = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE))
@@ -51,6 +58,7 @@ app.include_router(location.router)
 
 # Mount /cssfile for Jinja2Templates
 app.mount('/cssfile', StaticFiles(directory="cssfile"), name="cssfile")
+<<<<<<< HEAD
 
 # Status page
 templates = Jinja2Templates(directory="templates")
@@ -65,6 +73,28 @@ async def status_page(request: Request):
 async def startup():
     redis = aioredis.from_url(config("WEBSOCKET_REDIS_URL"), encoding="utf8", decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+=======
+
+# Status page
+templates = Jinja2Templates(directory="templates")
+
+rd = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
+@app.get('/status', response_class=HTMLResponse)
+async def status_page(request: Request):
+    the_request = {'request': request}
+    cache = rd.get('status')
+
+    if cache:
+        data = ast.literal_eval(cache)
+        return templates.TemplateResponse("status.html", {**the_request, **data})
+    else:
+        data = get_status()
+        rd.set('status', str(data))
+        rd.expire('status', 120)
+    return templates.TemplateResponse("status.html", {**the_request, **data})
+
+>>>>>>> e7c3f1070009a8b4a46fd3a8398a7bc25892c6b7
 
 
 class AlertNameSpace(AsyncNamespace):
