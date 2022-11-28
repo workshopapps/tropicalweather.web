@@ -20,6 +20,7 @@ import ast
 
 
 BASE = Path(__file__).resolve().parent.parent
+print(BASE)
 sys.path.append(str(BASE))
 
 from app.schemas import PacketModel  # noqa: E402
@@ -50,12 +51,13 @@ app.include_router(location.router)
 
 
 # Mount /cssfile for Jinja2Templates
-app.mount('/cssfile', StaticFiles(directory="cssfile"), name="cssfile")
+app.mount('/cssfile', StaticFiles(directory=BASE / "app/cssfile"), name="cssfile")
 
 # Status page
 templates = Jinja2Templates(directory="templates")
 
 rd = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
 
 @app.get('/status', response_class=HTMLResponse)
 async def status_page(request: Request):
@@ -70,7 +72,6 @@ async def status_page(request: Request):
         rd.set('status', str(data))
         rd.expire('status', 120)
     return templates.TemplateResponse("status.html", {**the_request, **data})
-
 
 
 class AlertNameSpace(AsyncNamespace):
