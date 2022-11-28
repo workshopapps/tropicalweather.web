@@ -6,30 +6,24 @@ from app.main import app
 client = TestClient(app)
 
 
-
 class TestStatus:
-    def test_status(self, mocker):
+    def test_status_with_cache(self, mocker):
         """Test status endpoint"""
-        # mocker request.get json response
+        data= """{
+            'forecasts': 'up',
+            'current': 'up',
+            'immediate': 'up',
+            'tomorrow': 'up',
+            'tomorrow_im': 'up',
+            'location': 'up',
+            'risk': 'up',
+            'alert_city': 'up',
+            'alert_list': 'up',
+        }"""
+        
         mocker.patch(
-            'requests.get',
-            return_value=mocker.Mock(
-                status_code=200,
-                json=mocker.Mock(
-                    return_value={
-                        'request': 'stations',
-                        'forecasts': 'up',
-                        'current': 'up',
-                        'immediate': 'up',
-                        'tomorrow': 'up',
-                        'tomorrow_im': 'up',
-                        'location': 'up',
-                        'risk': 'up',
-                        'alert_city': 'up',
-                        'alert_list': 'up',
-                        }
-                )
-            )
+            'redis.Redis.get',
+            return_value=data
         )
 
         response = client.get("/status")

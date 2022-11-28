@@ -1,7 +1,5 @@
 
-FROM python:3.8-alpine
-ENV PYTHONUNBUFFERED 1
-ENV OPEN_WEATHER_API_KEY bd7fbd53339fa23cdc6fc863e601bd9e
+FROM python:3.9-alpine
 RUN mkdir /backend
 WORKDIR /backend
 COPY requirements.txt /backend/requirements.txt

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import PopularLocation from '../PopularLocation';
+import PopularLocation from '../Home/PopularLocation';
 
 test("loads and display a location's brief forecast", async () => {
   // ARRANGE

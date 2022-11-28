@@ -1,27 +1,17 @@
-# FastApi imports
-from typing import List
-
-from app.models import locationResponse
-from fastapi import APIRouter
-from fastapi import HTTPException, status
-
-# Internal import
-from app.schemas import *
 from app.client import reverse_geocoding
-
+from app.schemas import locationResponse
+from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter(
-    prefix="/location",
     tags=['location']
 )
 
-@router.get('/')
+
+@router.get('/location', response_model=locationResponse)
 async def get_location(lat: float, lon: float):
     try:
         reverse_geocode = reverse_geocoding(lat, lon)
-        print(reverse_geocode)
-    except Exception as e:
-        print(e)
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Location does not exist"
@@ -37,4 +27,3 @@ async def get_location(lat: float, lon: float):
     }
 
     return response
-
