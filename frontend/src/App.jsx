@@ -12,6 +12,7 @@ import Business from './pages/Business';
 import Features from './pages/Features';
 import AppLayout from './components/AppLayout';
 import Culture from './pages/Culture';
+import LandingpageAfrica from './pages/Landing-page-Africa';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/features" element={<Features />} />
       <Route path="/culture" element={<Culture />} />
+      <Route path="/landingpageafrica" element={<LandingpageAfrica />} />
+
     </Route>,
   ),
 );

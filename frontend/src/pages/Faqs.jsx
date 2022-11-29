@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi';
-import '../styles/Faqs.css';
-import PlaystoreIcon from '../FaqAssets/google-play.png';
-import AppleIcon from '../FaqAssets/app-store.png';
-import ArrowDown from '../FaqAssets/ArrowDownBtn.svg';
-import SearchBtn from '../FaqAssets/SearchBtn.svg';
-import CustomercareAvatar from '../FaqAssets/AvatarGroup.png';
-import faqsData from '../components/FaqsData';
+import React, { useState } from "react";
+import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
+import "../styles/Faqs.css";
+import PlaystoreIcon from "../FaqAssets/google-play.png";
+import AppleIcon from "../FaqAssets/app-store.png";
+import ArrowDown from "../FaqAssets/ArrowDownBtn.svg";
+import SearchBtn from "../FaqAssets/SearchBtn.svg";
+import CustomercareAvatar from "../FaqAssets/AvatarGroup.png";
+import faqsData from "../components/FaqsData";
 
 export default function Faqs() {
   const [isOpen, setIsOpen] = useState(null);
-  const toggleOpen = (id) => () => setIsOpen((isOpen) => (isOpen === id ? null : id));
+  const toggleOpen = (id) => () =>
+    setIsOpen((isOpen) => (isOpen === id ? null : id));
   return (
     <div className="faq-container">
       <header className="faq-header">
