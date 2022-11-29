@@ -1,19 +1,19 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
-import Locations from "./Locations";
-import "../styles/LandingpageAfrica.css";
-import AppleIcon from "../FaqAssets/app-store.png";
-import PlaystoreIcon from "../FaqAssets/google-play.png";
-import Appinterface from "../FaqAssets/Appinterface1.jpg";
+import Locations from '../components/PopularLocation';
+import '../styles/LandingpageAfrica.css';
+import AppleIcon from '../FaqAssets/app-store.png';
+import PlaystoreIcon from '../FaqAssets/google-play.png';
+import Appinterface from '../FaqAssets/Appinterface1.jpg';
 
-import Globalization from "../FaqAssets/Globalization.png";
+import Globalization from '../FaqAssets/Globalization.png';
 
 export default function Home() {
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
 
   useEffect(() => {
-    slider.current.addEventListener("scroll", () => {
+    slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
       width = width.substring(0, width.length - 2);
       const scrollPos = slider.current.scrollLeft;
@@ -40,10 +40,10 @@ export default function Home() {
           <section
             id="landing_locations"
             style={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              gap: "40px",
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '40px',
             }}
           >
             <div className="landing_locations_header">
@@ -71,24 +71,24 @@ export default function Home() {
             <div className="landing_scroll_indicator">
               <div
                 style={{
-                  backgroundColor: curr === 0 ? "#ef6820" : "",
+                  backgroundColor: curr === 0 ? '#ef6820' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 1 ? "#ef6820" : "",
+                  backgroundColor: curr === 1 ? '#ef6820' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 2 ? "#ef6820" : "",
+                  backgroundColor: curr === 2 ? '#ef6820' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
             </div>
           </section>
@@ -159,7 +159,7 @@ export default function Home() {
                 <div className="landing__feature--img"
                 // style={{ width: '100%', paddingTop: '24px' }}
                 >
-                  <img 
+                  <img
                     src={Fall}
                     alt=""
                     // style={{
