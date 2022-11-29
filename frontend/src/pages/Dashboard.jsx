@@ -3,10 +3,6 @@ import moment from 'moment/moment';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
-import { AiOutlinePlus } from 'react-icons/ai';
-import { FiAlertCircle } from 'react-icons/fi';
-import { SlOptionsVertical } from 'react-icons/sl';
-import WeatherForecast from '../components/Dashboard/WeatherForecast';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
 
