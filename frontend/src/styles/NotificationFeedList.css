@@ -1,0 +1,36 @@
+.notificaton_feed-container{
+    padding: 2em 4em;
+}
+.notificaton_feedhd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notificaton_feedbg {
+  height: 36px;
+  width: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+.notificaton_feedhome {
+  background-image: url("../../public/assets/NotificationFeedList/ep_back.svg");
+}
+.notificaton_feedtrash {
+  background-image: url("../../public/assets/NotificationFeedList/trash-icon.svg");
+}
+.notificaton_feed-nolist {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 7em 0;
+}
+.notificaton_feed-bigtrash {
+  margin:0 auto 2em;
+}
+.notificaton_feed-empty{
+    margin-bottom: .5em;
+}
