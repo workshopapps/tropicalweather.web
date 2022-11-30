@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [userLocation, setUserLocation] = useState(null);
   const [threeDayForcast, setThreeDayForcast] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
-  const [saveLocations, setSavedLocations] = useState([]);
+  const [savedLocations, setSavedLocations] = useState([]);
   const currentLocation = useCity() || userLocation;
 
   const { coords } = useGeolocated({
@@ -69,6 +69,11 @@ export default function Dashboard() {
     }
   }, []);
 
+  // Check if location is saved
+  const isSaved = savedLocations.some(
+    (item) => item.location === currentLocation
+  );
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       <div className="pt-6">
@@ -83,13 +88,15 @@ export default function Dashboard() {
                 {currentLocation}
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
-                <button
-                  type="button"
-                  className="flex items-center gap-4 text-primary-btn"
-                >
-                  <BsHeart />
-                  <span>Save city</span>
-                </button>
+                {isSaved ? null : (
+                  <button
+                    type="button"
+                    className="flex items-center gap-4 text-primary-btn"
+                  >
+                    <BsHeart />
+                    <span>Save city</span>
+                  </button>
+                )}
               </div>
             </div>
             <div>
