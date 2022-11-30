@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment/moment';
+import { Link } from 'react-router-dom';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
@@ -27,16 +27,7 @@ export default function Dashboard() {
 
   const getCurrentLocationFromCoords = async () => {
     const { latitude, longitude } = geoLocation;
-    const response = await fetch(`${APIURL}/location`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        lat: latitude,
-        lng: longitude,
-      }),
-    });
+    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
     const location = `${data.state}, ${data.city}`;
     setUserLocation(location);
@@ -44,30 +35,13 @@ export default function Dashboard() {
 
   const getThreeDayForcast = async () => {
     const { latitude, longitude } = geoLocation;
-    const response = await fetch(`${APIURL}/weather/forecasts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        lat: latitude,
-        lng: longitude,
-      }),
-    });
+    const response = await fetch(`${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
     setThreeDayForcast(data.slice(0, 3));
   };
 
-  const getCurrentForecastFromLocation = async () => {
-    const response = await fetch(`${APIURL}/weather/current`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        address: currentLocation,
-      }),
-    });
+  const getCurrentForecastFromLocation = async (location) => {
+    const response = await fetch(`${APIURL}/weather/current?address=${location}`);
     const data = await response.json();
     setCurrentWeather(data);
   };
@@ -78,7 +52,7 @@ export default function Dashboard() {
       setGeoLocation({ latitude, longitude });
       getCurrentLocationFromCoords();
       getThreeDayForcast();
-      getCurrentForecastFromLocation();
+      getCurrentForecastFromLocation(currentLocation);
     }
   }, [coords]);
 
@@ -103,16 +77,15 @@ export default function Dashboard() {
       setToast('');
     }, 3000);
   };
-  const addLocation = (location) => {
+  const addLocation = async (location) => {
     if (savedLocations.some((loc) => loc.location === location)) return;
     // Update location in local storage and state
+    const response = await getCurrentForecastFromLocation(location);
     const locs = savedLocations;
     locs.push({
       location,
-      date: moment().add(3, 'days').format('ll'),
-      weather: 'Sunny',
-      description: 'Sunny with a high of 75F',
-      time: '6:00 PM',
+      weather: response.main,
+      description: response.description,
     });
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
@@ -146,10 +119,10 @@ export default function Dashboard() {
         </div>
       ) : null}
       <div className="pt-6">
-        <span className="items-center hidden mb-6 md:flex">
+        <Link to="/" className="items-center hidden mb-6 md:flex">
           <TfiAngleLeft className="mr-2 text-lg" />
           <span className="text-lg">Back</span>
-        </span>
+        </Link>
         <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
           <div className="relative w-full">
             <div className="flex items-center mb-5 md:justify-between">
@@ -171,7 +144,13 @@ export default function Dashboard() {
             </div>
             <div>
               <div
-                className="pt-6 text-black rounded-lg w-full max-w-5xl hero h-[549px] flex flex-col justify-between bg-[#F2F2F2]"
+                className="pt-6 text-white rounded-lg w-full max-w-5xl hero h-[400px] flex flex-col justify-around bg-primary-btn"
+                style={{
+                  background: `url('${process.env.PUBLIC_URL}/generic-space-background.jpg')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                }}
               >
                 <div className="flex justify-between px-6">
                   <span>{`Today . ${time} `}</span>
@@ -192,7 +171,7 @@ export default function Dashboard() {
             </div>
           </div>
           <section id="three-day-forcast" className="">
-            <p className="mb-4 text-xl font-bold">3 day forecast</p>
+            <p className="mb-4 text-xl font-bold">3 hour interval forecast</p>
             {threeDayForcast.length > 0 ? (
               threeDayForcast.map((day) => (
                 <WeatherPreview
