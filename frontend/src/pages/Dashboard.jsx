@@ -201,6 +201,7 @@ export default function Dashboard() {
                 <PopularLocation
                   location={location.location}
                   key={location.location}
+                  bin
                 />
               ))
             )}
