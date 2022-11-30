@@ -5,9 +5,10 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
+import MyCurrentLocation from '../components/FullWeatherComponents/MyCurrentLocation';
 
 export default function Dashboard() {
-  const APIURL = 'https://api.weathery.hng.tech';
+  const APIURL = 'https://api.tropicalweather.hng.tech';
   const time = new Date().toLocaleTimeString();
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState('');
@@ -27,7 +28,12 @@ export default function Dashboard() {
 
   const getCurrentLocationFromCoords = async () => {
     const { latitude, longitude } = geoLocation;
-    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`);
+    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     const data = await response.json();
     const location = `${data.state}, ${data.city}`;
     setUserLocation(location);
@@ -37,7 +43,7 @@ export default function Dashboard() {
     const { latitude, longitude } = geoLocation;
     const response = await fetch(`${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
-    setThreeDayForcast(data.slice(0, 3));
+    setThreeDayForcast(data.splice(0, 3));
   };
 
   const getCurrentForecastFromLocation = async (location) => {
@@ -127,7 +133,7 @@ export default function Dashboard() {
           <div className="relative w-full">
             <div className="flex items-center mb-5 md:justify-between">
               <h1 className="text-2xl font-bold md:text-5xl">
-                {currentLocation}
+                <MyCurrentLocation />
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
                 {isSaved ? null : (
