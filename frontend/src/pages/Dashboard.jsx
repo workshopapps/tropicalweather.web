@@ -96,6 +96,12 @@ export default function Dashboard() {
     }, 3000);
   };
 
+  const removeLocation = (location) => {
+    const loc = savedLocations.filter((item) => item.location !== location);
+    localStorage.setItem('saved-locations', JSON.stringify(loc));
+    setSavedLocations(loc);
+  };
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
@@ -201,6 +207,7 @@ export default function Dashboard() {
                 <PopularLocation
                   location={location.location}
                   key={location.location}
+                  remove={removeLocation}
                   bin
                 />
               ))
