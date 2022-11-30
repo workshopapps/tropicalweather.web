@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
+import { AiFillCheckCircle } from 'react-icons/ai';
+
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
 
@@ -14,6 +16,7 @@ export default function Dashboard() {
   const [threeDayForcast, setThreeDayForcast] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [savedLocations, setSavedLocations] = useState([]);
+  const [toast, setToast] = useState(false);
   const currentLocation = useCity() || userLocation;
 
   const { coords } = useGeolocated({
@@ -82,10 +85,34 @@ export default function Dashboard() {
     });
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
+    showToast();
+  };
+
+  const showToast = () => {
+    setToast(true);
+    setTimeout(() => {
+      setToast(false);
+    }, 3000);
   };
 
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
+      {toast ? (
+        <div
+          className="flex items-center gap-3 absolute p-1 bg-gray-200 rounded-lg"
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)',
+            padding: '10px 20px',
+            width: 'fit-content',
+            background: 'rgba(209, 250, 223, 0.1)',
+            border: '1px solid #054F31',
+          }}
+        >
+          <AiFillCheckCircle color="#054F31" />
+          <p>Location added to saved cities</p>
+        </div>
+      ) : null}
       <div className="pt-6">
         <Link to="/" className="items-center hidden mb-6 md:flex">
           <TfiAngleLeft className="mr-2 text-lg" />
