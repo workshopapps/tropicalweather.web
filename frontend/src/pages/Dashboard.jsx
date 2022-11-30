@@ -7,6 +7,7 @@ import { AiFillCheckCircle } from 'react-icons/ai';
 
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
+import PopularLocation from '../components/Home/PopularLocation';
 
 export default function Dashboard() {
   const APIURL = 'https://api.weathery.hng.tech';
@@ -188,10 +189,21 @@ export default function Dashboard() {
           <div className="flex items-center justify-between w-full">
             <h2 className="text-2xl font-bold">Saved Locations</h2>
           </div>
-          <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
-            <BsMap className="text-3xl text-primary-btn" />
-            <h2 className="text-2xl font-bold">No Location saved yet</h2>
-            <p>You can save a location to view the details later</p>
+          <div className="flex flex-col items-center justify-center gap-[20px] py-12 w-max md:py-20 md:flex-row">
+            {savedLocations.length === 0 ? (
+              <>
+                <BsMap className="text-3xl text-primary-btn" />
+                <h2 className="text-2xl font-bold">No Location saved yet</h2>
+                <p>You can save a location to view the details later</p>
+              </>
+            ) : (
+              savedLocations.map((location) => (
+                <PopularLocation
+                  location={location.location}
+                  key={location.location}
+                />
+              ))
+            )}
           </div>
         </section>
       </div>
