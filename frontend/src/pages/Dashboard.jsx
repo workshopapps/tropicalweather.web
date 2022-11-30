@@ -17,6 +17,8 @@ export default function Dashboard() {
   const [userLocation, setUserLocation] = useState(null);
   const [threeDayForcast, setThreeDayForcast] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
+  const [savedLocations, setSavedLocations] = useState([]);
+  const [toast, setToast] = useState(false);
   const currentLocation = useCity() || <MyCurrentLocation />;
 
   const { coords } = useGeolocated({
