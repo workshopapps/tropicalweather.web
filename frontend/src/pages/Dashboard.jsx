@@ -195,24 +195,25 @@ export default function Dashboard() {
           <div className="flex items-center justify-between w-full">
             <h2 className="text-2xl font-bold">Saved Locations</h2>
           </div>
-          <div className="flex flex-col items-center justify-center gap-[20px] py-12 w-max md:py-20 md:flex-row">
-            {savedLocations.length === 0 ? (
-              <>
-                <BsMap className="text-3xl text-primary-btn" />
-                <h2 className="text-2xl font-bold">No Location saved yet</h2>
-                <p>You can save a location to view the details later</p>
-              </>
-            ) : (
-              savedLocations.map((location) => (
+
+          {savedLocations.length === 0 ? (
+            <div className="flex flex-col items-center mx-auto gap-[10px] py-12 w-max md:py-20">
+              <BsMap className="text-3xl text-primary-btn" />
+              <h2 className="text-2xl font-bold">No Location saved yet</h2>
+              <p>You can save a location to view the details later</p>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-[20px] py-12 w-max md:py-20 md:flex-row">
+              {savedLocations.map((location) => (
                 <PopularLocation
                   location={location.location}
                   key={location.location}
                   remove={removeLocation}
                   bin
                 />
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>
