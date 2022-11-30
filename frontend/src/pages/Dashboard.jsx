@@ -110,7 +110,9 @@ export default function Dashboard() {
           }}
         >
           <AiFillCheckCircle color="#054F31" />
-          <p>Location added to saved cities</p>
+          <p style={{ fontSize: '16px' }}>
+            {`${currentLocation} has been added to saved locations`}
+          </p>
         </div>
       ) : null}
       <div className="pt-6">
