@@ -74,6 +74,16 @@ export default function Dashboard() {
     (item) => item.location === currentLocation
   );
 
+  const addLocation = async (location) => {
+    if (isSaved) return;
+    const locs = savedLocations;
+    locs.push({
+      location,
+    });
+    setSavedLocations(locs);
+    localStorage.setItem('saved-locations', JSON.stringify(locs));
+  };
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       <div className="pt-6">
@@ -91,6 +101,7 @@ export default function Dashboard() {
                 {isSaved ? null : (
                   <button
                     type="button"
+                    onClick={() => addLocation(currentLocation)}
                     className="flex items-center gap-4 text-primary-btn"
                   >
                     <BsHeart />
