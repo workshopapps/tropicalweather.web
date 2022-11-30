@@ -23,7 +23,7 @@ export default function FullWeatherDetails() {
             setCurrentWeather({ city: searchData.label, ...weatherResponse });
             setCurrentForecast({ city: searchData.label, ...forecastResponse });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => err);
       };
   return (
     <div className=" w-[90%] mx-auto container">

@@ -14,7 +14,7 @@ export default function FullWeatherSearchBar({ onSearchChange }) {
                     label: `${city.name}, ${city.countryCode}`,
                 })),
         }))
-      .catch((err) => console.error(err));
+      .catch((err) => err);
 
   const handleOnChange = (searchData) => {
     setSearch(searchData);
