@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [userLocation, setUserLocation] = useState(null);
   const [threeDayForcast, setThreeDayForcast] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
+  const [saveLocations, setSavedLocations] = useState([]);
   const currentLocation = useCity() || userLocation;
 
   const { coords } = useGeolocated({
@@ -58,6 +59,15 @@ export default function Dashboard() {
       getCurrentForecastFromLocation(currentLocation);
     }
   }, [coords]);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('saved-locations'));
+    if (!data) {
+      setSavedLocations([]);
+    } else {
+      setSavedLocations(data);
+    }
+  }, []);
 
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
