@@ -15,6 +15,7 @@ import AirQuality from './pages/AirQuality';
 import FullWeatherDetails from './pages/FullWeatherDetails';
 import LandingPage from './pages/LandingPage';
 // import Promotions from './pages/Promotions';
+import NotificationFeedList from './pages/NotificationFeedList';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
+      <Route path="/notification-feeds" element={<NotificationFeedList />} />
       {/* <Route path="/promotions" element={<Promotions />} /> */}
     </Route>
   )
