@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
@@ -19,6 +19,12 @@ export default function Dashboard() {
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState(false);
   const currentLocation = useCity() || userLocation;
+  const scrollRef = useRef(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+    scrollRef.current = true;
+  }, [currentLocation]);
 
   const { coords } = useGeolocated({
     positionOptions: {
