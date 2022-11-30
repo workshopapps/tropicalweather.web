@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [userLocation, setUserLocation] = useState(null);
   const [threeDayForcast, setThreeDayForcast] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
-  const currentLocation = useCity() || userLocation;
+  const currentLocation = useCity() || <MyCurrentLocation />;
 
   const { coords } =
     useGeolocated({
@@ -128,7 +128,7 @@ export default function Dashboard() {
           <div className="relative w-full">
             <div className="flex items-center mb-5 md:justify-between">
               <h1 className="text-2xl font-bold md:text-5xl">
-                <MyCurrentLocation />
+                {currentLocation }
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
                 {isSaved ? null : (
