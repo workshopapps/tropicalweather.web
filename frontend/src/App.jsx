@@ -14,6 +14,8 @@ import Notification from './pages/Notification';
 import AirQuality from './pages/AirQuality';
 import FullWeatherDetails from './pages/FullWeatherDetails';
 import LandingPage from './pages/LandingPage';
+import Notificationsettings from './pages/NotificationSettings';
+
 // import Promotions from './pages/Promotions';
 
 const queryClient = new QueryClient();
@@ -27,6 +29,8 @@ const router = createBrowserRouter(
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
+      <Route path="/notificationsettings" element={<Notificationsettings />} />
+
       {/* <Route path="/promotions" element={<Promotions />} /> */}
     </Route>
   )

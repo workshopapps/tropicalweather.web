@@ -1,0 +1,134 @@
+.notificationsettings__container {
+  width: 85%;
+  margin: 0 auto;
+  max-width: 894px;
+}
+.return__btn--container {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-top: 24px;
+  margin-bottom: 24px;
+  gap: 8px;
+}
+.return__btn--container p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/900 */
+
+  color: #161518;
+}
+.notification__header h2 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  /* identical to box height, or 129% */
+
+  letter-spacing: -0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+
+  /* Grey/900 */
+  margin-bottom: 8px;
+  color: #161518;
+}
+.notification__header p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/700 */
+
+  color: #565560;
+}
+.notificationsetting {
+  padding-top: 28px;
+  padding-bottom: 28px;
+  border-top: 1px solid #dcdbe0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.notificationsetting__header h3 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  /* identical to box height, or 133% */
+
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/900 */
+
+  color: #161518;
+}
+..notificationsetting__header p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  color: #82808f;
+}
+.notificationsetting__option {
+  display: flex;
+  gap: 16px;
+}
+.notificationsetting__option1 {
+  display: flex;
+
+  gap: 16px;
+}
+.notificationsetting__option2 {
+  display: flex;
+  gap: 16px;
+}
+.notificationsetting__option--heading-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/900 */
+
+  color: #161518;
+}
+.notificationsetting__option--description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  color: #82808f;
+}
