@@ -28,12 +28,7 @@ export default function Dashboard() {
 
   const getCurrentLocationFromCoords = async () => {
     const { latitude, longitude } = geoLocation;
-    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
     const location = `${data.state}, ${data.city}`;
     setUserLocation(location);
