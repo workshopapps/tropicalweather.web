@@ -3,6 +3,16 @@ pipeline {
 	agent any
 	stages {
 
+        stage("Get repo"){
+
+			steps {
+				sh "rm -rf ${WORKSPACE}/tropicalweather.web"
+				sh "git clone https://github.com/workshopapps/tropicalweather.web.git"
+				sh "sudo cp -r ${WORKSPACE}/tropicalweather.web /home/johnoni/avatarai.web"
+			}
+
+		}
+
 		stage("build frontend"){
 
 			steps {
@@ -18,18 +28,21 @@ pipeline {
                 sh "cd backend && pip install -r requirements.txt"
             }  
         }
-		stage("deploy") {
+		// stage("deploy") {
 		
-			steps {
-                sh "sudo cp -rf backend /home/johnoni/tropicalweather/backend"
-                sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather/frontend"
-            // sh "sudo su - johnoni && whoami"
-            //  sh "sudo pm2 stop tropicalweather"
-	    	//  sh "sudo pm2 stop server"
-                sh "sudo pm2 serve /home/johnoni/tropicalweather/frontend/build --port 55001"
-                sh "sudo pm2 start /home/johnoni/tropicalweather/backend/app/main.py --interpreter python3"
-            }
+		// 	steps {
+        //         sh "sudo cp -rf backend /home/johnoni/tropicalweather/backend"
+        //         sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather/frontend"
+        //     // sh "sudo su - johnoni && whoami"
+        //     //  sh "sudo pm2 stop tropicalweather"
+	    // 	//  sh "sudo pm2 stop server"
+        //         sh "sudo pm2 serve /home/johnoni/tropicalweather/frontend/build --port 55001"
+        //         sh "sudo pm2 start /home/johnoni/tropicalweather/backend/app/main.py --interpreter python3"
+        //     }
 			
-	    }
+	    // }
 	}
 }
+
+
+// uvicorn api:app --host 0.0.0.0 --port 8173
