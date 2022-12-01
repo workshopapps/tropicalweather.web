@@ -61,3 +61,13 @@ class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
 class PacketModel(BaseModel):
     content: Any
     content_type: str
+
+
+
+
+class AlertNotification(BaseModel):
+    event: str
+    message: str
+    location: str
+    date: str
+    time: str

@@ -5,7 +5,7 @@ from app.dependencies import get_db
 from app.schemas import *  # noqa: F401, F403
 from app.schemas import (AlertsResponse, CurrentWeatherResponse, RiskEvent,
                          RiskLevel, RiskResponse, SingleWeatherResponse,
-                         ImmediateForecastResponse)
+                         ImmediateForecastResponse, AlertNotification)
 from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
                        get_immediate_weather_api_call, get_location_obj,
                        get_weather_forecast,
@@ -184,3 +184,34 @@ async def get_location_weather_risk(lat: float, lon: float):
             "level": RiskLevel.EXTREME,
         }
     ]
+
+
+
+@router.get('/weather/alert/notification', response_model=List[AlertNotification])
+async def get_weather_notification(lat: float, lon: float, db: Session = Depends(get_db)):
+    latlng = reverse_geocode(lat, lon)
+    city = latlng.get('city')
+    state = latlng.get('state')
+
+    loc_obj = get_location_obj(db, city, state)
+
+    data = []
+    alert_instance = {}
+
+    if loc_obj is not None:
+        for mydata in loc_obj.alerts:
+
+            date_time = convert_epoch_to_datetime(mydata.start)
+
+            end_time = mydata.end
+
+            if end_time is not None:
+                alert_instance = {
+                    'event': mydata.event,
+                    'message': mydata.message,
+                    'date': date_time['date'],
+                    'time': date_time['time'],
+                    "location": f"{city}-{state}"
+                }
+                data.append(alert_instance)
+    return data
