@@ -30,8 +30,20 @@ export default function Footer() {
           <div>
             <span className="footer-title">Download the mobile app</span>
             <div className="flex flex-wrap gap-6 mt-6">
-              <img src="/app-store.png" alt="app store" />
-              <img src="/google-play.png" alt="google play" />
+              <a
+                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                target="_BLANK"
+                rel="noreferrer"
+              >
+                <img src="/app-store.png" alt="app store" />
+              </a>
+              <a
+                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                target="_BLANK"
+                rel="noreferrer"
+              >
+                <img src="/google-play.png" alt="google play" />
+              </a>
             </div>
           </div>
         </div>
