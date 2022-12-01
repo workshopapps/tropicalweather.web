@@ -1,13 +1,10 @@
 from typing import List
-from app.main import app as fastapi_app
-from fastapi import HTTPException, status
-from fastapi.testclient import TestClient
 
-client = TestClient(fastapi_app)
+from fastapi import HTTPException, status
 
 
 class TestWeatherForecastsAPI:
-    def test_weather_forcasts_valid(self, mocker):
+    def test_weather_forcasts_valid(self, mocker, client):
         """Test weather forecast endpoint"""
         mocker.patch(
             'routers.weather.get_weather_forecast',
@@ -43,7 +40,7 @@ class TestWeatherForecastsAPI:
         assert data[0]["main"] == "Rain"
         assert data[0]["description"] == "light rain"
 
-    def test_weather_forcasts_invalid(self, mocker):
+    def test_weather_forcasts_invalid(self, mocker, client):
         """Test weather forecast endpoint"""
         mocker.patch(
             'routers.weather.get_weather_forecast',
@@ -57,7 +54,7 @@ class TestWeatherForecastsAPI:
 
 
 class TestWeatherCurrentAPI:
-    def test_weather_forcasts_valid(self, mocker):
+    def test_weather_forcasts_valid(self, mocker, client):
         """Test weather current endpoint valid"""
         mocker.patch(
             'routers.weather.geocode_address',
@@ -91,7 +88,7 @@ class TestWeatherCurrentAPI:
         assert data["city"] == "Ikorodu"
         assert data["state"] == "Lagos"
 
-    def test_weather_forcasts_invalid(self, mocker):
+    def test_weather_forcasts_invalid(self, mocker, client):
         mocker.patch(
             'routers.weather.geocode_address',
             side_effect=HTTPException(
@@ -107,7 +104,7 @@ class TestWeatherCurrentAPI:
 
 
 class TestLocationAPI:
-    def test_get_locations_valid(self, mocker):
+    def test_get_locations_valid(self, mocker, client):
 
         mocker.patch('routers.location.reverse_geocoding',
                      return_value=[
@@ -130,7 +127,7 @@ class TestLocationAPI:
         }
         assert len(data) == 2
 
-    def test_get_locations_invalid(self, mocker):
+    def test_get_locations_invalid(self, mocker, client):
         mocker.patch(
             'routers.location.get_location',
             side_effect=Exception("Invalid request")
@@ -143,7 +140,7 @@ class TestLocationAPI:
 
 
 class TestWeatherDataAPI:
-    def test_weather_data_valid(self, mocker):
+    def test_weather_data_valid(self, mocker, client):
         """Test weather data endpoint"""
         mocker.patch(
             'routers.weather.weather',
@@ -183,7 +180,7 @@ class TestWeatherDataAPI:
         assert data[0]["main"] == "Clouds"
         assert data[0]["description"] == "overcast clouds"
 
-    def test_weather_data_invalid(self, mocker):
+    def test_weather_data_invalid(self, mocker, client):
         """Test weather data endpoint"""
         mocker.patch(
             'routers.weather.weather',
@@ -198,7 +195,7 @@ class TestWeatherDataAPI:
 
 
 class Test_get_tommorrows_weather:
-    def test_get_tommorrows_weather(self, mocker):
+    def test_get_tommorrows_weather(self, mocker, client):
         mocker.patch(
             'routers.weather.immediate_weather_api_call_tommorrow',
             return_value={
@@ -218,7 +215,7 @@ class Test_get_tommorrows_weather:
 
 
 class TestGetAlerts:
-    def test_get_alerts_none(self, mocker):
+    def test_get_alerts_none(self, mocker, client):
         mocker.patch(
             'routers.weather.reverse_geocode',
             return_value={
@@ -235,7 +232,7 @@ class TestGetAlerts:
         data: List[dict] = response.json()
         assert data == []
 
-    def test_get_alerts_error(self, mocker):
+    def test_get_alerts_error(self, mocker, client):
         mocker.patch(
             'routers.weather.reverse_geocode',
             side_effect=HTTPException(

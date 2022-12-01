@@ -9,7 +9,7 @@ def test_get(mocker):
         status_code=200,
         json=lambda: {'cod': '200', 'list': []}
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     data = get('/data/2.5/forecast', {'lat': 1, 'lon': 2})
     requests.get.assert_called_once_with(
         url='https://api.openweathermap.org/data/2.5/forecast',
@@ -23,7 +23,7 @@ def test_get_error(mocker):
         status_code=400,
         json=lambda: {'cod': '400'}
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     with pytest.raises(Exception):
         get('/data/2.5/forecast', {'lat': 1, 'lon': 2})
 
@@ -34,7 +34,7 @@ def test_reverse_geocoding(mocker):
         json=lambda: {"city": "Etche",
                       "state": "Rivers State"}
     ))
-    mocker.patch('client.API_KEY\
+    mocker.patch('app.utils.client.API_KEY\
 ', '123')
     data = reverse_geocoding(5.12, 7.03)
     requests.get.assert_called_once_with(
@@ -50,7 +50,7 @@ def test_reverse_geocoding_error(mocker):
         status_code=200,
         json=lambda: []
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     with pytest.raises(Exception, match='Invalid request'):
         reverse_geocoding(1, 2)
 
@@ -62,7 +62,7 @@ def test_weather(mocker):
             'dt': 1,
         }]}
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     data = weather(1, 2)
     requests.get.assert_called_once_with(
         url='https://api.openweathermap.org/data/2.5/forecast',
@@ -76,7 +76,7 @@ def test_weather_error1(mocker):
         status_code=200,
         json=lambda: {'cod': '200', 'list': []}
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     with pytest.raises(Exception, match='Invalid request'):
         weather(1, 2)
 
@@ -86,6 +86,6 @@ def test_weather_error(mocker):
         status_code=200,
         json=lambda: {'cod': '400'}
     ))
-    mocker.patch('client.API_KEY', '123')
+    mocker.patch('app.utils.client.API_KEY', '123')
     with pytest.raises(Exception, match='Invalid request'):
         weather(1, 2)

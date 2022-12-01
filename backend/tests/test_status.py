@@ -1,13 +1,5 @@
-from fastapi.testclient import TestClient
-
-from app.main import app
-
-
-client = TestClient(app)
-
-
 class TestStatus:
-    def test_status_with_cache(self, mocker):
+    def test_status_with_cache(self, mocker, client):
         """Test status endpoint"""
         data = """{
             'forecasts': 'up',

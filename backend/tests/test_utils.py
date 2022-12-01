@@ -1,8 +1,7 @@
 import pytest
-from app.utils.general import (convert_epoch_to_datetime, get_location_obj,
-                               get_weather_forecast, weather_api_call)
+from app.utils.general import (convert_epoch_to_datetime, get_weather_forecast,
+                               weather_api_call)
 from fastapi import HTTPException
-from sqlalchemy.orm import Session
 
 
 def test_convert_epoch_to_datetime():
@@ -15,7 +14,7 @@ def test_convert_epoch_to_datetime():
 
 
 def test_weather_api_call(mocker):
-    mocker.patch('utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('app.utils.general.requests.get', return_value=mocker.Mock(
         status_code=200,
         json=lambda: {
             "weather": [
@@ -40,7 +39,7 @@ def test_weather_api_call(mocker):
 
 
 def test_weather_api_call_error(mocker):
-    mocker.patch('utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('app.utils.general.requests.get', return_value=mocker.Mock(
         status_code=400,
     ))
     with pytest.raises(HTTPException):
@@ -116,47 +115,3 @@ class TestGetWeatherForecast:
 
         with pytest.raises(Exception):
             get_weather_forecast(6.5244, 3.3792)
-
-
-class TestDBUtils:
-    def test_get_location_obj(self, session: Session):
-        """Test get location object"""
-        from app.models import Location
-        location = Location(
-            state="Lagos",
-            city="Ikeja"
-        )
-        session.add(location)
-        session.commit()
-
-        assert get_location_obj(session, "Ikeja", "Lagos") == location
-
-    def test_get_location_obj_error(self, session: Session):
-        """Test get location object"""
-        assert get_location_obj(session, "Ikeja", "Lagos") is None
-
-    def test_db_location_alerts(self, session: Session):
-        """Test get location alert"""
-        from app.models import Alert, Location
-        location = Location(
-            state="Lagos",
-            city="Ikeja"
-        )
-
-        # Add some alerts
-        location.alerts = [
-            Alert(
-                start=1612904800,
-                end=1612904800,
-                event="Rain",
-                message="It will rain",
-                hash="1234567890"
-            )
-        ]
-
-        session.add(location)
-        session.commit()
-
-        alerts = location.alerts
-        assert len(alerts) == 1
-        assert alerts[0].event == "Rain"

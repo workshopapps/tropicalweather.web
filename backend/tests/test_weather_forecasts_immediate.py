@@ -1,11 +1,5 @@
-from app.main import app
-from fastapi.testclient import TestClient
-
-client = TestClient(app)
-
-
 class TestGetImmediateWeatherForecast:
-    def test_immediate_weather_forcasts(self, mocker):
+    def test_immediate_weather_forcasts(self, mocker, client):
         """Test immediate weather forecast endpoint"""
         # mocker request.get json response
         mocker.patch(
