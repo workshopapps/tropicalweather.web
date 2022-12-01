@@ -90,7 +90,7 @@ export default function Home() {
           <div className="flex items-start justify-between">
             <div>
               <h3 className="landing_header_md">Weather Updates</h3>
-              <p className="text-[#565560]">Update a minute ago</p>
+              <p className="text-[#565560]">Updated a minute ago</p>
             </div>
             <button type="button" className="text-[#565560]">
               {' '}
