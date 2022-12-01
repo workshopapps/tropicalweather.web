@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationFeeds from '../components/NotificationFeedlist/NotificationFeeds';
@@ -76,7 +75,8 @@ export default function NotificationFeedList() {
           />
         </div>
         <NotificationFeeds feeds={location} />
-        <DeleteNotification show={show} location={location} closeModal={closeModal} emptyNotification={emptyNotification} />
+        <DeleteNotification show={show} 
+        location={location} closeModal={closeModal} emptyNotification={emptyNotification} />
       </div>
     );
 }
