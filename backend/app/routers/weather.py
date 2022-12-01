@@ -187,7 +187,7 @@ async def get_location_weather_risk(lat: float, lon: float):
 
 
 
-@router.get('/weather/alert/notification', response_model=List[AlertNotification])
+@router.get('/alert/notification', response_model=List[AlertNotification])
 async def get_weather_notification(lat: float, lon: float, db: Session = Depends(get_db)):
     latlng = reverse_geocode(lat, lon)
     city = latlng.get('city')
@@ -199,7 +199,7 @@ async def get_weather_notification(lat: float, lon: float, db: Session = Depends
     alert_instance = {}
 
     if location is not None:
-        for mydata in loc_obj.alerts:
+        for mydata in location.alerts:
 
             date_time = convert_epoch_to_datetime(mydata.start)
 
