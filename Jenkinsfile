@@ -23,11 +23,11 @@ pipeline {
 			steps {
                 sh "sudo cp -rf backend /home/johnoni/tropicalweather/backend"
                 sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather/frontend"
-                sh "sudo su - johnoni && whoami"
+            // sh "sudo su - johnoni && whoami"
             //  sh "sudo pm2 stop tropicalweather"
 	    	//  sh "sudo pm2 stop server"
                 sh "sudo pm2 serve /home/johnoni/tropicalweather/frontend/build --port 55001"
-                sh "sudo pm2 start /home/johnoni/tropicalweather/backend/app/server.py --interpreter python3"
+                sh "sudo pm2 start /home/johnoni/tropicalweather/backend/app/main.py --interpreter python3"
             }
 			
 	    }
