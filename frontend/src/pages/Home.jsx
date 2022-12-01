@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import PopularLocation from "../components/Home/PopularLocation";
-import Faq from "../components/Home/Faq";
-import HourlyUpdate from "../components/Home/HoulyUpdate";
-import Risk from "../components/Home/Risk";
-import "../styles/Home.css";
-import NearCity from "../components/Home/NearCity";
+import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import PopularLocation from '../components/Home/PopularLocation';
+import Faq from '../components/Home/Faq';
+import HourlyUpdate from '../components/Home/HoulyUpdate';
+import Risk from '../components/Home/Risk';
+import '../styles/Home.css';
+import NearCity from '../components/Home/NearCity';
 
 export default function Home() {
   const slider = useRef(null);
@@ -14,7 +14,7 @@ export default function Home() {
   const coord = useRef({ lon: 0, lat: 0 });
 
   useEffect(() => {
-    slider.current.addEventListener("scroll", () => {
+    slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
       width = width.substring(0, width.length - 2);
       const scrollPos = slider.current.scrollLeft;
@@ -93,7 +93,7 @@ export default function Home() {
               <p className="text-[#565560]">Update a minute ago</p>
             </div>
             <button type="button" className="text-[#565560]">
-              {" "}
+              {' '}
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
@@ -183,24 +183,24 @@ export default function Home() {
             <div className="landing_scroll_indicator">
               <div
                 style={{
-                  backgroundColor: curr === 0 ? "var(--l-primary-color)" : "",
+                  backgroundColor: curr === 0 ? 'var(--l-primary-color)' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 1 ? "var(--l-primary-color)" : "",
+                  backgroundColor: curr === 1 ? 'var(--l-primary-color)' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
               <div
                 style={{
-                  backgroundColor: curr === 2 ? "var(--l-primary-color)" : "",
+                  backgroundColor: curr === 2 ? 'var(--l-primary-color)' : '',
                 }}
               >
-                {" "}
+                {' '}
               </div>
             </div>
           </div>
@@ -221,10 +221,10 @@ export default function Home() {
         <section
           id="landing_features_and_globe"
           style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "40px",
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '40px',
           }}
           className="py-[96px]"
         >
@@ -244,7 +244,7 @@ export default function Home() {
               <div
                 className="landing_ill_container"
                 style={{
-                  "--ill-bg": "#D1FADF",
+                  '--ill-bg': '#D1FADF',
                 }}
               >
                 <p>Features</p>
@@ -259,13 +259,13 @@ export default function Home() {
                 <Link to="/signup" className="landing_link_button">
                   Get started
                 </Link>
-                <div style={{ width: "100%", paddingTop: "24px" }}>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
                     src="/Home/globe.png"
                     alt=""
                     style={{
-                      marginInline: "auto",
-                      width: "80%",
+                      marginInline: 'auto',
+                      width: '80%',
                     }}
                   />
                 </div>
@@ -275,7 +275,7 @@ export default function Home() {
               <div
                 className="landing_ill_container"
                 style={{
-                  "--ill-bg": "#FEF2F2",
+                  '--ill-bg': '#FEF2F2',
                 }}
               >
                 <p>Features</p>
@@ -290,13 +290,13 @@ export default function Home() {
                 <Link to="/signup" className="landing_link_button">
                   Get started
                 </Link>
-                <div style={{ width: "100%", paddingTop: "24px" }}>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
                     src="/Home/fall.png"
                     alt=""
                     style={{
-                      marginInline: "auto",
-                      width: "80%",
+                      marginInline: 'auto',
+                      width: '80%',
                     }}
                   />
                 </div>

@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --l-primary-color: #EF6820;
-  font-family: 'Outfit';
+  --l-primary-color: #ef6820;
+  font-family: "Outfit";
 }
 
 .landing_header {
@@ -40,7 +40,7 @@
 .landing_weather_brief {
   display: flex;
   align-items: center;
-  gap: 16px
+  gap: 16px;
 }
 
 .landing_weather_brief p {
@@ -72,7 +72,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 }
 
 .landing_locations_header h6 {
@@ -80,7 +80,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
@@ -97,7 +97,7 @@
   display: none;
 }
 
-.landing_scroll_indicator>div {
+.landing_scroll_indicator > div {
   border-radius: 50%;
   width: 7px;
   height: 7px;
@@ -107,7 +107,7 @@
 .landing_location_brief {
   display: flex;
   flex-direction: column;
-  gap: 24px
+  gap: 24px;
 }
 
 @media screen and (max-width: 768px) {
@@ -123,7 +123,7 @@
   align-items: center;
   gap: 8px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #E8E7EA;
+  border-bottom: 1px solid #e8e7ea;
 }
 
 .landing_location_brief_header h3 {
@@ -148,7 +148,7 @@
   font-size: 16px;
   line-height: 140%;
   text-transform: uppercase;
-  color: #2B2A30;
+  color: #2b2a30;
 }
 
 .landing_location_body p {
@@ -157,7 +157,7 @@
   font-size: 28px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -167,8 +167,8 @@
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
-  color: #EF6820;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #ef6820;
 }
 
 .landing_features_and_globe {
@@ -199,7 +199,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
 }
 
@@ -207,7 +207,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
@@ -228,7 +228,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
 }
 
@@ -237,14 +237,14 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
 #landing_download_app {
   width: 100%;
   display: flex;
-  background: #FDEAD7;
+  background: #fdead7;
   border-radius: 16px;
   margin-bottom: 100px;
   overflow: hidden;
@@ -257,17 +257,17 @@
 }
 
 .landing_download_container p {
-  color: var(--l-primary-color)
+  color: var(--l-primary-color);
 }
 
 .landing_download_container h3 {
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
   margin-block: 20px;
-  max-width: 300px;
+  max-width: 500px;
 }
 
 .landing_download_container p {
@@ -300,7 +300,7 @@
   grid-row-gap: 20px;
 }
 
-.landing_phones_container>img {
+.landing_phones_container > img {
   width: 500px;
 }
 
@@ -320,7 +320,7 @@
   grid-area: 2 / 3 / 4 / 4;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .landing_sections_wrapper {
     display: flex;
     flex-direction: column;
@@ -355,7 +355,6 @@
     display: none;
   }
 
-
   .landing_location_brief {
     width: 100%;
     scroll-snap-align: center;
@@ -374,15 +373,15 @@
   .landing_features_and_globe {
     display: flex;
     flex-direction: column;
-    gap: 88px
+    gap: 88px;
   }
 
-  .landing_download_container div>img {
+  .landing_download_container div > img {
     width: 50%;
   }
 
   .landing_download_container h3 {
-    font-size: 8vw;
+    /* font-size: 8vw; */
     line-height: 140%;
   }
 }

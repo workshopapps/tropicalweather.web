@@ -2,9 +2,9 @@ import React from 'react';
 
 function WhyWeatherSection() {
   return (
-    <div className="container flex flex-col-reverse items-center mx-4 md:mx-auto lg:flex-row md:gap-12 mt-14 lg:mt-28 font-Outfit">
+    <div className="about-whycontainer flex flex-col-reverse items-center  md:mx-auto lg:flex-row md:gap-12 py-[48px] lg:mt-28 font-Outfit">
       <div className="flex flex-col items-center flex-1 lg:items-start">
-        <p className="mb-6 text-2xl font-bold leading-5 tracking-wide text-center md:text-3xl md:text-start">Why Weathery?</p>
+        <p className="mb-6 text-2xl font-bold leading-5 tracking-wide text-center md:text-3xl md:text-start">Why Tropical Weather?</p>
         <p className="text-[#EF6820] font-bold text-xl md:text-2xl mb-4 text-start">We ensure that quality weather information is available to everyone.</p>
         <p className="text-[#82808F] text-sm md:text-lg font-normal mb-4 text-start">We provide you with relevant local weather data no matter where you live. We guarantee provision of weather data to underserved communities.</p>
         {/* --content- */}

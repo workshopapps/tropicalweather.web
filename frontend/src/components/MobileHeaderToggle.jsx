@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { RiHome6Line } from 'react-icons/ri';
-import { FaRegLightbulb } from 'react-icons/fa';
 import { BsBriefcase } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
-import { CgEnter } from 'react-icons/cg';
 import { GrClose } from 'react-icons/gr';
 
 export default function MobileHeaderToggle({ handleToggle, toggle }) {
@@ -72,24 +70,14 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       icon: <RiHome6Line />,
     },
     {
-      name: 'Features',
-      link: '/features',
-      icon: <FaRegLightbulb />,
-    },
-    {
-      name: 'For Business',
-      link: '/business',
+      name: 'About Us',
+      link: '/about-us',
       icon: <BsBriefcase />,
     },
     {
-      name: 'About Us',
-      link: '/about-us',
+      name: 'Contact Us',
+      link: '/',
       icon: <BiInfoCircle />,
-    },
-    {
-      name: 'Sign Up',
-      link: '/sign-up',
-      icon: <CgEnter />,
     },
   ];
   return (
