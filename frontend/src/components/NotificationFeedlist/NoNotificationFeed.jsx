@@ -8,9 +8,10 @@ export default function NoNotificationFeed() {
          alt="a trash icon"
          className="notificaton_feed-bigtrash"
        />
-       <p className="notificaton_feed-empty">Empty</p>
-       <p>
-         Nothing to see here When you receive weather updates, they'll appear here.
+       <p className="notificaton_feed-emptyy">Empty</p>
+       <p className="notificaton_feed-ntn">
+         Nothing to see here When you receive weather updates, they'll appear
+         here.
        </p>
      </div>
    </div>
