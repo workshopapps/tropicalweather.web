@@ -87,6 +87,15 @@ export default function Dashboard() {
     (item) => item.location === currentLocation
   );
 
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('saved-locations'));
+    if (!data) {
+      setSavedLocations([]);
+    } else {
+      setSavedLocations(data);
+    }
+  }, []);
+  
   const addLocation = async (location) => {
     if (isSaved) return;
     const locs = savedLocations;
