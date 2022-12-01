@@ -66,6 +66,7 @@
   text-align: center;
   max-width: 400px;
   padding: 1em;
+  margin: 1em;
 }
 .notificaton_feed-list {
   display: flex;
@@ -77,7 +78,6 @@
   border-radius: 8px;
   padding: 0.5em;
   position: relative;
-
 }
 .notificaton_feed-listcontent {
   display: flex;
@@ -93,47 +93,47 @@
   font-size: 12px;
   position: absolute;
   bottom: 0;
-    right: 1em;
+  right: 1em;
 }
-.notificatin_feed-hd{
-  color: #EF6820;
+.notificatin_feed-hd {
+  color: #ef6820;
   font-weight: 700;
 }
-.notificaton_feed-btnflex{
+.notificaton_feed-btnflex {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1em;
   margin: 1em 0;
 }
-.notificaton_feed-ntn{
+.notificaton_feed-ntn {
   max-width: 300px;
 }
-.notificaton_feed-btn{
-  padding:.5em 1em;
-width: 150px;
+.notificaton_feed-btn {
+  padding: 0.5em 1em;
+  width: 150px;
 }
-.notificaton_feed-cancel{
-border: 1px solid #EF6820;
-border-radius: 8px;
-color: #EF6820;
+.notificaton_feed-cancel {
+  border: 1px solid #ef6820;
+  border-radius: 8px;
+  color: #ef6820;
 }
-.notificaton_feed-empty{
-background: #EF6820;
-border: 1px solid #EF6820;
-border-radius: 8px;
-color: #FFFFFF;
+.notificaton_feed-empty {
+  background: #ef6820;
+  border: 1px solid #ef6820;
+  border-radius: 8px;
+  color: #ffffff;
 }
 @media (min-width: 60rem) {
   .notificaton_feed-time {
-  font-size: 12px;
-  position: relative;
-  bottom: auto;
+    font-size: 12px;
+    position: relative;
+    bottom: auto;
     right: auto;
-}
-.notificaton_feed-list{
-  align-items: flex-start;
-}
+  }
+  .notificaton_feed-list {
+    align-items: flex-start;
+  }
   .notificaton_feed-container {
     padding-inline: 8em;
   }
