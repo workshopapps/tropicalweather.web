@@ -1,24 +1,36 @@
 .notificaton_feed-container{
-    padding: 2em 4em;
+    padding: 1.5em ;
 }
 .notificaton_feedhd {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 .notificaton_feedbg {
-  height: 36px;
-  width: 30px;
+  height: 20px;
+  width: 22px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
 }
 .notificaton_feedhome {
-  background-image: url("../../public/assets/NotificationFeedList/ep_back.svg");
+  background-image: url("../../public/assets/NotificationFeedList/Arrows.svg");
+}
+.notificaton_feedhome span{
+    display: none;
+}
+.notificaton_feedhd-flex{
+  display: flex;
+    align-items: center;
+  justify-content: space-between;
+}
+.notificaton_feedhd-flex h1{
+  font-weight: 700;
 }
 .notificaton_feedtrash {
-  background-image: url("../../public/assets/NotificationFeedList/trash-icon.svg");
+  background-image: url("../../public/assets/NotificationFeedList/delete.svg");
 }
 .notificaton_feed-nolist {
   min-height: 30vh;
@@ -33,4 +45,25 @@
 }
 .notificaton_feed-empty{
     margin-bottom: .5em;
+}
+@media (min-width:60rem) {
+  .notificaton_feed-container{
+    padding-inline: 8em;
+  }
+.notificaton_feedhd-flex{
+ display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+.notificaton_feedhd-flex h1{
+  margin-top: 1em;
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 24px;
+} 
+.notificaton_feedhome { 
+        background-image: none;
+ }
+.notificaton_feedhome span{
+    display: block;
+}
 }
