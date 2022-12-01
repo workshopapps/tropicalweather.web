@@ -1,14 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment/moment';
 import { Link } from 'react-router-dom';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
-import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
+import { BsMap, BsHeart } from 'react-icons/bs';
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import useCity from '../hooks/useCity';
+import WeatherForecast from '../components/Dashboard/WeatherForecast';
 
 export default function Dashboard() {
-  const APIURL = 'https://api.weathery.hng.tech';
-  const time = new Date().toLocaleTimeString();
+  // const threeDayForcast = [
+  //   {
+  //     location: 'Abuja, Nigeria',
+  //     date: moment().add(1, 'days').calendar().split(' ')[0],
+  //     weather: 'Sunny',
+  //     description: 'Sunny with a high of 75F',
+  //     time: '1:00PM',
+  //   },
+  //   {
+  //     location: 'Kaduna, Nigeria',
+  //     date: moment().add(2, 'days').format('ll'),
+  //     weather: 'Rain',
+  //     description: 'Sunny with a high of 40C',
+  //     time: '3:00 PM',
+  //   },
+  //   {
+  //     location: 'Lagos, Nigeria',
+  //     date: moment().add(3, 'days').format('ll'),
+  //     weather: 'Sunny',
+  //     description: 'Sunny with a high of 75F',
+  //     time: '6:00 PM',
+  //   },
+  // ];
+  const APIURL = 'https://api.tropicalweather.hng.tech';
+  const time = moment().format('h:mm a');
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState('');
   const [geoLocation, setGeoLocation] = useState({});
@@ -51,8 +76,8 @@ export default function Dashboard() {
       const { latitude, longitude } = coords;
       setGeoLocation({ latitude, longitude });
       getCurrentLocationFromCoords();
-      getThreeDayForcast();
-      getCurrentForecastFromLocation(currentLocation);
+      // getThreeDayForcast();
+      // getCurrentForecastFromLocation(currentLocation);
     }
   }, [coords]);
 
@@ -80,13 +105,8 @@ export default function Dashboard() {
   const addLocation = async (location) => {
     if (savedLocations.some((loc) => loc.location === location)) return;
     // Update location in local storage and state
-    const response = await getCurrentForecastFromLocation(location);
     const locs = savedLocations;
-    locs.push({
-      location,
-      weather: response.main,
-      description: response.description,
-    });
+    locs.push(location);
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     showToast('SUCCESS');
@@ -123,11 +143,11 @@ export default function Dashboard() {
           <TfiAngleLeft className="mr-2 text-lg" />
           <span className="text-lg">Back</span>
         </Link>
-        <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
+        <div className="flex flex-col justify-between w-full max-w-4xl gap-10 md:flex-row">
           <div className="relative w-full">
-            <div className="flex items-center mb-5 md:justify-between">
-              <h1 className="text-2xl font-bold md:text-5xl">
-                {currentLocation}
+            <div className="flex items-center px-5 mb-5 md:justify-between">
+              <h1 className="text-2xl font-bold">
+                {currentLocation || 'Lagos, Nigeria'}
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
                 {isSaved ? null : (
@@ -142,49 +162,36 @@ export default function Dashboard() {
                 )}
               </div>
             </div>
-            <div>
-              <div
-                className="pt-6 text-white rounded-lg w-full max-w-5xl hero h-[400px] flex flex-col justify-around bg-primary-btn"
-                style={{
-                  background: `url('${process.env.PUBLIC_URL}/generic-space-background.jpg')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                }}
-              >
-                <div className="flex justify-between px-6">
-                  <span>{`Today . ${time} `}</span>
-                  <button type="button" aria-label="share">
-                    <BsShare />
-                  </button>
-                </div>
-                <div className="px-6">
-                  <p>{currentWeather.main || 'Data is not available yet'}</p>
-
-                  <div className="w-full max-w-[500px]">
-                    <span className="text-4xl font-bold">
-                      {currentWeather.description || 'Data is not available yet'}
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <div
+              className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero"
+            >
+              <p>
+                Today .
+                <span className="uppercase">{` ${time}`}</span>
+              </p>
+              <p className="text-4xl font-bold">{currentWeather.main || 'Weather data is not available yet'}</p>
+              <p className="text-xl font-bold text-gray-600">{currentWeather.time || time}</p>
+              <p className="px-8 py-2 font-semibold text-sm text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max">
+                {currentWeather.description || 'Weather description is not available yet'}
+              </p>
             </div>
           </div>
           <section id="three-day-forcast" className="">
-            <p className="mb-4 text-xl font-bold">3 hour interval forecast</p>
+            <p className="mb-4 text-xl font-bold">Today</p>
             {threeDayForcast.length > 0 ? (
               threeDayForcast.map((day) => (
-                <WeatherPreview
-                  date={day.date}
+                <WeatherForecast
+                  icon={day.date}
                   description={day.description}
-                  weather={day.main}
+                  time={day.main}
+                  weather={day.date}
                   key={day.date}
                 />
               ))) :
               <p className="text-xl font-semibold">Loading...</p>}
           </section>
         </div>
-        <section id="saved-locations" className="mt-20 md:mt-40">
+        <section id="saved-locations" className="mt-20">
           <div className="flex items-center justify-between w-full">
             <h2 className="text-2xl font-bold">Saved Locations</h2>
           </div>
