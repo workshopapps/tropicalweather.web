@@ -1,34 +1,29 @@
 # application initilization starts here
-#import asyncio
+import ast
 import sys
-#from functools import wraps
 from logging import info
 from pathlib import Path
 
+import redis
 import socketio
+from decouple import config
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
-from decouple import config
-import redis
-import ast
-
 
 BASE = Path(__file__).resolve().parent.parent
-print(BASE)
 sys.path.append(str(BASE))
 
-from app.schemas import PacketModel  # noqa: E402
+from app import models  # noqa: E402
+from app.database import engine, get_db  # noqa: E402
 from app.routers import location  # noqa: E402
 from app.routers import weather  # noqa: E402
+from app.schemas import PacketModel  # noqa: E402
 from app.utils import get_room_name, get_status  # noqa: E402
-from app.database import engine, get_db  # noqa: E402
-from app import models  # noqa: E402
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -51,26 +46,34 @@ app.include_router(location.router)
 
 
 # Mount /cssfile for Jinja2Templates
-app.mount('/cssfile', StaticFiles(directory=BASE / "app/cssfile"), name="cssfile")
+app.mount('/cssfile', StaticFiles(
+    directory=BASE / "app/cssfile"), name="cssfile")
 
 # Status page
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=BASE / "app/templates")
 
 rd = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
+
+# We need a prefix for redis keys, because we there are multiple
+# apps using the same redis instance
+prefix = config("APP_NAME", default="fastapi")
 
 
 @app.get('/status', response_class=HTMLResponse)
 async def status_page(request: Request):
     the_request = {'request': request}
-    cache = rd.get('status')
+    cache_key = f"{prefix}:status"
+    cache = rd.get(cache_key)
 
     if cache:
         data = ast.literal_eval(cache)
-        return templates.TemplateResponse("status.html", {**the_request, **data})
+        return templates.TemplateResponse(
+            "status.html", {**the_request, **data})
     else:
         data = get_status()
-        rd.set('status', str(data))
-        rd.expire('status', 120)
+        rd.set(cache_key, str(data))
+        rd.expire(cache_key, 120)
     return templates.TemplateResponse("status.html", {**the_request, **data})
 
 
