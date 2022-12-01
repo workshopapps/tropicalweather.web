@@ -167,6 +167,9 @@
 
   color: #82808f;
 }
+.notificationsetting__option2--input {
+  accent-color: #ef6820;
+}
 @media (max-width: 500px) {
   .return__btn--container {
     margin-top: 16px;
@@ -258,5 +261,29 @@
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
     color: #82808f;
+  }
+
+  .toggle-btn {
+    height: 24px;
+    width: 48px;
+    border: 1px solid #e8e7ea;
+    border-radius: 26px;
+    background-color: #fff;
+    display: flex;
+
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+  }
+  .toggle-btn__left {
+    width: 16px;
+    height: 16px;
+    background-color: #ef6820;
+    border-radius: 50%;
+  }
+  .toggle-btn__right {
+    width: 16px;
+    height: 16px;
+    /* margin-left: 16px; */
   }
 }

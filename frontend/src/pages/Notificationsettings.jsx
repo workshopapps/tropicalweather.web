@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import '../styles/NotificationSettings.css';
-import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
+import "../styles/NotificationSettings.css";
+import BackIcon from "../NotificationSettingsAssets/BackIcon.svg";
 
 export default function Notificationsettings() {
   const [toggle, setToggle] = useState(false);
@@ -41,13 +41,21 @@ export default function Notificationsettings() {
             </p>
           </div>
           <div className="notificationsetting__option">
-            <input type="radio" className="radio" />
+            <input
+              type="radio"
+              name="radio"
+              className="notificationsetting__option2--input"
+            />
             <h5 className="notificationsetting__option--heading-text">
               Do not notify me
             </h5>
           </div>
           <div className="notificationsetting__option1">
-            <input type="radio" className="radio" />
+            <input
+              type="radio"
+              name="radio"
+              className="notificationsetting__option2--input"
+            />
             <div>
               <h5 className="notificationsetting__option--heading-text">
                 Important reminders only
@@ -58,7 +66,11 @@ export default function Notificationsettings() {
             </div>
           </div>
           <div className="notificationsetting__option2">
-            <input type="radio" className="radio" />
+            <input
+              type="radio"
+              name="radio"
+              className="notificationsetting__option2--input"
+            />
             <div>
               <h5 className="notificationsetting__option--heading-text">
                 All reminders
@@ -79,13 +91,21 @@ export default function Notificationsettings() {
             </p>
           </div>
           <div className="notificationsetting__option">
-            <input type="radio" className="radio" />
+            <input
+              type="radio"
+              name="radio2"
+              className="notificationsetting__option2--input"
+            />
             <h5 className="notificationsetting__option--heading-text">
               Do not notify me
             </h5>
           </div>
           <div className="notificationsetting__option2">
-            <input type="radio" className="radio" />
+            <input
+              type="radio"
+              name="radio2"
+              className="notificationsetting__option2--input"
+            />
             <div>
               <h5 className="notificationsetting__option--heading-text">
                 All reminders
