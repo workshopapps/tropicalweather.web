@@ -41,6 +41,16 @@ export default function Header() {
     navigate(`/dashboard?city=${city}`);
   };
 
+  const searchResults = React.useMemo(() => {
+    if (query.length < 3) return [];
+    const res = cities.filter((city) => {
+      const ci = city.toLowerCase();
+      const param = query.toLowerCase();
+      return ci.includes(param);
+    });
+    return res;
+  }, [query]);
+
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
       <div>
