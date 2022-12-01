@@ -8,6 +8,7 @@ import {
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
 import Dashboard from './pages/Dashboard';
 import AppLayout from './components/AppLayout';
 import Notification from './pages/Notification';
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
     <Route element={<AppLayout />}>
       <Route path="/" element={<Home />} />
       <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/contact" element={<ContactUs />} />
       <Route path="/notification" element={<Notification />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/air-quality" element={<AirQuality />} />
