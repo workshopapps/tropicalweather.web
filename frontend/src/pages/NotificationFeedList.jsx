@@ -75,8 +75,12 @@ export default function NotificationFeedList() {
           />
         </div>
         <NotificationFeeds feeds={location} />
-        <DeleteNotification show={show} 
-        location={location} closeModal={closeModal} emptyNotification={emptyNotification} />
+        <DeleteNotification
+          show={show}
+          location={location}
+          closeModal={closeModal}
+          emptyNotification={emptyNotification}
+        />
       </div>
     );
 }
