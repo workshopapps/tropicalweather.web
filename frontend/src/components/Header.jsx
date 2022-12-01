@@ -40,8 +40,6 @@ export default function Header() {
     searchRef.current.blur();
     navigate(`/dashboard?city=${city}`);
   };
-  const searchResults =
-    query.length < 3 ? [] : cities.filter((city) => city.includes(query));
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
