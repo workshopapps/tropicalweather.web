@@ -22,9 +22,9 @@ export default function Dashboard() {
   const [currentLocation, setCurrentLocation] = useState();
   const finalApiEndpoint = `https://api.tropicalweather.hng.tech/location?lat=${latitude}&lon=${longitude}`;
   const { search } = useLocation();
-  
+
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentLocation]);
 
   useEffect(() => {
