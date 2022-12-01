@@ -2,12 +2,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationFeeds from '../components/NotificationFeedlist/NotificationFeeds';
-import NoNotificationFeed from '../components/NotificationFeedlist/NoNotificationFeed';
 import '../styles/NotificationFeedList.css';
 import DeleteNotification from '../components/NotificationFeedlist/DeleteNotification';
 
 export default function NotificationFeedList() {
-  const locationn = [];
   const [location, setLocation] = useState([
     {
       id: 'a',
@@ -77,8 +75,7 @@ export default function NotificationFeedList() {
             onClick={() => (!show && location.length > 0 ? setShow(true) : setShow(false))}
           />
         </div>
-        {location.length > 1 && <NotificationFeeds feeds={location} />}
-        {location.length < 1 && <NoNotificationFeed />}
+        <NotificationFeeds feeds={location} />
         <DeleteNotification show={show} location={location} closeModal={closeModal} emptyNotification={emptyNotification} />
       </div>
     );
