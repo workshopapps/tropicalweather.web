@@ -1,0 +1,317 @@
+.error-container{
+   display:flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   padding: 40px 70px;
+}
+.error-col1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+}
+.error-head{
+    font-size: 57px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.error-para{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 70px;
+    width: 83%;
+}
+.error-para2{
+    display: none;
+}
+.error-buttons2{
+    display: none;
+}
+.Error-button{
+    box-sizing: border-box;
+    border: 1px solid #EF6820;
+    padding: 15px 30px;
+    border-radius: 8px;
+    gap: 8px;
+    background-color: #EF6820;
+    color: #fff;
+}
+.Error-button:hover{
+    background-color: #C7581D;
+}
+.Error-ill2{
+    display: none;
+}
+@media screen and (max-width: 1115px) {
+    .error-head{
+        font-size: 45px;
+        font-weight: 600;
+    }
+    .error-para{
+        font-size: 15px;
+        font-weight: 500;  
+        margin-bottom: 50px;
+    }
+    
+}
+@media screen and (max-width: 1105px) {
+    .error-head{
+        font-size: 40px;
+        font-weight: 600;
+    }
+    
+}
+@media screen and (max-width: 980px) {
+    .Error-ill{
+        display: none;
+      }
+      .Error-ill2{
+          display: block;
+      }
+    
+    .error-head{
+        font-size: 32px;
+        font-weight: 700;
+    }
+    .error-para{
+        font-size: 13px;
+        font-weight: 500;  
+        margin-bottom: 50px;
+    }
+    .Error-button{
+        box-sizing: border-box;
+        border: 1px solid #EF6820;
+        padding: 10px 20px;
+        border-radius: 4px;
+        gap: 8px;
+        background-color: #EF6820;
+        color: #fff;
+        font-size: 13px;
+        width: 20%;
+    }
+}
+@media screen and (max-width: 700px) {
+    .error-container{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 40px;
+     }
+    .Error-ill{
+      display: none;
+    }
+    .Error-ill2{
+        display: block;
+        margin: 20px 130px;
+    }
+    .error-head{
+        font-size: 34px;
+        font-weight: 600;
+    }
+    .error-para{
+        display: none; 
+    }
+    .error-para2{
+        display: block;
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 70px;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+        margin-left: 20px;
+    }
+    .error-buttons{
+        display: none;
+    }
+    .error-buttons2{
+        display: block;
+       margin-left: 170px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .error-head{
+        font-size: 30px;
+    }
+    .Error-ill2{
+        display: block;
+        margin: 20px 100px;
+    }
+    .error-para2{
+        margin-left: 10px;
+        margin-bottom: 50px;
+    }
+    .error-buttons2{
+       margin-left: 150px;
+    }
+}
+@media screen and (max-width: 553px) {
+    .error-head{
+        font-size: 27px;
+    }
+    .Error-ill2{
+        margin: 20px 80px;
+    }
+    .error-para2{
+        margin-left: 10px;
+        margin-bottom: 50px;
+    }
+    .error-buttons2{
+       margin-left: 140px;
+    }
+}
+@media screen and (max-width: 508px) and (min-width: 480px) {
+    .error-head{
+        font-size: 25px;
+    }
+    .Error-ill2{
+        margin: 20px 60px;
+    }
+    .error-para2{
+        margin-left: 5px;
+    }
+    .error-buttons2{
+       margin-left: 120px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .error-head{
+        font-size: 24px;
+    }
+    .Error-ill2{
+        margin: 20px 40px;
+    }
+    .error-para2{
+        margin-left: 2px;
+    }
+    .error-buttons2{
+       margin-left: 100px;
+    }
+}
+@media screen and (max-width: 460px) {
+    .error-head{
+        font-size: 22px;
+    }
+    .Error-ill2{
+        margin: 20px 20px;
+    }
+    .error-para2{
+        margin-left: 2px;
+    }
+    .error-buttons2{
+       margin-left: 70px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .error-head{
+        font-size: 20px;
+    }
+    .Error-ill2{
+        margin: 20px 20px;
+    }
+    
+    .error-para2{
+        margin-left: 2px;
+        font-size: 13px;
+    }
+    .error-buttons2{
+       margin-left: 100px;
+    }
+}
+@media screen and (max-width: 432px) {
+    .error-head{
+        font-size: 20px;
+        width: 100%;
+    }
+    .Error-ill2{
+        margin: 10px 20px;
+    }
+    .error-para2{
+        margin-left: 5px;
+        font-size: 12px;
+    }
+    .error-buttons2{
+       margin-left: 100px;
+    }
+    .Error-button{
+        padding: 8px 15px;
+        font-size: 11px;
+    }
+}
+@media screen and (max-width: 402px)  {
+    .error-head{
+        font-size: 18px;
+    }
+    .Error-ill2{
+        margin: 10px 20px;
+    }
+    .error-para2{
+        margin-left: 5px;
+        font-size: 12px;
+    }
+    .error-buttons2{
+       margin-left: 100px;
+    }
+    .Error-button{
+        padding: 8px 15px;
+        font-size: 11px;
+    }
+}
+@media screen and (max-width: 389px)  {
+    .Error-ill2{
+        margin: 10px 10px;
+    }
+    .error-buttons2{
+       margin-left: 70px;
+    }
+}
+@media screen and (max-width: 322px)  {
+    error-container{
+        padding: 40px 10px;
+     }
+    .error-head{
+        font-size: 14px;
+        margin-left: 10px;
+    }
+    .error-para2{
+        margin-left: 1px;
+        font-size: 10px;
+    }
+    .Error-ill2{
+        margin: 10px -2px;
+    }
+    .error-buttons2{
+       margin-left: 30px;
+    }
+    .Error-button{
+        padding: 8px 15px;
+        font-size: 11px;
+    }
+}
+@media screen and (max-width: 371px) {
+    .error-head{
+        font-size: 14px;
+        margin-left: 2px;
+        align-items: center;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 322px) and (min-width: 200px) {
+    .error-head{
+        font-size: 15px;
+        margin-left: 2px;
+        align-items: center;
+        text-align: center;
+    }
+    .error-buttons2{
+        margin-left: 20px;
+        width: 100%;
+     }
+     .Error-button{
+         padding: 8px 15px;
+         font-size: 10px;
+         
+     }
+}
