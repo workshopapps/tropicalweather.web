@@ -6,7 +6,6 @@
 .return__btn--container {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   margin-top: 24px;
   margin-bottom: 24px;
   gap: 8px;
@@ -17,13 +16,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/900 */
-
   color: #161518;
 }
 .notification__header h2 {
@@ -32,12 +26,8 @@
   font-weight: 700;
   font-size: 28px;
   line-height: 36px;
-  /* identical to box height, or 129% */
-
   letter-spacing: -0.025em;
   font-feature-settings: "tnum" on, "lnum" on;
-
-  /* Grey/900 */
   margin-bottom: 8px;
   color: #161518;
 }
@@ -47,13 +37,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/700 */
-
   color: #565560;
 }
 
@@ -77,12 +62,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
-  /* identical to box height, or 133% */
-
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/900 */
-
   color: #161518;
 }
 .notification__push--text p {
@@ -91,13 +71,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/700 */
-
   color: #565560;
 }
 .toggle-btn {
@@ -107,11 +82,10 @@
   border-radius: 26px;
   background-color: #fff;
   display: flex;
-  /* justify-content: center; */
+
   align-items: center;
   gap: 2px;
   padding: 4px;
-  /* width: 15%; */
 }
 .toggle-btn__left {
   width: 22px;
@@ -145,12 +119,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
-  /* identical to box height, or 133% */
-
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/900 */
-
   color: #161518;
 }
 .notificationsetting__header p {
@@ -159,8 +128,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
 
@@ -185,13 +152,8 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-  /* Grey/900 */
-
   color: #161518;
 }
 .notificationsetting__option--description {
@@ -200,8 +162,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height, or 125% */
-
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
 
@@ -218,12 +178,7 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 24px;
-    /* identical to box height, or 133% */
-
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/900 */
-
     color: #161518;
   }
   .notification__header p {
@@ -232,13 +187,8 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    /* identical to box height, or 125% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/800 */
-
     color: #2b2a30;
   }
   .notification__push {
@@ -251,13 +201,8 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
-    /* identical to box height, or 125% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/900 */
-
     color: #161518;
   }
   .notification__push--text p {
@@ -266,13 +211,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* or 143% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/700 */
-
     color: #565560;
   }
   .notificationsetting {
@@ -285,13 +225,8 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
-    /* identical to box height, or 125% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/900 */
-
     color: #161518;
   }
   .notificationsetting__header p {
@@ -300,11 +235,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* or 143% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
     color: #82808f;
   }
   .notificationsetting__option--heading-text {
@@ -313,13 +245,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* identical to box height, or 143% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
-    /* Grey/900 */
-
     color: #161518;
   }
   .notificationsetting__option--description {
@@ -328,11 +255,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* or 143% */
-
     letter-spacing: 0.01em;
     font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-
     color: #82808f;
   }
 }
