@@ -16,7 +16,6 @@ import FullWeatherDetails from './pages/FullWeatherDetails';
 import LandingPage from './pages/LandingPage';
 import Notificationsettings from './pages/Notificationsettings';
 
-
 // import Promotions from './pages/Promotions';
 
 const queryClient = new QueryClient();
