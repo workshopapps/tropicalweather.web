@@ -96,7 +96,7 @@ export default function Home() {
               {' '}
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[100px]">
             <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">
                 Hourly Updates
