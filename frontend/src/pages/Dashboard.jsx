@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
@@ -7,15 +7,12 @@ import { AiFillCheckCircle } from 'react-icons/ai';
 import axios from 'axios';
 
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
-import useCity from '../hooks/useCity';
 import PopularLocation from '../components/Home/PopularLocation';
-// import MyCurrentLocation from '../components/FullWeatherComponents/MyCurrentLocation';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
   const time = new Date().toLocaleTimeString();
   const [geoLocation, setGeoLocation] = useState({});
-  const [userLocation, setUserLocation] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [threeDayForcast, setThreeDayForcast] = useState([]);
@@ -23,21 +20,26 @@ export default function Dashboard() {
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState(false);
   const [currentLocation, setCurrentLocation] = useState();
+  const finalApiEndpoint = `https://api.tropicalweather.hng.tech/location?lat=${latitude}&lon=${longitude}`;
+  const { search } = useLocation();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
+  }, []);
 
-    const finalApiEndpoint = `https://api.tropicalweather.hng.tech/location?lat=${latitude}&lon=${longitude}`;
+  useEffect(() => {
+    const city = new URLSearchParams(search).get('city');
+    setCurrentLocation(city);
+  }, [search]);
 
-    if (longitude !== '' && latitude !== '' && currentLocation === undefined) {
-      axios.get(finalApiEndpoint).then((response) => {
-        setCurrentLocation(`${response.data.city}, ${response.data.state}`);
-      });
-    }
-  }, [latitude, longitude]);
+  if (longitude !== '' && latitude !== '' && !currentLocation) {
+    axios.get(finalApiEndpoint).then((response) => {
+      setCurrentLocation(`${response.data.city}, ${response.data.state}`);
+    });
+  }
 
   const { coords } = useGeolocated({
     positionOptions: {
@@ -45,16 +47,6 @@ export default function Dashboard() {
     },
     userDecisionTimeout: 5000,
   });
-
-  // const getCurrentLocationFromCoords = async () => {
-  //   const { latitude, longitude } = geoLocation;
-  //   const response = await fetch(
-  //     `${APIURL}/location?lat=${latitude}&lon=${longitude}`
-  //   );
-  //   const data = await response.json();
-  //   const location = `${data.state}, ${data.city}`;
-  //   setUserLocation(location);
-  // };
 
   const getThreeDayForcast = async () => {
     const { latitude, longitude } = geoLocation;
@@ -82,7 +74,7 @@ export default function Dashboard() {
       getCurrentForecastFromLocation(currentLocation);
     }
   }, [coords]);
-  // Check if location is saved
+
   const isSaved = savedLocations.some(
     (item) => item.location === currentLocation
   );
@@ -95,7 +87,7 @@ export default function Dashboard() {
       setSavedLocations(data);
     }
   }, []);
-  
+
   const addLocation = async (location) => {
     if (isSaved) return;
     const locs = savedLocations;
@@ -149,7 +141,7 @@ export default function Dashboard() {
           <div className="relative w-full">
             <div className="flex items-center mb-5 md:justify-between">
               <h1 className="text-2xl font-bold md:text-5xl">
-                {currentLocation }
+                {currentLocation}
               </h1>
               <div className="items-center hidden gap-6 lg:flex">
                 {isSaved ? null : (
