@@ -193,12 +193,12 @@ async def get_weather_notification(lat: float, lon: float, db: Session = Depends
     city = latlng.get('city')
     state = latlng.get('state')
 
-    loc_obj = get_location_obj(db, city, state)
+    location = get_location_obj(db, city, state)
 
     data = []
     alert_instance = {}
 
-    if loc_obj is not None:
+    if location is not None:
         for mydata in loc_obj.alerts:
 
             date_time = convert_epoch_to_datetime(mydata.start)
