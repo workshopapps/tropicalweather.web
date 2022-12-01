@@ -56,6 +56,112 @@
 
   color: #565560;
 }
+@media (max-width: 500px) {
+  .return__btn--container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  .notification__header h2 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+    /* Grey/900 */
+
+    color: #161518;
+  }
+  .notification__header p {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+    /* Grey/800 */
+
+    color: #2b2a30;
+  }
+}
+
+.notification__push {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+.notification__push--text {
+  width: 85%;
+}
+.notification__push--text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.notification__push--text h3 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  /* identical to box height, or 133% */
+
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/900 */
+
+  color: #161518;
+}
+.notification__push--text p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/700 */
+
+  color: #565560;
+}
+.toggle-btn {
+  height: 30px;
+  width: 54px;
+  border: 1px solid #e8e7ea;
+  border-radius: 26px;
+  background-color: orange;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  /* width: 15%; */
+}
+.toggle-btn__left {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+}
+.toggle-btn__right {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 22px;
+}
 .notificationsetting {
   padding-top: 28px;
   padding-bottom: 28px;
