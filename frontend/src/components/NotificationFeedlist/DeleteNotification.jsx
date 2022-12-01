@@ -1,6 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unescaped-entities */
-export default function DeleteNotification({ show, closeModal, emptyNotification }) {
+import PropTypes from 'prop-types';
+
+export default function DeleteNotification({
+  show,
+  closeModal,
+  emptyNotification,
+}) {
   return (
     <div
       className={show ? 'notificaton_feed-delecon' : 'notificaton_feed-none'}
@@ -8,7 +12,7 @@ export default function DeleteNotification({ show, closeModal, emptyNotification
       <div className="notificaton_feed-dele">
         <h1 className="notificatin_feed-hd">Are you sure?</h1>
         <p>
-          Are you sure you want to empty your notifications. You'll lose access
+          Are you sure you want to empty your notifications. you&apos;ll lose access
           to them
         </p>
         <div className="notificaton_feed-btnflex">
@@ -31,3 +35,8 @@ export default function DeleteNotification({ show, closeModal, emptyNotification
     </div>
   );
 }
+DeleteNotification.propTypes = {
+  show: PropTypes.bool,
+  emptyNotification: PropTypes.func,
+  closeModal: PropTypes.func,
+};
