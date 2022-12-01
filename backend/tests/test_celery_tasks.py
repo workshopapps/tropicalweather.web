@@ -1,16 +1,15 @@
-import pytest  # noqa: F401
+import pytest
 from app.celery_tasks.tasks import (create_events, delete_alert,
                                     get_db_locations, get_location_alerts_api,
                                     hash_alert, send_websocket_message,
                                     update_alert_events)
-from app.models import Alert, Location
 from sqlalchemy.orm import Session
 
 
 def test_get_db_locations(session: Session):
     """Test the get_db_locations function
     """
-
+    from app.models import Alert, Location
     # Create a location
     location = Location(
         city="test",
@@ -26,8 +25,9 @@ def test_get_db_locations(session: Session):
 
 
 def test_get_location_alerts_api(mocker):
+    from app.models import Alert, Location
     mock = mocker.patch(
-        'app.celery_tasks.tasks.get_location_alerts_by_address',
+        'celery_tasks.tasks.get_location_alerts_by_address',
         return_value=[{"test": "test"}]
     )
 
@@ -44,6 +44,7 @@ def test_get_location_alerts_api(mocker):
 def test_create_events(session: Session):
     """Test the create_events function
     """
+    from app.models import Alert, Location
     location = Location(
         city="test",
         state="test_state",
@@ -72,6 +73,7 @@ def test_create_events(session: Session):
 def test_delete_alert(session: Session):
     """Test the delete_alert function
     """
+    from app.models import Alert, Location
     location = Location(
         city="test",
         state="test_state",
@@ -99,14 +101,15 @@ def test_delete_alert(session: Session):
 
 
 def test_send_websocket_message(mocker):
+    from app.models import Alert, Location
     mock = mocker.patch(
-        'app.celery_tasks.tasks.send_message_to_room',
+        'celery_tasks.tasks.send_message_to_room',
     )
     create_connection = mocker.patch(
-        'app.celery_tasks.tasks.create_connection',
+        'celery_tasks.tasks.create_connection',
     )
     close_connection = mocker.patch(
-        'app.celery_tasks.tasks.close_connection',
+        'celery_tasks.tasks.close_connection',
     )
 
     location = Location(
@@ -152,6 +155,7 @@ def test_hash_alert():
 def test_update_alert_events(session: Session, mocker):
     """Test the update_alert_events function
     """
+    from app.models import Alert, Location
     location = Location(
         city="test",
         state="test_state",
@@ -206,12 +210,12 @@ def test_update_alert_events(session: Session, mocker):
     ]
 
     mocker.patch(
-        'app.celery_tasks.tasks.get_location_alerts_api',
+        'celery_tasks.tasks.get_location_alerts_api',
         return_value=events
     )
 
     socket_mock = mocker.patch(
-        'app.celery_tasks.tasks.send_websocket_message',
+        'celery_tasks.tasks.send_websocket_message',
     )
 
     update_alert_events()

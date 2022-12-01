@@ -9,7 +9,7 @@ client = TestClient(app)
 class TestStatus:
     def test_status_with_cache(self, mocker):
         """Test status endpoint"""
-        data= """{
+        data = """{
             'forecasts': 'up',
             'current': 'up',
             'immediate': 'up',
@@ -20,7 +20,7 @@ class TestStatus:
             'alert_city': 'up',
             'alert_list': 'up',
         }"""
-        
+
         mocker.patch(
             'redis.Redis.get',
             return_value=data

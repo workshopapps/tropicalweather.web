@@ -12,30 +12,23 @@ automatically sends websocket message to the clients subscribed to the location
 """
 
 import hashlib
-import sys
-from pathlib import Path
 from typing import List
 
+from app.alerts import (close_connection, create_connection,
+                        send_message_to_room)
+from app.database import get_db
+import models
+from app.utils.general import get_location_alerts_by_address
 from sqlalchemy.orm import Session
 
-BASE = Path(__file__).resolve().parent.parent
-sys.path.append(str(BASE))
 
-
-from app.alerts import send_message_to_room  # noqa: E402
-from app.alerts import close_connection, create_connection  # noqa: E402
-from app.database import get_db  # noqa: E402
-from app.models import Alert, Location  # noqa: E402
-from app.utils import get_location_alerts_by_address  # noqa: E402
-
-
-def get_db_locations(db: Session) -> List[Location]:
+def get_db_locations(db: Session) -> List[models.Location]:
     """Get the alert locations from db
     """
-    return db.query(Location).all()
+    return db.query(models.Location).all()
 
 
-def get_location_alerts_api(location: Location):
+def get_location_alerts_api(location: models.Location):
     """Get the alerts of this location
     from the api
     """
@@ -44,7 +37,7 @@ def get_location_alerts_api(location: Location):
 
 
 def create_events(
-    db: Session, location: Location, alerts: List[dict[str, str]]
+    db: Session, location: models.Location, alerts: List[dict[str, str]]
 ):
     """Create new alerts for the
     location
@@ -55,7 +48,7 @@ def create_events(
         start = alert["start"]
         end = alert["end"]
         event_hash = hash_alert(alert)
-        alert = Alert(
+        alert = models.Alert(
             event=event,
             message=description,
             start=start,
@@ -69,14 +62,14 @@ def create_events(
     db.commit()
 
 
-def delete_alert(db: Session, alert: Alert):
+def delete_alert(db: Session, alert: models.Alert):
     """Delete event from the db
     """
     db.delete(alert)
     db.commit()
 
 
-def send_websocket_message(location: Location, events: List[dict[str, str]]):
+def send_websocket_message(location: models.Location, events: List[dict[str, str]]):
     """Send websocket message to the clients
     subscribed to the alert location.
     """
@@ -112,7 +105,7 @@ def update_alert_events():
     info("Updating alert events")
 
     db = get_db()
-    locations: List[Location] = get_db_locations(db)
+    locations: List[models.Location] = get_db_locations(db)
     for location in locations:
         api_alerts = get_location_alerts_api(location)
         db_alerts = location.alerts

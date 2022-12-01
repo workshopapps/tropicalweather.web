@@ -1,4 +1,3 @@
-from app.models import Alert, Location
 from sqlalchemy.orm import Session
 
 location_paramas = {"id": 1, "city": "Port Harcourt", "state": "Rivers state"}
@@ -17,6 +16,7 @@ alert_paramas = {
 def test_location_create(session: Session):
     """Create entry on location table"""
 
+    from app.models import Alert, Location
     new_location = Location(**location_paramas)
     session.add(new_location)
     session.commit()
@@ -31,6 +31,7 @@ def test_location_create(session: Session):
 
 def test_location_create_and_update(session: Session):
     """test create and update"""
+    from app.models import Alert, Location
     update_location_params = {
         "city": "jabi",
         "state": "Abuja",
@@ -59,6 +60,7 @@ def test_alert_create(session: Session):
 
     "Step-one: create location info"
 
+    from app.models import Alert, Location
     new_location = Location(**location_paramas)
     session.add(new_location)
     session.commit()

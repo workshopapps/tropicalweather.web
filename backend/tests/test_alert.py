@@ -5,9 +5,8 @@ import re
 
 import pytest
 from app.main import AlertNameSpace
-from app.utils import get_room_name
+from app.utils.general import get_room_name
 from sqlalchemy.orm import Session
-from app.models import Location
 
 
 def test_get_room_name():
@@ -38,9 +37,9 @@ def _run(coro):
     sys.version_info < (3, 5),
     reason="requires python3.5 or higher"
 )
-@pytest.mark.usefixtures("override_get_db_main")
 class TestAsyncNamespace:
     def test_connect_event(self, session: Session):
+        from app.models import Location
         ns = AlertNameSpace('/foo')
         ns._set_server(mock.MagicMock())
         args = (

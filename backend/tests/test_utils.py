@@ -1,8 +1,6 @@
 import pytest
-from app.models import Location, Alert
-from app.utils import (convert_epoch_to_datetime,
-                       get_location_obj, get_weather_forecast,
-                       weather_api_call)
+from app.utils.general import (convert_epoch_to_datetime, get_location_obj,
+                               get_weather_forecast, weather_api_call)
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -13,12 +11,11 @@ def test_convert_epoch_to_datetime():
         "date": "09 Feb, 2021",
         "time": "10:06pm"
     }
-    print(convert_epoch_to_datetime(epoch_time))
     assert convert_epoch_to_datetime(epoch_time) == expected
 
 
 def test_weather_api_call(mocker):
-    mocker.patch('app.utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('utils.requests.get', return_value=mocker.Mock(
         status_code=200,
         json=lambda: {
             "weather": [
@@ -43,7 +40,7 @@ def test_weather_api_call(mocker):
 
 
 def test_weather_api_call_error(mocker):
-    mocker.patch('app.utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('utils.requests.get', return_value=mocker.Mock(
         status_code=400,
     ))
     with pytest.raises(HTTPException):
@@ -124,6 +121,7 @@ class TestGetWeatherForecast:
 class TestDBUtils:
     def test_get_location_obj(self, session: Session):
         """Test get location object"""
+        from app.models import Location
         location = Location(
             state="Lagos",
             city="Ikeja"
@@ -139,6 +137,7 @@ class TestDBUtils:
 
     def test_db_location_alerts(self, session: Session):
         """Test get location alert"""
+        from app.models import Alert, Location
         location = Location(
             state="Lagos",
             city="Ikeja"

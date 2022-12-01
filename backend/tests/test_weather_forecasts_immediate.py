@@ -1,10 +1,7 @@
+from app.main import app
 from fastapi.testclient import TestClient
 
-from app.main import app
-
-
 client = TestClient(app)
-
 
 
 class TestGetImmediateWeatherForecast:
@@ -24,13 +21,13 @@ class TestGetImmediateWeatherForecast:
                         'dt': 1668966061,
                         'id': 2332453,
                         'main': {'feels_like': 308.4,
-                                'grnd_level': 1009,
-                                'humidity': 80,
-                                'pressure': 1009,
-                                'sea_level': 1009,
-                                'temp': 302.33,
-                                'temp_max': 302.33,
-                                'temp_min': 302.33},
+                                 'grnd_level': 1009,
+                                 'humidity': 80,
+                                 'pressure': 1009,
+                                 'sea_level': 1009,
+                                 'temp': 302.33,
+                                 'temp_max': 302.33,
+                                 'temp_min': 302.33},
                         'name': 'Lagos',
                         'sys': {'country': 'NG',
                                 'id': 1185,
@@ -41,8 +38,8 @@ class TestGetImmediateWeatherForecast:
                         'visibility': 10000,
                         'weather': [{'description': 'scattered clouds',
                                     'icon': '03n',
-                                    'id': 802,
-                                    'main': 'Clouds'}],
+                                     'id': 802,
+                                     'main': 'Clouds'}],
                         'wind': {'deg': 209, 'gust': 7.96, 'speed': 5.59}}
                 )
             )

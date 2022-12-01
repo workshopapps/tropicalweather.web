@@ -1,6 +1,5 @@
 from functools import lru_cache
-
-from decouple import config
+from app.conf.settings import settings as app_settings
 from kombu import Queue
 
 
@@ -12,7 +11,7 @@ def route_task(name, args, kwargs, options, task=None, **kw):
 
 
 class BaseConfig:
-    CELERY_BROKER_URL: str = config("CELERY_BROKER_URL")
+    CELERY_BROKER_URL: str = app_settings.WEBSOCKET_REDIS_URL
     # CELERY_RESULT_BACKEND: str = config("CELERY_RESULT_BACKEND")
 
     CELERY_TASK_QUEUES: list = (
@@ -35,7 +34,7 @@ def get_settings():
     config_cls_dict = {
         "development": DevelopmentConfig,
     }
-    config_name = config("CELERY_CONFIG", default='development')
+    config_name = settings.CELERY_CONFIG
     config_cls = config_cls_dict[config_name]
     return config_cls()
 
