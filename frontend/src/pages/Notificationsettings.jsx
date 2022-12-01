@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import '../styles/NotificationSettings.css';
-import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
+import "../styles/NotificationSettings.css";
+import BackIcon from "../NotificationSettingsAssets/BackIcon.svg";
 
 export default function Notificationsettings() {
   const [toggle, setToggle] = useState(false);
   const toggleSwitch = () => {
     setToggle(!toggle);
-    console.log('it work', toggle);
   };
   return (
     <div className="notificationsettings__container">
@@ -24,13 +23,13 @@ export default function Notificationsettings() {
           <h3>Enable push notification</h3>
           <p>Receive the latest weather news, forecast, updates from us</p>
         </div>
-        <div className="toggle-btn" onClick={toggleSwitch}>
+        <button type="button" className="toggle-btn" onClick={toggleSwitch}>
           {toggle ? (
             <div className="toggle-btn__left" />
           ) : (
             <div className="toggle-btn__right" />
           )}
-        </div>
+        </button>
       </div>
       <div className="notificationsettings">
         <div className="notificationsetting">
@@ -85,7 +84,7 @@ export default function Notificationsettings() {
               Do not notify me
             </h5>
           </div>
-          <form className="notificationsetting__option2">
+          <div className="notificationsetting__option2">
             <input type="radio" className="radio" />
             <div>
               <h5 className="notificationsetting__option--heading-text">
@@ -95,7 +94,7 @@ export default function Notificationsettings() {
                 Notify me for all reminders
               </p>
             </div>
-          </form>
+          </div>
         </section>
       </div>
     </div>
