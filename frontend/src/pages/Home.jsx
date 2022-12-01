@@ -235,9 +235,10 @@ export default function Home() {
                   Never Worry about Figures and Statistics
                 </h3>
                 <p>
-                  Weathery analyzes the weather for you in order to provide you
-                  with a self-explanatory forecast, so you never have to worry
-                  about the weather and can have a more smooth experience.
+                  Tropical weather analyzes the weather for you in order to
+                  provide you with a self-explanatory forecast, so you never
+                  have to worry about the weather and can have a more smooth
+                  experience.
                 </p>
               </div>
               <div
@@ -253,7 +254,7 @@ export default function Home() {
                   the weather where you are right now? What matters is staying
                   informed about the weather in other places! In order to
                   successfully arrange your daily movement, add and delete
-                  several destinations. Use weathery app now!
+                  several destinations. Use Tropical weather app now!
                 </p>
                 <Link to="/signup" className="landing_link_button">
                   Get started
@@ -283,7 +284,8 @@ export default function Home() {
                   Are you curious to discover the weather predictions for the
                   upcoming few or even the entire day? You don&apos;t have to
                   pay for the straightforward, uncomplicated capabilities that
-                  Weathery offers to convey your everyday weather condition!
+                  Tropical weather offers to convey your everyday weather
+                  condition!
                 </p>
                 <Link to="/signup" className="landing_link_button">
                   Get started
@@ -306,7 +308,9 @@ export default function Home() {
         <section id="landing_download_app">
           <div className="landing_download_container">
             <p>Go Mobile</p>
-            <h3 className="landing_header_md">Use the free Weathery app</h3>
+            <h3 className="landing_header_md">
+              Use the free Tropical weather app
+            </h3>
             <p>
               Explore the flexibility and ease that comes with using our
               Weatherly app on the go!
@@ -349,7 +353,7 @@ function FaqSection() {
         <Faq
           position={1}
           question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
-          answer=" Weathery keeps track of your last five locations' searches. Click
+          answer=" Tropical weather keeps track of your last five locations' searches. Click
           the drop-down arrow to the top right side of the page, and you should
           see your most recently viewed 5 locations. When you search for
           additional locations, they will be replaced by new ones. However,
@@ -358,12 +362,12 @@ function FaqSection() {
         />
         <Faq
           question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer="Weathery only uses your location data to give you up to date weather reports and nothing else!"
+          answer="Tropical weather only uses your location data to give you up to date weather reports and nothing else!"
           open={openAll}
         />
         <Faq
           question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer="Weathery keeps track of your last five locations' searches. Click
+          answer="Tropical weather keeps track of your last five locations' searches. Click
           the drop-down arrow to the top right side of the page, and you should
           see your most recently viewed 5 locations. When you search for
           additional locations, they will be replaced by new ones. However,
