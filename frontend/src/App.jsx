@@ -28,8 +28,8 @@ const router = createBrowserRouter(
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
-      <Route path="/error404" element={<Error404 />} />
       {/* <Route path="/promotions" element={<Promotions />} /> */}
+      <Route path="*" element={<Error404 />} />
     </Route>
   )
 );
