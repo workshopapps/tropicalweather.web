@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import "../styles/NotificationSettings.css";
-import BackIcon from "../NotificationSettingsAssets/BackIcon.svg";
+import '../styles/NotificationSettings.css';
+import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
 
 export default function Notificationsettings() {
   const [toggle, setToggle] = useState(false);
