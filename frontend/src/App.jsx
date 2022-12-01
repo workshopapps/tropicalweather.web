@@ -17,6 +17,7 @@ import LandingPage from './pages/LandingPage';
 import Error404 from './pages/Error404';
 import Settings from './pages/Settings';
 // import Promotions from './pages/Promotions';
+import NotificationFeedList from './pages/NotificationFeedList';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="/settings" element={<Settings />} />
       {/* <Route path="/promotions" element={<Promotions />} /> */}
       <Route path="*" element={<Error404 />} />
+      <Route path="/notification-feeds" element={<NotificationFeedList />} />
     </Route>
   )
 );
