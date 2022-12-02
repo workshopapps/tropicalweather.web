@@ -1,7 +1,45 @@
 import pytest
-from app.utils.general import (convert_epoch_to_datetime, get_weather_forecast,
+from app.utils.general import (compose_location, convert_epoch_to_datetime,
+                               decompose_merged_location, get_weather_forecast,
                                weather_api_call)
 from fastapi import HTTPException
+
+
+@pytest.mark.parametrize(
+    "city, state, country, expected",
+    [
+        ("a", "b", "c", "a-b-c"),
+        ("a", "b", "c d", "a-b-c d"),
+    ]
+)
+def test_compose_location(city, state, country, expected):
+    assert compose_location(
+        city, state, country
+    ) == expected
+
+
+@pytest.mark.parametrize(
+    "merged, expected",
+    [
+        ("a-b-c", {
+            "city": "a",
+            "state": "b",
+            "country": "c"
+        }),
+        ("a-b-c d", {
+            "city": "a",
+            "state": "b",
+            "country": "c d"
+        }),
+        ("a d-b-c d", {
+            "city": "a d",
+            "state": "b",
+            "country": "c d"
+        }),
+    ]
+)
+def test_decompose_merged_location(merged, expected):
+    assert decompose_merged_location(merged) == expected
 
 
 def test_convert_epoch_to_datetime():

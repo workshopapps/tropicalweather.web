@@ -9,11 +9,44 @@ import requests
 from .client import get_location_alerts, weather
 from models import Location
 from schemas import ImmediateForecastResponse
-from decouple import config
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from conf.settings import settings
 
-OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
+
+def compose_location(city: str, state: str, country: str) -> str:
+    """compose the location city, state and country
+    return a merged string
+
+    Args:
+        city (str): The city
+        state (str): The state
+        country (str): The country
+
+    Returns:
+        str: The merged string
+    """
+    args = [city, state, country]
+    args = [(arg or "null") for arg in args]
+    name = "-".join(args)
+    return name
+
+
+def decompose_merged_location(merged_location: str) -> Dict[str, str]:
+    """Decompose the merged location to city, state and country
+
+    Args:
+        merged_location (str): The merged location
+
+    Returns:
+        Dict[str, str]: The decomposed location
+    """
+    location = merged_location.split('-')
+    return {
+        'city': location[0],
+        'state': location[1],
+        'country': location[2]
+    }
 
 
 def get_room_name(city: str, state: str):
@@ -168,7 +201,7 @@ def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
     :rtype: Dict[str, str]
     """
 
-    API_key = config("OPEN_WEATHER_API_KEY")
+    API_key = settings.OPEN_WEATHER_API_KEY
 
     # converts given parameters into required types
     lon = float(lon)
@@ -381,7 +414,17 @@ def get_status():
         "alert_list": alert_list
     }
 
-def get_risk(temp, precipitation):
+
+def get_risk(temp: float, precipitation: float) -> Optional[str]:
+    """Get risk of the weather, depending on the temperature and precipitation
+
+    Args:
+        temp (float): temperature
+        precipitation (float): precipitation
+
+    Returns:
+        Optional[str]: risk of the weather or None
+    """
     if temp > 30 and precipitation > 0.5:
         return "Flooding"
     elif temp > 30:
@@ -396,45 +439,4 @@ def weather_forcast_extended_call(lat: float, lon: float):
      req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
      res = dict(requests.get(req).json())
      return res 
-     '''
-     address = reverse_geocode(lat, lon)
-     city: str = address[0]['name']
-     state: str = address[0]['state']
-     country: str = address[0]['country']
-        
-     main = res['current_weather']['weathercode']
-     datetime = res['current_weather']['time']
-     hourly_timestamps: list(str) = res['hourly']['time']
-        
-   # get the current time index to be used in other parameters
-     time_index : int = hourly_timestamps.index(datetime)
-        
-     weather_code = res['hourly']['weathercode']
-     weather_code[time_index]
-     temperature = res['hourly']['temperature_2m'][time_index]
-        
-     precipitation = res['hourly']['precipitation'][time_index]
-        
-
-     match = weather_code[time_index]
      
-   
-     for i in range(time_index, len(weather_code)):
-         if match != weather_code[i]:
-                 
-            break 
-        
-     end_datetime = hourly_timestamps[i]   
-    
-     risk = get_risk(temperature, precipitation)
-    
-     res = {
-
-        "main": WmoCodes.get_wmo_code(main),
-        "datetime": datetime,
-        "end_datetime": end_datetime,
-        "risk": risk
-        
-
-        }
-        '''

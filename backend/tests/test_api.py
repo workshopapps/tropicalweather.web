@@ -3,6 +3,15 @@ import pytest
 from fastapi import HTTPException, status
 
 
+class TestGenerateShareLink:
+    def test_get(self, client):
+        response = client.get(
+            "/generate/share-link?city=a&state=b&country=c"
+        )
+        assert response.json().get("link") == \
+            "https://tropicalweather.hng.tech/share/a-b-c"
+
+
 class TestWeatherForecastsAPI:
     def test_weather_forcasts_valid(self, mocker, client):
         """Test weather forecast endpoint"""
@@ -214,7 +223,7 @@ class Test_get_tommorrows_weather:
         assert data['description'] == "light rain"
 
 
-class TestGetAlerts:
+class _TestGetAlerts:
     def test_get_alerts_none(self, mocker, client):
         mocker.patch(
             'routers.weather.reverse_geocode',
