@@ -139,3 +139,5 @@ dmypy.json
 
 # log files
 *.log
+
+service-account-file.json.json
