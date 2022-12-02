@@ -9,11 +9,44 @@ import requests
 from .client import get_location_alerts, weather
 from models import Location
 from schemas import ImmediateForecastResponse
-from decouple import config
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from conf.settings import settings
 
-OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
+
+def compose_location(city: str, state: str, country: str) -> str:
+    """compose the location city, state and country
+    return a merged string
+
+    Args:
+        city (str): The city
+        state (str): The state
+        country (str): The country
+
+    Returns:
+        str: The merged string
+    """
+    args = [city, state, country]
+    args = [(arg or "null") for arg in args]
+    name = "-".join(args)
+    return name
+
+
+def decompose_merged_location(merged_location: str) -> Dict[str, str]:
+    """Decompose the merged location to city, state and country
+
+    Args:
+        merged_location (str): The merged location
+
+    Returns:
+        Dict[str, str]: The decomposed location
+    """
+    location = merged_location.split('-')
+    return {
+        'city': location[0],
+        'state': location[1],
+        'country': location[2]
+    }
 
 
 def get_room_name(city: str, state: str):
@@ -114,7 +147,6 @@ def convert():
 
 
 def reverse_geocode(lat: float, lon: float):
-    print("got here")
     """Reverse geocode the latitude and longitude to get the address
 
     :param lat: latitude
@@ -169,7 +201,7 @@ def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
     :rtype: Dict[str, str]
     """
 
-    API_key = config("OPEN_WEATHER_API_KEY")
+    API_key = settings.OPEN_WEATHER_API_KEY
 
     # converts given parameters into required types
     lon = float(lon)
