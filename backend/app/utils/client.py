@@ -126,3 +126,5 @@ def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
         alert.pop("tags", None)
 
     return alerts
+
+

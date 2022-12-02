@@ -380,3 +380,5 @@ def get_status():
         "alert_city": alert_city,
         "alert_list": alert_list
     }
+
+
