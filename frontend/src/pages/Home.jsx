@@ -7,6 +7,7 @@ import HourlyUpdate from '../components/Home/HoulyUpdate';
 import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+// import Share from '../components/share/Share_popup';
 
 export default function Home() {
   const slider = useRef(null);
@@ -96,7 +97,7 @@ export default function Home() {
               {' '}
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[100px]">
             <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">
                 Hourly Updates
@@ -204,7 +205,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-[56px]">
+          <div className="w-full flex flex-col gap-[10px]">
             <h4 className="text-[20px] font-bold">Cities near you</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />

@@ -35,7 +35,7 @@ export default function Header() {
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
       <div>
         <Link to="/">
-          <img src="/logo.png" alt="logo" />
+          <img src="/tropiclogo.png" alt="logo" />
         </Link>
       </div>
       <div className="items-center justify-end hidden w-full m lg:flex gap-x-4">
