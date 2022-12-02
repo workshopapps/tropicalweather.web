@@ -1,0 +1,106 @@
+.settings{
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.2rem;
+    padding-block-end: 5.6rem;
+}
+
+.settings_back{
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    column-gap: 0.4rem;
+}
+
+.settings_title{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-block: 1.2rem;
+}
+
+.settings_item{
+    border-top: 1px solid #D0D0D5;
+    padding-block: 0.8rem;
+}
+
+.settings_item-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings_item-heading h4{
+    font-size: 1.25rem;
+    font-weight: 650;
+}
+
+.settings_dropdown{
+    position: relative;
+}
+
+.settings_dropdown .settings_dropdown-btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 650;
+}
+
+.settings_dropdown .settings_dropdown-content{
+    position: absolute;
+    top: calc(90% + .1rem);
+    right: 0;
+    background-color: #fff;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    padding-block: 0.3rem;
+    z-index: 1;
+    width: 40%;
+}
+
+.settings_dropdown .settings_dropdown-content .settings_dropdown-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+.settings_dropdown .settings_dropdown-content .settings_dropdown-item:hover{
+    background-color: #ffa500;
+}
+
+.settings_dropdown-icon{
+    font-size: 1rem;
+}
+
+.settings_dropdown-icon:hover{
+    color: orange;
+    cursor: pointer;
+}
+
+.settings_dropdown-body{
+    color: #565560;
+    margin-block: 0.3rem 0.5rem;
+}
+
+@media screen and (max-width: 32em){
+    .settings_theme .settings_dropdown .settings_dropdown-content .settings_dropdown-item{
+        padding-block: 0.8rem;
+        margin-block: 0.6rem;
+        border: 1px solid #D0D0D5;
+        border-radius: 8px;
+    }
+
+    .settings_dropdown .settings_dropdown-content{
+        position: relative;
+        background-color: transparent;
+        padding-block: 0.5rem;
+        width: 100%;
+    }
+    
+    .settings_theme .settings_dropdown .settings_dropdown-content{
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
+    }
+}

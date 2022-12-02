@@ -1,10 +1,45 @@
 import pytest
-from app.models import Location, Alert
-from app.utils import (convert_epoch_to_datetime,
-                       get_location_obj, get_weather_forecast,
-                       weather_api_call)
+from app.utils.general import (compose_location, convert_epoch_to_datetime,
+                               decompose_merged_location, get_weather_forecast,
+                               weather_api_call)
 from fastapi import HTTPException
-from sqlalchemy.orm import Session
+
+
+@pytest.mark.parametrize(
+    "city, state, country, expected",
+    [
+        ("a", "b", "c", "a-b-c"),
+        ("a", "b", "c d", "a-b-c d"),
+    ]
+)
+def test_compose_location(city, state, country, expected):
+    assert compose_location(
+        city, state, country
+    ) == expected
+
+
+@pytest.mark.parametrize(
+    "merged, expected",
+    [
+        ("a-b-c", {
+            "city": "a",
+            "state": "b",
+            "country": "c"
+        }),
+        ("a-b-c d", {
+            "city": "a",
+            "state": "b",
+            "country": "c d"
+        }),
+        ("a d-b-c d", {
+            "city": "a d",
+            "state": "b",
+            "country": "c d"
+        }),
+    ]
+)
+def test_decompose_merged_location(merged, expected):
+    assert decompose_merged_location(merged) == expected
 
 
 def test_convert_epoch_to_datetime():
@@ -13,12 +48,11 @@ def test_convert_epoch_to_datetime():
         "date": "09 Feb, 2021",
         "time": "10:06pm"
     }
-    print(convert_epoch_to_datetime(epoch_time))
     assert convert_epoch_to_datetime(epoch_time) == expected
 
 
 def test_weather_api_call(mocker):
-    mocker.patch('app.utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('app.utils.general.requests.get', return_value=mocker.Mock(
         status_code=200,
         json=lambda: {
             "weather": [
@@ -43,7 +77,7 @@ def test_weather_api_call(mocker):
 
 
 def test_weather_api_call_error(mocker):
-    mocker.patch('app.utils.requests.get', return_value=mocker.Mock(
+    mocker.patch('app.utils.general.requests.get', return_value=mocker.Mock(
         status_code=400,
     ))
     with pytest.raises(HTTPException):
@@ -119,45 +153,3 @@ class TestGetWeatherForecast:
 
         with pytest.raises(Exception):
             get_weather_forecast(6.5244, 3.3792)
-
-
-class TestDBUtils:
-    def test_get_location_obj(self, session: Session):
-        """Test get location object"""
-        location = Location(
-            state="Lagos",
-            city="Ikeja"
-        )
-        session.add(location)
-        session.commit()
-
-        assert get_location_obj(session, "Ikeja", "Lagos") == location
-
-    def test_get_location_obj_error(self, session: Session):
-        """Test get location object"""
-        assert get_location_obj(session, "Ikeja", "Lagos") is None
-
-    def test_db_location_alerts(self, session: Session):
-        """Test get location alert"""
-        location = Location(
-            state="Lagos",
-            city="Ikeja"
-        )
-
-        # Add some alerts
-        location.alerts = [
-            Alert(
-                start=1612904800,
-                end=1612904800,
-                event="Rain",
-                message="It will rain",
-                hash="1234567890"
-            )
-        ]
-
-        session.add(location)
-        session.commit()
-
-        alerts = location.alerts
-        assert len(alerts) == 1
-        assert alerts[0].event == "Rain"
