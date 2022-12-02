@@ -15,6 +15,10 @@ from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
 from utils.hourly_forecast import hourly_forecasts
 from utils.open_meteo import client
 from utils.weather_code import WmoCodes
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
+from datetime import datetime
+from utils.general import get_risk
 
 router = APIRouter(
     prefix="/weather",
@@ -161,9 +165,9 @@ async def weather_tomorrow(address: str):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Can't retrieve weather data for this location"
         )
+    
 
-    response = client.get_hourly_forecast(
-        lat, lon, hourly_params=['weathercode'])
+    response = client.get_hourly_forecast(lat, lon, hourly_params=['weathercode'])
 
     hourly_time: list[str] = response["hourly"]["time"]
     hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
@@ -184,8 +188,9 @@ async def weather_tomorrow(address: str):
 
         risk = get_risk(index_temp, index_precipitation)
 
+
         res = {
-            "main": weather_desc,
+        	"main": weather_desc,
             "datetime": hourly_time[i].replace("T", " "),
             "risk": risk,
             "state": geo['state'],
