@@ -433,10 +433,3 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
         return "Flooding"
     else:
         return "None"
-
-
-def weather_forcast_extended_call(lat: float, lon: float): 
-     req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
-     res = dict(requests.get(req).json())
-     return res 
-     

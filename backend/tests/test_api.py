@@ -1,5 +1,5 @@
 from typing import List
-import pytest
+
 from fastapi import HTTPException, status
 
 
@@ -276,48 +276,3 @@ class _TestGetAlerts:
             "/weather/alerts/list?lat=6.46542&lon=3.406448")
 
         assert response.status_code == 400
-
-
-class TestGetWeatherForecastExtended:
-    def test_weather_forecast_extended_valid(self, mocker, client):
-        mocker.patch('routers.weather.reverse_geocoding',
-                     return_value= [{
-                         "city": "Ikorodu",
-
-                         "state": "Lagos",
-                         "country": "Nigeria"
-                     },]
-                     )
-
-        mocker.patch('routers.weather.weather_forcast_extended_call',
-                     return_value={
-                         'latitude': 6.625, 'longitude': 3.25, 'generationtime_ms': 0.5729198455810547,
-                         'utc_offset_seconds': 3600, 'timezone': 'Africa/Lagos', 'timezone_abbreviation': 'WAT', 'elevation': 15.0,
-                                    'current_weather': {'temperature': 28.7, 'windspeed': 4.5, 'winddirection': 299.0, 'weathercode': 3,
-                                                        'time': '2022-12-02T10:00'},
-
-                         'hourly_units': {'time': 'iso8601', 'weathercode': 'wmo code', 'precipitation': 'mm', 'temperature_2m': '°C'},
-                         'hourly': {'time': ['2022-12-02T00:00', '2022-12-02T01:00',
-                                             '2022-12-02T02:00', '2022-12-02T03:00', '2022-12-02T04:00', '2022-12-02T05:00', '2022-12-02T06:00', '2022-12-02T07:00',
-                                             '2022-12-02T08:00', '2022-12-02T09:00', '2022-12-02T10:00', '2022-12-02T11:00', '2022-12-02T12:00', '2022-12-02T13:00',
-                                             '2022-12-02T14:00', '2022-12-02T15:00', '2022-12-02T16:00', '2022-12-02T17:00', '2022-12-02T18:00', '2022-12-02T19:00',
-                                             '2022-12-02T20:00', '2022-12-02T21:00', '2022-12-02T22:00', '2022-12-02T23:00', '2022-12-03T00:00', ],
-
-                                    'weathercode': [3, 3, 3, 3, 3, 3, 3, 45, 3, 3, 3, 3, 2, 2, 3, 95, 3, 2, 2, 2, 3, 2, 2, 3, 2, ],
-                                    'precipitation': [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                                    'temperature_2m': [26.0, 26.1, 25.9, 25.8, 25.6, 25.5, 25.4, 25.2, 26.2, 27.3, 28.7, 30.1, 31.4, 32.5, 32.6, 30.8, 31.0, 30.8, 29.6, 28.3, 27.6, 27.2, 27.0, 26.9, 26.8, 26.6, 26.4,
-                                                       26.1]
-                                    }
-                     }
-                     )
-
-
-        response = client.get('/weather/forcast/extended?lat=6.625&lon=3.25')
-        assert response.status_code == 200
-
-        data  = response.json()
-        
-        assert data["city"] == "Ikorodu"
-        assert data['state'] == "Lagos"
-        assert data['country'] == "Nigeria"
-        assert len(data) == 5
