@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AboutProductSection() {
   return (
@@ -49,7 +50,7 @@ function AboutProductSection() {
         </div>
         <div>
           <div className="flex justify-center pt-5 md:py-10 ">
-            <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">Get Started → </button>
+            <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
           </div>
 
           <div className="rounded-xl  bg-[#FDEAD7]">
@@ -60,7 +61,7 @@ function AboutProductSection() {
                 <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free  Weathery app</p>
                 <p className="text-[#565560] text-lg font-normal mb-4 text-start">Explore the flexibility and ease that comes with using our Weatherly app on the go!</p>
                 {/* --button- */}
-                <div className="flex justify-between gap-8">
+                <div className="flex justify-around md:justify-evenly gap-4">
                   <div>
                     <img
                       src="/app-store.png"

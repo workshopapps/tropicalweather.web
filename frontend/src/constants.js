@@ -1,3 +1,3 @@
-const BASEURL = 'https://api.weathery.hng.tech';
+const BASEURL = 'https://api.tropicalweather.hng.tech';
 
 export default BASEURL;

@@ -58,7 +58,9 @@
     "no-return-assign": "off",
     "linebreak-style": "off",
     "object-curly-newline": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off"
   },
   "ignorePatterns": [
     "dist/",
