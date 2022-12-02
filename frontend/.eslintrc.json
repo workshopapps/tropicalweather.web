@@ -36,6 +36,7 @@
     "react/require-default-props": "off",
     "react/jsx-no-useless-fragment": "off",
     "no-use-before-define": "off",
+    "jsx-a11y/no-noninteractive-tabindex": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
