@@ -1,14 +1,17 @@
 
 import json
 
+from conf.settings import BASE_DIR
+
 
 class WmoCodes:
     """Class to hold WMO codes for Meteo API"""
 
-    with open("wmo_codes.json", "r") as f:
+    with open(BASE_DIR / "utils/wmo_codes.json", "r") as f:
         wmo_codes: dict[str, str] = json.load(f)
 
-    def get_wmo_code(cls, code: int) -> str:
+    @classmethod
+    def get_wmo_code(cls, code: str) -> str:
         """Get WMO description for a code"""
         code_desc = cls.wmo_codes.get(str(code), "Unknown")
 

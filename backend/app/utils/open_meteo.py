@@ -1,5 +1,6 @@
 
 from typing import Any, Dict
+from urllib.parse import urlencode
 
 import requests
 from conf.settings import settings
@@ -40,7 +41,11 @@ class OpenMeteoAPI:
             _type_: The response json from the API
         """
         url = self.build_url(url)
-        response = requests.get(url, params=params)
+        if params:
+            url += f"?{urlencode(params)}"
+            url = url.replace('%2C', ',')
+
+        response = requests.get(url)
 
         # Check for valid status
         if response.status_code == 200:
@@ -49,7 +54,9 @@ class OpenMeteoAPI:
         raise Exception("Invalid request")
 
     def get_daily_forecast(
-        self, lat: float, lon: float, daily_params: list = None,
+        self, lat: float, lon: float,
+        timezone: str = "GMT",
+        daily_params: list = None,
         params: dict = None
     ):
         """Get daily forecast
@@ -57,6 +64,7 @@ class OpenMeteoAPI:
         Args:
             lat (float): Latitude
             lon (float): Longitude
+            timezone (str, optional): Timezone. Defaults to "GMT".
             daily_params (list, optional): daily
             values to get from the api. Defaults to None.
             params (dict, optional): API GET parameters. Defaults to None.
@@ -73,20 +81,22 @@ class OpenMeteoAPI:
         daily_params += [
             'apparent_temperature_max',
             'precipitation_sum',
-            "weathercode"
         ]
 
         default_params = {
             "latitude": lat,
             "longitude": lon,
-            "timezone": "GMT",
+            "timezone": timezone,
             "daily": ','.join(daily_params)
         }
         params.update(default_params)
+
         return self.get(self.forecast, params=params)
 
     def get_hourly_forecast(
-        self, lat: float, lon: float, hourly_params: list = None,
+        self, lat: float, lon: float,
+        timezone: str = "GMT",
+        hourly_params: list = None,
         params: dict = None
     ):
         """Get hourly forecast
@@ -94,6 +104,7 @@ class OpenMeteoAPI:
         Args:
             lat (float): Latitude
             lon (float): Longitude
+            timezone (str, optional): Timezone. Defaults to "GMT".
             hourly_params (list, optional): hourly
             values to get from the api. Defaults to None.
             params (dict, optional): API GET parameters. Defaults to None.
@@ -110,25 +121,29 @@ class OpenMeteoAPI:
         hourly_params += [
             'apparent_temperature',
             'precipitation',
-            "weathercode"
+            'weathercode'
         ]
 
         default_params = {
             "latitude": lat,
             "longitude": lon,
-            "hourly": ','.join(hourly_params)
+            "hourly": ','.join(hourly_params),
+            "timezone": timezone
         }
         params.update(default_params)
         return self.get(self.forecast, params=params)
 
     def get_current_weather(
-        self, lat: float, lon: float, params: dict = None
+        self, lat: float, lon: float,
+        timezone: str = "GMT",
+        params: dict = None
     ):
         """Get current weather
 
         Args:
             lat (float): Latitude
             lon (float): Longitude
+            timezone (str, optional): Timezone. Defaults to "GMT".
             params (dict, optional): API GET parameters. Defaults to None.
 
         Returns:
@@ -140,6 +155,7 @@ class OpenMeteoAPI:
         default_params = {
             "latitude": lat,
             "longitude": lon,
+            "timezone": timezone,
             "current_weather": "true"
         }
         params.update(default_params)

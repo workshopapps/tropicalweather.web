@@ -100,6 +100,7 @@ def geocode_address(
         "lon": g.lng,
         "city": g.city,
         "state": g.state,
+        "country": g.country
     }
 
 
@@ -134,7 +135,8 @@ def reverse_geocode(lat: float, lon: float):
 
     return {
         'city': g.city,
-        'state': g.state
+        'state': g.state,
+        'country': g.country
     }
 
 
