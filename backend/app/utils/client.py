@@ -1,10 +1,11 @@
 
-from decouple import config
-from typing import Dict, Union, List
-import requests
+from typing import Dict, List, Union
 
-BASE_URL = 'https://api.openweathermap.org'
-API_KEY = config('OPEN_WEATHER_API_KEY', default='')
+import requests
+from conf.settings import settings
+
+BASE_URL = settings.OPEN_WEATHER_BASE_URL
+API_KEY = settings.OPEN_WEATHER_API_KEY
 
 
 def get(url: str, params: dict) -> Union[dict, list, None]:
@@ -36,7 +37,7 @@ def get(url: str, params: dict) -> Union[dict, list, None]:
     raise Exception("Invalid request")
 
 
-def weather(lat: float, long: float) -> str:
+def weather(lat: float, long: float) -> list[dict]:
     """Get the weather for a given latitude and longitude
 
     :param lat: The latitude

@@ -5,6 +5,11 @@ import { RiHome6Line } from 'react-icons/ri';
 import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 
 import { BiInfoCircle } from 'react-icons/bi';
+
+// import { FaRegLightbulb } from 'react-icons/fa';
+
+// import { CgEnter } from 'react-icons/cg';
+
 import { GrClose } from 'react-icons/gr';
 
 export default function MobileHeaderToggle({ handleToggle, toggle }) {
@@ -77,6 +82,7 @@ function Navigation({ handleClickProp, style, itemStyle }) {
     },
     {
       name: 'Contact Us',
+
       link: '/',
       icon: <BiInfoCircle />,
     },
@@ -85,6 +91,7 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       link: '/',
       icon: <BsQuestionCircle />,
     },
+
   ];
   return (
     <div

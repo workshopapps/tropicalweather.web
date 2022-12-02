@@ -1,8 +1,6 @@
 # application initilization starts here
 import ast
-import sys
 from logging import info
-from pathlib import Path
 
 import redis
 import socketio
@@ -15,17 +13,13 @@ from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 from socketio.asyncio_namespace import AsyncNamespace
 
-BASE = Path(__file__).resolve().parent.parent
-sys.path.append(str(BASE))
-
-from app import models  # noqa: E402
-from app.database import engine, get_db  # noqa: E402
-from app.routers import location  # noqa: E402
-from app.routers import weather  # noqa: E402
-from app.schemas import PacketModel  # noqa: E402
-from app.utils import get_room_name, get_status  # noqa: E402
-
-models.Base.metadata.create_all(bind=engine)
+import models
+from database import get_db
+from routers import location
+from routers import weather
+from schemas import PacketModel
+from utils.general import get_room_name, get_status
+from conf.settings import settings
 
 # Application initilization
 app = FastAPI()
@@ -45,14 +39,18 @@ app.include_router(weather.router)
 app.include_router(location.router)
 
 
-# Mount /cssfile for Jinja2Templates
-app.mount('/cssfile', StaticFiles(
-    directory=BASE / "app/cssfile"), name="cssfile")
+# Mount /static directory for Jinja2Templates
+app.mount('/static', StaticFiles(
+    directory=settings.STATIC_DIR),
+    name="cssfile"
+)
 
 # Status page
-templates = Jinja2Templates(directory=BASE / "app/templates")
+templates = Jinja2Templates(
+    directory=settings.TEMPLATES_DIR
+)
 
-rd = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+rd = redis.Redis.from_url(settings.WEBSOCKET_REDIS_URL)
 
 
 # We need a prefix for redis keys, because we there are multiple
