@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function WhyWeatherSection() {
   return (
@@ -23,9 +24,7 @@ function WhyWeatherSection() {
           </div>
         </div>
         <div className="pt-5">
-          <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">
-            Get Started →
-          </button>
+          <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
         </div>
       </div>
       {/* --image- */}

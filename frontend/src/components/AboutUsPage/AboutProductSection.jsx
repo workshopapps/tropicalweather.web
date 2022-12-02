@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AboutProductSection() {
   return (
@@ -49,7 +50,7 @@ function AboutProductSection() {
         </div>
         <div>
           <div className="flex justify-center pt-5 md:py-10 ">
-            <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">Get Started → </button>
+            <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
           </div>
 
           <div className="rounded-xl  bg-[#FDEAD7]">

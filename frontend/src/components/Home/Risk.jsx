@@ -5,7 +5,7 @@ export default function Risk({ time, day, risk, chances }) {
   return (
     <article
       className="flex justify-between items-center
-     border-b-2 border-[#DCDBE0] py-2"
+     border-b-2 border-[rgba(220,219,224,0.4)] py-2"
     >
       <div className="flex items-center gap-4 ">
         <img src={`/Home/${risk.replace(' ', '-').toLowerCase()}.png`} alt="" />
