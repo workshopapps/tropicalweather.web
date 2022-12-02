@@ -58,7 +58,7 @@ function AboutProductSection() {
               {/* --content- */}
               <div className="flex flex-col flex-1 py-5 lg:items-start">
                 <p className="font-normal  text-[#EF6820] leading-5 text-xs md:text-base tracking-wide text-start mb-6">GO MOBILE</p>
-                <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free  Weathery app</p>
+                <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free Tropical Weather app</p>
                 <p className="text-[#565560] text-lg font-normal mb-4 text-start">Explore the flexibility and ease that comes with using our Weatherly app on the go!</p>
                 {/* --button- */}
                 <div className="flex justify-around md:justify-evenly gap-4">
