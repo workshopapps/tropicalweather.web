@@ -36,8 +36,8 @@ pipeline {
             // sh "sudo su - johnoni && whoami"
             //  sh "sudo pm2 stop tropicalweather"
 	    	//  sh "sudo pm2 stop server"
-                sh "serve -s /home/johnoni/tropicalweather.web/frontend/build -p 55001"
-                sh "cd /home/johnoni/tropicalweather.web/backend/app && uvicorn main:app —reload"
+                sh "sudo serve -s /home/johnoni/tropicalweather.web/frontend/build -p 55001"
+                sh "sudo cd /home/johnoni/tropicalweather.web/backend/app && uvicorn main:app —reload"
             }
 			
 	    }
