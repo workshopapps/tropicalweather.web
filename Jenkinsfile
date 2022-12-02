@@ -9,6 +9,9 @@ pipeline {
 				sh "rm -rf ${WORKSPACE}/tropicalweather.web"
 				sh "git clone https://github.com/workshopapps/tropicalweather.web.git"
 				sh "sudo cp -r ${WORKSPACE}/tropicalweather.web /home/johnoni/tropicalweather.web"
+				sh "sudo cp -r /home/johnoni/tropicalweather_env/app.env /home/johnoni/tropicalweather.web/backend/app/.env"
+				sh "sudo cp -r /home/johnoni/tropicalweather.web/app.env /home/johnoni/tropicalweather.web/tropicalweather.web/backend/app/.env"
+				sh "sudo ls -la /home/johnoni/tropicalweather.web/"
 			}
 
 		}
