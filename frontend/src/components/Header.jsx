@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CiSearch } from 'react-icons/ci';
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
@@ -32,6 +33,8 @@ export default function Header() {
   const searchResults =
     data?.data.results?.map((res) => `${res.name}, ${res.country}`) || [];
 
+  const { t } = useTranslation(['common']);
+
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
       <div>
@@ -50,7 +53,7 @@ export default function Header() {
             ref={searchRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for city"
+            placeholder={t('searchforcity')}
             className="outline-none px-14 w-full  py-4"
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
@@ -58,7 +61,7 @@ export default function Header() {
             <ul className="absolute z-10 w-full shadow bg-white py-4 max-h-96 overflow-y-auto">
               {query.length < 3 ? (
                 <p className="text-gray-500 text-center">
-                  Type at least three characters
+                  {t('typethreechar')}
                 </p>
               ) : null}
               {searchResults.map((city) => (
@@ -73,10 +76,10 @@ export default function Header() {
                 </li>
               ))}
               {searchResults.length === 0 && query.length > 2 && !isLoading ? (
-                <p className="text-gray-500 text-center">No cities found</p>
+                <p className="text-gray-500 text-center">{t('nocities')}</p>
               ) : null}
               {isLoading ? (
-                <p className="text-gray-500 text-center">Loading...</p>
+                <p className="text-gray-500 text-center">{t('loading')}</p>
               ) : null}
             </ul>
           )}
@@ -85,7 +88,7 @@ export default function Header() {
           type="button"
           className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max"
         >
-          Get App
+          {t('getapp')}
         </button>
       </div>
       <MobileHeaderToggle handleToggle={handleToggle} toggle={toggle} />

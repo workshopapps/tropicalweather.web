@@ -1,0 +1,12 @@
+{
+    "back" : "Back",
+    "title" : "Settings",
+    "lang" : "Language",
+    "langText" : "Choose preferred language",
+    "theme" : "Theme",
+    "themeText" : "Select preferred theme",
+    "noti" : "Notifications",
+    "help" : "Help",
+    "lightmode" : "Light Mode",
+    "darkmode" : "Dark Mode"
+}

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
@@ -12,6 +13,7 @@ export default function Home() {
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
   const coord = useRef({ lon: 0, lat: 0 });
+  const { t } = useTranslation(['home']);
 
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
@@ -44,17 +46,17 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <div className="flex flex-col lg:mt-[-80px] items-center text-center md:items-start md:text-left gap-[14px]">
               <h1 className="text-[60px] leading-[88px]">
-                Weather forecasts in tropical regions
+                {t('primaryheading')}
               </h1>
               <p className="text-[30px] font-[400]">
-                Plan your outdoor event or get your umberella
+                {t('secondaryheading')}
               </p>
               <div className="flex flex-col mt-[20px] gap-4 min-[350px]:flex-row ">
                 <Link
                   to="/dashboard"
                   className="landing_hero_link rounded-sm border-solid border border-[#ffff]"
                 >
-                  View more
+                  {t('viewmore')}
                 </Link>
                 <a
                   href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
@@ -62,7 +64,7 @@ export default function Home() {
                   rel="noreferrer"
                   className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm flex items-center justify-center gap-2"
                 >
-                  Download
+                  {t('download')}
                   <svg
                     width="24"
                     height="24"
@@ -89,8 +91,8 @@ export default function Home() {
         <section className="w-full flex flex-col gap-20 py-[96px]">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="landing_header_md">Weather Updates</h3>
-              <p className="text-[#565560]">Updated a minute ago</p>
+              <h3 className="landing_header_md">{t('weatherupdates')}</h3>
+              <p className="text-[#565560]">{t('updatedamin')}</p>
             </div>
             <button type="button" className="text-[#565560]">
               {' '}
@@ -99,62 +101,62 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
             <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
               <h5 className="mb-[32px] text-[20px] font-bold">
-                Hourly Updates
+                {t('hourlyupdates')}
               </h5>
               <div className="flex flex-col gap-[32px]">
                 <HourlyUpdate
                   time="09:00 am"
-                  day="Today, Thursday"
+                  day={t('todaythursday')}
                   forecast="Rainy"
                 />
                 <HourlyUpdate
                   time="10:00 am"
-                  day="Today, Thursday"
+                  day={t('todaythursday')}
                   forecast="Rainy"
                 />
                 <HourlyUpdate
                   time="11:00 am"
-                  day="Today, Thursday"
+                  day={t('todaythursday')}
                   forecast="Cloudy"
                 />
                 <HourlyUpdate
                   time="12:00 pm"
-                  day="Today, Thursday"
+                  day={t('todaythursday')}
                   forecast="Clear"
                 />
                 <HourlyUpdate
                   time="01:00 pm"
-                  day="Today, Thursday"
+                  day={t('todaythursday')}
                   forecast="Sunny"
                 />
               </div>
             </div>
             <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
-              <h5 className="mb-[32px] text-[20px] font-bold">Risk</h5>
+              <h5 className="mb-[32px] text-[20px] font-bold">{t('risk')}</h5>
               <div className="flex flex-col gap-[32px]">
                 <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="HIGH"
+                  time={`${t('from')} 3:00pm ${t('to')} 6:00pm`}
+                  chances={t('high')}
                   risk="Flood"
-                  day="Today, 11/24/2022"
+                  day={`${t('rainy')}, 11/24/2022`}
                 />
                 <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="LOW"
+                  time={`${t('from')} 3:00pm ${t('to')} 6:00pm`}
+                  chances={t('low')}
                   risk="Dust levels"
-                  day="Today, 11/24/2022"
+                  day={`${t('rainy')}, 11/24/2022`}
                 />
                 <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="MID"
+                  time={`${t('from')} 3:00pm ${t('to')} 6:00pm`}
+                  chances={t('mid')}
                   risk="Fog"
-                  day="Today, 11/24/2022"
+                  day={`${t('rainy')}, 11/24/2022`}
                 />
                 <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="LOW"
+                  time={`${t('from')} 3:00pm ${t('to')} 6:00pm`}
+                  chances={t('low')}
                   risk="Sun burn"
-                  day="Today, 11/24/2022"
+                  day={`${t('rainy')}, 11/24/2022`}
                 />
               </div>
             </div>
@@ -169,8 +171,8 @@ export default function Home() {
         <div className="landing_sections_wrapper flex flex-col gap-[56px]">
           <div className="w-full flex flex-col gap-[56px]">
             <div className="landing_locations_header">
-              <h3 className="landing_header_md">Popular locations</h3>
-              <h6>upated a minute ago</h6>
+              <h3 className="landing_header_md">{t('popularlocations')}</h3>
+              <h6>{t('updatedamin')}</h6>
             </div>
             <div
               ref={slider}
@@ -205,7 +207,7 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full flex flex-col gap-[56px]">
-            <h4 className="text-[20px] font-bold">Cities near you</h4>
+            <h4 className="text-[20px] font-bold">{t('citiesnearyou')}</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
@@ -232,13 +234,10 @@ export default function Home() {
             <div className="landing_globe">
               <div className="landing_showcase">
                 <h3 className="landing_header_md">
-                  Never Worry about Figures and Statistics
+                  {t('neverworryaboutfiguresheading')}
                 </h3>
                 <p>
-                  Tropical weather analyzes the weather for you in order to
-                  provide you with a self-explanatory forecast, so you never
-                  have to worry about the weather and can have a more smooth
-                  experience.
+                  {t('neverworryaboutfiguresbody')}
                 </p>
               </div>
               <div
@@ -247,17 +246,13 @@ export default function Home() {
                   '--ill-bg': '#D1FADF',
                 }}
               >
-                <p>Features</p>
-                <h3>Add multiple locations</h3>
+                <p>{t('features')}</p>
+                <h3>{t('addmultiplelocationsheading')}</h3>
                 <p>
-                  What could possibly be better than not having to worry about
-                  the weather where you are right now? What matters is staying
-                  informed about the weather in other places! In order to
-                  successfully arrange your daily movement, add and delete
-                  several destinations. Use Tropical weather app now!
+                  {t('addmultiplelocationsbody')}
                 </p>
                 <Link to="/signup" className="landing_link_button">
-                  Get started
+                  {t('getstarted')}
                 </Link>
                 <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
@@ -278,17 +273,13 @@ export default function Home() {
                   '--ill-bg': '#FEF2F2',
                 }}
               >
-                <p>Features</p>
-                <h3>Find out your city&apos;s forecast!</h3>
+                <p>{t('features')}</p>
+                <h3>{t('findoutyourcityforecastheading')}</h3>
                 <p>
-                  Are you curious to discover the weather predictions for the
-                  upcoming few or even the entire day? You don&apos;t have to
-                  pay for the straightforward, uncomplicated capabilities that
-                  Tropical weather offers to convey your everyday weather
-                  condition!
+                  {t('findoutyourcityforecastbody')}
                 </p>
                 <Link to="/signup" className="landing_link_button">
-                  Get started
+                  {t('getstarted')}
                 </Link>
                 <div style={{ width: '100%', paddingTop: '24px' }}>
                   <img
@@ -307,13 +298,12 @@ export default function Home() {
         <FaqSection />
         <section id="landing_download_app">
           <div className="landing_download_container">
-            <p>Go Mobile</p>
+            <p>{t('gomobile')}</p>
             <h3 className="landing_header_md">
-              Use the free Tropical weather app
+              {t('usetheappheading')}
             </h3>
             <p>
-              Explore the flexibility and ease that comes with using our
-              Weatherly app on the go!
+              {t('usetheappbody')}
             </p>
             <div>
               <img src="/app-store.png" alt="" />
@@ -336,16 +326,17 @@ export default function Home() {
 
 function FaqSection() {
   const [openAll, toggleOpenAll] = useState(false);
+  const { t } = useTranslation(['home']);
   return (
     <section className="flex flex-col gap-8 w-full pb-[96px]">
       <div className="flex items-center justify-between">
-        <h3 className="landing_header_md">Explore FAQs</h3>
+        <h3 className="landing_header_md">{t('explorefaqs')}</h3>
         <button
           type="button"
           className="flex items-center gap-2 text-[#565560]"
           onClick={() => toggleOpenAll((prv) => !prv)}
         >
-          View full
+          {t('viewfull')}
           {openAll ? <FaAngleUp /> : <FaAngleDown />}
         </button>
       </div>
