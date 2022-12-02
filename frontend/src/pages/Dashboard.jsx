@@ -1,98 +1,102 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import moment from 'moment/moment';
 import { Link } from 'react-router-dom';
-import { useGeolocated } from 'react-geolocated';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsMap, BsHeart } from 'react-icons/bs';
-import WeatherPreview from '../components/Dashboard/WeatherPreview';
+import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { AiOutlineDelete } from 'react-icons/ai';
 import useCity from '../hooks/useCity';
-import WeatherForecast from '../components/Dashboard/WeatherForecast';
+import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 
 export default function Dashboard() {
-  // const threeDayForcast = [
-  //   {
-  //     location: 'Abuja, Nigeria',
-  //     date: moment().add(1, 'days').calendar().split(' ')[0],
-  //     weather: 'Sunny',
-  //     description: 'Sunny with a high of 75F',
-  //     time: '1:00PM',
-  //   },
-  //   {
-  //     location: 'Kaduna, Nigeria',
-  //     date: moment().add(2, 'days').format('ll'),
-  //     weather: 'Rain',
-  //     description: 'Sunny with a high of 40C',
-  //     time: '3:00 PM',
-  //   },
-  //   {
-  //     location: 'Lagos, Nigeria',
-  //     date: moment().add(3, 'days').format('ll'),
-  //     weather: 'Sunny',
-  //     description: 'Sunny with a high of 75F',
-  //     time: '6:00 PM',
-  //   },
-  // ];
+  const threeDayForcast = [
+    {
+      location: 'Abuja, Nigeria',
+      main: 'Sunny',
+      risk: 'Sunny with a high of 75F',
+      datetime: '1:00PM',
+    },
+    {
+      location: 'Kaduna, Nigeria',
+      main: 'Scattered Rain',
+      risk: 'Sunny with a high of 40C',
+      datetime: '3:00 PM',
+    },
+    {
+      location: 'Lagos, Nigeria',
+      main: 'Sunny',
+      risk: 'Sunny with a high of 75F',
+      datetime: '6:00 PM',
+    },
+  ];
   const APIURL = 'https://api.tropicalweather.hng.tech';
-  const time = moment().format('h:mm a');
+  const time = moment('2020-01-01 12:00:00').format('h:mm a');
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState('');
-  const [geoLocation, setGeoLocation] = useState({});
+  // const [geoLocation, setGeoLocation] = useState({});
   const [userLocation, setUserLocation] = useState(null);
-  const [threeDayForcast, setThreeDayForcast] = useState([]);
+  const coord = useRef({ longitude: 0, latitude: 0 });
+  // const [timeline, setTimeline] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const currentLocation = useCity() || userLocation;
 
-  const { coords } =
-    useGeolocated({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      userDecisionTimeout: 5000,
-    });
-
+  const formatTime = (time) => moment(time).format('h:mm a');
   const getCurrentLocationFromCoords = async () => {
-    const { latitude, longitude } = geoLocation;
+    const { latitude, longitude } = coord.current;
     const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
     const location = `${data.state}, ${data.city}`;
     setUserLocation(location);
   };
 
-  const getThreeDayForcast = async () => {
-    const { latitude, longitude } = geoLocation;
-    const response = await fetch(`${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`);
+  const getCurrentLocationWeather = async () => {
+    const { latitude, longitude } = coord.current;
+    const response = await
+      fetch(`${APIURL}/weather/forcast/extended?lat=${latitude}&lon=${longitude}`);
     const data = await response.json();
-    setThreeDayForcast(data.slice(0, 3));
+    setCurrentWeather(data.current);
+    // setTimeline(data.today_timeline);
   };
 
-  const getCurrentForecastFromLocation = async (location) => {
-    const response = await fetch(`${APIURL}/weather/current?address=${location}`);
-    const data = await response.json();
-    setCurrentWeather(data);
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
   };
+
+  function success(pos) {
+    const crd = pos.coords;
+    coord.current = { latitude: crd.latitude, longitude: crd.longitude };
+  }
+
+  function error(err) {
+    return `ERROR(${err.code}): ${err.message}`;
+  }
 
   useEffect(() => {
-    if (coords) {
-      const { latitude, longitude } = coords;
-      setGeoLocation({ latitude, longitude });
-      getCurrentLocationFromCoords();
-      // getThreeDayForcast();
-      // getCurrentForecastFromLocation(currentLocation);
-    }
-  }, [coords]);
+    const locationInterval = setInterval(() => {
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    }, 2000);
+    return () => clearInterval(locationInterval);
+  }, []);
+
+  useEffect(() => {
+    getCurrentLocationFromCoords();
+    getCurrentLocationWeather();
+  }, [userLocation]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
     if (!data || data.length === 0) {
-      setSavedLocations(threeDayForcast);
-      localStorage.setItem('saved-locations', JSON.stringify(threeDayForcast));
+      setSavedLocations([]);
+      localStorage.setItem('saved-locations', JSON.stringify(savedLocations));
     } else {
       setSavedLocations(data);
     }
   }, []);
 
   const removeLocation = (location) => {
-    const loc = savedLocations.filter((item) => item.location !== location);
+    const loc = savedLocations.filter((item) => item !== location);
     localStorage.setItem('saved-locations', JSON.stringify(loc));
     setSavedLocations(loc);
   };
@@ -143,8 +147,8 @@ export default function Dashboard() {
           <TfiAngleLeft className="mr-2 text-lg" />
           <span className="text-lg">Back</span>
         </Link>
-        <div className="flex flex-col justify-between w-full max-w-4xl gap-10 md:flex-row">
-          <div className="relative w-full">
+        <div className="flex flex-col w-full gap-10 md:flex-row">
+          <div className="relative w-full max-w-2xl">
             <div className="flex items-center px-5 mb-5 md:justify-between">
               <h1 className="text-2xl font-bold">
                 {currentLocation || 'Lagos, Nigeria'}
@@ -153,7 +157,7 @@ export default function Dashboard() {
                 {isSaved ? null : (
                   <button
                     type="button"
-                    onClick={() => addLocation(currentLocation)}
+                    onClick={() => addLocation(userLocation)}
                     className="flex items-center gap-4 text-primary-btn"
                   >
                     <BsHeart />
@@ -169,53 +173,63 @@ export default function Dashboard() {
                 Today .
                 <span className="uppercase">{` ${time}`}</span>
               </p>
-              <p className="text-4xl font-bold">{currentWeather.main || 'Weather data is not available yet'}</p>
-              <p className="text-xl font-bold text-gray-600">{currentWeather.time || time}</p>
+              <p className="text-4xl font-bold">{currentWeather.main}</p>
+              <p className="text-xl font-bold text-gray-600">
+                {`${formatTime(currentWeather.datetime)} to ${formatTime(currentWeather.end_datetime)}`}
+              </p>
               <p className="px-8 py-2 font-semibold text-sm text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max">
-                {currentWeather.description || 'Weather description is not available yet'}
+                {currentWeather.risk}
               </p>
             </div>
+            <section id="saved-locations" className="mt-20">
+              <div className="flex items-center justify-between w-full">
+                <h2 className="text-2xl font-bold">Saved Locations</h2>
+              </div>
+
+              {savedLocations.length < 1 ? (
+                <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
+                  <BsMap className="text-3xl text-primary-btn" />
+                  <h2 className="text-2xl font-bold">No Location saved yet</h2>
+                  <p>You can save a location to view the details later</p>
+                </div>
+              ) : (
+                <div className="flex flex-col justify-start gap-10 my-10">
+                  {savedLocations.map((location) => (
+                    <div className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md" key={location}>
+                      <div className="flex items-center gap-4">
+                        <HiOutlineLocationMarker className="text-lg" />
+                        <span className="text-sm capitalize md:text-xl">
+                          {location}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeLocation(location)}
+                        className="bdr-50% p-2 rounded-full"
+                      >
+                        <AiOutlineDelete />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
           </div>
-          <section id="three-day-forcast" className="">
+          <section id="timeline-forecast" className="flex-1 my-10 md:my-0">
             <p className="mb-4 text-xl font-bold">Today</p>
             {threeDayForcast.length > 0 ? (
-              threeDayForcast.map((day) => (
-                <WeatherForecast
-                  icon={day.date}
-                  description={day.description}
-                  time={day.main}
-                  weather={day.date}
-                  key={day.date}
+              threeDayForcast.map((day, index) => (
+                <WeatherTimeline
+                  risk={day.risk}
+                  datetime={day.datetime}
+                  main={day.main}
+                  key={day.datetime}
+                  last={index === threeDayForcast.length - 1}
                 />
               ))) :
               <p className="text-xl font-semibold">Loading...</p>}
           </section>
         </div>
-        <section id="saved-locations" className="mt-20">
-          <div className="flex items-center justify-between w-full">
-            <h2 className="text-2xl font-bold">Saved Locations</h2>
-          </div>
-
-          {savedLocations.length < 1 ? (
-            <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
-              <BsMap className="text-3xl text-primary-btn" />
-              <h2 className="text-2xl font-bold">No Location saved yet</h2>
-              <p>You can save a location to view the details later</p>
-            </div>
-          ) : (
-            <div className="flex flex-wrap justify-start gap-10 py-12">
-              {savedLocations.map((day) => (
-                <WeatherPreview
-                  location={day.location}
-                  weather={day.weather}
-                  remove={removeLocation}
-                  key={day.location}
-                  description={day.description}
-                />
-              ))}
-            </div>
-          )}
-        </section>
       </div>
     </div>
   );
