@@ -2,14 +2,22 @@ import React, { useEffect, useState, useRef } from 'react';
 import moment from 'moment/moment';
 import { Link } from 'react-router-dom';
 import { TfiAngleLeft } from 'react-icons/tfi';
-import { BsMap, BsHeart } from 'react-icons/bs';
+import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { AiOutlineDelete } from 'react-icons/ai';
 import useCity from '../hooks/useCity';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
+import OptionsPopup from '../components/Dashboard/OptionsPopup';
 
 export default function Dashboard() {
-  const threeDayForcast = [
+  const APIURL = 'https://api.tropicalweather.hng.tech';
+  const time = moment().format('h:mm a');
+  const [savedLocations, setSavedLocations] = useState([]);
+  const [toast, setToast] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
+  const coord = useRef({ longitude: 0, latitude: 0 });
+  const [timeline, setTimeline] = useState([
     {
       location: 'Abuja, Nigeria',
       main: 'Sunny',
@@ -28,15 +36,7 @@ export default function Dashboard() {
       risk: 'Sunny with a high of 75F',
       datetime: '6:00 PM',
     },
-  ];
-  const APIURL = 'https://api.tropicalweather.hng.tech';
-  const time = moment('2020-01-01 12:00:00').format('h:mm a');
-  const [savedLocations, setSavedLocations] = useState([]);
-  const [toast, setToast] = useState('');
-  // const [geoLocation, setGeoLocation] = useState({});
-  const [userLocation, setUserLocation] = useState(null);
-  const coord = useRef({ longitude: 0, latitude: 0 });
-  // const [timeline, setTimeline] = useState([]);
+  ]);
   const [currentWeather, setCurrentWeather] = useState({});
   const currentLocation = useCity() || userLocation;
 
@@ -82,7 +82,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     getCurrentLocationFromCoords();
-    getCurrentLocationWeather();
+    // getCurrentLocationWeather();
   }, [userLocation]);
 
   useEffect(() => {
@@ -149,21 +149,32 @@ export default function Dashboard() {
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
           <div className="relative w-full max-w-2xl">
-            <div className="flex items-center px-5 mb-5 md:justify-between">
+            <div className="flex flex-col gap-2 px-5 mb-5 md:flex-row md:justify-between">
               <h1 className="text-2xl font-bold">
-                {currentLocation || 'Lagos, Nigeria'}
+                {currentLocation || 'Input Location from search bar'}
               </h1>
-              <div className="items-center hidden gap-6 lg:flex">
+              <div className="flex items-center self-end gap-4">
                 {isSaved ? null : (
                   <button
                     type="button"
                     onClick={() => addLocation(userLocation)}
-                    className="flex items-center gap-4 text-primary-btn"
+                    className="flex items-center gap-2 text-primary-btn"
                   >
                     <BsHeart />
                     <span>Save city</span>
                   </button>
                 )}
+                <div className="relative">
+                  <button
+                    type="button"
+                    className="btn btn-ghost btn-circle"
+                    onClick={() => setShowPopup(!showPopup)}
+                  >
+                    <BsThreeDotsVertical />
+                  </button>
+                  <OptionsPopup display={showPopup} />
+                </div>
+
               </div>
             </div>
             <div
@@ -217,17 +228,17 @@ export default function Dashboard() {
           </div>
           <section id="timeline-forecast" className="flex-1 my-10 md:my-0">
             <p className="mb-4 text-xl font-bold">Today</p>
-            {threeDayForcast.length > 0 ? (
-              threeDayForcast.map((day, index) => (
+            {timeline.length > 0 ? (
+              timeline.map((day, index) => (
                 <WeatherTimeline
                   risk={day.risk}
                   datetime={day.datetime}
                   main={day.main}
                   key={day.datetime}
-                  last={index === threeDayForcast.length - 1}
+                  last={index === timeline.length - 1}
                 />
               ))) :
-              <p className="text-xl font-semibold">Loading...</p>}
+              <p className="text-xl font-semibold">No weather data available yet</p>}
           </section>
         </div>
       </div>
