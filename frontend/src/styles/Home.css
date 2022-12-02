@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --l-primary-color: #EF6820;
-  font-family: 'Outfit';
+  --l-primary-color: #ef6820;
+  font-family: "Outfit";
   position: relative;
 }
 .homepage-location {
@@ -14,7 +14,6 @@
   top: 1em;
   left: 2em;
   padding: 0.4em 0.8em;
-  /* position: sticky; */
 }
 .homepg-weatherfc {
   max-width: 100%;
@@ -315,8 +314,7 @@
   border-radius: 16px;
   margin-bottom: 100px;
   overflow: hidden;
-  margin:1em auto;
-
+  margin: 1em auto;
 }
 
 .landing_download_container {
@@ -325,11 +323,11 @@
   flex-direction: column;
 }
 
-.landing_download_container p {
+.landing_download_container {
   color: var(--l-primary-color);
 }
-.homepg-orange{
-  color:white;
+.homepg-orange {
+  color: black;
 }
 .landing_download_container h3 {
   font-weight: 700;
@@ -458,9 +456,9 @@
   }
 }
 @media (min-width: 60rem) {
-  #landing_download_app{
- flex-direction: row;
- justify-content: space-between;
+  #landing_download_app {
+    flex-direction: row;
+    justify-content: space-between;
   }
   .homepg-worldone {
     display: block;
@@ -475,7 +473,10 @@
   .homepg-poplis {
     gap: 3em;
   }
-  .homepg-phone{
-    content: url('../../public/Home/iPhone\ 13.png');
+  .homepg-phone {
+    content: url("../../public/Home/iPhone\ 13.png");
+  }
+  .landing_download_container div {
+    justify-content: left;
   }
 }
