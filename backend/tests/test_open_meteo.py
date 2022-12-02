@@ -100,7 +100,8 @@ def test_get_daily_forecast_params2(mocker):
         return_value="test"
     )
 
-    client.get_daily_forecast(1, 1, daily_params=["test"], params={"test": "test"})
+    client.get_daily_forecast(
+        1, 1, daily_params=["test"], params={"test": "test"})
     get_mock.assert_called_once_with(
         "forecast",
         params={
