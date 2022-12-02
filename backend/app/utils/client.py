@@ -126,3 +126,12 @@ def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
         alert.pop("tags", None)
 
     return alerts
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5d70578 (feat(BAC-74): Added endpoint that returns tomorrow's forecast for an address)
+=======
+
+>>>>>>> 5d70578c358929b812369ecd08b3a2acdca0bf7e

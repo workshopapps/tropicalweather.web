@@ -1,16 +1,24 @@
+from datetime import datetime
 from typing import List
 
 from dependencies import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas import (AlertsResponse, CurrentWeatherResponse,
-                     ImmediateForecastResponse, SingleWeatherResponse)
+                     ImmediateForecastResponse, SingleWeatherResponse,
+                     WeatherResponse)
 from sqlalchemy.orm import Session
 from utils.client import weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_immediate_weather_api_call, get_location_obj,
-                           get_weather_forecast,
-                           immediate_weather_api_call_tommorrow,
+                           get_risk, immediate_weather_api_call_tommorrow,
                            reverse_geocode, weather_api_call)
+from utils.hourly_forecast import hourly_forecasts
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
+from datetime import datetime
+from utils.general import get_risk
 
 router = APIRouter(
     prefix="/weather",
@@ -18,26 +26,10 @@ router = APIRouter(
 )
 
 
-@router.get('/forecasts', response_model=List[SingleWeatherResponse])
-async def weather_forcasts(lat: float, lon: float):
-    """Get weather forecast for next 10 steps"""
-    try:
-        weather_forecasts_data = get_weather_forecast(lat, lon)
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Can't retrive weather data for this location"
-        )
+@router.get('/forecasts', response_model=List[WeatherResponse])
+async def weather_forecasts(lat: float, lon: float):
 
-    results = []
-
-    for forcast in weather_forecasts_data:
-        data = convert_epoch_to_datetime(forcast.get('dt'))
-        data['main'] = forcast['weather'][0]['main']
-        data['description'] = forcast['weather'][0]['description']
-        results.append(data)
-
-    return results
+    return hourly_forecasts(lat, lon)
 
 
 @router.get('/current', response_model=CurrentWeatherResponse)
@@ -159,3 +151,52 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
             data.append(alert_instance)
 
     return data
+
+
+@router.get("/forecasts/tomorrow/by-address")
+async def weather_tomorrow(address: str):
+    try:
+        geo = geocode_address(address)
+        lat = geo['lat']
+        lon = geo['lon']
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+    
+
+    response = client.get_hourly_forecast(lat, lon, hourly_params=['weathercode'])
+
+    hourly_time: list[str] = response["hourly"]["time"]
+    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+    hourly_weathercode: list[str] = response["hourly"]["weathercode"]
+
+    result = []
+
+    for i in range(24, 48):
+        index_time = hourly_time[i]
+        index_time = datetime.strptime(index_time, "%Y-%m-%dT%H:%M")
+
+        index_temp = hourly_temp[i]
+        index_precipitation = hourly_precipitation[i]
+        index_weathercode = hourly_weathercode[i]
+
+        weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+
+        risk = get_risk(index_temp, index_precipitation)
+
+
+        res = {
+        	"main": weather_desc,
+            "datetime": hourly_time[i].replace("T", " "),
+            "risk": risk,
+            "state": geo['state'],
+            "city": geo['city'],
+            "country": geo['country']
+        }
+
+        result.append(res)
+    return result

@@ -16,46 +16,68 @@ class TestWeatherForecastsAPI:
     def test_weather_forcasts_valid(self, mocker, client):
         """Test weather forecast endpoint"""
         mocker.patch(
-            'routers.weather.get_weather_forecast',
+            'routers.weather.weather_forecasts',
             return_value=[
                 {
-                    "dt": 1668848400,
-                    "weather": [
-                        {
-                            "main": "Rain",
-                            "description": "light rain",
-                        }
-                    ],
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 16:00",
+                    "risk": "Heatwave"
                 },
                 {
-                    "dt": 1668848400,
-                    "weather": [
-                        {
-                            "main": "Rain",
-                            "description": "light rain",
-                        }
-                    ],
+                    "main": "Scattered clouds",
+                    "datetime": "2022-12-02 17:00",
+                    "risk": "Heatwave"
                 },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 18:00",
+                    "risk": "Heatwave"
+                },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 19:00",
+                    "risk": "Heatwave"
+                },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 20:00",
+                    "risk": "Heatwave"
+                },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 21:00",
+                    "risk": "Heatwave"
+                },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 22:00",
+                    "risk": "Heatwave"
+                },
+                {
+                    "main": "Broken clouds",
+                    "datetime": "2022-12-02 23:00",
+                    "risk": "Heatwave"
+                }
             ]
         )
 
-        response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")
+        response = client.get("/weather/forecasts?lat=4&lon=3.1")
         assert response.status_code == 200
         data: List[dict] = response.json()
 
-        assert len(data) == 2
-        assert data[0]["date"]
-        assert data[0]["time"]
-        assert data[0]["main"] == "Rain"
-        assert data[0]["description"] == "light rain"
+        assert len(data) == 8
+        assert data[0]["main"]
+        assert data[1]["datetime"]
+        assert data[2]["risk"] 
+        
 
     def test_weather_forcasts_invalid(self, mocker, client):
         """Test weather forecast endpoint"""
         mocker.patch(
-            'routers.weather.get_weather_forecast',
+            'routers.weather.weather_forecasts',
             side_effect=Exception("Invalid request")
         )
-        response = client.get("/weather/forecasts?lat=6.5244&lon=3.3792")
+        response = client.get("/weather/forecasts?lat=9&lon=1000")
         assert response.status_code == 400
 
         data: dict = response.json()
@@ -254,3 +276,5 @@ class _TestGetAlerts:
             "/weather/alerts/list?lat=6.46542&lon=3.406448")
 
         assert response.status_code == 400
+
+
