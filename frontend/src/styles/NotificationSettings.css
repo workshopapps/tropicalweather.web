@@ -1,0 +1,289 @@
+.notificationsettings__container {
+  width: 85%;
+  margin: 0 auto;
+  max-width: 894px;
+}
+.return__btn--container {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  gap: 8px;
+}
+.return__btn--container p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #161518;
+}
+.notification__header h2 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.025em;
+  font-feature-settings: "tnum" on, "lnum" on;
+  margin-bottom: 8px;
+  color: #161518;
+}
+.notification__header p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #565560;
+}
+
+.notification__push {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+.notification__push--text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 85%;
+}
+.notification__push--text h3 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #161518;
+}
+.notification__push--text p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #565560;
+}
+.toggle-btn {
+  height: 30px;
+  width: 54px;
+  border: 1px solid #e8e7ea;
+  border-radius: 26px;
+  background-color: #fff;
+  display: flex;
+
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+}
+.toggle-btn__left {
+  width: 22px;
+  height: 22px;
+  background-color: #ef6820;
+  border-radius: 50%;
+}
+.toggle-btn__right {
+  width: 22px;
+  height: 22px;
+  background-color: #ef6820;
+  border-radius: 50%;
+  margin-left: 22px;
+}
+.notificationsetting {
+  padding-top: 28px;
+  padding-bottom: 28px;
+  border-top: 1px solid #dcdbe0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.notificationsetting__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.notificationsetting__header h3 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #161518;
+}
+.notificationsetting__header p {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  color: #82808f;
+}
+.notificationsetting__option {
+  display: flex;
+  gap: 16px;
+}
+.notificationsetting__option1 {
+  display: flex;
+
+  gap: 16px;
+}
+.notificationsetting__option2 {
+  display: flex;
+  gap: 16px;
+}
+.notificationsetting__option--heading-text {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+  color: #161518;
+}
+.notificationsetting__option--description {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  color: #82808f;
+}
+.notificationsetting__option2--input {
+  accent-color: #ef6820;
+}
+@media (max-width: 500px) {
+  .return__btn--container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  .notification__header h2 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #161518;
+  }
+  .notification__header p {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #2b2a30;
+  }
+  .notification__push {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .notification__push--text h3 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #161518;
+  }
+  .notification__push--text p {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #565560;
+  }
+  .notificationsetting {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .notificationsetting__header h3 {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #161518;
+  }
+  .notificationsetting__header p {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #82808f;
+  }
+  .notificationsetting__option--heading-text {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #161518;
+  }
+  .notificationsetting__option--description {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+    color: #82808f;
+  }
+
+  .toggle-btn {
+    height: 24px;
+    width: 48px;
+    border: 1px solid #e8e7ea;
+    border-radius: 26px;
+    background-color: #fff;
+    display: flex;
+
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+  }
+  .toggle-btn__left {
+    width: 16px;
+    height: 16px;
+    background-color: #ef6820;
+    border-radius: 50%;
+  }
+  .toggle-btn__right {
+    width: 16px;
+    height: 16px;
+    /* margin-left: 16px; */
+  }
+}

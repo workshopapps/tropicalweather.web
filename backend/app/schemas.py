@@ -4,6 +4,14 @@ from enum import Enum
 from pydantic import BaseModel
 
 
+class FcmSubscribeMessage(BaseModel):
+    message: str
+
+
+class ShareLink(BaseModel):
+    link: str
+
+
 class AlertsResponse(BaseModel):
     event: str
     message: str
@@ -17,6 +25,11 @@ class SingleWeatherResponse(BaseModel):
     date: str
     time: str
 
+    
+class WeatherResponse(BaseModel):
+    main: str
+    datetime: str
+    risk: str
 
 class RiskLevel(str, Enum):
     LOW = 'low'
