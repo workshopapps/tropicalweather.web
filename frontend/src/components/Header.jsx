@@ -1,31 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
-
+import axios from 'axios';
+import React, { useRef, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
-
-const cities = [
-  'Lagos, Nigeria',
-  'Abuja, Nigeria',
-  'Port Harcourt',
-  'Kaduna, Nigeria',
-  'Ibadan, Nigeria',
-  'Kano, Nigeria',
-  'Jos, Nigeria',
-  'Benin City, Nigeria',
-  'Ilorin, Nigeria',
-  'Calaba, Nigeria',
-  'Aba, Nigeria',
-  'Zaria, Nigeria',
-  'Ikorodu, Nigeria',
-  'Accra, Ghana',
-  'Kumasi, Ghana',
-  'Koforidua, Ghana',
-  'Tamale, Ghana',
-  'Salaga, Ghana',
-  'Techiman, Ghana',
-  'Tema, Ghana',
-];
 
 export default function Header() {
   const [toggle, setToggle] = useState(false);
@@ -52,14 +30,23 @@ export default function Header() {
     navigate(`/dashboard?city=${city}`);
       setSearch('false');
   };
+
+  const { data, isLoading } = useQuery(
+    ['search', { param: query }],
+    () => axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${query}`),
+    {
+      staleTime: Infinity,
+      enabled: query.length > 2,
+    }
+  );
   const searchResults =
-    query.length < 3 ? [] : cities.filter((city) => city.includes(query));
+    data?.data.results?.map((res) => `${res.name}, ${res.country}`) || [];
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
       <div>
         <Link to="/">
-          <img src="/logo.svg" alt="logo" />
+          <img src="/tropiclogo.png" alt="logo" />
         </Link>
       </div>
       <div className="items-center justify-end  hidden w-full m lg:flex gap-x-4">
@@ -85,9 +72,9 @@ export default function Header() {
                 </p>
               ) : null}
               {searchResults.map((city) => (
-                <li className="px-4 hover:bg-gray-200" key={city}>
+                <li className="hover:bg-[#FDEAD7]" key={city}>
                   <button
-                    className="py-5"
+                    className="py-5 px-4 w-full text-left"
                     type="button"
                     onClick={() => gotoDashboard(city)}
                   >
@@ -95,8 +82,11 @@ export default function Header() {
                   </button>
                 </li>
               ))}
-              {searchResults.length === 0 && query.length > 2 ? (
+              {searchResults.length === 0 && query.length > 2 && !isLoading ? (
                 <p className="text-gray-500 text-center">No cities found</p>
+              ) : null}
+              {isLoading ? (
+                <p className="text-gray-500 text-center">Loading...</p>
               ) : null}
             </ul>
           )}

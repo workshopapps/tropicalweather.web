@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function AboutProductSection() {
   return (
     <div className="py-10 font-Outfit">
       <div className="container mx-auto ">
-        <h3 className="font-bold text-[#2B2A30] text-center text-2xl md:text-3xl">Our Product Offering</h3>
+        <h3 className="font-bold text-[#2B2A30] text-left  text-2xl sm:text-center md:text-3xl">Our Product Offering</h3>
         <div className="pt-4 md:w-1/2">
           <div className="flex gap-4 py-5">
             <div className="text-[#EF6820] font-bold text-xl md:text-2xl">01.</div>
@@ -49,7 +50,7 @@ function AboutProductSection() {
         </div>
         <div>
           <div className="flex justify-center pt-5 md:py-10 ">
-            <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">Get Started → </button>
+            <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
           </div>
 
           <div className="rounded-xl  bg-[#FDEAD7]">
@@ -57,10 +58,10 @@ function AboutProductSection() {
               {/* --content- */}
               <div className="flex flex-col flex-1 py-5 lg:items-start">
                 <p className="font-normal  text-[#EF6820] leading-5 text-xs md:text-base tracking-wide text-start mb-6">GO MOBILE</p>
-                <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free  Weathery app</p>
+                <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free Tropical Weather app</p>
                 <p className="text-[#565560] text-lg font-normal mb-4 text-start">Explore the flexibility and ease that comes with using our Weatherly app on the go!</p>
                 {/* --button- */}
-                <div className="flex justify-between gap-8">
+                <div className="flex justify-around md:justify-evenly gap-4">
                   <div>
                     <img
                       src="/app-store.png"

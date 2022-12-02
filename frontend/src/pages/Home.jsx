@@ -6,6 +6,7 @@ import PopularLocation from '../components/Home/PopularLocation';
 import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+// import Share from '../components/share/Share_popup';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -193,7 +194,7 @@ export default function Home() {
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="" />
                 <span>IDN INDONESIA</span>
-              </div>
+          </div>
               <button
                 type="button"
                 aria-label="go to dashboard"
@@ -286,7 +287,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-[56px]">
+          <div className="w-full flex flex-col gap-[10px]">
             <h4 className="text-[20px] font-bold">Cities near you</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />

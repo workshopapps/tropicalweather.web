@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --l-primary-color: #ef6820;
-  font-family: "Outfit";
+  --l-primary-color: #EF6820;
+  font-family: 'Outfit';
+  position: relative;
 }
 .homepage-location {
   background: rgba(255, 255, 255, 0.24);
@@ -127,7 +128,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 2px;
 }
 
 .landing_header_md {

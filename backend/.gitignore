@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+app/service-account-file.json
 .Python
 build/
 develop-eggs/
@@ -60,7 +61,6 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-static/
 media/
 
 # Fast api
@@ -136,3 +136,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# log files
+*.log
+
+app/service-account-file.json.json

@@ -10,9 +10,9 @@ import '../../styles/Home.css';
 
 export default function PopularLocation({ location, bin, remove }) {
   const { data, isError, isFetching } = useQuery(
-    [],
+    ['popularlocation', { location }],
     () => axios.get(`${BASEURL}/weather/current?address=${location}`),
-    { staleTime: 1000 * 60, retry: 3 }
+    { retry: 3 }
   );
 
   let response = { main: '', description: '' };
