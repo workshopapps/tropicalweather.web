@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+app/service-account-file.json
 .Python
 build/
 develop-eggs/
