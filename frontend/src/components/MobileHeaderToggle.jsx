@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { RiHome6Line } from 'react-icons/ri';
-import { BsBriefcase } from 'react-icons/bs';
-import { BsQuestionCircle } from 'react-icons/bs';
+import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 
 import { BiInfoCircle } from 'react-icons/bi';
 import { GrClose } from 'react-icons/gr';
