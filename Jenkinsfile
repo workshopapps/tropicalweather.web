@@ -33,11 +33,12 @@ pipeline {
 			steps {
                 sh "sudo cp -rf ${WORKSPACE}/backend/* /home/johnoni/tropicalweather.web/backend"
                 sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather.web/frontend"
-            // sh "sudo su - johnoni && whoami"
-            //  sh "sudo pm2 stop tropicalweather"
-	    	//  sh "sudo pm2 stop server"
-                sh "sudo serve -s /home/johnoni/tropicalweather.web/frontend/build -p 55001"
-                sh "sudo cd /home/johnoni/tropicalweather.web/backend/app && uvicorn main:app —reload"
+
+                sh "sudo systemctl stop tropicalweatherf.service"
+                sh "sudo systemctl stop tropicalweatherb.service"
+
+				sh "sudo systemctl restart tropicalweatherf.service"
+				sh "sudo systemctl restart tropicalweatherb.service"
             }
 			
 	    }
