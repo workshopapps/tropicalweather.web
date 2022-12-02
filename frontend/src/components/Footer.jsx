@@ -12,7 +12,7 @@ export default function Footer() {
             <img src="/logo-white.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
               <Link to="/about-us" className="link link-hover">About us</Link>
-              {/* <Link to="/promotions" className="link link-hover">Promotions</Link> */}
+              <Link to="/contact" className="link link-hover">Contact us</Link>
             </div>
           </div>
           <div>
