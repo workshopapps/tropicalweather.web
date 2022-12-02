@@ -184,3 +184,8 @@ async def get_location_weather_risk(lat: float, lon: float):
             "level": RiskLevel.EXTREME,
         }
     ]
+
+@router.get('/forcast/extended')
+async def get_extended_forecast(lat: float, lon: float):
+    
+    pass 

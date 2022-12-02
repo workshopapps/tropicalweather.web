@@ -27,3 +27,8 @@ async def get_location(lat: float, lon: float):
     }
 
     return response
+'''
+@router.get('/location', response_model=locationResponse)
+async def get_location(lat: float, lon: float):
+    pass
+'''
