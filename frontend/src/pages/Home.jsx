@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 // import Share from '../components/share/Share_popup';
@@ -22,23 +19,19 @@ export default function Home() {
       `${APIURL}/location?lat=${latitude}&lon=${longitude}`
     );
     const data = await response.json();
-    console.log(data, coord, coord.current.latitude);
     const location = `${data.city}, ${data.state}`;
     setUserLocation(location);
   };
   const getImmediateWeather = async () => {
     const { latitude, longitude } = coord.current;
-    // console.log(latitude, longitude);
     const response = await fetch(
       `${APIURL}/weather/forecasts/immediate?lat=${latitude}&lng=${longitude}`
     );
     const data = await response.json();
-    // console.log(response);
     setImmediateWeather(data);
   };
   const getWeatherForecast = async () => {
     const { latitude, longitude } = coord.current;
-    console.log(latitude, longitude);
     const response = await fetch(
       `${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`
     );
@@ -100,10 +93,6 @@ export default function Home() {
               {weatherForecast !== null &&
                 Array.from(new Set(weatherForecast.map((a) => a.time)))
                   .map((time) => weatherForecast.find((a) => a.time === time))
-                  .sort(
-                    (a, b) => new Date(`${a.date} ${a.time.slice(0, -2)}`) <
-                      new Date(`${b.date} ${b.time.slice(0, -2)}`)
-                  )
                   .map((forecast) => (
                     <li key={forecast.time}>
                       {forecast.main === 'Clouds' && (
@@ -194,7 +183,7 @@ export default function Home() {
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="" />
                 <span>IDN INDONESIA</span>
-          </div>
+              </div>
               <button
                 type="button"
                 aria-label="go to dashboard"
@@ -306,7 +295,7 @@ export default function Home() {
           <h3 className="landing_header_md">
             Use the free Tropicalweather app
           </h3>
-          <p>
+          <p className="homepg-orange">
             Explore the flexibility and ease that comes with using our Weatherly
             app on the go!
           </p>
@@ -314,8 +303,8 @@ export default function Home() {
             <img src="/app-store.png" alt="" />
             <img src="/google-play.png" alt="" />
           </div>
-          <img src="/Home/iphone 13(11).png" alt="" className="homepg-phone" />
         </div>
+        <img src="/Home/iphone 13(11).png" alt="" className="homepg-phone" />
       </section>
     </div>
   );
