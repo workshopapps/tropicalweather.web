@@ -144,3 +144,33 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
             data.append(alert_instance)
 
     return data
+
+
+
+@router.get('/alert/notification', response_model=List[AlertNotification])
+async def get_weather_notification(lat: float, lon: float, db: Session = Depends(get_db)):
+    latlng = reverse_geocode(lat, lon)
+    city = latlng.get('city')
+    state = latlng.get('state')
+
+    location = get_location_obj(db, city, state)
+
+    data = []
+    alert_instance = {}
+
+    if location is not None:
+        for mydata in location.alerts:
+
+            date_time = convert_epoch_to_datetime(mydata.start)
+
+            end_time = mydata.end
+
+            if end_time is not None:
+                alert_instance = {
+                    'event': mydata.event,
+                    'message': mydata.message,
+                    'date': date_time['date'],
+                    'time': date_time['time']
+                }
+                data.append(alert_instance)
+    return data
