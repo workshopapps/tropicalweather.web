@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/About.css';
 import { Link } from 'react-router-dom';
 
 function WhyWeatherSection() {
@@ -9,6 +10,7 @@ function WhyWeatherSection() {
         <p className="text-[#EF6820] font-bold text-[18px] md:text-2xl mb-4 text-start">We ensure that quality weather information is available to everyone.</p>
         <p className="text-[#82808F] text-sm md:text-lg font-normal mb-4 text-start">We provide you with relevant local weather data no matter where you live. We guarantee provision of weather data to underserved communities.</p>
         {/* --content- */}
+        <div className='flex flex-col items-center flex-1 lg:items-start'>
         <div className="flex justify-between gap-8">
           <div>
             <p className="text-[#2B2A30] font-bold text-2xl md:text-4xl">100+</p>
@@ -26,7 +28,8 @@ function WhyWeatherSection() {
         <div className="pt-5">
           <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
         </div>
-      </div>
+        </div>
+        </div>
       {/* --image- */}
       <div className="flex justify-center flex-1 overflow-hidden">
         <img

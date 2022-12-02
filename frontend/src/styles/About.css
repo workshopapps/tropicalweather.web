@@ -1,0 +1,6 @@
+.why-title {
+  text-align: left;
+  color: red;
+  display: flex;
+  justify-content: right;
+}
