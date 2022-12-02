@@ -13,7 +13,7 @@ export default function ContactUs() {
   return (
     <div className="contact_us_container">
       <div className="contact_us_header">
-        <h2>Get in touch</h2>
+        <h2 className="text-center">Get in touch</h2>
         <p>Ask us everything, and we’d love to hear from you</p>
       </div>
       <div className="cu_split">
