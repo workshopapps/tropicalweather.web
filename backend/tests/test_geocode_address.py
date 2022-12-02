@@ -1,4 +1,4 @@
-from app.utils import geocode_address, reverse_geocode
+from app.utils.general import geocode_address, reverse_geocode
 import pytest
 from fastapi import HTTPException
 
@@ -6,7 +6,9 @@ from fastapi import HTTPException
 def test_geocode_address_valid(mocker):
     """Test geocode_address function"""
     mock = mocker.patch("geocoder.osm", return_value=mocker.Mock(
-        lat=1.0, lng=2.0, city="city", state="state", ok=True))
+        lat=1.0, lng=2.0, city="city",
+        state="state", country="country", ok=True))
+
     data = geocode_address('test')
     mock.assert_called_with("test")
 
@@ -15,6 +17,7 @@ def test_geocode_address_valid(mocker):
         "lon": 2.0,
         "city": "city",
         "state": "state",
+        "country": "country"
     }
 
 
@@ -29,13 +32,15 @@ def test_geocode_address_invalid(mocker):
 def test_reverse_geocode(mocker):
     """Test reverse_geocode function"""
     mock = mocker.patch("geocoder.osm", return_value=mocker.Mock(
-        lat=1.0, lng=2.0, city="city", state="state", ok=True))
+        lat=1.0, lng=2.0, city="city",
+        state="state", country="country", ok=True))
     data = reverse_geocode(1.0, 2.0)
     mock.assert_called_with([1.0, 2.0], method='reverse')
 
     assert data == {
         "city": "city",
         "state": "state",
+        "country": "country"
     }
 
 
