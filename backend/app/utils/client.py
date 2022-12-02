@@ -127,3 +127,7 @@ def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
 
     return alerts
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5d70578 (feat(BAC-74): Added endpoint that returns tomorrow's forecast for an address)
