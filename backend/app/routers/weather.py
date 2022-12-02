@@ -189,7 +189,7 @@ async def get_extended_forecast(lat: float, lon: float):
     res = weather_forcast_extended_call(lat, lon)
     
     address = reverse_geocoding(lat, lon)
-    print(address)
+    
     city: str = address[0]['city']
     state: str = address[0]['state']
     country: str = address[0]['country']
@@ -218,9 +218,9 @@ async def get_extended_forecast(lat: float, lon: float):
             
         break
     
-    #risk = get_risk(temperature, precipitation)
+    risk = get_risk(temperature, precipitation)
     
-    risk = None
+    
     current = {
         "main" : WmoCodes.get_wmo_code(main),
         "datetime": datetime.replace("T", " "),
@@ -246,9 +246,72 @@ async def get_extended_forecast(lat: float, lon: float):
         "todays_timeline": todays_timeline
 
             }
-    return result   
+    return result  
+
+@router.get('/forcast/extended/by_address')
+async def get_extended_forcast_by_address(address): 
+    city_and_state = geocode_address(address) 
+    print(city_and_state)
+    lat = city_and_state['lat']
+    lon = city_and_state['lon']
+    city = city_and_state['city']
+    state = city_and_state['state']
+    country = city_and_state['country']
+
+    res = weather_forcast_extended_call(lat, lon)    
+    main = res['current_weather']['weathercode']
+    datetime = res['current_weather']['time']
+    hourly_timestamps: list(str) = res['hourly']['time']
+    
+    # get the current time index to be used in other parameters
+    time_index : int = hourly_timestamps.index(datetime)
+    
+    weather_code = res['hourly']['weathercode']
+    weather_code[time_index]
+    temperature = res['hourly']['temperature_2m'][time_index]
+    
+    precipitation = res['hourly']['precipitation'][time_index]
+    
+
+    match = weather_code[time_index]
+    end_datetime :str = ""
+    for i in range(time_index, len(weather_code)):
+    
+        if match != weather_code[i]:
+            end_datetime = hourly_timestamps[i]        
+            break 
+            
+        break
+    
+    risk = get_risk(temperature, precipitation)
     
     
+    current = {
+        "main" : WmoCodes.get_wmo_code(main),
+        "datetime": datetime.replace("T", " "),
+        "end_datetime": end_datetime.replace("T", " "),
+        "risk": risk
+    } 
+
+    todays_timeline= []
+    time_line = {
+        "main": WmoCodes.get_wmo_code(main),
+        "datetime": datetime.replace("T", " "),
+        "risk": risk
+    }
+
+    todays_timeline.append(time_line)
+    
+    result = {
+        
+        "city": city,
+        "state": state,
+        "country": country,
+        "current": current,
+        "todays_timeline": todays_timeline
+
+            }
+    return result  
 
     
     
