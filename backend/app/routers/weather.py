@@ -25,6 +25,25 @@ async def weather_forecasts(lat: float, lon: float):
 
 
 
+@router.get('/forecasts/by-address', response_model=List[WeatherResponse])
+async def forecast_by_address(address: str):
+    """
+    Get today forecasts for a given address 
+    param address: Address to get forecast for
+    type address: str
+    raise HTTPException: If address is not valid or not found
+    return: today forecasts for the address
+    rtype: SingleWeatherResponse
+    """
+    
+    geo_address = geocode_address(address)
+    
+    lat, lon = geo_address['lat'], geo_address['lon']
+    
+    data = hourly_forecasts(lat, lon)
+    
+    return data
+
 @router.get('/current', response_model=CurrentWeatherResponse)
 async def get_current_weather(address: str):
     """Get current weather for a given address

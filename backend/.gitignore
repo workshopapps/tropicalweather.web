@@ -140,4 +140,4 @@ dmypy.json
 # log files
 *.log
 
-app/service-account-file.json.json
+app/service-account-file.json
