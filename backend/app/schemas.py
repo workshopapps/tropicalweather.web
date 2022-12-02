@@ -4,6 +4,10 @@ from enum import Enum
 from pydantic import BaseModel
 
 
+class FcmSubscribeMessage(BaseModel):
+    message: str
+
+
 class AlertsResponse(BaseModel):
     event: str
     message: str
