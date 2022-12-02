@@ -11,16 +11,16 @@ def client(mocker):
     engine = get_db_engine(test_mode=True)
     TestingSessionLocal = sessionmaker(
         autocommit=False, autoflush=False, bind=engine)
+
     Base.metadata.create_all(bind=engine)
 
     def override_get_db():
         try:
+            print("Creating db session")
             db = TestingSessionLocal()
             yield db
         finally:
             db.close()
-
-    mocker.patch('app.main.get_db', override_get_db)
 
     app.dependency_overrides[get_db] = override_get_db
     with TestClient(app) as test_client:
