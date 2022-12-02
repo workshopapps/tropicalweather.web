@@ -67,9 +67,7 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getImmediateWeather();
     getWeatherForecast();
-    console.log(userLocation, immediateWeather, weatherForecast);
   }, [userLocation]);
-  console.log(userLocation, immediateWeather, weatherForecast);
 
   return (
     <div id="home">
@@ -230,7 +228,7 @@ export default function Home() {
             </li>
           </div>
         </ul>
-        <button type="button" className="homepg-explore">
+        <button type="button" className="homepg-explore" onClick={() => gotoDashboard('')}>
           Expore all location
         </button>
       </div>
