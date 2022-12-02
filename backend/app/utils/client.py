@@ -1,13 +1,8 @@
 
-import datetime
-import pytz
-from typing import Dict, List, Union
+from typing import Union
 
 import requests
 from conf.settings import settings
-from .open_meteo import client
-from .general import get_risk
-from .timer import now_utc
 
 BASE_URL = settings.OPEN_WEATHER_BASE_URL
 API_KEY = settings.OPEN_WEATHER_API_KEY
@@ -89,65 +84,3 @@ def reverse_geocoding(lat: float, long: float) -> list:
         raise Exception("Invalid request")
 
     return res
-
-
-def get_risks_by_location(
-    lat: float, long: float
-) -> List[Dict[str, datetime.datetime]]:
-    results = []
-
-    response = client.get_hourly_forecast(lat, long, timezone="UTC")
-
-    hourly_time: list[str] = response["hourly"]["time"]
-    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
-    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
-
-    now = now_utc()
-
-    max_time = now + datetime.timedelta(hours=24)
-
-    pointer = ""
-
-    i = -1
-    limit = len(hourly_time)
-    while i < limit:
-
-        i += 1
-
-        index_time = datetime.datetime.strptime(
-            hourly_time[i], "%Y-%m-%dT%H:%M")
-        index_time = pytz.utc.localize(index_time)
-
-        if index_time > max_time:
-            break
-
-        if pointer != "":
-            index_temp = hourly_temp[i]
-            index_precipitation = hourly_precipitation[i]
-            current_risk = get_risk(index_temp, index_precipitation)
-
-            if current_risk != pointer:  # changed
-                results[-1]["end"] = index_time
-                pointer = ''
-                i -= 1
-                continue
-
-        if index_time > now:
-            index_temp = hourly_temp[i]
-            index_precipitation = hourly_precipitation[i]
-            risk = get_risk(index_temp, index_precipitation)
-
-            if risk is None:
-                continue
-
-            result = {
-                "start": index_time,
-                "end": max_time,
-                "risk": risk,
-            }
-
-            pointer = risk
-
-            results.append(result)
-
-    return results
