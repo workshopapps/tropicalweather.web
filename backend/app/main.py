@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from routers import alert, location, weather
+from routers import alert, location, weather, share
 from utils.general import get_status
 
 # Application initilization
@@ -31,6 +31,7 @@ app.add_middleware(
 app.include_router(weather.router)
 app.include_router(location.router)
 app.include_router(alert.router)
+app.include_router(share.router)
 
 
 # Mount /static directory for Jinja2Templates

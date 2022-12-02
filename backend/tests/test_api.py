@@ -3,6 +3,15 @@ from typing import List
 from fastapi import HTTPException, status
 
 
+class TestGenerateShareLink:
+    def test_get(self, client):
+        response = client.get(
+            "/generate/share-link?city=a&state=b&country=c"
+        )
+        assert response.json().get("link") == \
+            "https://tropicalweather.hng.tech/share/a-b-c"
+
+
 class TestWeatherForecastsAPI:
     def test_weather_forcasts_valid(self, mocker, client):
         """Test weather forecast endpoint"""

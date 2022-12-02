@@ -8,6 +8,10 @@ class FcmSubscribeMessage(BaseModel):
     message: str
 
 
+class ShareLink(BaseModel):
+    link: str
+
+
 class AlertsResponse(BaseModel):
     event: str
     message: str
