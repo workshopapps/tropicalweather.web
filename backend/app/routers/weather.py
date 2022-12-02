@@ -21,6 +21,7 @@ from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_weather_forecast,
                            immediate_weather_api_call_tommorrow,
                            reverse_geocode, weather_api_call, get_risk)
+from utils.weather_code import WmoCodes
 
 router = APIRouter(
     prefix="/weather",
@@ -231,7 +232,7 @@ async def get_extended_forecast(lat: float, lon: float):
     risk = get_risk(temperature, precipitation)
     
     current = {
-        "main" : weather_code_transcribe(main),
+        "main" : WmoCodes.get_wmo_code(main),
         "datetime": datetime.replace("T", " "),
         "end_datetime": end_datetime.replace("T", " "),
         "risk": risk
@@ -239,7 +240,7 @@ async def get_extended_forecast(lat: float, lon: float):
 
     todays_timeline= []
     time_line = {
-        main: weather_code_transcribe(main),
+        main: WmoCodes.get_wmo_code(main),
         "datetime": datetime,
         "risk": risk
     }
