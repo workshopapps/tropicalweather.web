@@ -4,7 +4,7 @@ function AboutProductSection() {
   return (
     <div className="py-10 font-Outfit">
       <div className="container mx-auto ">
-        <h3 className="font-bold text-[#2B2A30] text-center text-2xl md:text-3xl">Our Product Offering</h3>
+        <h3 className="font-bold text-[#2B2A30] text-left  text-2xl sm:text-center md:text-3xl">Our Product Offering</h3>
         <div className="pt-4 md:w-1/2">
           <div className="flex gap-4 py-5">
             <div className="text-[#EF6820] font-bold text-xl md:text-2xl">01.</div>
