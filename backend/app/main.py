@@ -103,7 +103,6 @@ class AlertNameSpace(AsyncNamespace):
         try:
             db.add(models.Location(city=city, state=state))
             db.commit()
-            print('commited')
         finally:
             db.close()
 

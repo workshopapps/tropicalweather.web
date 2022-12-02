@@ -46,7 +46,7 @@ class TestAsyncNamespace:
             )
             _run(ns.trigger_event('connect', 'sid', *args))
 
-    def test_async_event_success(self):
+    def test_async_event_success(self, client):
         ns = AlertNameSpace('/foo')
 
         mock_server = mock.MagicMock()
