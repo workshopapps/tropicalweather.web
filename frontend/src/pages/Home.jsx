@@ -7,6 +7,7 @@ import HourlyUpdate from '../components/Home/HoulyUpdate';
 import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+// import Share from '../components/share/Share_popup';
 
 export default function Home() {
   const slider = useRef(null);
@@ -204,7 +205,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-[56px]">
+          <div className="w-full flex flex-col gap-[10px]">
             <h4 className="text-[20px] font-bold">Cities near you</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />
