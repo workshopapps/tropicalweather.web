@@ -380,3 +380,23 @@ def get_status():
         "alert_city": alert_city,
         "alert_list": alert_list
     }
+
+
+def get_risk(temp: float, precipitation: float) -> Optional[str]:
+    """Get risk of the weather, depending on the temperature and precipitation
+
+    Args:
+        temp (float): temperature
+        precipitation (float): precipitation
+
+    Returns:
+        Optional[str]: risk of the weather or None
+    """
+    if temp > 30 and precipitation > 0.5:
+        return "Flooding"
+    elif temp > 30:
+        return "Heatwave"
+    elif precipitation > 0.5:
+        return "Flooding"
+    else:
+        return "None"
