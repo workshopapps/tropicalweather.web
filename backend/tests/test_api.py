@@ -214,7 +214,7 @@ class Test_get_tommorrows_weather:
         assert data['description'] == "light rain"
 
 
-class TestGetAlerts:
+class _TestGetAlerts:
     def test_get_alerts_none(self, mocker, client):
         mocker.patch(
             'routers.weather.reverse_geocode',

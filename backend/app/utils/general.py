@@ -114,6 +114,7 @@ def convert():
 
 
 def reverse_geocode(lat: float, lon: float):
+    print("got here")
     """Reverse geocode the latitude and longitude to get the address
 
     :param lat: latitude

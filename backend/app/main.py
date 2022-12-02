@@ -1,9 +1,12 @@
-# application initilization starts here
 import ast
 from logging import info
 
+import firebase_admin
+import models
 import redis
 import socketio
+from conf.settings import settings
+from database import get_db
 from decouple import config
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,19 +14,16 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
-from socketio.asyncio_namespace import AsyncNamespace
-
-import models
-from database import get_db
-from routers import location
-from routers import weather
+from routers import alert, location, weather
 from schemas import PacketModel
+from socketio.asyncio_namespace import AsyncNamespace
 from utils.general import get_room_name, get_status
-from conf.settings import settings
 
 # Application initilization
 app = FastAPI()
 
+# Setup firebase [Must happen once]
+firebase_admin.initialize_app()
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,6 +37,7 @@ app.add_middleware(
 # Registering routes
 app.include_router(weather.router)
 app.include_router(location.router)
+app.include_router(alert.router)
 
 
 # Mount /static directory for Jinja2Templates
@@ -102,7 +103,6 @@ class AlertNameSpace(AsyncNamespace):
         try:
             db.add(models.Location(city=city, state=state))
             db.commit()
-            print('commited')
         finally:
             db.close()
 

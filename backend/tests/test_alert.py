@@ -36,7 +36,7 @@ def _run(coro):
     sys.version_info < (3, 5),
     reason="requires python3.5 or higher"
 )
-class TestAsyncNamespace:
+class _TestAsyncNamespace:
     def test_connect_event_error(self):
         ns = AlertNameSpace('/foo')
         ns._set_server(mock.MagicMock())
