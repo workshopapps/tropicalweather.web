@@ -2,16 +2,80 @@
   display: flex;
   flex-direction: column;
   gap: 54px;
-  --l-primary-color: #EF6820;
-  font-family: 'Outfit';
+  --l-primary-color: #ef6820;
+  font-family: "Outfit";
 }
+.homepage-location {
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid #b5b5b5;
+  border-radius: 40px;
+  position: absolute;
+  top: 1em;
+  left: 2em;
+  padding: 0.4em 0.8em;
+  /* position: sticky; */
+}
+.homepg-weatherfc {
+  max-width: 100%;
+}
+.homepg-worldone {
+  display: none;
+}
+.homepg-worldforecast {
+  text-align: center;
+  padding: 2em;
+}
+.homepg-explore {
+  background: #ef6820;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 18px;
+  padding: 1em;
+  margin-top: 3em;
+}
+.homepg-worldforecast h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+.homepg-weatherfc ul {
+  display: flex;
+  align-items: flex-start;
+  gap: 2em;
+  margin: 2em 0;
+  padding: 0 1em;
 
+  overflow-x: auto;
+}
+.homepg-dash {
+  display: block;
+  background-image: url("../../public/Home/Frame\ 26086000.svg");
+  width: 40px;
+  height: 40px;
+}
+.homepg-weatherfc li {
+  list-style: none;
+}
+.homepg-popflex {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+.homepg-poplis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
 .landing_header {
   background-image: url("/public/Home/bg.jpg");
   background-size: cover;
   color: white;
-  padding-block: 50px;
-  padding-bottom: 150px;
+  height: 30em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .landing_sections_wrapper {
@@ -40,7 +104,7 @@
 .landing_weather_brief {
   display: flex;
   align-items: center;
-  gap: 16px
+  gap: 16px;
 }
 
 .landing_weather_brief p {
@@ -72,7 +136,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
 }
 
 .landing_locations_header h6 {
@@ -80,7 +144,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
@@ -97,7 +161,7 @@
   display: none;
 }
 
-.landing_scroll_indicator>div {
+.landing_scroll_indicator > div {
   border-radius: 50%;
   width: 7px;
   height: 7px;
@@ -107,7 +171,7 @@
 .landing_location_brief {
   display: flex;
   flex-direction: column;
-  gap: 24px
+  gap: 24px;
 }
 
 @media screen and (max-width: 768px) {
@@ -123,7 +187,7 @@
   align-items: center;
   gap: 8px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #E8E7EA;
+  border-bottom: 1px solid #e8e7ea;
 }
 
 .landing_location_brief_header h3 {
@@ -148,7 +212,7 @@
   font-size: 16px;
   line-height: 140%;
   text-transform: uppercase;
-  color: #2B2A30;
+  color: #2b2a30;
 }
 
 .landing_location_body p {
@@ -157,7 +221,7 @@
   font-size: 28px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: rgba(0, 0, 0, 0.8);
 }
 
@@ -167,8 +231,8 @@
   font-size: 14px;
   line-height: 24px;
   letter-spacing: 0.01em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
-  color: #EF6820;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #ef6820;
 }
 
 .landing_features_and_globe {
@@ -199,7 +263,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
 }
 
@@ -207,7 +271,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
@@ -228,7 +292,7 @@
   font-size: 34px;
   line-height: 44px;
   letter-spacing: -0.025em;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
 }
 
@@ -237,37 +301,43 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  font-feature-settings: 'tnum' on, 'lnum' on, 'liga' off;
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
 }
 
 #landing_download_app {
-  width: 100%;
+  width: 90%;
   display: flex;
-  background: #FDEAD7;
+  flex-direction: column;
+  padding: 1em;
+  background: #fdead7;
   border-radius: 16px;
   margin-bottom: 100px;
   overflow: hidden;
+  margin:1em auto;
+
 }
 
 .landing_download_container {
-  margin: 47px;
+  margin: 1em;
   display: flex;
   flex-direction: column;
 }
 
 .landing_download_container p {
-  color: var(--l-primary-color)
+  color: var(--l-primary-color);
 }
-
+.homepg-orange{
+  color:white;
+}
 .landing_download_container h3 {
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
-  font-feature-settings: 'tnum' on, 'lnum' on;
+  font-feature-settings: "tnum" on, "lnum" on;
   color: #161518;
   margin-block: 20px;
-  max-width: 300px;
+  /* max-width: 300px; */
 }
 
 .landing_download_container p {
@@ -279,6 +349,7 @@
   align-items: center;
   gap: 24px;
   margin-top: 30px;
+  justify-content: center;
 }
 
 .landing_phones_wrapper {
@@ -300,7 +371,7 @@
   grid-row-gap: 20px;
 }
 
-.landing_phones_container>img {
+.landing_phones_container > img {
   width: 500px;
 }
 
@@ -320,7 +391,7 @@
   grid-area: 2 / 3 / 4 / 4;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .landing_sections_wrapper {
     display: flex;
     flex-direction: column;
@@ -355,7 +426,6 @@
     display: none;
   }
 
-
   .landing_location_brief {
     width: 100%;
     scroll-snap-align: center;
@@ -374,15 +444,37 @@
   .landing_features_and_globe {
     display: flex;
     flex-direction: column;
-    gap: 88px
+    gap: 88px;
   }
 
-  .landing_download_container div>img {
+  .landing_download_container div > img {
     width: 50%;
   }
 
   .landing_download_container h3 {
     font-size: 8vw;
     line-height: 140%;
+  }
+}
+@media (min-width: 60rem) {
+  #landing_download_app{
+ flex-direction: row;
+ justify-content: space-between;
+  }
+  .homepg-worldone {
+    display: block;
+  }
+  .homepg-worldforecast {
+    padding: 3em 5em;
+  }
+  .homepg-worldul {
+    display: flex;
+    justify-content: space-between;
+  }
+  .homepg-poplis {
+    gap: 3em;
+  }
+  .homepg-phone{
+    content: url('../../public/Home/iPhone\ 13.png');
   }
 }
