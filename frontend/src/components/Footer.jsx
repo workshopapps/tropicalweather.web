@@ -24,11 +24,8 @@ export default function Footer() {
               >
                 About us
               </Link>
-              {/* <Link to="/promotions" className="link link-hover">Promotions</Link> */}
-
               <Link to="/about-us" className="link link-hover">About us</Link>
               <Link to="/contact" className="link link-hover">Contact Us</Link>
-
             </div>
           </div>
           <div>
