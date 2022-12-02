@@ -39,13 +39,6 @@ export default function WeatherPreview({
         {weather}
       </span>
       <span className="text-xl md:text-2xl">{description}</span>
-      {/* <button
-        type="button"
-        className="flex items-center gap-3 text-xs text-primary-btn w-max md:text-sm"
-      >
-        <span>View more info </span>
-        <BsArrowRight />
-      </button> */}
     </div>
   );
 }
