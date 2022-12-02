@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/ContactUs.css';
 import { BiPhoneCall } from 'react-icons/bi';
 import { GoLocation } from 'react-icons/go';
@@ -7,6 +7,9 @@ import { FaInstagram } from 'react-icons/fa';
 import { RiFacebookCircleLine } from 'react-icons/ri';
 
 export default function ContactUs() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+      }, []);
   return (
     <div className="contact_us_container">
       <div className="contact_us_header">
