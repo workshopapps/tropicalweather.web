@@ -17,6 +17,11 @@ class SingleWeatherResponse(BaseModel):
     date: str
     time: str
 
+    
+class WeatherResponse(BaseModel):
+    main: str
+    datetime: str
+    risk: str
 
 class RiskLevel(str, Enum):
     LOW = 'low'
