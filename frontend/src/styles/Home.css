@@ -4,6 +4,7 @@
   gap: 54px;
   --l-primary-color: #EF6820;
   font-family: 'Outfit';
+  position: relative;
 }
 
 .landing_header {
@@ -63,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 2px;
 }
 
 .landing_header_md {
