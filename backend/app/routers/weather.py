@@ -251,7 +251,7 @@ async def get_extended_forecast(lat: float, lon: float):
 @router.get('/forcast/extended/by_address')
 async def get_extended_forcast_by_address(address): 
     city_and_state = geocode_address(address) 
-    print(city_and_state)
+    
     lat = city_and_state['lat']
     lon = city_and_state['lon']
     city = city_and_state['city']

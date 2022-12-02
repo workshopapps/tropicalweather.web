@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BsGlobe } from 'react-icons/bs';
 import { BiSupport } from 'react-icons/bi';
 
 export default function Footer() {
+  useEffect(() => {
+    //  scroll to top on page load
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
   return (
     <footer className="self-end pt-16 text-white bg-primary-btn-clicked">
       <div className="p-4 bg-[#B93815] md:py-10 md:px-16">
@@ -11,6 +15,15 @@ export default function Footer() {
           <div>
             <img src="/logo-white.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
+              <Link
+                onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }}
+                to="/about-us"
+                className="link link-hover"
+              >
+                About us
+              </Link>
               <Link to="/about-us" className="link link-hover">About us</Link>
               <Link to="/contact" className="link link-hover">Contact Us</Link>
             </div>
@@ -18,8 +31,20 @@ export default function Footer() {
           <div>
             <span className="footer-title">Download the mobile app</span>
             <div className="flex flex-wrap gap-6 mt-6">
-              <img src="/app-store.png" alt="app store" />
-              <img src="/google-play.png" alt="google play" />
+              <a
+                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                target="_BLANK"
+                rel="noreferrer"
+              >
+                <img src="/app-store.png" alt="app store" />
+              </a>
+              <a
+                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                target="_BLANK"
+                rel="noreferrer"
+              >
+                <img src="/google-play.png" alt="google play" />
+              </a>
             </div>
           </div>
         </div>
