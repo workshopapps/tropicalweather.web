@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <img src="/logo-white.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
-              <Link
+              {/* <Link
                 onClick={() => {
           window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }}
@@ -23,7 +23,7 @@ export default function Footer() {
                 className="link link-hover"
               >
                 About us
-              </Link>
+              </Link> */}
               <Link to="/about-us" className="link link-hover">About us</Link>
               <Link to="/contact" className="link link-hover">Contact Us</Link>
             </div>

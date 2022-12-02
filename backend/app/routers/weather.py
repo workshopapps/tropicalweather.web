@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from utils.client import weather, reverse_geocoding
@@ -13,11 +14,19 @@ from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                        weather_api_call, weather_forcast_extended_call)
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas import (AlertsResponse, CurrentWeatherResponse,
-                     ImmediateForecastResponse, SingleWeatherResponse, WeatherResponse)
+                     ImmediateForecastResponse, SingleWeatherResponse,
+                     WeatherResponse)
 from sqlalchemy.orm import Session
 from utils.client import weather
 
+
 from utils.hourly_forecast import hourly_forecasts
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
+from datetime import datetime
+from utils.general import get_risk
 
 from utils.weather_code import WmoCodes
 import json
@@ -31,7 +40,6 @@ router = APIRouter(
 async def weather_forecasts(lat: float, lon: float):
 
     return hourly_forecasts(lat, lon)
-
 
 
 @router.get('/current', response_model=CurrentWeatherResponse)
@@ -317,3 +325,50 @@ async def get_extended_forcast_by_address(address):
     
 
         
+@router.get("/forecasts/tomorrow/by-address")
+async def weather_tomorrow(address: str):
+    try:
+        geo = geocode_address(address)
+        lat = geo['lat']
+        lon = geo['lon']
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+    
+
+    response = client.get_hourly_forecast(lat, lon, hourly_params=['weathercode'])
+
+    hourly_time: list[str] = response["hourly"]["time"]
+    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+    hourly_weathercode: list[str] = response["hourly"]["weathercode"]
+
+    result = []
+
+    for i in range(24, 48):
+        index_time = hourly_time[i]
+        index_time = datetime.strptime(index_time, "%Y-%m-%dT%H:%M")
+
+        index_temp = hourly_temp[i]
+        index_precipitation = hourly_precipitation[i]
+        index_weathercode = hourly_weathercode[i]
+
+        weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+
+        risk = get_risk(index_temp, index_precipitation)
+
+
+        res = {
+        	"main": weather_desc,
+            "datetime": hourly_time[i].replace("T", " "),
+            "risk": risk,
+            "state": geo['state'],
+            "city": geo['city'],
+            "country": geo['country']
+        }
+
+        result.append(res)
+    return result
