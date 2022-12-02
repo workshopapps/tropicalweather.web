@@ -390,3 +390,51 @@ def get_risk(temp, precipitation):
         return "Flooding"
     else:
         return "None"
+
+
+def weather_forcast_extended_call(lat: float, lon: float): 
+     req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
+     res = dict(requests.get(req).json())
+     return res 
+     '''
+     address = reverse_geocode(lat, lon)
+     city: str = address[0]['name']
+     state: str = address[0]['state']
+     country: str = address[0]['country']
+        
+     main = res['current_weather']['weathercode']
+     datetime = res['current_weather']['time']
+     hourly_timestamps: list(str) = res['hourly']['time']
+        
+   # get the current time index to be used in other parameters
+     time_index : int = hourly_timestamps.index(datetime)
+        
+     weather_code = res['hourly']['weathercode']
+     weather_code[time_index]
+     temperature = res['hourly']['temperature_2m'][time_index]
+        
+     precipitation = res['hourly']['precipitation'][time_index]
+        
+
+     match = weather_code[time_index]
+     
+   
+     for i in range(time_index, len(weather_code)):
+         if match != weather_code[i]:
+                 
+            break 
+        
+     end_datetime = hourly_timestamps[i]   
+    
+     risk = get_risk(temperature, precipitation)
+    
+     res = {
+
+        "main": WmoCodes.get_wmo_code(main),
+        "datetime": datetime,
+        "end_datetime": end_datetime,
+        "risk": risk
+        
+
+        }
+        '''
