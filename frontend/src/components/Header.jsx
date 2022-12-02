@@ -22,8 +22,7 @@ export default function Header() {
 
   const { data, isLoading } = useQuery(
     ['search', { param: query }],
-    () =>
-      axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${query}`),
+    () => axios.get(`https://geocoding-api.open-meteo.com/v1/search?name=${query}`),
     {
       staleTime: Infinity,
       enabled: query.length > 2,
