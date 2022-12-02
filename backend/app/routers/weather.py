@@ -1,18 +1,16 @@
 from typing import List
 
-from app.client import weather
-from app.dependencies import get_db
-from app.schemas import *  # noqa: F401, F403
-from app.schemas import (AlertsResponse, CurrentWeatherResponse, RiskEvent,
-                         RiskLevel, RiskResponse, SingleWeatherResponse,
-                         ImmediateForecastResponse)
-from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
-                       get_immediate_weather_api_call, get_location_obj,
-                       get_weather_forecast,
-                       immediate_weather_api_call_tommorrow, reverse_geocode,
-                       weather_api_call)
+from dependencies import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
+from schemas import (AlertsResponse, CurrentWeatherResponse,
+                     ImmediateForecastResponse, SingleWeatherResponse)
 from sqlalchemy.orm import Session
+from utils.client import weather
+from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
+                           get_immediate_weather_api_call, get_location_obj,
+                           get_weather_forecast,
+                           immediate_weather_api_call_tommorrow,
+                           reverse_geocode, weather_api_call)
 
 router = APIRouter(
     prefix="/weather",
@@ -161,26 +159,3 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
             data.append(alert_instance)
 
     return data
-
-
-@router.get('/risk', response_model=List[RiskResponse])
-async def get_location_weather_risk(lat: float, lon: float):
-
-    return [
-        {
-            "risk": RiskEvent.FLOOD,
-            "level": RiskLevel.HIGH,
-        },
-        {
-            "risk": RiskEvent.SUNBURN,
-            "level": RiskLevel.LOW,
-        },
-        {
-            "risk": RiskEvent.DUST,
-            "level": RiskLevel.MODERATE,
-        },
-        {
-            "risk": RiskEvent.FOG,
-            "level": RiskLevel.EXTREME,
-        }
-    ]

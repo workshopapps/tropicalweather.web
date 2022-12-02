@@ -5,9 +5,7 @@ import re
 
 import pytest
 from app.main import AlertNameSpace
-from app.utils import get_room_name
-from sqlalchemy.orm import Session
-from app.models import Location
+from app.utils.general import get_room_name
 
 
 def test_get_room_name():
@@ -38,24 +36,7 @@ def _run(coro):
     sys.version_info < (3, 5),
     reason="requires python3.5 or higher"
 )
-@pytest.mark.usefixtures("override_get_db_main")
 class TestAsyncNamespace:
-    def test_connect_event(self, session: Session):
-        ns = AlertNameSpace('/foo')
-        ns._set_server(mock.MagicMock())
-        args = (
-            {
-                "QUERY_STRING": "city=test_city&state=test_state",
-            },
-        )
-        _run(ns.trigger_event('connect', 'sid', *args))
-        assert ns.room_name == 'test_city-test_state'
-
-        location: Location = session.query(Location).first()
-        assert location is not None
-        assert location.city == 'test_city'
-        assert location.state == 'test_state'
-
     def test_connect_event_error(self):
         ns = AlertNameSpace('/foo')
         ns._set_server(mock.MagicMock())

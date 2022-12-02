@@ -6,9 +6,9 @@ from typing import Dict, List, Optional, Union
 
 import geocoder
 import requests
-from app.client import get_location_alerts, weather
-from app.models import Location
-from app.schemas import ImmediateForecastResponse
+from .client import get_location_alerts, weather
+from models import Location
+from schemas import ImmediateForecastResponse
 from decouple import config
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
@@ -70,29 +70,8 @@ def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
     :rtype: list
     """
 
-    url = f"http://api.openweathermap.org/data/2.5/forecast?\
-lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
-
-    response = requests.get(url)
-    error = Exception("Invalid request")
-
-    if response.status_code != 200:
-        raise error
-
-    data: dict = response.json()
-
-    if not data:
-        raise error
-
-    cod = str(data.get('cod'))
-    if cod != "200":
-        raise error
-
-    weather_forecasts = data.get('list')
-    if not weather_forecasts:
-        raise error
-
-    return weather_forecasts[:10]
+    data = weather(lat, lon)
+    return data[:10]
 
 
 def geocode_address(
@@ -121,7 +100,17 @@ def geocode_address(
         "lon": g.lng,
         "city": g.city,
         "state": g.state,
+        "country": g.country
     }
+
+
+def convert():
+    today = datetime.datetime.now()
+    tomorrow = today + timedelta(days=1)
+    datetime_object = tomorrow.replace(
+        hour=0, minute=0, second=0, microsecond=0)
+    epoch = int(datetime_object.timestamp())
+    return epoch
 
 
 def reverse_geocode(lat: float, lon: float):
@@ -146,7 +135,8 @@ def reverse_geocode(lat: float, lon: float):
 
     return {
         'city': g.city,
-        'state': g.state
+        'state': g.state,
+        'country': g.country
     }
 
 
@@ -212,41 +202,20 @@ def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
 def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
 
     # Call API and converts response into dictionary
-    open_weather_url = f"https://api.openweathermap.org/data/2.5/\
-weather?lat={lat}&lon={lng}&appid={OPEN_WEATHER_API_KEY}"
-    response = requests.get(open_weather_url)
-    error = Exception("Invalid Request")
-
-    if response.status_code != 200:
-        raise error
-
-    data: dict = response.json()
+    data = weather(lat, lng)
 
     time_epoch = data['dt']
     main = data['weather'][0]['main']
     description = data['weather'][0]['description']
 
-    time_format = datetime.datetime.fromtimestamp(time_epoch)
-    date = time_format.strftime('%d %b, %Y')
-    am_or_pm = time_format.strftime('%p')
-    hour_minute = time_format.strftime('%I:%M')
-    time_output = f"{hour_minute}{am_or_pm.lower()}"
+    date_time = convert_epoch_to_datetime(time_epoch)
 
     return ImmediateForecastResponse(
         main=main,
         description=description,
-        date=date,
-        time=time_output
+        date=date_time['date'],
+        time=date_time['time']
     )
-
-
-def convert():
-    today = datetime.datetime.now()
-    tomorrow = today + timedelta(days=1)
-    datetime_object = tomorrow.replace(
-        hour=0, minute=0, second=0, microsecond=0)
-    epoch = int(datetime_object.timestamp())
-    return epoch
 
 
 def immediate_weather_api_call_tommorrow(lon: float, lat: float):
@@ -411,3 +380,23 @@ def get_status():
         "alert_city": alert_city,
         "alert_list": alert_list
     }
+
+
+def get_risk(temp: float, precipitation: float) -> Optional[str]:
+    """Get risk of the weather, depending on the temperature and precipitation
+
+    Args:
+        temp (float): temperature
+        precipitation (float): precipitation
+
+    Returns:
+        Optional[str]: risk of the weather or None
+    """
+    if temp > 30 and precipitation > 0.5:
+        return "Flooding"
+    elif temp > 30:
+        return "Heatwave"
+    elif precipitation > 0.5:
+        return "Flooding"
+    else:
+        return "None"
