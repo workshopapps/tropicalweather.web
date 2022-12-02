@@ -1,6 +1,6 @@
-from app.client import reverse_geocoding
-from app.schemas import locationResponse
 from fastapi import APIRouter, HTTPException, status
+from schemas import locationResponse
+from utils.client import reverse_geocoding
 
 router = APIRouter(
     tags=['location']

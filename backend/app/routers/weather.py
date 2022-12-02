@@ -12,7 +12,15 @@ from app.utils import (convert, convert_epoch_to_datetime, geocode_address,
                        immediate_weather_api_call_tommorrow, reverse_geocode,
                        weather_api_call)
 from fastapi import APIRouter, Depends, HTTPException, status
+from schemas import (AlertsResponse, CurrentWeatherResponse,
+                     ImmediateForecastResponse, SingleWeatherResponse)
 from sqlalchemy.orm import Session
+from utils.client import weather
+from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
+                           get_immediate_weather_api_call, get_location_obj,
+                           get_weather_forecast,
+                           immediate_weather_api_call_tommorrow,
+                           reverse_geocode, weather_api_call, get_risk)
 
 router = APIRouter(
     prefix="/weather",
@@ -188,4 +196,70 @@ async def get_location_weather_risk(lat: float, lon: float):
 @router.get('/forcast/extended')
 async def get_extended_forecast(lat: float, lon: float):
     
-    pass 
+    # API call
+    
+    req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
+    
+    res = dict(requests.get(req).json())
+    address = reverse_geocoding(lat, lon)
+    city = address[0]['name']
+    state = address[0]['state']
+    country = address[0]['country']
+    
+    main = res['current_weather']['weathercode']
+    datetime = res['current_weather']['time']
+    hourly_timestamps = res['hourly']['time']
+    
+    # get the current time index to be used in other parameters
+    time_index : int = hourly_timestamps.index(datetime)
+    
+    weather_code = res['hourly']['weathercode']
+    weather_code[time_index]
+    temperature = res['hourly']['temperature_2m'][time_index]
+    
+    precipitation = res['hourly']['precipitation'][time_index]
+    
+
+    match = weather_code[time_index]
+
+    for i in range(time_index, len(weather_code)):
+    
+        if match != weather_code[i]:
+            break 
+    
+    end_datetime = hourly_timestamps[i]
+    risk = get_risk(temperature, precipitation)
+    
+    current = {
+        "main" : weather_code_transcribe(main),
+        "datetime": datetime.replace("T", " "),
+        "end_datetime": end_datetime.replace("T", " "),
+        "risk": risk
+    } 
+
+    todays_timeline= []
+    time_line = {
+        main: weather_code_transcribe(main),
+        "datetime": datetime,
+        "risk": risk
+    }
+
+    todays_timeline.append(time_line)
+    
+    result = {
+        
+        "city": city,
+        "state": state,
+        "country": country,
+        "current": current,
+        "todays_timeline": todays_timeline
+
+            }
+    return result   
+    
+    
+
+    
+    
+
+        

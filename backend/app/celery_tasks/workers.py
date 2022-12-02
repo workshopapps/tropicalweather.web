@@ -1,15 +1,7 @@
-import sys
-from pathlib import Path
 
-from celery.schedules import crontab
-
-BASE = Path(__file__).resolve().parent.parent.parent
-
-sys.path.append(str(BASE))
-
-from app.config.celery_utils import create_celery  # noqa: E402
 from app.celery_tasks.tasks import update_alert_events  # noqa: E402
-
+from app.config.celery_utils import create_celery  # noqa: E402
+from celery.schedules import crontab
 
 app = create_celery()
 
