@@ -1,18 +1,53 @@
+/* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
 import Faq from '../components/Home/Faq';
-import HourlyUpdate from '../components/Home/HoulyUpdate';
-import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 
 export default function Home() {
+  const APIURL = 'https://api.tropicalweather.hng.tech';
+  const [userLocation, setUserLocation] = useState(null);
+  const [immediateWeather, setImmediateWeather] = useState(null);
+  const [weatherForecast, setWeatherForecast] = useState([]);
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
-  const coord = useRef({ lon: 0, lat: 0 });
-
+  const coord = useRef({ longitude: 0, latitude: 0 });
+  const getCurrentLocationFromCoords = async () => {
+    const { latitude, longitude } = coord.current;
+    const response = await fetch(
+      `${APIURL}/location?lat=${latitude}&lon=${longitude}`
+    );
+    const data = await response.json();
+    console.log(data, coord, coord.current.latitude);
+    const location = `${data.city}, ${data.state}`;
+    setUserLocation(location);
+  };
+  const getImmediateWeather = async () => {
+    const { latitude, longitude } = coord.current;
+    // console.log(latitude, longitude);
+    const response = await fetch(
+      `${APIURL}/weather/forecasts/immediate?lat=${latitude}&lng=${longitude}`
+    );
+    const data = await response.json();
+    // console.log(response);
+    setImmediateWeather(data);
+  };
+  const getWeatherForecast = async () => {
+    const { latitude, longitude } = coord.current;
+    console.log(latitude, longitude);
+    const response = await fetch(
+      `${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`
+    );
+    const data = await response.json();
+    setWeatherForecast(data);
+  };
+  const navigate = useNavigate();
+   const gotoDashboard = (city) => {
+     navigate(`/dashboard?city=${city}`);
+   };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
@@ -28,140 +63,187 @@ export default function Home() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           coord.current = {
-            lon: position.coords.longitude,
-            lat: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude,
           };
         });
       }
     }
     getLocation();
-  }, []);
+    getCurrentLocationFromCoords();
+    getImmediateWeather();
+    getWeatherForecast();
+    console.log(userLocation, immediateWeather, weatherForecast);
+  }, [userLocation]);
+  console.log(userLocation, immediateWeather, weatherForecast);
 
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
-          <div className="flex items-center gap-4">
-            <div className="flex flex-col lg:mt-[-80px] items-center text-center md:items-start md:text-left gap-[14px]">
-              <h1 className="text-[60px] leading-[88px]">
-                Weather forecasts in tropical regions
-              </h1>
-              <p className="text-[30px] font-[400]">
-                Plan your outdoor event or get your umberella
+          {userLocation !== 'undefined, undefined' && (
+            <p className="homepage-location">{userLocation}</p>
+          )}
+          {immediateWeather !== null && immediateWeather.main === 'Clouds' && (
+            <>
+              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="" />
+              <p>
+                Today
+                {immediateWeather.time}
               </p>
-              <div className="flex flex-col mt-[20px] gap-4 min-[350px]:flex-row ">
-                <Link
-                  to="/dashboard"
-                  className="landing_hero_link rounded-sm border-solid border border-[#ffff]"
-                >
-                  View more
-                </Link>
-                <a
-                  href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
-                  target="_BLANK"
-                  rel="noreferrer"
-                  className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm flex items-center justify-center gap-2"
-                >
-                  Download
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 3.97C7.59 3.97 3.97 7.59 3.97 12C3.97 16.41 7.59 20.03 12 20.03C16.41 20.03 20.03 16.41 20.03 12C20.03 7.59 16.41 3.97 12 3.97ZM12 2C17.54 2 22 6.46 22 12C22 17.54 17.54 22 12 22C6.46 22 2 17.54 2 12C2 6.46 6.46 2 12 2ZM13.88 11.53L16 13.64V8H10.36L12.47 10.12L7.5 15.1L8.9 16.5"
-                      fill="white"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div className="hidden w-4/6 md:block">
-              <img src="/Home/hero-phone.png" alt="" />
-            </div>
+              <p>{immediateWeather.description}</p>
+            </>
+          )}
+          <div className="homepg-weatherfc">
+            <ul>
+              {weatherForecast !== null &&
+                Array.from(new Set(weatherForecast.map((a) => a.time)))
+                  .map((time) => weatherForecast.find((a) => a.time === time))
+                  .sort(
+                    (a, b) => new Date(`${a.date} ${a.time.slice(0, -2)}`) <
+                      new Date(`${b.date} ${b.time.slice(0, -2)}`)
+                  )
+                  .map((forecast) => (
+                    <li key={forecast.time}>
+                      {forecast.main === 'Clouds' && (
+                        <>
+                          <p>{forecast.time}</p>
+                          <img
+                            src="./assets/NotificationFeedList/CLOUDY.svg"
+                            alt=""
+                          />
+                          <p>{forecast.main}</p>
+                        </>
+                      )}
+                      {forecast.main === 'Rain' && (
+                        <>
+                          <p>{forecast.time}</p>
+                          <img
+                            src="./assets/NotificationFeedList/icon.svg"
+                            alt=""
+                          />
+                          <p>{forecast.main}</p>
+                        </>
+                      )}
+                    </li>
+                  ))}
+            </ul>
           </div>
         </div>
       </header>
-
-      <div className="landing_sections_wrapper">
-        <section className="w-full flex flex-col gap-20 py-[96px]">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="landing_header_md">Weather Updates</h3>
-              <p className="text-[#565560]">Update a minute ago</p>
-            </div>
-            <button type="button" className="text-[#565560]">
+      <div className="homepg-worldforecast">
+        <h2>World Forecast</h2>
+        <ul className="homepg-worldul">
+          <div className="homepg-worldone">
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectanglefour.svg" alt="" />
+                <span> AUS AUSTRALIA</span>
+              </div>
               {' '}
-            </button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
-            <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
-              <h5 className="mb-[32px] text-[20px] font-bold">
-                Hourly Updates
-              </h5>
-              <div className="flex flex-col gap-[32px]">
-                <HourlyUpdate
-                  time="09:00 am"
-                  day="Today, Thursday"
-                  forecast="Rainy"
-                />
-                <HourlyUpdate
-                  time="10:00 am"
-                  day="Today, Thursday"
-                  forecast="Rainy"
-                />
-                <HourlyUpdate
-                  time="11:00 am"
-                  day="Today, Thursday"
-                  forecast="Cloudy"
-                />
-                <HourlyUpdate
-                  time="12:00 pm"
-                  day="Today, Thursday"
-                  forecast="Clear"
-                />
-                <HourlyUpdate
-                  time="01:00 pm"
-                  day="Today, Thursday"
-                  forecast="Sunny"
-                />
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Canberra, Ghana')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 3.svg" alt="" />
+                <span>SWE SWEDEN </span>
+                {' '}
               </div>
-            </div>
-            <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
-              <h5 className="mb-[32px] text-[20px] font-bold">Risk</h5>
-              <div className="flex flex-col gap-[32px]">
-                <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="HIGH"
-                  risk="Flood"
-                  day="Today, 11/24/2022"
-                />
-                <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="LOW"
-                  risk="Dust levels"
-                  day="Today, 11/24/2022"
-                />
-                <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="MID"
-                  risk="Fog"
-                  day="Today, 11/24/2022"
-                />
-                <Risk
-                  time="from 3:00pm to 6:00pm"
-                  chances="LOW"
-                  risk="Sun burn"
-                  day="Today, 11/24/2022"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
 
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Stockholm, Sweden')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 5.svg" alt="" />
+                <span> NLD NETEHERLANDS</span>
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Amsterdam, NETEHERLANDS')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 6.svg" alt="" />
+                <span>GBR UNITED KINGDOM</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('London, UNITED KINGDOM')}
+                className="homepg-dash"
+              />
+            </li>
+          </div>
+          <div className="homepg-worldtwo">
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 5 (1).svg" alt="" />
+                <span>IDN INDONESIA</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Jakarta, INDONESIA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 6 (1).svg" alt="" />
+                <span>JPN JAPAN</span>
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Tokoyo, Japan')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 7.svg" alt="" />
+                <span>CAN CANADA</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Ottawa, CANADA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 8.svg" alt="" />
+                <span>USA UNITED STATES</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('WashingtonDc, UNITED STATES')}
+                className="homepg-dash"
+              />
+            </li>
+          </div>
+        </ul>
+        <button type="button" className="homepg-explore">
+          Expore all location
+        </button>
+      </div>
       <section
         id="landing_locations"
         className="w-full flex flex-col gap-[40px] bg-[#FFF3E7] py-[96px]"
@@ -217,169 +299,23 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="landing_sections_wrapper">
-        <section
-          id="landing_features_and_globe"
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '40px',
-          }}
-          className="py-[96px]"
-        >
-          <div className="landing_features_and_globe">
-            <div className="landing_globe">
-              <div className="landing_showcase">
-                <h3 className="landing_header_md">
-                  Never Worry about Figures and Statistics
-                </h3>
-                <p>
-                  Tropical weather analyzes the weather for you in order to
-                  provide you with a self-explanatory forecast, so you never
-                  have to worry about the weather and can have a more smooth
-                  experience.
-                </p>
-              </div>
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#D1FADF',
-                }}
-              >
-                <p>Features</p>
-                <h3>Add multiple locations</h3>
-                <p>
-                  What could possibly be better than not having to worry about
-                  the weather where you are right now? What matters is staying
-                  informed about the weather in other places! In order to
-                  successfully arrange your daily movement, add and delete
-                  several destinations. Use Tropical weather app now!
-                </p>
-                <Link to="/signup" className="landing_link_button">
-                  Get started
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/globe.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="landing_features">
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#FEF2F2',
-                }}
-              >
-                <p>Features</p>
-                <h3>Find out your city&apos;s forecast!</h3>
-                <p>
-                  Are you curious to discover the weather predictions for the
-                  upcoming few or even the entire day? You don&apos;t have to
-                  pay for the straightforward, uncomplicated capabilities that
-                  Tropical weather offers to convey your everyday weather
-                  condition!
-                </p>
-                <Link to="/signup" className="landing_link_button">
-                  Get started
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/fall.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+      <section id="landing_download_app">
+        <div className="landing_download_container">
+          <p>Go Mobile</p>
+          <h3 className="landing_header_md">
+            Use the free Tropicalweather app
+          </h3>
+          <p>
+            Explore the flexibility and ease that comes with using our Weatherly
+            app on the go!
+          </p>
+          <div>
+            <img src="/app-store.png" alt="" />
+            <img src="/google-play.png" alt="" />
           </div>
-        </section>
-        <FaqSection />
-        <section id="landing_download_app">
-          <div className="landing_download_container">
-            <p>Go Mobile</p>
-            <h3 className="landing_header_md">
-              Use the free Tropical weather app
-            </h3>
-            <p>
-              Explore the flexibility and ease that comes with using our
-              Weatherly app on the go!
-            </p>
-            <div>
-              <img src="/app-store.png" alt="" />
-              <img src="/google-play.png" alt="" />
-            </div>
-          </div>
-          <div className="landing_phones_wrapper">
-            <div className="landing_phones_container">
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-            </div>
-          </div>
-        </section>
-      </div>
+          <img src="/Home/iphone 13(11).png" alt="" className="homepg-phone" />
+        </div>
+      </section>
     </div>
-  );
-}
-
-function FaqSection() {
-  const [openAll, toggleOpenAll] = useState(false);
-  return (
-    <section className="flex flex-col gap-8 w-full pb-[96px]">
-      <div className="flex items-center justify-between">
-        <h3 className="landing_header_md">Explore FAQs</h3>
-        <button
-          type="button"
-          className="flex items-center gap-2 text-[#565560]"
-          onClick={() => toggleOpenAll((prv) => !prv)}
-        >
-          View full
-          {openAll ? <FaAngleUp /> : <FaAngleDown />}
-        </button>
-      </div>
-      <div className="sm:p-3 flex flex-col gap-8">
-        <Faq
-          position={1}
-          question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
-          answer=" Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your local storage will remove all saved locations."
-          open={openAll}
-        />
-        <Faq
-          question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer="Tropical weather only uses your location data to give you up to date weather reports and nothing else!"
-          open={openAll}
-        />
-        <Faq
-          question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer="Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
-          open={openAll}
-        />
-        <Faq
-          question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
-          open={openAll}
-        />
-      </div>
-    </section>
   );
 }
