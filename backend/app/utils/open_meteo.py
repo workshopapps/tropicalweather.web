@@ -133,6 +133,8 @@ class OpenMeteoAPI:
         params.update(default_params)
         return self.get(self.forecast, params=params)
 
+
+
     def get_current_weather(
         self, lat: float, lon: float,
         timezone: str = "GMT",
