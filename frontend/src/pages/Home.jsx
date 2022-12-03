@@ -7,6 +7,7 @@ import Faqs from '../components/Home/Faqs';
 // import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+import MobileAdvert from '../components/MobileAdvert';
 // import Share from '../components/share/Share_popup';
 
 export default function Home() {
@@ -292,30 +293,7 @@ export default function Home() {
         </div>
       </section>
       <Faqs />
-      <section id="landing_download_app">
-        <div className="landing_download_container">
-          <p>Go Mobile</p>
-          <h3 className="landing_header_md">
-            Use the free Tropical weather app
-          </h3>
-          <p>
-            Explore the flexibility and ease that comes with using our
-            Weatherly app on the go!
-          </p>
-          <div>
-            <img src="/app-store.png" alt="" />
-            <img src="/google-play.png" alt="" />
-          </div>
-        </div>
-        <div className="landing_phones_wrapper">
-          <div className="landing_phones_container">
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-          </div>
-        </div>
-      </section>
+      <MobileAdvert />
     </div>
   );
 }

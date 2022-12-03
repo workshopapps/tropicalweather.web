@@ -3,6 +3,7 @@
   border-radius: 16px;
   padding: 64px;
   display: flex;
+  margin-bottom: 30px;
   justify-content: space-between;
 }
 .about--mobile__container {
