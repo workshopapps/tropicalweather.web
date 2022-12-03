@@ -5,6 +5,7 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import PopularLocation from '../components/Home/PopularLocation';
@@ -116,6 +117,7 @@ export default function Dashboard() {
     setSavedLocations(loc);
   };
 
+  const { t } = useTranslation(['dashboard']);
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
@@ -139,7 +141,7 @@ export default function Dashboard() {
       <div className="pt-6">
         <Link to="/" className="items-center hidden mb-6 md:flex">
           <TfiAngleLeft className="mr-2 text-lg" />
-          <span className="text-lg">Back</span>
+          <span className="text-lg">{t('back')}</span>
         </Link>
         <div className="flex flex-col justify-between w-full gap-10 md:flex-row">
           <div className="relative w-full">
@@ -155,7 +157,7 @@ export default function Dashboard() {
                     className="flex items-center gap-4 text-primary-btn"
                   >
                     <BsHeart />
-                    <span>Save city</span>
+                    <span>{t('savecity')}</span>
                   </button>
                 )}
               </div>
@@ -171,18 +173,18 @@ export default function Dashboard() {
                 }}
               >
                 <div className="flex justify-between px-6">
-                  <span>{`Today . ${time} `}</span>
+                  <span>{`${t('today')} . ${time} `}</span>
                   <button type="button" aria-label="share">
                     <BsShare />
                   </button>
                 </div>
                 <div className="px-6">
-                  <p>{currentWeather.main || 'Data is not available yet'}</p>
+                  <p>{currentWeather.main || `${t('dataisnotavailable')}`}</p>
 
                   <div className="w-full max-w-[500px]">
                     <span className="text-4xl font-bold">
                       {currentWeather.description ||
-                        'Data is not available yet'}
+                        `${t('dataisnotavailable')}`}
                     </span>
                   </div>
                 </div>
@@ -190,7 +192,7 @@ export default function Dashboard() {
             </div>
           </div>
           <section id="three-day-forcast" className="">
-            <p className="mb-4 text-xl font-bold">3 hour interval forecast</p>
+            <p className="mb-4 text-xl font-bold">{t('3hourforecast')}</p>
             {threeDayForcast.length > 0 ? (
               threeDayForcast.map((day) => (
                 <WeatherPreview
@@ -201,20 +203,20 @@ export default function Dashboard() {
                 />
               ))
             ) : (
-              <p className="text-xl font-semibold">Loading...</p>
+              <p className="text-xl font-semibold">{t('loading')}</p>
             )}
           </section>
         </div>
         <section id="saved-locations" className="mt-20 md:mt-40">
           <div className="flex items-center justify-between w-full">
-            <h2 className="text-2xl font-bold">Saved Locations</h2>
+            <h2 className="text-2xl font-bold">{t('savedlocations')}</h2>
           </div>
 
           {savedLocations.length === 0 ? (
             <div className="flex flex-col items-center mx-auto gap-[10px] py-12 w-max md:py-20">
               <BsMap className="text-3xl text-primary-btn" />
-              <h2 className="text-2xl font-bold">No Location saved yet</h2>
-              <p>You can save a location to view the details later</p>
+              <h2 className="text-2xl font-bold">{t('nolocation')}</h2>
+              <p>{t('youcansave')}</p>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center gap-[20px] py-12 w-max md:py-20 md:flex-row">

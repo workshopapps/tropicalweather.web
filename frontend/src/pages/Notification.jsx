@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/Notification.css';
 
 export default function Notification() {
+  const { t } = useTranslation(['notification']);
+
   const [reminderNotification, setReminderNotification] = useState('');
   const [activity, setActivity] = useState('');
 
@@ -15,56 +18,56 @@ export default function Notification() {
 
   const dataForSectionOne = [
     {
-      title: 'News and updates',
-      text: 'News about product and feature updates.',
+      title: `${t('newsandupdates')}`,
+      text: `${t('newsaboutproduct')}`,
     },
     {
-      title: 'Forecast',
-      text: 'News about weather forecast.',
+      title: `${t('forecast')}`,
+      text: `${t('forecastnews')}`,
     },
     {
-      title: 'Tips',
-      text: 'Tips about weather forecast.',
+      title: `${t('tips')}`,
+      text: `${t('forecasttips')}`,
     },
   ];
   const dataForSectionTwo = [
     {
-      title: 'Do not notify me',
+      title: `${t('dontnotify')}`,
     },
     {
-      title: 'Important reminders only',
-      text: 'Only notify me if the reminder is tagged as important.',
+      title: `${t('importantreminders')}`,
+      text: `${t('notifyimportantreminders')}`,
     },
     {
-      title: 'All reminders',
-      text: 'Notify me for all reminders.',
+      title: `${t('allreminders')}`,
+      text: `${t('notifyallreminders')}`,
     },
   ];
   const dataForSectionThree = [
     {
-      title: 'Do not notify me',
+      title: `${t('dontnotify')}`,
     },
     {
-      title: 'All reminders',
-      text: 'Thsese are  notifications for posts on your profile, details and list of notifications',
+      title: `${t('allreminders')}`,
+      text: `${t('aboutyounotification')}`,
     },
   ];
 
   return (
     <div className="notification mt-10 px:4 md:px-16">
       <div className="notification__wrapper">
-        <h3>Notification</h3>
+        <h3>{t('notification')}</h3>
         <p className="notification__subtext">
-          Choose when and how we contact you
+          {t('choosewhenandhow')}
         </p>
         <ul>
-          <li className="active">Email</li>
-          <li>In-app</li>
-          <li>Push</li>
+          <li className="active">{t('email')}</li>
+          <li>{t('inapp')}</li>
+          <li>{t('push')}</li>
         </ul>
         <section className="notification-content">
-          <h5>Notifcations from us</h5>
-          <p>Receive the latest weather news, forecast, updates from us.</p>
+          <h5>{t('notificationfromus')}</h5>
+          <p>{t('receivenews')}</p>
           <div className="notification-content__wrapper">
             {dataForSectionOne.map(({ title, text }) => (
               <div className="notification__ind" key={text}>
@@ -78,10 +81,9 @@ export default function Notification() {
           </div>
         </section>
         <section className="notification-content">
-          <h5>Reminders</h5>
+          <h5>{t('reminders')}</h5>
           <p>
-            These are notification to remind you of updates you might have
-            missed.
+            {t('remindernotification')}
           </p>
           <div className="notification-content__wrapper">
             {dataForSectionTwo.map(({ title, text }) => (
@@ -101,10 +103,9 @@ export default function Notification() {
           </div>
         </section>
         <section className="notification-content">
-          <h5>More activity about you</h5>
+          <h5>{t('moreactivityaboutyou')}</h5>
           <p>
-            Thsese are notifications for posts on your profile,details and list
-            of notifications
+            {t('aboutyounotification')}
           </p>
           <div className="notification-content__wrapper">
             {dataForSectionThree.map(({ title, text }) => (

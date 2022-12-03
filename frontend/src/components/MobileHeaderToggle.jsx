@@ -7,6 +7,7 @@ import { BsBriefcase } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
 import { CgEnter } from 'react-icons/cg';
 import { GrClose } from 'react-icons/gr';
+import { useTranslation } from 'react-i18next';
 
 export default function MobileHeaderToggle({ handleToggle, toggle }) {
   return (
@@ -65,29 +66,30 @@ MobileHeader.propTypes = {
 };
 
 function Navigation({ handleClickProp, style, itemStyle }) {
+  const { t } = useTranslation(['common']);
   const links = [
     {
-      name: 'Home',
+      name: `${t('home')}`,
       link: '/',
       icon: <RiHome6Line />,
     },
     {
-      name: 'Features',
+      name: `${t('features')}`,
       link: '/features',
       icon: <FaRegLightbulb />,
     },
     {
-      name: 'For Business',
+      name: `${t('business')}`,
       link: '/business',
       icon: <BsBriefcase />,
     },
     {
-      name: 'About Us',
+      name: `${t('aboutus')}`,
       link: '/about-us',
       icon: <BiInfoCircle />,
     },
     {
-      name: 'Sign Up',
+      name: `${t('signup')}`,
       link: '/sign-up',
       icon: <CgEnter />,
     },

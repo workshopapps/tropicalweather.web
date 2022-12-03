@@ -36,5 +36,16 @@
   "usetheappheading": "Utilisez l'application Tropical weather gratuite",
   "usetheappbody": "Découvrez la flexibilité et la facilité d'utilisation de notre application Weatherly lors de vos déplacements !",
   "explorefaqs": "Explorer les FAQ",
-  "viewfull": "Voir en entier"
+  "viewfull": "Voir en entier",
+  "viewmoreinfo": "Afficher plus d'informations →",
+  "updating": "Mise à jour...",
+  "somethingwentwrong": "Quelque chose s'est mal passé",
+  "FAQQ1": "1. COMMENT PUIS-JE AJOUTER, ENREGISTRER OU SUPPRIMER UN LIEU ?",
+  "FAQA1": "La météo tropicale garde une trace de vos cinq dernières recherches d'emplacements. Cliquez sur la flèche déroulante en haut à droite de la page et vous devriez voir vos 5 emplacements les plus récemment consultés. Lorsque vous recherchez des emplacements supplémentaires, ils seront remplacés par de nouveaux. Cependant, effacer votre stockage local supprimera tous les emplacements enregistrés.",
+  "FAQQ2": "2. QUE FAITES-VOUS DE MES DONNÉES DE LOCALISATION ?",
+  "FAQA2": "La météo tropicale n'utilise vos données de localisation que pour vous fournir des bulletins météo à jour et rien d'autre !",
+  "FAQQ3": "3. COMMENT VOIR LA CARTE RADAR ?",
+  "FAQA3": "La météo tropicale garde une trace des recherches de vos cinq derniers emplacements. Cliquez sur la flèche déroulante en haut à droite de la page et vous devriez voir vos 5 emplacements les plus récemment consultés. Lorsque vous recherchez des emplacements supplémentaires, ils seront remplacés par de nouveaux. Toutefois, la suppression de vos cookies supprimera tous les emplacements enregistrés.",
+  "FAQQ4": "4. COMMENT GÉRER LA NOTIFICATION ?",
+  "FAQA4": "Allez sur votre page de notifications et cliquez sur l'icône du menu et vous pourrez gérer et personnaliser vos notifications"
 }

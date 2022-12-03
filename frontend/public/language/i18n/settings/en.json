@@ -8,5 +8,17 @@
     "noti" : "Notifications",
     "help" : "Help",
     "lightmode" : "Light Mode",
-    "darkmode" : "Dark Mode"
+    "darkmode" : "Dark Mode",
+    "english": "English",
+    "nenglish": "English",
+    "french": "French",
+    "nfrench": "Français",
+    "spanish": "Spanish",
+    "nspanish": "Español",
+    "arabic": "Arabic",
+    "narabic": "عربي",
+    "polish": "Polish",
+    "npolish": "Polski",
+    "chinese": "Chinese",
+    "nchinese": "中文"
 }

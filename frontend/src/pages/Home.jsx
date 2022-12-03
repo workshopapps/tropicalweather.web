@@ -343,31 +343,23 @@ function FaqSection() {
       <div className="sm:p-3 flex flex-col gap-8">
         <Faq
           position={1}
-          question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
-          answer=" Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your local storage will remove all saved locations."
+          question={`${t('FAQQ1')}`}
+          answer={`${t('FAQA1')}`}
           open={openAll}
         />
         <Faq
-          question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer="Tropical weather only uses your location data to give you up to date weather reports and nothing else!"
+          question={`${t('FAQQ2')}`}
+          answer={`${t('FAQA2')}`}
           open={openAll}
         />
         <Faq
-          question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer="Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
+          question={`${t('FAQQ3')}`}
+          answer={`${t('FAQA3')}`}
           open={openAll}
         />
         <Faq
-          question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
+          question={`${t('FAQQ4')}`}
+          answer={`${t('FAQA4')}`}
           open={openAll}
         />
       </div>

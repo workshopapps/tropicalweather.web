@@ -37,5 +37,16 @@
   "usetheappheading": "Usa la aplicación gratuita Clima tropical",
   "usetheappbody": "¡Explore la flexibilidad y la facilidad que ofrece el uso de nuestra aplicación Weatherly sobre la marcha!",
   "explorefaqs": "Explorar preguntas frecuentes",
-  "viewfull": "Ver completo"
+  "viewfull": "Ver completo",
+  "viewmoreinfo": "Ver más información →",
+  "updating": "Actualizando...",
+  "somethingwentwrong": "Algo salió mal",
+  "FAQQ1": "1. ¿CÓMO AÑADO, GUARDO O ELIMINO UNA UBICACIÓN?",
+  "FAQA1": "El clima tropical realiza un seguimiento de las búsquedas de sus últimas cinco ubicaciones. Haga clic en la flecha desplegable en la parte superior derecha de la página y debería ver las 5 ubicaciones vistas más recientemente. Cuando busque ubicaciones adicionales, serán reemplazados por otros nuevos. Sin embargo, al borrar el almacenamiento local, se eliminarán todas las ubicaciones guardadas",
+  "FAQQ2": "2. ¿QUÉ HACES CON MIS DATOS DE UBICACIÓN?",
+  "FAQA2": "¡El clima tropical solo usa los datos de tu ubicación para brindarte informes meteorológicos actualizados y nada más!",
+  "FAQQ3": "3. ¿CÓMO PUEDO VER EL MAPA DEL RADAR?",
+  "FAQA3": "El clima tropical realiza un seguimiento de las búsquedas de sus últimas cinco ubicaciones. Haga clic en la flecha desplegable en la parte superior derecha de la página y debería ver las 5 ubicaciones vistas más recientemente. Cuando busque ubicaciones adicionales, serán reemplazadas por otras nuevas. Sin embargo, borrar las cookies eliminará todas las ubicaciones guardadas",
+  "FAQQ4": "4. ¿CÓMO GESTIONO LA NOTIFICACIÓN?",
+  "FAQA4": "Vaya a su página de notificaciones y haga clic en el ícono de menú y podrá administrar y personalizar sus notificaciones"
 }

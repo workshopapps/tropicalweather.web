@@ -1,10 +1,15 @@
 {
-    "searchforcity": "Search for city",
-    "typethreechar": "Type at least three characters",
-    "nocities": "No cities found",
-    "loading": "Loading...",
-    "getapp": "Get App",
-    "aboutus": "About us",
-    "downloadtheapp": "Download the mobile app",
-    "allrights": "© 2022 Tropical weather, All rights reserved to Team Gear"
+  "searchforcity": "Search for city",
+  "typethreechar": "Type at least three characters",
+  "nocities": "No cities found",
+  "loading": "Loading...",
+  "getapp": "Get App",
+  "aboutus": "About us",
+  "features": "Features",
+  "business": "For Business",
+  "home": "Home",
+  "signup": "Sign Up",
+  "notfication": "Notification",
+  "downloadtheapp": "Download the mobile app",
+  "allrights": "© 2022 Tropical weather, All rights reserved to Team Gear"
 }

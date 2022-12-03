@@ -36,5 +36,16 @@
     "usetheappheading": "Use the free Tropical weather app",
     "usetheappbody": "Explore the flexibility and ease that comes with using our Weatherly app on the go!",
     "explorefaqs": "Explore FAQs",
-    "viewfull": "View full"
+    "viewfull": "View full",
+    "viewmoreinfo": "View more info →",
+    "updating": "Updating...",
+    "somethingwentwrong": "Something went wrong",
+    "FAQQ1": "1. HOW DO I ADD, SAVE OR DELETE A LOCATION?",
+    "FAQA1": "Tropical weather keeps track of your last five locations' searches. Click the drop-down arrow to the top right side of the page, and you should see your most recently viewed 5 locations. When you search for additional locations, they will be replaced by new ones. However, clearing your local storage will remove all saved locations.",
+    "FAQQ2": "2. WHAT ARE YOU DOING WITH MY LOCATION DATA?",
+    "FAQA2": "Tropical weather only uses your location data to give you up to date weather reports and nothing else!",
+    "FAQQ3": "3. HOW DO I VIEW THE RADAR MAP?",
+    "FAQA3": "Tropical weather keeps track of your last five locations' searches. Click the drop-down arrow to the top right side of the page, and you should see your most recently viewed 5 locations. When you search for additional locations, they will be replaced by new ones. However, clearing your cookies will remove all saved locations.",
+    "FAQQ4": "4. HOW DO I MANAGE THE NOTIFICATION?",
+    "FAQA4": "Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
 }

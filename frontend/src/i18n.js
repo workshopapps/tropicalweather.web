@@ -18,7 +18,7 @@ i18n
     debug: false,
     // can have multiple namespaces, in case you want to divide a huge
     // translation into smaller pieces and load them on demand
-    ns: ['common', 'home', 'settings', 'contact', 'about'],
+    ns: ['common', 'home', 'settings', 'contact', 'about', 'dashboard', 'notification', 'aq'],
 
     interpolation: {
       espaceValue: false,
