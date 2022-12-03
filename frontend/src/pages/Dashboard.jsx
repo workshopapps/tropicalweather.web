@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState, useRef } from 'react';
 import moment from 'moment/moment';
 import { Link } from 'react-router-dom';
@@ -16,7 +17,7 @@ export default function Dashboard() {
   const [toast, setToast] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
-  const coord = useRef({ longitude: 0, latitude: 0 });
+  const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const [timeline, setTimeline] = useState([
     {
       location: 'Abuja, Nigeria',
@@ -42,20 +43,22 @@ export default function Dashboard() {
 
   const formatTime = (time) => moment(time).format('h:mm a');
   const getCurrentLocationFromCoords = async () => {
-    const { latitude, longitude } = coord.current;
-    const response = await fetch(`${APIURL}/location?lat=${latitude}&lon=${longitude}`);
+    // const { latitude, longitude } = coord;
+    const response = await fetch(`${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`);
+    console.log(response);
     const data = await response.json();
     const location = `${data.state}, ${data.city}`;
     setUserLocation(location);
   };
-
+   console.log(coord);
   const getCurrentLocationWeather = async () => {
-    const { latitude, longitude } = coord.current;
+    // const { latitude, longitude } = coord;
     const response = await
-      fetch(`${APIURL}/weather/forcast/extended?lat=${latitude}&lon=${longitude}`);
+      fetch(`${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`);
     const data = await response.json();
     setCurrentWeather(data.current);
-    // setTimeline(data.today_timeline);
+    setTimeline(data.today_timeline);
+    console.log(data);
   };
 
   const options = {
@@ -65,8 +68,10 @@ export default function Dashboard() {
   };
 
   function success(pos) {
+    // console.log(pos);
     const crd = pos.coords;
-    coord.current = { latitude: crd.latitude, longitude: crd.longitude };
+    console.log(crd.latitude);
+    setCoord({ latitude: crd.latitude, longitude: crd.longitude });
   }
 
   function error(err) {
@@ -78,12 +83,13 @@ export default function Dashboard() {
       navigator.geolocation.getCurrentPosition(success, error, options);
     }, 2000);
     return () => clearInterval(locationInterval);
-  }, []);
+  }, [userLocation]);
 
   useEffect(() => {
     getCurrentLocationFromCoords();
     // getCurrentLocationWeather();
-  }, [userLocation]);
+    console.log(coord);
+  }, [coord]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -184,7 +190,7 @@ export default function Dashboard() {
                 Today .
                 <span className="uppercase">{` ${time}`}</span>
               </p>
-              <p className="text-4xl font-bold">{currentWeather.main}</p>
+              {/* <p className="text-4xl font-bold">{currentWeather.}</p> */}
               <p className="text-xl font-bold text-gray-600">
                 {`${formatTime(currentWeather.datetime)} to ${formatTime(currentWeather.end_datetime)}`}
               </p>
