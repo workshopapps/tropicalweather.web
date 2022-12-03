@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default function HourlyUpdate({ time, day, forecast }) {
   return (
-    <article className="flex justify-between items-center border-b-2 border-[#DCDBE0] py-2">
+    <article className="flex justify-between items-center border-b-2 border-[rgba(220,219,224,0.4)] py-2">
       <div>
         <p>{time}</p>
         <p className="text-[#565560]">{day}</p>
