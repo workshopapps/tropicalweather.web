@@ -1,8 +1,113 @@
+import json
+from datetime import datetime
+
 import pytest
-from app.utils.general import (compose_location, convert_epoch_to_datetime,
-                               decompose_merged_location, get_weather_forecast,
-                               weather_api_call)
+import pytz
 from fastapi import HTTPException
+
+from ..conf.settings import BASE_DIR, Settings
+from ..utils.general import (compose_location, convert_epoch_to_datetime,
+                             decompose_merged_location, get_risk_message,
+                             get_risks_by_location, get_weather_forecast,
+                             weather_api_call, get_risks_by_address)
+
+
+def test_get_risks_by_address(mocker):
+    geo_mock = mocker.patch(
+        'app.utils.general.geocode_address',
+        return_value={
+            "lat": 40.7128,
+            "lon": -74.0060,
+        })
+    risks_mock = mocker.patch(
+        'app.utils.general.get_risks_by_location',
+        return_value=None)
+
+    get_risks_by_address("New York")
+    geo_mock.assert_called_once_with("New York")
+    risks_mock.assert_called_once_with(40.7128, -74.0060)
+
+
+def test_get_risk_message():
+    text = get_risk_message("test")
+    assert len(text) > len("test")
+    assert text.find("test") != -1
+
+
+class TestGetRisksByLocation:
+    test_file_path = BASE_DIR / "tests" / "test_data" / "test_hourly.json"
+    with open(test_file_path, "r") as f:
+        test_data = json.load(f)
+
+    def test_get_risks_by_location_1(self, mocker, settings: Settings):
+        hourly_mock = mocker.patch(
+            'app.utils.general.client.get_hourly_forecast',
+            return_value=self.test_data
+        )
+
+        settings.MAX_STEP_HOURS = 3
+        mocker.patch(
+            "app.utils.general.settings", settings
+        )
+
+        mocker.patch(
+            "app.utils.general.now_utc",
+            return_value=datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC)
+        )
+
+        expected = [
+            {
+                "start": datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC),
+                "end": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
+                "event": "Heatwave",
+                "description": get_risk_message("Heatwave")
+            },
+        ]
+
+        results = get_risks_by_location(1, 1)
+        hourly_mock.assert_called_once_with(1, 1, timezone="UTC")
+        assert results == expected
+
+    def test_get_risks_by_location_2(self, mocker, settings: Settings):
+        hourly_mock = mocker.patch(
+            'app.utils.general.client.get_hourly_forecast',
+            return_value=self.test_data
+        )
+
+        settings.MAX_STEP_HOURS = 8
+        mocker.patch(
+            "app.utils.general.settings", settings
+        )
+
+        mocker.patch(
+            "app.utils.general.now_utc",
+            return_value=datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC)
+        )
+
+        expected = [
+            {
+                "start": datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC),
+                "end": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
+                "event": "Heatwave",
+                "description": get_risk_message("Heatwave")
+            },
+            {
+                "start": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
+                "end": datetime(2022, 12, 3, 7, 0, tzinfo=pytz.UTC),
+                "event": "Flooding",
+                "description": get_risk_message("Flooding")
+            },
+            {
+                "start": datetime(2022, 12, 3, 7, 0, tzinfo=pytz.UTC),
+                "end": datetime(2022, 12, 3, 9, 0, tzinfo=pytz.UTC),
+                "event": "Heatwave",
+                "description": get_risk_message("Heatwave")
+            },
+        ]
+
+        results = get_risks_by_location(1, 1)
+        hourly_mock.assert_called_once_with(1, 1, timezone="UTC")
+        assert results == expected
 
 
 @pytest.mark.parametrize(
@@ -110,7 +215,7 @@ class TestGetWeatherForecast:
         results = get_weather_forecast(6.5244, 3.3792)
         assert results == [{"test": "demo"}]
 
-    @pytest.mark.parametrize(
+    @ pytest.mark.parametrize(
         "cod",
         [
             "400",
