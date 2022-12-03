@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { FiPlusCircle, FiMinusCircle } from "react-icons/fi";
-import "../../styles/Home-Faq.css";
-import faqsData from "./FaqData";
+import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi';
+import '../../styles/Home-Faq.css';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-
+import faqsData from './FaqData';
 
 export default function Faqs() {
   const [isOpen, setIsOpen] = useState(null);
