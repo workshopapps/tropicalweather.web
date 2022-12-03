@@ -127,6 +127,12 @@ async def get_tommorrows_weather(lat: float, lon: float):
 def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     latlng = reverse_geocoding(lat, lon)
+
+    if latlng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"location not found for thid coordinates")
+
     city = latlng.get('city')
     state = latlng.get('state')
 
@@ -136,8 +142,7 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     if loc_obj is not None:
         for mydata in loc_obj.alerts:
-            print(mydata)
-            date_time = convert_epoch_to_datetime(mydata.end)
+            date_time = mydata.end
 
             if date_time is not None:
                 alert_instance = {
@@ -147,6 +152,12 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
                 }
 
                 data.append(alert_instance)
+            else:
+
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=f"No active weather alert for this location"
+                    )
 
     return data
 
