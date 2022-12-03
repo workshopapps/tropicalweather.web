@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Phone from './aboutphone.png'
-import './AboutUs.css';
+import MobileAdvert from '../MobileAdvert';
 
 function AboutProductSection() {
   return (
@@ -54,30 +53,7 @@ function AboutProductSection() {
           <div className="flex justify-center pt-5 md:py-10 ">
             <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
           </div>
-
-          <section id="about--mobile__app">
-        <div className="about--mobile__container">
-          <p className='about-mobile-go'>Go Mobile</p>
-          <h3 className="about-mobile-text2">
-            Use the free Tropical weather app
-          </h3>
-          <p className='about-mobile-text3'>
-            Explore the flexibility and ease that comes with using our
-            Tropical weather app on the go!
-          </p>
-          <div className='about__download_btn'>
-            <img src="/app-store.png" alt="" className="app--store" />
-            <img src="/google-play.png" alt="" className="app--store" />
-          </div>
-        </div>
-            <div className='about-phone-container'>
-              <img src={Phone} alt= "Phone" />
-        </div>
-          </section>
-          {/* <section id="landing_download_app">
-        <div className="landing_download_container">
-          <p>Go Mobile</p>
-          <h3 className="landing_header_md"></h3> */}
+          <MobileAdvert />
         </div>
       </div>
     </div>

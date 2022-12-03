@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Faqs from '../components/Home/Faqs';
 // import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+import MobileAdvert from '../components/MobileAdvert';
 // import Share from '../components/share/Share_popup';
 
 export default function Home() {
@@ -16,36 +18,35 @@ export default function Home() {
   const [weatherForecast, setWeatherForecast] = useState([]);
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
-  const coord = useRef({ longitude: 0, latitude: 0 });
+  const onload = useRef(false);
+  const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const getCurrentLocationFromCoords = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/location?lat=${latitude}&lon=${longitude}`
+      `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     const location = `${data.city}, ${data.state}`;
     setUserLocation(location);
+    onload.current = true;
   };
   const getImmediateWeather = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/weather/forecasts/immediate?lat=${latitude}&lng=${longitude}`
+      `${APIURL}/weather/current?address=${userLocation.replace(', ', '%2C%20')}`
     );
     const data = await response.json();
     setImmediateWeather(data);
   };
   const getWeatherForecast = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`
+      `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     setWeatherForecast(data);
   };
   const navigate = useNavigate();
-   const gotoDashboard = (city) => {
-     navigate(`/dashboard?city=${city}`);
-   };
+  const gotoDashboard = (city) => {
+    navigate(`/dashboard?city=${city}`);
+  };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
@@ -60,19 +61,22 @@ export default function Home() {
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          coord.current = {
+          setCoord({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
-          };
+          });
         });
       }
     }
     getLocation();
-    getCurrentLocationFromCoords();
-    getImmediateWeather();
-    getWeatherForecast();
-  }, [userLocation]);
-
+  }, []);
+    useEffect(() => {
+   getImmediateWeather();
+    }, [userLocation]);
+    if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+          getCurrentLocationFromCoords();
+          getWeatherForecast();
+    }
   return (
     <div id="home">
       <header className="landing_header">
@@ -81,44 +85,72 @@ export default function Home() {
             <p className="homepage-location">{userLocation}</p>
           )}
           {immediateWeather !== null && immediateWeather.main === 'Clouds' && (
-            <>
-              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="" />
-              <p>
-                Today
-                {immediateWeather.time}
-              </p>
-              <p>{immediateWeather.description}</p>
-            </>
+            <div className="homepg-immed">
+              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
+              <div>
+                <p>
+                  Today
+                  {'  '}
+                  <span>
+                    {Number(immediateWeather.time.slice(0, 2)) + 1 < 10
+                      ? 0
+                      : ''}
+                    {Number(immediateWeather.time.slice(0, 2)) + 1}
+                    {' '}
+                    {immediateWeather.time.slice(2)}
+                  </span>
+                </p>
+                <p className="homepg-immedp">{immediateWeather.description}</p>
+              </div>
+            </div>
           )}
           <div className="homepg-weatherfc">
             <ul>
               {weatherForecast !== null &&
-                Array.from(new Set(weatherForecast.map((a) => a.time)))
-                  .map((time) => weatherForecast.find((a) => a.time === time))
-                  .map((forecast) => (
-                    <li key={forecast.time}>
-                      {forecast.main === 'Clouds' && (
-                        <>
-                          <p>{forecast.time}</p>
-                          <img
-                            src="./assets/NotificationFeedList/CLOUDY.svg"
-                            alt=""
-                          />
-                          <p>{forecast.main}</p>
-                        </>
-                      )}
-                      {forecast.main === 'Rain' && (
-                        <>
-                          <p>{forecast.time}</p>
-                          <img
-                            src="./assets/NotificationFeedList/icon.svg"
-                            alt=""
-                          />
-                          <p>{forecast.main}</p>
-                        </>
-                      )}
-                    </li>
-                  ))}
+                weatherForecast.map((forecast) => (
+                  <li key={forecast.datetime}>
+                    {forecast.main === 'Clouds' && (
+                      <>
+                        <p>{forecast.datetime}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="cloudy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Rain' && (
+                      <>
+                        <p>{forecast.time}</p>
+                        <img
+                          src="./assets/NotificationFeedList/icon.svg"
+                          alt=""
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Few clouds' && (
+                      <>
+                        <p>{forecast.datetime.slice(11)}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="couldy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Scattered clouds' && (
+                      <>
+                        <p>{forecast.datetime.slice(11)}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="cloudy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -129,20 +161,20 @@ export default function Home() {
           <div className="homepg-worldone">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectanglefour.svg" alt="" />
+                <img src="/Home/Rectanglefour.svg" alt="australia flag" />
                 <span> AUS AUSTRALIA</span>
               </div>
               {' '}
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Canberra, Ghana')}
+                onClick={() => gotoDashboard('Canberra, AUSTRALIA')}
                 className="homepg-dash"
               />
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 3.svg" alt="" />
+                <img src="/Home/Rectangle 3.svg" alt="sweden flag" />
                 <span>SWE SWEDEN </span>
                 {' '}
               </div>
@@ -156,7 +188,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 5.svg" alt="" />
+                <img src="/Home/Rectangle 5.svg" alt="netherlands flag" />
                 <span> NLD NETEHERLANDS</span>
               </div>
 
@@ -169,7 +201,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 6.svg" alt="" />
+                <img src="/Home/Rectangle 6.svg" alt="united kingdom flag" />
                 <span>GBR UNITED KINGDOM</span>
               </div>
               <button
@@ -183,7 +215,7 @@ export default function Home() {
           <div className="homepg-worldtwo">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 5 (1).svg" alt="" />
+                <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
                 <span>IDN INDONESIA</span>
               </div>
               <button
@@ -195,7 +227,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 6 (1).svg" alt="" />
+                <img src="/Home/Rectangle 6 (1).svg" alt="japan flag" />
                 <span>JPN JAPAN</span>
               </div>
 
@@ -208,7 +240,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 7.svg" alt="" />
+                <img src="/Home/Rectangle 7.svg" alt="canada flag" />
                 <span>CAN CANADA</span>
               </div>
               <button
@@ -220,7 +252,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 8.svg" alt="" />
+                <img src="/Home/Rectangle 8.svg" alt="united states flag" />
                 <span>USA UNITED STATES</span>
               </div>
               <button
@@ -232,7 +264,11 @@ export default function Home() {
             </li>
           </div>
         </ul>
-        <button type="button" className="homepg-explore" onClick={() => gotoDashboard('')}>
+        <button
+          type="button"
+          className="homepg-explore"
+          onClick={() => gotoDashboard('')}
+        >
           Expore all location
         </button>
       </div>
@@ -292,30 +328,7 @@ export default function Home() {
         </div>
       </section>
       <Faqs />
-      <section id="landing_download_app">
-        <div className="landing_download_container">
-          <p>Go Mobile</p>
-          <h3 className="landing_header_md">
-            Use the free Tropical weather app
-          </h3>
-          <p>
-            Explore the flexibility and ease that comes with using our
-            Weatherly app on the go!
-          </p>
-          <div>
-            <img src="/app-store.png" alt="" />
-            <img src="/google-play.png" alt="" />
-          </div>
-        </div>
-        <div className="landing_phones_wrapper">
-          <div className="landing_phones_container">
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-            <img src="/Home/phones.png" alt="" />
-          </div>
-        </div>
-      </section>
+      <MobileAdvert />
     </div>
   );
 }
