@@ -99,8 +99,12 @@ class TestUnsubscribeFromTopic:
 
 
 class TestUnsubscribeAll:
-    def test_success(self, session: Session, mocker):
-        """Test unsubscribe_id_all_topics."""
+    def test_success(self, session: Session, mocker, override_db):
+        mocker.patch(
+            "app.utils.fcm_service.get_db",
+            return_value=override_db(),
+        )
+
         message_mock = mocker.patch(
             "app.utils.fcm_service.messaging.unsubscribe_from_topic",
             return_value=TopicManagementResponseMock(),
@@ -130,8 +134,11 @@ class TestUnsubscribeAll:
         assert location1.subscription_count == 0
         assert location2.subscription_count == 1
 
-    def test_exception(self, session: Session, mocker):
-        """Test unsubscribe_id_all_topics."""
+    def test_exception(self, session: Session, mocker, override_db):
+        mocker.patch(
+            "app.utils.fcm_service.get_db",
+            return_value=override_db(),
+        )
         message_mock = mocker.patch(
             "app.utils.fcm_service.messaging.unsubscribe_from_topic",
             side_effect=FirebaseError("test", "test"),

@@ -15,7 +15,7 @@ class Location(Base):
     state = Column(String(255), nullable=False)
     country = Column(String(255), nullable=False)
     alerts: List["Alert"] = relationship("Alert", back_populates="location")
-    subscription_count = Column(Integer)
+    subscription_count = Column(Integer, default=0)
 
 
 class Alert(Base):

@@ -38,12 +38,6 @@ async def subscribe_token_to_alert_topic(
     state = loc_val['state']
     country = loc_val['country']
 
-    location = get_location_obj(db, city, state, country)
-    if location is None:
-        location = models.Location(city=city, state=state, country=country)
-        db.add(location)
-        db.commit()
-
     topic = get_topic_name(city, state, country)
 
     try:
@@ -53,6 +47,12 @@ async def subscribe_token_to_alert_topic(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Error subscribing to topic: {e}"
         )
+
+    location = get_location_obj(db, city, state, country)
+    if location is None:
+        location = models.Location(city=city, state=state, country=country)
+        db.add(location)
+        db.commit()
 
     return {
         "message": f"Subscribed to topic: {topic}"
@@ -83,7 +83,7 @@ async def unsubscribe_token_from_topic(
         )
 
     return {
-        "message": f"Unsubsribed from topic: {topic}"
+        "message": f"Unsubscribed from topic: {topic}"
     }
 
 
@@ -101,5 +101,5 @@ async def unsubscribe_token_from_all_topics(fcm_id: str):
     unsubscribe_id_all_topics(fcm_id)
 
     return {
-        "message": "Unsubsribed from all topics"
+        "message": "Unsubscribed from all topics"
     }
