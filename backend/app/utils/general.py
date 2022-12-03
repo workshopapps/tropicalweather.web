@@ -389,10 +389,22 @@ def immediate_weather_api_call_tommorrow(lon: float, lat: float):
 
 
 def get_location_obj(
-    session: Session, city: str, state: str
+    session: Session, city: str, state: str, country: str
 ) -> Optional[Location]:
+    """Get the location object from the database
+
+    Args:
+        session (Session): The database session
+        city (str): The city
+        state (str): The state
+        country (str): The country
+
+    Returns:
+        Optional[Location]: The location object
+    """
     location_weather_info = session.query(
-        Location).filter_by(city=city, state=state).first()
+        Location).filter_by(
+            city=city, state=state, country=country).first()
     return location_weather_info
 
 
@@ -519,8 +531,7 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
         return "None"
 
 
-def weather_forcast_extended_call(lat: float, lon: float): 
-     req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
-     res = dict(requests.get(req).json())
-     return res 
-     
+def weather_forcast_extended_call(lat: float, lon: float):
+    req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
+    res = dict(requests.get(req).json())
+    return res
