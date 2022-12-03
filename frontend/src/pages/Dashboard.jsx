@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
-import { AiOutlineDelete } from 'react-icons/ai';
-import useCity from '../hooks/useCity';
+import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
 
@@ -39,38 +38,41 @@ export default function Dashboard() {
     },
   ]);
   const [currentWeather, setCurrentWeather] = useState({});
-  const currentLocation = useCity() || userLocation;
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const { search } = useLocation();
+
+  useEffect(() => {
+    const city = new URLSearchParams(search).get('city');
+    setCurrentLocation(city);
+  }, [search]);
 
   const formatTime = (time) => moment(time).format('h:mm a');
   const getCurrentLocationFromCoords = async () => {
-    // const { latitude, longitude } = coord;
-    const response = await fetch(`${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`);
-    console.log(response);
+    const response = await fetch(
+      `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
     const data = await response.json();
-    const location = `${data.state}, ${data.city}`;
+    const location = `${data.city}, ${data.state}`;
+    setCurrentLocation(location);
     setUserLocation(location);
   };
-   console.log(coord);
   const getCurrentLocationWeather = async () => {
-    // const { latitude, longitude } = coord;
-    const response = await
-      fetch(`${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`);
+    const response = await fetch(
+      `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
     const data = await response.json();
     setCurrentWeather(data.current);
-    setTimeline(data.today_timeline);
-    console.log(data);
+    setTimeline(data.todays_timeline);
   };
 
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 0
+    maximumAge: 0,
   };
 
   function success(pos) {
-    // console.log(pos);
     const crd = pos.coords;
-    console.log(crd.latitude);
     setCoord({ latitude: crd.latitude, longitude: crd.longitude });
   }
 
@@ -86,10 +88,13 @@ export default function Dashboard() {
   }, [userLocation]);
 
   useEffect(() => {
-    getCurrentLocationFromCoords();
-    // getCurrentLocationWeather();
-    console.log(coord);
-  }, [coord]);
+    if (coord.latitude !== 0) {
+      if (!currentLocation) {
+        getCurrentLocationFromCoords();
+      }
+      getCurrentLocationWeather();
+    }
+  }, [coord.latitude]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -104,6 +109,7 @@ export default function Dashboard() {
   const removeLocation = (location) => {
     const loc = savedLocations.filter((item) => item !== location);
     localStorage.setItem('saved-locations', JSON.stringify(loc));
+    setSavedLocations([]);
     setSavedLocations(loc);
   };
   const showToast = (type) => {
@@ -112,9 +118,9 @@ export default function Dashboard() {
       setToast('');
     }, 3000);
   };
+
   const addLocation = async (location) => {
     if (savedLocations.some((loc) => loc.location === location)) return;
-    // Update location in local storage and state
     const locs = savedLocations;
     locs.push(location);
     setSavedLocations(locs);
@@ -123,28 +129,26 @@ export default function Dashboard() {
   };
 
   const isSaved = savedLocations.some(
-    (item) => item.location === currentLocation
+    (location) => location === currentLocation
   );
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
-      {toast !== '' ? (
+      {toast ? (
         <div
-          className="absolute p-1 bg-gray-200 rounded-lg"
+          className="flex items-center gap-3 absolute p-1 bg-gray-200 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
+            padding: '10px 20px',
             width: 'fit-content',
+            background: 'rgba(209, 250, 223, 0.1)',
+            border: '1px solid #054F31',
           }}
         >
-          <p
-            className="rounded-lg"
-            style={{
-              color: 'green',
-              padding: '3px 20px',
-              border: '1px solid green',
-            }}
-          >
-            Location added to saved cities
+          <AiFillCheckCircle color="#054F31" />
+          <p style={{ fontSize: '16px' }}>
+            {`${currentLocation} has been added to saved locations`}
           </p>
         </div>
       ) : null}
@@ -163,7 +167,7 @@ export default function Dashboard() {
                 {isSaved ? null : (
                   <button
                     type="button"
-                    onClick={() => addLocation(userLocation)}
+                    onClick={() => addLocation(currentLocation)}
                     className="flex items-center gap-2 text-primary-btn"
                   >
                     <BsHeart />
@@ -180,19 +184,18 @@ export default function Dashboard() {
                   </button>
                   <OptionsPopup display={showPopup} />
                 </div>
-
               </div>
             </div>
-            <div
-              className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero"
-            >
+            <div className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
               <p>
-                Today .
+                Today
                 <span className="uppercase">{` ${time}`}</span>
               </p>
               {/* <p className="text-4xl font-bold">{currentWeather.}</p> */}
               <p className="text-xl font-bold text-gray-600">
-                {`${formatTime(currentWeather.datetime)} to ${formatTime(currentWeather.end_datetime)}`}
+                {`${formatTime(currentWeather.datetime)} to ${formatTime(
+                  currentWeather.end_datetime
+                )}`}
               </p>
               <p className="px-8 py-2 font-semibold text-sm text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max">
                 {currentWeather.risk}
@@ -212,7 +215,10 @@ export default function Dashboard() {
               ) : (
                 <div className="flex flex-col justify-start gap-10 my-10">
                   {savedLocations.map((location) => (
-                    <div className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md" key={location}>
+                    <div
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md"
+                      key={location}
+                    >
                       <div className="flex items-center gap-4">
                         <HiOutlineLocationMarker className="text-lg" />
                         <span className="text-sm capitalize md:text-xl">
@@ -243,8 +249,12 @@ export default function Dashboard() {
                   key={day.datetime}
                   last={index === timeline.length - 1}
                 />
-              ))) :
-              <p className="text-xl font-semibold">No weather data available yet</p>}
+              ))
+            ) : (
+              <p className="text-xl font-semibold">
+                No weather data available yet
+              </p>
+            )}
           </section>
         </div>
       </div>
