@@ -22,8 +22,8 @@ pipeline {
         stage("build backend"){
 
 			steps {
-                sh "cd backend && sudo python3 -m pip install --upgrade pip"
-                sh "cd backend && sudo pip install -r requirements.txt"
+                sh "cd backend && sudo python3 -m pip3 install --upgrade pip"
+                sh "cd backend && sudo pip3 install -r requirements.txt"`
             }  
         }
 		stage("deploy") {
