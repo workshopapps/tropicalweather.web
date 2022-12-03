@@ -1,0 +1,92 @@
+#about--mobile__app {
+  background: #fdead7;
+  border-radius: 16px;
+  padding: 64px;
+  display: flex;
+  justify-content: space-between;
+}
+.about--mobile__container {
+  /* margin-top: 86px; */
+  width: 50%;
+}
+.about-mobile-go {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  /* identical to box height, or 200% */
+
+  /* Primary/500 */
+
+  color: #ef6820;
+}
+.about-mobile-text2 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 52px;
+  /* identical to box height, or 130% */
+
+  font-feature-settings: "tnum" on, "lnum" on;
+
+  /* Grey/900 */
+
+  color: #161518;
+  margin-bottom: 16px;
+}
+.about-mobile-text3 {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  /* or 156% */
+
+  font-feature-settings: "tnum" on, "lnum" on, "liga" off;
+
+  /* Grey/700 */
+
+  color: #565560;
+  margin-bottom: 24px;
+}
+.about__download_btn {
+  display: flex;
+  gap: 20px;
+}
+.about-phone-container {
+  /* width: 50%; */
+  justify-content: flex-end;
+}
+@media (max-width: 1025px) {
+  #about--mobile__app {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .about--mobile__container {
+    /* margin-top: 86px; */
+    width: 95%;
+  }
+}
+@media (max-width: 767px) {
+  #about--mobile__app {
+    margin-top: 30px;
+  }
+}
+@media (max-width: 550px) {
+  #about--mobile__app {
+    padding: 24px;
+  }
+  .about__download_btn {
+    /* display: flex;
+    flex-direction: column; */
+  }
+}
+@media (max-width: 420px) {
+  .app--store {
+    width: 50%;
+    height: 80%;
+  }
+}
