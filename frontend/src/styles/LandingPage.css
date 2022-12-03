@@ -5,7 +5,39 @@
 .mobile {
   display: none;
 }
+header{
+  position: relative;
 
+}
+.mobile-search{
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #E8E7EA;
+ padding: 1em;
+}
+.mobilesearch-abs{
+  display: none;
+}
+.mobilesearch-abs[data-visible="true"]{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: white;
+
+}
+.mobilecon-flex{
+  display: flex;
+  gap: .5em;
+  align-items: center;
+}
 .head-text {
   position: absolute;
   margin-top: -540px;
@@ -1146,5 +1178,10 @@
 
   .apstore {
     margin-right: 15px;
+  }
+}
+@media (min-width:60rem) {
+  .mobile-search{
+    display: none;
   }
 }

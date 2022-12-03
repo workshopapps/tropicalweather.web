@@ -11,6 +11,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from routers import alert, location, weather, share
 from utils.general import get_status
+from database import engine, get_db  # noqa: F401
+import models
+
+
+models.Base.metadata.create_all(bind=engine)
+
 
 # Application initilization
 app = FastAPI()
