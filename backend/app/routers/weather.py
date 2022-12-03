@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-import datetime
+import pytz
 
 from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -128,10 +128,11 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     latlng = reverse_geocoding(lat, lon)
 
+    # if coordinate is incorrect, raise this exception
     if latlng is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"location not found for thid coordinates")
+            detail=f"location not found for this coordinates or incorrect coordinates")
 
     city = latlng.get('city')
     state = latlng.get('state')
@@ -142,22 +143,24 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     if loc_obj is not None:
         for mydata in loc_obj.alerts:
+
+            # date_time -> type:INT from model
             date_time = mydata.end
 
             if date_time is not None:
+                # date -> type:TimeStamp from date_time
+                date_obj = datetime.fromtimestamp(date_time, tz=pytz.utc)
                 alert_instance = {
                     'event': mydata.event,
                     'message': mydata.message,
-                    'datetime': datetime.strptime(date_time, '%Y/%m/%d %H:%M')
+                    'datetime': datetime.strptime(date_obj, '%Y/%m/%d %H:%M')
                 }
 
                 data.append(alert_instance)
             else:
-
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
-                    detail=f"No active weather alert for this location"
-                    )
+                    detail="No active weather alert for this location")
 
     return data
 
