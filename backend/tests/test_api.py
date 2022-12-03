@@ -276,3 +276,5 @@ class _TestGetAlerts:
             "/weather/alerts/list?lat=6.46542&lon=3.406448")
 
         assert response.status_code == 400
+
+
