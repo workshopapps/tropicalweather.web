@@ -13,7 +13,7 @@ from utils.client import reverse_geocoding, weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_immediate_weather_api_call, get_location_obj,
                            get_risk, immediate_weather_api_call_tommorrow,
-                           weather_api_call, weather_forcast_extended_call)
+                           weather_api_call, weather_forcast_extended_call, reverse_geocode)
 from utils.hourly_forecast import hourly_forecasts
 from utils.open_meteo import client
 from utils.weather_code import WmoCodes
@@ -122,11 +122,10 @@ async def get_tommorrows_weather(lat: float, lon: float):
             detail="Can't retrive weather data for this location"
         )
 
-
 @router.get('/alerts/list', response_model=List[AlertsResponse])
 def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
-    latlng = reverse_geocoding(lat, lon)
+    latlng = reverse_geocode(lat, lon)
 
     # if coordinate is incorrect, raise this exception
     if latlng is None:
@@ -161,7 +160,13 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
                     detail="No active weather alert for this location")
-
+    else:         
+        alert_instance = {
+            'event': "None",
+            'message': "No alert event for this location",
+            'datetime': str(datetime.now(tz=pytz.utc))
+            }
+        data.append(alert_instance)
     return data
 
 

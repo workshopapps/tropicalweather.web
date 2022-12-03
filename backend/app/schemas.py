@@ -15,8 +15,8 @@ class ShareLink(BaseModel):
 class AlertsResponse(BaseModel):
     event: str
     message: str
-    date: str
-    time: str
+    datetime: str
+
 
 
 class SingleWeatherResponse(BaseModel):
@@ -74,3 +74,5 @@ class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
 class PacketModel(BaseModel):
     content: Any
     content_type: str
+
+    
