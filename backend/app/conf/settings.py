@@ -35,5 +35,7 @@ class Settings(BaseSettings):
     STATIC_DIR: Path = BASE_DIR / "static"
     TEMPLATES_DIR: Path = BASE_DIR / "templates"
 
+    MAX_STEP_HOURS: int = 24
+
 
 settings = Settings()
