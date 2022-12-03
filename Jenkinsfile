@@ -30,6 +30,7 @@ pipeline {
 		
 			steps {
 				sh "sudo cp -r ${WORKSPACE}/tropicalweather.web /home/johnoni/"
+				sh "sudo cp -r /home/johnoni/tropicalweather_env/logged /home/johnoni/tropicalweather.web/backend/logs"
 				sh "sudo cp -r /home/johnoni/tropicalweather_env/app.env /home/johnoni/tropicalweather.web/backend/app/.env"
 
 				sh "sudo systemctl restart tropicalweatherf.service"
