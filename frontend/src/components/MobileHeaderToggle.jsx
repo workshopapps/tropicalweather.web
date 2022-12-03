@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { RiHome6Line } from 'react-icons/ri';
-import { FaRegLightbulb } from 'react-icons/fa';
-import { BsBriefcase } from 'react-icons/bs';
+import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
-import { CgEnter } from 'react-icons/cg';
 import { GrClose } from 'react-icons/gr';
 import { useTranslation } from 'react-i18next';
 
@@ -74,24 +72,19 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       icon: <RiHome6Line />,
     },
     {
-      name: `${t('features')}`,
-      link: '/features',
-      icon: <FaRegLightbulb />,
-    },
-    {
-      name: `${t('business')}`,
-      link: '/business',
+      name: `${t('aboutus')}`,
+      link: '/about-us',
       icon: <BsBriefcase />,
     },
     {
-      name: `${t('aboutus')}`,
-      link: '/about-us',
+      name: `${t('contactus')}`,
+      link: '/contact',
       icon: <BiInfoCircle />,
     },
     {
-      name: `${t('signup')}`,
-      link: '/sign-up',
-      icon: <CgEnter />,
+      name: `${t('faqs')}`,
+      link: '/',
+      icon: <BsQuestionCircle />,
     },
   ];
   return (
