@@ -51,7 +51,7 @@ async def get_user_current_weather(lat: float, lon: float):
     return result
 
 
-@router.get('/current/by-address', response_model=CurrentWeatherResponse)
+@router.get('/current/by-address', response_model=UserCurrentWeather)
 async def get_current_weather(address: str):
     """Get current weather for a given address
 
@@ -59,27 +59,16 @@ async def get_current_weather(address: str):
     :type address: str
     :raises HTTPException: If address is not valid or not found
     :return: Current weather for the address
-    :rtype: CurrentWeatherResponse
+    :rtype: UserCurrentWeather
     """
 
     geo_address = geocode_address(address)
     lat, lon = geo_address['lat'], geo_address['lon']
-    #location = reverse_geocode(lat=lat, lon=lon)
     result = user_current_forecasts(lat=lat, lon=lon)
     result['city'] = geo_address['city']
     result['state'] = geo_address['state']
     result['country'] = geo_address['country']
     return result
-
-    weather_data = weather_api_call(lon, lat)
-
-    return {
-        "city": geo_address['city'],
-        "state": geo_address['state'],
-        'main': weather_data['main'],
-        'description': weather_data['description'],
-        **convert_epoch_to_datetime(weather_data['dt'])
-    }
 
 
 @router.get("/forecasts/immediate", response_model=ImmediateForecastResponse)
