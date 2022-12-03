@@ -3,7 +3,6 @@ from typing import List
 
 from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
-from schemas import *  # noqa: F401, F403
 from schemas import (AlertsResponse, CurrentWeatherResponse,
                      ImmediateForecastResponse, RiskEvent, RiskLevel,
                      RiskResponse, WeatherResponse)
@@ -358,7 +357,7 @@ async def weather_tomorrow(address: str):
 @router.get('/forecasts/by-address', response_model=List[WeatherResponse])
 async def forecast_by_address(address: str):
     """
-    Get today forecasts for a given address 
+    Get today forecasts for a given address
     param address: Address to get forecast for
     type address: str
     raise HTTPException: If address is not valid or not found
