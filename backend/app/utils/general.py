@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Union
 
 import geocoder
 import requests
-from .client import get_location_alerts, weather
+from .client import get_risks_by_location, weather
 from models import Location
 from schemas import ImmediateForecastResponse
 from fastapi import HTTPException, status
@@ -173,7 +173,7 @@ def reverse_geocode(lat: float, lon: float):
     }
 
 
-def get_location_alerts_by_address(address: str):
+def get_risks_by_address(address: str):
     """Get the location alerts for a given address
 
     :param address: The address
@@ -186,7 +186,7 @@ def get_location_alerts_by_address(address: str):
     geo_addr = geocode_address(address)
     lat = geo_addr['lat']
     lon = geo_addr['lon']
-    return get_location_alerts(lat, lon)
+    return get_risks_by_location(lat, lon)
 
 
 def weather_api_call(lon: float, lat: float) -> Dict[str, str]:

@@ -14,12 +14,11 @@ automatically sends websocket message to the clients subscribed to the location
 import hashlib
 from typing import List
 
-from app.alerts import (close_connection, create_connection,
-                        send_message_to_room)
-from app.database import get_db
+from database import get_db
 import models
-from app.utils.general import get_location_alerts_by_address
+from utils.general import get_risks_by_address
 from sqlalchemy.orm import Session
+from utils.timer import now_utc
 
 
 def get_db_locations(db: Session) -> List[models.Location]:
@@ -28,12 +27,12 @@ def get_db_locations(db: Session) -> List[models.Location]:
     return db.query(models.Location).all()
 
 
-def get_location_alerts_api(location: models.Location):
+def get_location_risks(location: models.Location):
     """Get the alerts of this location
     from the api
     """
     address = f"{location.city} {location.state}"
-    return get_location_alerts_by_address(address)
+    return get_risks_by_address(address)
 
 
 def create_events(
@@ -69,20 +68,10 @@ def delete_alert(db: Session, alert: models.Alert):
     db.commit()
 
 
-def send_websocket_message(location: models.Location, events: List[dict[str, str]]):
-    """Send websocket message to the clients
-    subscribed to the alert location.
+def send_messages(location: models.Location, events: List[dict[str, str]]):
+    """Send messages of new alerts to topics
     """
-    create_connection(location.city, location.state)
-    try:
-        for event in events:
-            event_title = event["event"]
-            message = event["description"]
-            send_message_to_room(
-                location.city, location.state, event_title, message
-            )
-    finally:
-        close_connection()
+    pass
 
 
 def hash_alert(event) -> str:
@@ -100,25 +89,24 @@ def hash_alert(event) -> str:
 def update_alert_events():
     """Update the alert events
     """
-    from logging import info
 
-    info("Updating alert events")
+    db = next(get_db())
+    now = now_utc()
 
-    db = get_db()
     locations: List[models.Location] = get_db_locations(db)
     for location in locations:
-        api_alerts = get_location_alerts_api(location)
+        risks = get_location_risks(location)
         db_alerts = location.alerts
 
-        api_alerts_hash = {hash_alert(event): event for event in api_alerts}
+        for db_alert in db_alerts:
 
-        for db_event in db_alerts:
-            event_hash = db_event.hash
-            if event_hash in api_alerts_hash:
-                del api_alerts_hash[event_hash]
-            else:
-                delete_alert(db, db_event)
+            if db_alert.end_datetime() < now:
+                delete_alert(db, db_alert)
+                continue
+
+        for risk in risks:
+            
 
         new_alerts = list(api_alerts_hash.values())
         create_events(db, location, new_alerts)
-        send_websocket_message(location, new_alerts)
+        send_messages(location, new_alerts)

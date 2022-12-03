@@ -1,8 +1,13 @@
 
+import datetime
+import pytz
 from typing import Dict, List, Union
 
 import requests
 from conf.settings import settings
+from .open_meteo import client
+from .general import get_risk
+from .timer import now_utc
 
 BASE_URL = settings.OPEN_WEATHER_BASE_URL
 API_KEY = settings.OPEN_WEATHER_API_KEY
@@ -86,52 +91,63 @@ def reverse_geocoding(lat: float, long: float) -> list:
     return res
 
 
-def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
-    """Get the location alerts for a given latitude and longitude
+def get_risks_by_location(
+    lat: float, long: float
+) -> List[Dict[str, datetime.datetime]]:
+    results = []
 
-    Sample response:
+    response = client.get_hourly_forecast(lat, long, timezone="UTC")
 
-    ```json
-    [
-        {
-            "sender_name": "NWS Tulsa",
-            "event": "Severe Thunderstorm Warning",
-            "description": "test",
-            "start": 1646344800,
-            "end": 1646380800,
-        }
-    ]
-    ```
+    hourly_time: list[str] = response["hourly"]["time"]
+    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
 
-    :param lat: The latitude
-    :type lat: float
-    :param long: The longitude
-    :type long: float
-    :raises Exception: If the request fails
-    :raises Exception: If the response is invalid
-    :return: The location alerts
-    :rtype: List[Dict[str, str]]
-    """
-    res = get("data/3.0/onecall", {"lat": lat,
-              "lon": long, "exclude": "hourly,daily"})
-    if not res:
-        raise Exception("Invalid request")
+    now = now_utc()
 
-    alerts: List[dict] = res.get("alerts")
-    if not alerts:
-        raise Exception("Invalid request")
+    max_time = now + datetime.timedelta(hours=24)
 
-    # remove tags key from the response
-    for alert in alerts:
-        alert.pop("tags", None)
+    pointer = ""
 
-    return alerts
+    i = -1
+    limit = len(hourly_time)
+    while i < limit:
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+        i += 1
 
->>>>>>> 5d70578 (feat(BAC-74): Added endpoint that returns tomorrow's forecast for an address)
-=======
+        index_time = datetime.datetime.strptime(
+            hourly_time[i], "%Y-%m-%dT%H:%M")
+        index_time = pytz.utc.localize(index_time)
 
->>>>>>> 5d70578c358929b812369ecd08b3a2acdca0bf7e
+        if index_time > max_time:
+            break
+
+        if pointer != "":
+            index_temp = hourly_temp[i]
+            index_precipitation = hourly_precipitation[i]
+            current_risk = get_risk(index_temp, index_precipitation)
+
+            if current_risk != pointer:  # changed
+                results[-1]["end"] = index_time
+                pointer = ''
+                i -= 1
+                continue
+
+        if index_time > now:
+            index_temp = hourly_temp[i]
+            index_precipitation = hourly_precipitation[i]
+            risk = get_risk(index_temp, index_precipitation)
+
+            if risk is None:
+                continue
+
+            result = {
+                "start": index_time,
+                "end": max_time,
+                "risk": risk,
+            }
+
+            pointer = risk
+
+            results.append(result)
+
+    return results
