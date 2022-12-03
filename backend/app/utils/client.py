@@ -1,5 +1,5 @@
 
-from typing import Dict, List, Union
+from typing import Union ,List, Dict
 
 import requests
 from conf.settings import settings
@@ -126,4 +126,3 @@ def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
         alert.pop("tags", None)
 
     return alerts
-

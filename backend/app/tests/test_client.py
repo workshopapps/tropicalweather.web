@@ -1,7 +1,7 @@
 
 import pytest
 import requests
-from app.utils.client import get, reverse_geocoding, weather
+from ..utils.client import get, reverse_geocoding, weather
 
 
 def test_get(mocker):

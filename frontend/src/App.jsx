@@ -33,9 +33,8 @@ const router = createBrowserRouter(
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
       <Route path="/settings" element={<Settings />} />
-      {/* <Route path="/promotions" element={<Promotions />} /> */}
-      <Route path="*" element={<Error404 />} />
       <Route path="/notification-feeds" element={<NotificationFeedList />} />
+      <Route path="*" element={<Error404 />} />
     </Route>
   )
 );

@@ -34,7 +34,7 @@ def get_settings():
     config_cls_dict = {
         "development": DevelopmentConfig,
     }
-    config_name = settings.CELERY_CONFIG
+    config_name = app_settings.CELERY_CONFIG
     config_cls = config_cls_dict[config_name]
     return config_cls()
 
