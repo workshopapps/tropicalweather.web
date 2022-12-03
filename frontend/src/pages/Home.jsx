@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PopularLocation from '../components/Home/PopularLocation';
 import Faqs from '../components/Home/Faqs';
 // import HourlyUpdate from '../components/Home/HoulyUpdate';
 // import Risk from '../components/Home/Risk';
-import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 // import Share from '../components/share/Share_popup';
@@ -291,31 +291,31 @@ export default function Home() {
           </div>
         </div>
       </section>
-        <Faqs />
-        <section id="landing_download_app">
-          <div className="landing_download_container">
-            <p>Go Mobile</p>
-            <h3 className="landing_header_md">
-              Use the free Tropical weather app
-            </h3>
-            <p>
-              Explore the flexibility and ease that comes with using our
-              Weatherly app on the go!
-            </p>
-            <div>
-              <img src="/app-store.png" alt="" />
-              <img src="/google-play.png" alt="" />
-            </div>
+      <Faqs />
+      <section id="landing_download_app">
+        <div className="landing_download_container">
+          <p>Go Mobile</p>
+          <h3 className="landing_header_md">
+            Use the free Tropical weather app
+          </h3>
+          <p>
+            Explore the flexibility and ease that comes with using our
+            Weatherly app on the go!
+          </p>
+          <div>
+            <img src="/app-store.png" alt="" />
+            <img src="/google-play.png" alt="" />
           </div>
-          <div className="landing_phones_wrapper">
-            <div className="landing_phones_container">
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-              <img src="/Home/phones.png" alt="" />
-            </div>
+        </div>
+        <div className="landing_phones_wrapper">
+          <div className="landing_phones_container">
+            <img src="/Home/phones.png" alt="" />
+            <img src="/Home/phones.png" alt="" />
+            <img src="/Home/phones.png" alt="" />
+            <img src="/Home/phones.png" alt="" />
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+    </div>
   );
 }

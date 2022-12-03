@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { RiHome6Line } from 'react-icons/ri';
 // import { FaRegLightbulb } from 'react-icons/fa';
-import { BsBriefcase } from 'react-icons/bs';
+import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
 // import { CgEnter } from 'react-icons/cg';
 import { GrClose } from 'react-icons/gr';
@@ -80,6 +80,11 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       name: 'Contact Us',
       link: '/contact',
       icon: <BiInfoCircle />,
+    },
+    {
+      name: 'FAQs',
+      link: '/',
+      icon: <BsQuestionCircle />,
     },
   ];
   return (
