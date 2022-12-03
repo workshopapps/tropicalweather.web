@@ -3,8 +3,7 @@ import hashlib
 from typing import List, Union
 
 import models
-from database import get_db
-from fastapi import Depends
+from conf.runtime import logger
 from sqlalchemy.orm import Session
 from utils.fcm_service import get_topic_name
 from utils.general import get_risks_by_address
@@ -21,7 +20,7 @@ def get_location_risks(location: models.Location):
     """Get the alerts of this location
     from the api
     """
-    address = f"{location.city} {location.state}"
+    address = f"{location.city}, {location.state}, {location.country}"
     return get_risks_by_address(address)
 
 
@@ -32,12 +31,12 @@ def create_alerts(
     """Create new alerts for the
     location
     """
-    for alert in alerts:
-        event = alert["event"]
-        description = alert["description"]
-        start = alert["start"].timestamp()
-        end = alert["end"].timestamp()
-        event_hash = hash_alert(alert)
+    for _alert in alerts:
+        event = _alert["event"]
+        description = _alert["description"]
+        start = _alert["start"].timestamp()
+        end = _alert["end"].timestamp()
+        event_hash = hash_alert(_alert)
         alert = models.Alert(
             event=event,
             message=description,
@@ -52,37 +51,39 @@ def create_alerts(
     db.commit()
 
 
-def delete_alert(db: Session, alert: models.Alert):
-    """Delete event from the db
-    """
-    db.delete(alert)
-    db.commit()
-
-
 def send_messages(location: models.Location, events: List[dict[str, str]]):
     """Send messages of new alerts to topics
     """
     topic_name = get_topic_name(
         location.city, location.state, location.country)
 
+    for event in events:
+        message = event["description"]
+        logger.info(f"Sending message to {topic_name}: {message}")
+
+    return topic_name
+
 
 def hash_alert(event: dict[str, Union[str, datetime.datetime]]) -> str:
     """
     Compute a hash for an event. This is used to compare events
     """
-    start = event["start"]
-    end = event["end"]
+    start = event["start"].timestamp()
+    end = event["end"].timestamp()
     description = event["description"]
     event_title = event["event"]
     payload = f"{start}{end}{description}{event_title}"
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
-def update_alert_events(db: Session = Depends(get_db)):
+def update_alerts(db: Session):
     """Update the alert events
     """
+    logger.info("Updating alerts")
     now = now_utc()
     locations: List[models.Location] = get_db_locations(db)
+    logger.info(f"Found {len(locations)} locations")
+
     for location in locations:
         risks = get_location_risks(location)
         db_alerts = location.alerts
@@ -90,8 +91,9 @@ def update_alert_events(db: Session = Depends(get_db)):
         risks_hash = {hash_alert(risk): risk for risk in risks}
 
         for db_alert in db_alerts:
-            if db_alert.end_datetime() < now:
-                delete_alert(db, db_alert)
+            if db_alert.end_datetime() <= now:
+                db.delete(db_alert)
+                db.commit()
             else:
                 risks_hash.pop(db_alert.hash, None)
 

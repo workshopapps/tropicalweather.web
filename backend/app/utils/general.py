@@ -19,6 +19,14 @@ from .timer import now_utc
 
 
 def get_risk_message(risk: str):
+    """Format the risk message
+
+    Args:
+        risk (str): The risk
+
+    Returns:
+        str: The formatted risk message
+    """
     return f"There is a high risk of {risk} in your area"
 
 
@@ -35,7 +43,7 @@ def get_risks_by_location(
 
     now = now_utc()
 
-    max_time = now + datetime.timedelta(hours=24)
+    max_time = now + datetime.timedelta(hours=settings.MAX_STEP_HOURS + 1)
 
     pointer = ""
 
@@ -61,9 +69,10 @@ def get_risks_by_location(
                 results[-1]["end"] = index_time
                 pointer = ''
                 i -= 1
-                continue
 
-        if index_time > now:
+            continue
+
+        if index_time >= now:
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
             risk = get_risk(index_temp, index_precipitation)
@@ -81,6 +90,10 @@ def get_risks_by_location(
             pointer = risk
 
             results.append(result)
+
+    if results:
+        if results[-1]["start"] == max_time:
+            results.pop()
 
     return results
 

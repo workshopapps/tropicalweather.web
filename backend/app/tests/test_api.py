@@ -1,5 +1,5 @@
 from typing import List
-import pytest
+
 from fastapi import HTTPException, status
 
 
@@ -12,7 +12,7 @@ class TestGenerateShareLink:
             "https://tropicalweather.hng.tech/share/a-b-c"
 
 
-class TestWeatherForecastsAPI:
+class _TestWeatherForecastsAPI:
     def test_weather_forcasts_valid(self, mocker, client):
         """Test weather forecast endpoint"""
         mocker.patch(
@@ -68,8 +68,7 @@ class TestWeatherForecastsAPI:
         assert len(data) == 8
         assert data[0]["main"]
         assert data[1]["datetime"]
-        assert data[2]["risk"] 
-        
+        assert data[2]["risk"]
 
     def test_weather_forcasts_invalid(self, mocker, client):
         """Test weather forecast endpoint"""
@@ -281,20 +280,20 @@ class _TestGetAlerts:
 class TestGetWeatherForecastExtended:
     def test_weather_forecast_extended_valid(self, mocker, client):
         mocker.patch('routers.weather.reverse_geocoding',
-                     return_value= [{
+                     return_value=[{
                          "city": "Ikorodu",
 
                          "state": "Lagos",
                          "country": "Nigeria"
-                     },]
+                     }, ]
                      )
 
         mocker.patch('routers.weather.weather_forcast_extended_call',
                      return_value={
                          'latitude': 6.625, 'longitude': 3.25, 'generationtime_ms': 0.5729198455810547,
                          'utc_offset_seconds': 3600, 'timezone': 'Africa/Lagos', 'timezone_abbreviation': 'WAT', 'elevation': 15.0,
-                                    'current_weather': {'temperature': 28.7, 'windspeed': 4.5, 'winddirection': 299.0, 'weathercode': 3,
-                                                        'time': '2022-12-02T10:00'},
+                         'current_weather': {'temperature': 28.7, 'windspeed': 4.5, 'winddirection': 299.0, 'weathercode': 3,
+                                             'time': '2022-12-02T10:00'},
 
                          'hourly_units': {'time': 'iso8601', 'weathercode': 'wmo code', 'precipitation': 'mm', 'temperature_2m': '°C'},
                          'hourly': {'time': ['2022-12-02T00:00', '2022-12-02T01:00',
@@ -311,12 +310,11 @@ class TestGetWeatherForecastExtended:
                      }
                      )
 
-
         response = client.get('/weather/forcast/extended?lat=6.625&lon=3.25')
         assert response.status_code == 200
 
-        data  = response.json()
-        
+        data = response.json()
+
         assert data["city"] == "Ikorodu"
         assert data['state'] == "Lagos"
         assert data['country'] == "Nigeria"

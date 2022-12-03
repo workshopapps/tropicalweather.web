@@ -1,10 +1,10 @@
 from typing import List
 
-from database import Base
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 import datetime
 import pytz
+from database import Base
 
 
 class Location(Base):
@@ -30,5 +30,4 @@ class Alert(Base):
     location = relationship("Location", back_populates="alerts")
 
     def end_datetime(self):
-        end_time = datetime.datetime.fromtimestamp(self.end)
-        return pytz.utc.localize(end_time)
+        return datetime.datetime.fromtimestamp(self.end, pytz.utc)
