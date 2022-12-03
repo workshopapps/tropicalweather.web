@@ -31,8 +31,6 @@ pipeline {
 			steps {
 				sh "sudo cp -r ${WORKSPACE}/tropicalweather.web /home/johnoni/"
 				sh "sudo cp -r /home/johnoni/tropicalweather_env/app.env /home/johnoni/tropicalweather.web/backend/app/.env"
-                // sh "sudo cp -rf ${WORKSPACE}/backend/* /home/johnoni/tropicalweather.web/backend"
-                // sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather.web/frontend"
 
 				sh "sudo systemctl restart tropicalweatherf.service"
 				sh "sudo systemctl restart tropicalweatherb.service"
@@ -42,3 +40,6 @@ pipeline {
 	}
 }
 
+
+                // sh "sudo cp -rf ${WORKSPACE}/backend/* /home/johnoni/tropicalweather.web/backend"
+                // sh "sudo cp -rf ${WORKSPACE}/frontend/build/* /home/johnoni/tropicalweather.web/frontend"
