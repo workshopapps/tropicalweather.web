@@ -1,4 +1,4 @@
-from app.utils.fcm_service import get_topic_name, register_id_to_topic
+from ..utils.fcm_service import get_topic_name, register_id_to_topic
 from firebase_admin.exceptions import FirebaseError
 import pytest
 

@@ -5,13 +5,97 @@ from datetime import timedelta
 from typing import Dict, List, Optional, Union
 
 import geocoder
+import pytz
 import requests
-from .client import get_location_alerts, weather
+from conf.settings import settings
+from fastapi import HTTPException, status
 from models import Location
 from schemas import ImmediateForecastResponse
-from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from conf.settings import settings
+
+from .client import weather
+from .open_meteo import client
+from .timer import now_utc
+
+
+def get_risk_message(risk: str):
+    """Format the risk message
+
+    Args:
+        risk (str): The risk
+
+    Returns:
+        str: The formatted risk message
+    """
+    return f"There is a high risk of {risk} in your area"
+
+
+def get_risks_by_location(
+    lat: float, long: float
+) -> List[Dict[str, Union[datetime.datetime, str]]]:
+    results = []
+
+    response = client.get_hourly_forecast(lat, long, timezone="UTC")
+
+    hourly_time: list[str] = response["hourly"]["time"]
+    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+
+    now = now_utc()
+
+    max_time = now + datetime.timedelta(hours=settings.MAX_STEP_HOURS + 1)
+
+    pointer = ""
+
+    i = -1
+    limit = len(hourly_time)
+    while i < limit:
+
+        i += 1
+
+        index_time = datetime.datetime.strptime(
+            hourly_time[i], "%Y-%m-%dT%H:%M")
+        index_time = pytz.utc.localize(index_time)
+
+        if index_time > max_time:
+            break
+
+        if pointer != "":
+            index_temp = hourly_temp[i]
+            index_precipitation = hourly_precipitation[i]
+            current_risk = get_risk(index_temp, index_precipitation)
+
+            if current_risk != pointer:  # changed
+                results[-1]["end"] = index_time
+                pointer = ''
+                i -= 1
+
+            continue
+
+        if index_time >= now:
+            index_temp = hourly_temp[i]
+            index_precipitation = hourly_precipitation[i]
+            risk = get_risk(index_temp, index_precipitation)
+
+            if risk is None:
+                continue
+
+            result = {
+                "start": index_time,
+                "end": max_time,
+                "event": risk,
+                "description": get_risk_message(risk)
+            }
+
+            pointer = risk
+
+            results.append(result)
+
+    if results:
+        if results[-1]["start"] == max_time:
+            results.pop()
+
+    return results
 
 
 def compose_location(city: str, state: str, country: str) -> str:
@@ -173,7 +257,7 @@ def reverse_geocode(lat: float, lon: float):
     }
 
 
-def get_location_alerts_by_address(address: str):
+def get_risks_by_address(address: str):
     """Get the location alerts for a given address
 
     :param address: The address
@@ -186,7 +270,7 @@ def get_location_alerts_by_address(address: str):
     geo_addr = geocode_address(address)
     lat = geo_addr['lat']
     lon = geo_addr['lon']
-    return get_location_alerts(lat, lon)
+    return get_risks_by_location(lat, lon)
 
 
 def weather_api_call(lon: float, lat: float) -> Dict[str, str]:

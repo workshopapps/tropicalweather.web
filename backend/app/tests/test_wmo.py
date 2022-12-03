@@ -1,4 +1,4 @@
-from app.utils.weather_code import WmoCodes
+from ..utils.weather_code import WmoCodes
 import pytest
 
 

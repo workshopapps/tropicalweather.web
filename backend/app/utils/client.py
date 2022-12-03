@@ -1,5 +1,5 @@
 
-from typing import Dict, List, Union
+from typing import Union
 
 import requests
 from conf.settings import settings

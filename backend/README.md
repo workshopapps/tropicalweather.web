@@ -27,7 +27,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-API used: https://openweathermap.org/api
+API used: https://openweathermap.org/api and https://open-meteo.com/en/docs
 
 API implementation for frontend team
 
@@ -66,9 +66,16 @@ Install dependencies
   pip install -r requirements.txt
   ```
 
+Also you need to create a logs folder in the backend directory
+
+  ```bash
+  mkdir logs
+  ```
+
 Create .env file
 
   ```bash
+  cd app
   touch .env
   ```
 
@@ -78,14 +85,19 @@ Copy the example in env.example and paste it in .env
   cp env.example .env
   ```
 
-Run tests
+  You can use sqlite by default, but if you want to use postgresql, you need to install it and create a database and set it as the `DB_TYPE` in the .env file. Same goes for mysql.
+
+Before running the server, you need to run the migrations
+
+  ```bash
+  alembic upgrade head
+  ```
 
 Run fastapi server
 
   ```bash
   uvicorn main:app --reload
   ```
-
 
 ## 🚀 Running Tests <a name = "testing"></a>
 
