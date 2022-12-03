@@ -1,4 +1,4 @@
-from app.utils.general import geocode_address, reverse_geocode
+from ..utils.general import geocode_address, reverse_geocode
 import pytest
 from fastapi import HTTPException
 
