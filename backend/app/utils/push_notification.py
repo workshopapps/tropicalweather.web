@@ -17,7 +17,7 @@ def send_notification_to_topic(payload, topic):
         data={
         "event": payload['event'],
         "message": payload["description"],
-        "datetime": datetime.strptime(payload['start'], '%d/%m/%y %H:%M:%S')
+        "datetime": datetime.strptime(payload['end'], '%y-%m-%d %H:%M')
         },
         topic=topic,
     )
