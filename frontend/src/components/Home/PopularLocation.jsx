@@ -11,7 +11,7 @@ import '../../styles/Home.css';
 export default function PopularLocation({ location, bin, remove }) {
   const { data, isError, isFetching } = useQuery(
     ['popularlocation', { location }],
-    () => axios.get(`${BASEURL}/weather/current?address=${location}`),
+    () => axios.get(`${BASEURL}/weather/current/by-address?address=${location}`),
     { retry: 3 }
   );
 
