@@ -3,7 +3,6 @@ from typing import List
 
 from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
-from schemas import *  # noqa: F401, F403
 from schemas import (AlertsResponse, CurrentWeatherResponse,
                      ImmediateForecastResponse, RiskEvent, RiskLevel,
                      RiskResponse, WeatherResponse)
@@ -388,7 +387,7 @@ async def weather_tomorrow(address: str):
 @router.get('/forecasts/by-address', response_model=List[WeatherResponse])
 async def forecast_by_address(address: str):
     """
-    Get today forecasts for a given address 
+    Get today forecasts for a given address
     param address: Address to get forecast for
     type address: str
     raise HTTPException: If address is not valid or not found
@@ -403,3 +402,50 @@ async def forecast_by_address(address: str):
     data = hourly_forecasts(lat, lon)
 
     return data
+
+
+@router.get("/weekly/by-address")
+async def weather_this_week(address: str):
+    try:
+        god = geocode_address(address)
+        lat = god['lat']
+        lon = god['lon']
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+
+    response = client.get_daily_forecast(lat, lon, daily_params=['weathercode'], timezone="Africa/Lagos")
+
+    daily_time: list[str] = response["daily"]["time"]
+    daily_temp: list[str] = response["daily"]["apparent_temperature_max"]
+    daily_precipitation: list[str] = response["daily"]["precipitation_sum"]
+    daily_weathercode: list[str] = response["daily"]["weathercode"]
+
+    data_results = []
+
+    for i in range(7):
+        time_index = daily_time[i]
+        time_index = datetime.strptime(time_index, "%Y-%m-%d")
+
+        temp_index = daily_temp[i]
+        prept_index = daily_precipitation[i]
+        index_weathercode = daily_weathercode[i]
+
+        weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+
+        risk = get_risk(temp_index, prept_index)
+
+        data = {
+        	"main": weather_desc,
+        	"datetime": daily_time[i],
+        	"risk": risk,
+		    "state": god['state'],
+		    "city": god['city'],
+		    "country": god['country']
+    	}
+
+        data_results.append(data)
+    return data_results
