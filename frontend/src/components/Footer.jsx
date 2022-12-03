@@ -13,7 +13,7 @@ export default function Footer() {
       <div className="p-4 bg-[#B93815] md:py-10 md:px-16">
         <div className="flex flex-col gap-10 pb-12 md:flex-row md:justify-between md:items-center">
           <div>
-            <img src="/logo-white.png" alt="logo" />
+            <img src="/footer-logo.png" alt="logo" />
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
               <Link
                 onClick={() => {
@@ -32,8 +32,16 @@ export default function Footer() {
           <div>
             <span className="footer-title">Download the mobile app</span>
             <div className="flex flex-wrap gap-6 mt-6">
-              <img src="/app-store.png" alt="app store" />
-              <img src="/google-play.png" alt="google play" />
+              <Link
+                to="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+              >
+                <img src="/app-store.png" alt="app store" />
+              </Link>
+              <Link
+                to="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+              >
+                <img src="/google-play.png" alt="google play" />
+              </Link>
             </div>
           </div>
         </div>

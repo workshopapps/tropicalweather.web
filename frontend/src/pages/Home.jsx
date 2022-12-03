@@ -316,9 +316,17 @@ export default function Home() {
               Explore the flexibility and ease that comes with using our
               Weatherly app on the go!
             </p>
-            <div>
-              <img src="/app-store.png" alt="" />
-              <img src="/google-play.png" alt="" />
+            <div className="flex flex-direction:row gap-6 mt-6">
+              <Link
+                to="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+              >
+                <img src="/app-store.png" alt="app store" />
+              </Link>
+              <Link
+                to="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+              >
+                <img src="/google-play.png" alt="google play" />
+              </Link>
             </div>
           </div>
           <div className="landing_phones_wrapper">
