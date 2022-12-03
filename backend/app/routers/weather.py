@@ -139,10 +139,10 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
                 alert_instance = {
                     'event': mydata.event,
                     'message': mydata.message,
-                    'datetime': datetime.strptime(date_time, '%y/%m/%d %H:%M')
+                    'datetime': datetime.strptime(date_time, '%Y/%m/%d %H:%M')
                 }
 
                 data.append(alert_instance)
 
     return data
-
+s
