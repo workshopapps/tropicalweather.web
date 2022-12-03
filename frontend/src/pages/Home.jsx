@@ -31,7 +31,7 @@ export default function Home() {
   };
   const getImmediateWeather = async () => {
     const response = await fetch(
-      `${APIURL}/weather/current?address=${userLocation.replace(', ', '%2C%20')}`
+      `${APIURL}/weather/current/by-address?address=${userLocation.replace(', ', '%2C%20')}`
     );
     const data = await response.json();
     setImmediateWeather(data);
@@ -70,13 +70,13 @@ export default function Home() {
     }
     getLocation();
   }, []);
-    useEffect(() => {
-   getImmediateWeather();
-    }, [userLocation]);
-    if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
-          getCurrentLocationFromCoords();
-          getWeatherForecast();
-    }
+  useEffect(() => {
+    getImmediateWeather();
+  }, [userLocation]);
+  if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+    getCurrentLocationFromCoords();
+    getWeatherForecast();
+  }
   return (
     <div id="home">
       <header className="landing_header">
@@ -84,7 +84,7 @@ export default function Home() {
           {userLocation !== 'undefined, undefined' && (
             <p className="homepage-location">{userLocation}</p>
           )}
-          {immediateWeather !== null && immediateWeather.main === 'Clouds' && (
+          {immediateWeather !== null && (
             <div className="homepg-immed">
               <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
               <div>
@@ -92,15 +92,15 @@ export default function Home() {
                   Today
                   {'  '}
                   <span>
-                    {Number(immediateWeather.time.slice(0, 2)) + 1 < 10
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1 < 10
                       ? 0
                       : ''}
-                    {Number(immediateWeather.time.slice(0, 2)) + 1}
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1}
                     {' '}
-                    {immediateWeather.time.slice(2)}
+                    {immediateWeather.datetime.slice(2)}
                   </span>
                 </p>
-                <p className="homepg-immedp">{immediateWeather.description}</p>
+                <p className="homepg-immedp">{immediateWeather.main}</p>
               </div>
             </div>
           )}

@@ -112,10 +112,10 @@ export default function Dashboard() {
     setSavedLocations([]);
     setSavedLocations(loc);
   };
-  const showToast = (type) => {
-    setToast(type);
+  const showToast = () => {
+    setToast(true);
     setTimeout(() => {
-      setToast('');
+      setToast(false);
     }, 3000);
   };
 
@@ -125,7 +125,7 @@ export default function Dashboard() {
     locs.push(location);
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
-    showToast('SUCCESS');
+    showToast();
   };
 
   const isSaved = savedLocations.some(
