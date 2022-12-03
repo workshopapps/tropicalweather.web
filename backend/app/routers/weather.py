@@ -5,16 +5,19 @@ from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas import (AlertsResponse, CurrentWeatherResponse,
                      ImmediateForecastResponse, RiskEvent, RiskLevel,
-                     RiskResponse, WeatherResponse)
+                     RiskResponse, WeatherResponse, SingleWeatherResponse,
+                     WeatherResponse, UserCurrentWeather)
 from sqlalchemy.orm import Session
 from utils.client import reverse_geocoding, weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_immediate_weather_api_call, get_location_obj,
                            get_risk, immediate_weather_api_call_tommorrow,
-                           weather_api_call, weather_forcast_extended_call)
+                           weather_api_call, weather_forcast_extended_call,
+                           reverse_geocode)
 from utils.hourly_forecast import hourly_forecasts
 from utils.open_meteo import client
 from utils.weather_code import WmoCodes
+from utils.user_current_forecast import user_current_forecasts
 
 router = APIRouter(
     prefix="/weather",
@@ -28,7 +31,27 @@ async def weather_forecasts(lat: float, lon: float):
     return hourly_forecasts(lat, lon)
 
 
-@router.get('/current', response_model=CurrentWeatherResponse)
+@router.get('/current', response_model=UserCurrentWeather)
+async def get_user_current_weather(lat: float, lon: float):
+    """Get current weather for a given address
+
+    :param lat: Latitude to get weather for
+    :param lon: Longitude to get weather for
+    :type lat: float
+    :type lon: float
+    :raises HTTPException: If lat or lon is not valid or not found
+    :return: Current weather for a user
+    :rtype: UserCurrentWeather
+    """
+    location = reverse_geocode(lat=lat, lon=lon)
+    result = user_current_forecasts(lat=lat, lon=lon)
+    result['city'] = location['city']
+    result['state'] = location['state']
+    result['country'] = location['country']
+    return result
+
+
+@router.get('/current/by-address', response_model=CurrentWeatherResponse)
 async def get_current_weather(address: str):
     """Get current weather for a given address
 
@@ -41,6 +64,12 @@ async def get_current_weather(address: str):
 
     geo_address = geocode_address(address)
     lat, lon = geo_address['lat'], geo_address['lon']
+    #location = reverse_geocode(lat=lat, lon=lon)
+    result = user_current_forecasts(lat=lat, lon=lon)
+    result['city'] = geo_address['city']
+    result['state'] = geo_address['state']
+    result['country'] = geo_address['country']
+    return result
 
     weather_data = weather_api_call(lon, lat)
 
