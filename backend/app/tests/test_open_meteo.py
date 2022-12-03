@@ -1,5 +1,5 @@
-from app.utils.open_meteo import client
-from app.conf.settings import settings
+from ..utils.open_meteo import client
+from ..conf.settings import settings
 
 
 def test_init():
