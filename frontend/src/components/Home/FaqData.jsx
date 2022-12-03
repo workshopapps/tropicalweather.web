@@ -6,7 +6,8 @@ const faqsData = [
   },
   {
     question: '2. WHAT ARE YOU DOING WITH MY LOCATION DATA?',
-    answer: 'Tropical weather only uses your location data to give you up to date weather reports and nothing else!',
+    answer: `Tropical weather only uses your location data to give you up to 
+    date weather reports and nothing else!`,
   },
   {
     question: '3. HOW DO I VIEW THE RADAR MAP?',
@@ -19,7 +20,8 @@ const faqsData = [
   },
   {
     question: '4. HOW DO I MANAGE THE NOTIFICATION?',
-    answer: 'Go to  your notifications page and click and the menu icon and you can manage and customize your notifications',
+    answer: `Go to  your notifications page and click and the menu icon and you 
+    can manage and customize your notifications`,
   },
 ];
 export default faqsData;
