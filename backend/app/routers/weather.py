@@ -1,16 +1,20 @@
+from datetime import datetime
 from typing import List
 
-from dependencies import get_db
+from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas import (AlertsResponse, CurrentWeatherResponse,
-                     ImmediateForecastResponse, SingleWeatherResponse)
+                     ImmediateForecastResponse, RiskEvent, RiskLevel,
+                     RiskResponse, WeatherResponse)
 from sqlalchemy.orm import Session
-from utils.client import weather
+from utils.client import reverse_geocoding, weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_immediate_weather_api_call, get_location_obj,
-                           get_weather_forecast,
-                           immediate_weather_api_call_tommorrow,
-                           reverse_geocode, weather_api_call)
+                           get_risk, immediate_weather_api_call_tommorrow,
+                           weather_api_call, weather_forcast_extended_call)
+from utils.hourly_forecast import hourly_forecasts
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
 
 router = APIRouter(
     prefix="/weather",
@@ -18,26 +22,10 @@ router = APIRouter(
 )
 
 
-@router.get('/forecasts', response_model=List[SingleWeatherResponse])
-async def weather_forcasts(lat: float, lon: float):
-    """Get weather forecast for next 10 steps"""
-    try:
-        weather_forecasts_data = get_weather_forecast(lat, lon)
-    except Exception:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Can't retrive weather data for this location"
-        )
+@router.get('/forecasts', response_model=List[WeatherResponse])
+async def weather_forecasts(lat: float, lon: float):
 
-    results = []
-
-    for forcast in weather_forecasts_data:
-        data = convert_epoch_to_datetime(forcast.get('dt'))
-        data['main'] = forcast['weather'][0]['main']
-        data['description'] = forcast['weather'][0]['description']
-        results.append(data)
-
-    return results
+    return hourly_forecasts(lat, lon)
 
 
 @router.get('/current', response_model=CurrentWeatherResponse)
@@ -136,7 +124,7 @@ async def get_tommorrows_weather(lat: float, lon: float):
 @router.get('/alerts/list', response_model=List[AlertsResponse])
 def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
-    latlng = reverse_geocode(lat, lon)
+    latlng = reverse_geocoding(lat, lon)
     city = latlng.get('city')
     state = latlng.get('state')
 
@@ -159,3 +147,305 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
             data.append(alert_instance)
 
     return data
+
+
+@router.get('/risk', response_model=List[RiskResponse])
+async def get_location_weather_risk(lat: float, lon: float):
+
+    return [
+        {
+            "risk": RiskEvent.FLOOD,
+            "level": RiskLevel.HIGH,
+        },
+        {
+            "risk": RiskEvent.SUNBURN,
+            "level": RiskLevel.LOW,
+        },
+        {
+            "risk": RiskEvent.DUST,
+            "level": RiskLevel.MODERATE,
+        },
+        {
+            "risk": RiskEvent.FOG,
+            "level": RiskLevel.EXTREME,
+        }
+    ]
+
+
+@router.get('/forcast/extended')
+async def get_extended_forecast(lat: float, lon: float):
+    try:
+            
+        # API call
+        '''
+        req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
+        
+        res = requests.get(req).json()
+        '''
+        res = weather_forcast_extended_call(lat, lon)
+        
+        address = reverse_geocoding(lat, lon)
+        
+        city: str = address[0]['name']
+        state: str = address[0]['state']
+        country: str = address[0]['country']
+        main = res['current_weather']['weathercode']
+        datetime = res['current_weather']['time']
+        hourly_timestamps: list(str) = res['hourly']['time']
+        
+        # get the current time index to be used in other parameters
+        time_index : int = hourly_timestamps.index(datetime)
+        
+        weather_code = res['hourly']['weathercode']
+        weather_code[time_index]
+        temperature = res['hourly']['temperature_2m'][time_index]
+        
+        precipitation = res['hourly']['precipitation'][time_index]
+        temp = res['hourly']['temperature_2m']
+        prec = res['hourly']['precipitation']
+        match = weather_code[time_index]
+        end_datetime :str = ""
+        for i in range(time_index, len(weather_code)):
+        
+            if match != weather_code[i]:
+                end_datetime = hourly_timestamps[i]        
+                break 
+            end_datetime = hourly_timestamps[i]    
+            break
+        
+        risk = get_risk(temperature, precipitation)
+        todays_timeline = []
+        for forecast in range(time_index, 24): 
+            
+            main_weather = WmoCodes.get_wmo_code(weather_code[forecast])
+            datetime_by_index =  hourly_timestamps[forecast]
+            temperature_by_index= temp[forecast]
+            precipitation_by_index = prec[forecast]
+            risk_by_index = get_risk(temperature_by_index, precipitation_by_index)
+            
+            time_line = {
+            
+            "main": main_weather,
+            "datetime": datetime_by_index.replace("T", " "),
+            "risk": risk_by_index
+            
+            }
+        
+            todays_timeline.append(time_line)
+        
+        current = {
+            "main" : WmoCodes.get_wmo_code(main),
+            "datetime": datetime.replace("T", " "),
+            "end_datetime": end_datetime.replace("T", " "),
+            "risk": risk
+        } 
+             
+        
+        result = {
+            
+            "city": city,
+            "state": state,
+            "country": country,
+            "current": current,
+            "todays_timeline": todays_timeline
+
+                }
+        return result 
+    
+    except Exception:
+        raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Can't retrive weather data for this location"
+    )
+ 
+@router.get('/forcast/extended/by_address')
+async def get_extended_forcast_by_address(address): 
+    
+    city_and_state = geocode_address(address) 
+    
+    lat = city_and_state['lat']
+    lon = city_and_state['lon']
+    #city = city_and_state['city']
+    state = city_and_state['state']
+    country = city_and_state['country']
+
+    res = weather_forcast_extended_call(lat, lon)    
+    get_city = reverse_geocoding(lat, lon)
+    city = get_city[0]['name']
+    main = res['current_weather']['weathercode']
+    datetime = res['current_weather']['time']
+    hourly_timestamps: list(str) = res['hourly']['time']
+
+    # get the current time index to be used in other parameters
+    time_index: int = hourly_timestamps.index(datetime)
+
+    weather_code = res['hourly']['weathercode']
+    weather_code[time_index]
+    temperature = res['hourly']['temperature_2m'][time_index]
+
+    precipitation = res['hourly']['precipitation'][time_index]
+    temp = res['hourly']['temperature_2m']
+    prec = res['hourly']['precipitation']
+    match = weather_code[time_index]
+    end_datetime: str = ""
+    for i in range(time_index, len(weather_code)):
+
+        if match != weather_code[i]:
+            end_datetime = hourly_timestamps[i]        
+            break 
+        end_datetime = hourly_timestamps[i]    
+        break
+
+    risk = get_risk(temperature, precipitation)
+    todays_timeline = []
+    for forecast in range(time_index, 24): 
+        
+        main_weather = WmoCodes.get_wmo_code(weather_code[forecast])
+        datetime_by_index =  hourly_timestamps[forecast]
+        temperature_by_index= temp[forecast]
+        precipitation_by_index = prec[forecast]
+        risk_by_index = get_risk(temperature_by_index, precipitation_by_index)
+        
+        time_line = {
+        
+        "main": main_weather,
+        "datetime": datetime_by_index.replace("T", " "),
+        "risk": risk_by_index
+        
+        }
+    
+        todays_timeline.append(time_line)
+    
+    current = {
+        "main": WmoCodes.get_wmo_code(main),
+        "datetime": datetime.replace("T", " "),
+        "end_datetime": end_datetime.replace("T", " "),
+        "risk": risk
+    } 
+            
+    
+    result = {
+
+        "city": city,
+        "state": state,
+        "country": country,
+        "current": current,
+        "todays_timeline": todays_timeline
+
+        }
+    return result 
+
+
+@router.get("/forecasts/tomorrow/by-address")
+async def weather_tomorrow(address: str):
+    try:
+        geo = geocode_address(address)
+        lat = geo['lat']
+        lon = geo['lon']
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+
+    response = client.get_hourly_forecast(
+        lat, lon, hourly_params=['weathercode'])
+
+    hourly_time: list[str] = response["hourly"]["time"]
+    hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+    hourly_weathercode: list[str] = response["hourly"]["weathercode"]
+
+    result = []
+
+    for i in range(24, 48):
+        index_time = hourly_time[i]
+        index_time = datetime.strptime(index_time, "%Y-%m-%dT%H:%M")
+
+        index_temp = hourly_temp[i]
+        index_precipitation = hourly_precipitation[i]
+        index_weathercode = hourly_weathercode[i]
+
+        weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+
+        risk = get_risk(index_temp, index_precipitation)
+
+        res = {
+            "main": weather_desc,
+            "datetime": hourly_time[i].replace("T", " "),
+            "risk": risk,
+            "state": geo['state'],
+            "city": geo['city'],
+            "country": geo['country']
+        }
+
+        result.append(res)
+    return result
+
+
+@router.get('/forecasts/by-address', response_model=List[WeatherResponse])
+async def forecast_by_address(address: str):
+    """
+    Get today forecasts for a given address
+    param address: Address to get forecast for
+    type address: str
+    raise HTTPException: If address is not valid or not found
+    return: today forecasts for the address
+    rtype: SingleWeatherResponse
+    """
+
+    geo_address = geocode_address(address)
+
+    lat, lon = geo_address['lat'], geo_address['lon']
+
+    data = hourly_forecasts(lat, lon)
+
+    return data
+
+
+@router.get("/weekly/by-address")
+async def weather_this_week(address: str):
+    try:
+        god = geocode_address(address)
+        lat = god['lat']
+        lon = god['lon']
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+
+    response = client.get_daily_forecast(lat, lon, daily_params=['weathercode'], timezone="Africa/Lagos")
+
+    daily_time: list[str] = response["daily"]["time"]
+    daily_temp: list[str] = response["daily"]["apparent_temperature_max"]
+    daily_precipitation: list[str] = response["daily"]["precipitation_sum"]
+    daily_weathercode: list[str] = response["daily"]["weathercode"]
+
+    data_results = []
+
+    for i in range(7):
+        time_index = daily_time[i]
+        time_index = datetime.strptime(time_index, "%Y-%m-%d")
+
+        temp_index = daily_temp[i]
+        prept_index = daily_precipitation[i]
+        index_weathercode = daily_weathercode[i]
+
+        weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+
+        risk = get_risk(temp_index, prept_index)
+
+        data = {
+        	"main": weather_desc,
+        	"datetime": daily_time[i],
+        	"risk": risk,
+		    "state": god['state'],
+		    "city": god['city'],
+		    "country": god['country']
+    	}
+
+        data_results.append(data)
+    return data_results

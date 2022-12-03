@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function AboutWeatherySection() {
   const { t } = useTranslation(['about']);
@@ -9,7 +10,7 @@ function AboutWeatherySection() {
       <p className="text-[#82808F] font-normal text-base md:text-2xl">{t('abouttropicalweatherbody')}</p>
 
       <div className="flex justify-center py-10">
-        <button className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">{t('getstarted')}</button>
+        <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button">{t('getstarted')}</Link>
       </div>
     </div>
   );

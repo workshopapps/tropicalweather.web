@@ -1,20 +1,57 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+// import { Link } from 'react-router-dom';
 import PopularLocation from '../components/Home/PopularLocation';
+// import Faqs from '../components/Home/Faqs';
 import Faq from '../components/Home/Faq';
 import HourlyUpdate from '../components/Home/HoulyUpdate';
 import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
+import MobileAdvert from '../components/MobileAdvert';
+// import Share from '../components/share/Share_popup';
 
 export default function Home() {
+  const APIURL = 'https://api.tropicalweather.hng.tech';
+  const [userLocation, setUserLocation] = useState(null);
+  const [immediateWeather, setImmediateWeather] = useState(null);
+  const [weatherForecast, setWeatherForecast] = useState([]);
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
-  const coord = useRef({ lon: 0, lat: 0 });
   const { t } = useTranslation(['home']);
 
+  const coord = useRef({ longitude: 0, latitude: 0 });
+  const getCurrentLocationFromCoords = async () => {
+    const { latitude, longitude } = coord.current;
+    const response = await fetch(
+      `${APIURL}/location?lat=${latitude}&lon=${longitude}`
+    );
+    const data = await response.json();
+    const location = `${data.city}, ${data.state}`;
+    setUserLocation(location);
+  };
+  const getImmediateWeather = async () => {
+    const { latitude, longitude } = coord.current;
+    const response = await fetch(
+      `${APIURL}/weather/forecasts/immediate?lat=${latitude}&lng=${longitude}`
+    );
+    const data = await response.json();
+    setImmediateWeather(data);
+  };
+  const getWeatherForecast = async () => {
+    const { latitude, longitude } = coord.current;
+    const response = await fetch(
+      `${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`
+    );
+    const data = await response.json();
+    setWeatherForecast(data);
+  };
+  const navigate = useNavigate();
+   const gotoDashboard = (city) => {
+     navigate(`/dashboard?city=${city}`);
+   };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
@@ -30,73 +67,124 @@ export default function Home() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           coord.current = {
-            lon: position.coords.longitude,
-            lat: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude,
           };
         });
       }
     }
     getLocation();
-  }, []);
+    getCurrentLocationFromCoords();
+    getImmediateWeather();
+    getWeatherForecast();
+  }, [userLocation]);
 
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
-          <div className="flex items-center gap-4">
-            <div className="flex flex-col lg:mt-[-80px] items-center text-center md:items-start md:text-left gap-[14px]">
-              <h1 className="text-[60px] leading-[88px]">
-                {t('primaryheading')}
-              </h1>
-              <p className="text-[30px] font-[400]">
-                {t('secondaryheading')}
+          {userLocation !== 'undefined, undefined' && (
+            <p className="homepage-location">{userLocation}</p>
+          )}
+          {immediateWeather !== null && immediateWeather.main === 'Clouds' && (
+            <>
+              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="" />
+              <p>
+                Today
+                {immediateWeather.time}
               </p>
-              <div className="flex flex-col mt-[20px] gap-4 min-[350px]:flex-row ">
-                <Link
-                  to="/dashboard"
-                  className="landing_hero_link rounded-sm border-solid border border-[#ffff]"
-                >
-                  {t('viewmore')}
-                </Link>
-                <a
-                  href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
-                  target="_BLANK"
-                  rel="noreferrer"
-                  className="landing_hero_link bg-[var(--l-primary-color)] border-none rounded-sm flex items-center justify-center gap-2"
-                >
-                  {t('download')}
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 3.97C7.59 3.97 3.97 7.59 3.97 12C3.97 16.41 7.59 20.03 12 20.03C16.41 20.03 20.03 16.41 20.03 12C20.03 7.59 16.41 3.97 12 3.97ZM12 2C17.54 2 22 6.46 22 12C22 17.54 17.54 22 12 22C6.46 22 2 17.54 2 12C2 6.46 6.46 2 12 2ZM13.88 11.53L16 13.64V8H10.36L12.47 10.12L7.5 15.1L8.9 16.5"
-                      fill="white"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div className="hidden w-4/6 md:block">
-              <img src="/Home/hero-phone.png" alt="" />
-            </div>
+              <p>{immediateWeather.description}</p>
+            </>
+          )}
+          <div className="homepg-weatherfc">
+            <ul>
+              {weatherForecast !== null &&
+                Array.from(new Set(weatherForecast.map((a) => a.time)))
+                  .map((time) => weatherForecast.find((a) => a.time === time))
+                  .map((forecast) => (
+                    <li key={forecast.time}>
+                      {forecast.main === 'Clouds' && (
+                        <>
+                          <p>{forecast.time}</p>
+                          <img
+                            src="./assets/NotificationFeedList/CLOUDY.svg"
+                            alt=""
+                          />
+                          <p>{forecast.main}</p>
+                        </>
+                      )}
+                      {forecast.main === 'Rain' && (
+                        <>
+                          <p>{forecast.time}</p>
+                          <img
+                            src="./assets/NotificationFeedList/icon.svg"
+                            alt=""
+                          />
+                          <p>{forecast.main}</p>
+                        </>
+                      )}
+                    </li>
+                  ))}
+            </ul>
           </div>
         </div>
       </header>
-
-      <div className="landing_sections_wrapper">
-        <section className="w-full flex flex-col gap-20 py-[96px]">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="landing_header_md">{t('weatherupdates')}</h3>
-              <p className="text-[#565560]">{t('updatedamin')}</p>
-            </div>
-            <button type="button" className="text-[#565560]">
+      <div className="homepg-worldforecast">
+        <h2>World Forecast</h2>
+        <ul className="homepg-worldul">
+          <div className="homepg-worldone">
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectanglefour.svg" alt="" />
+                <span> AUS AUSTRALIA</span>
+              </div>
               {' '}
-            </button>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Canberra, Ghana')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 3.svg" alt="" />
+                <span>SWE SWEDEN </span>
+                {' '}
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Stockholm, Sweden')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 5.svg" alt="" />
+                <span> NLD NETEHERLANDS</span>
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Amsterdam, NETEHERLANDS')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/Rectangle 6.svg" alt="" />
+                <span>GBR UNITED KINGDOM</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('London, UNITED KINGDOM')}
+                className="homepg-dash"
+              />
+            </li>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
             <div className="rounded-lg shadow-md px-[10px] min-[350px]:px-[40px] py-4">
@@ -159,11 +247,64 @@ export default function Home() {
                   day={`${t('rainy')}, 11/24/2022`}
                 />
               </div>
+
+              <div className="homepg-worldtwo">
+                <li className="homepg-poplis">
+                  <div className="homepg-popflex">
+                    <img src="/Home/Rectangle 5 (1).svg" alt="" />
+                    <span>IDN INDONESIA</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="go to dashboard"
+                    onClick={() => gotoDashboard('Jakarta, INDONESIA')}
+                    className="homepg-dash"
+                  />
+                </li>
+                <li className="homepg-poplis">
+                  <div className="homepg-popflex">
+                    <img src="/Home/Rectangle 6 (1).svg" alt="" />
+                    <span>JPN JAPAN</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="go to dashboard"
+                    onClick={() => gotoDashboard('Tokoyo, Japan')}
+                    className="homepg-dash"
+                  />
+                </li>
+                <li className="homepg-poplis">
+                  <div className="homepg-popflex">
+                    <img src="/Home/Rectangle 7.svg" alt="" />
+                    <span>CAN CANADA</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="go to dashboard"
+                    onClick={() => gotoDashboard('Ottawa, CANADA')}
+                    className="homepg-dash"
+                  />
+                </li>
+                <li className="homepg-poplis">
+                  <div className="homepg-popflex">
+                    <img src="/Home/Rectangle 8.svg" alt="" />
+                    <span>USA UNITED STATES</span>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="go to dashboard"
+                    onClick={() => gotoDashboard('WashingtonDc, UNITED STATES')}
+                    className="homepg-dash"
+                  />
+                </li>
+              </div>
             </div>
           </div>
-        </section>
+        </ul>
+        <button type="button" className="homepg-explore" onClick={() => gotoDashboard('')}>
+          Expore all location
+        </button>
       </div>
-
       <section
         id="landing_locations"
         className="w-full flex flex-col gap-[40px] bg-[#FFF3E7] py-[96px]"
@@ -363,6 +504,8 @@ function FaqSection() {
           open={openAll}
         />
       </div>
+      {/* <Faqs /> */}
+      <MobileAdvert />
     </section>
   );
 }

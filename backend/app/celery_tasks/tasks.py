@@ -1,25 +1,13 @@
-"""This would work to auto update the events
-
-1. Get the alert locations from db
-2. Loop through the locations
-3. Get the events of the location from the api
-4. Compare the events with the db events
-5. If there is a new event, add it to the db
-6. If there is a deleted event, delete it from the db
-7. Actions that update or create new event for a location
-automatically sends websocket message to the clients subscribed to the location
-
-"""
-
+import datetime
 import hashlib
-from typing import List
+from typing import List, Union
 
-from app.alerts import (close_connection, create_connection,
-                        send_message_to_room)
-from app.database import get_db
 import models
-from app.utils.general import get_location_alerts_by_address
+from conf.runtime import logger
 from sqlalchemy.orm import Session
+from utils.fcm_service import get_topic_name
+from utils.general import get_risks_by_address
+from utils.timer import now_utc
 
 
 def get_db_locations(db: Session) -> List[models.Location]:
@@ -28,26 +16,27 @@ def get_db_locations(db: Session) -> List[models.Location]:
     return db.query(models.Location).all()
 
 
-def get_location_alerts_api(location: models.Location):
+def get_location_risks(location: models.Location):
     """Get the alerts of this location
     from the api
     """
-    address = f"{location.city} {location.state}"
-    return get_location_alerts_by_address(address)
+    address = f"{location.city}, {location.state}, {location.country}"
+    return get_risks_by_address(address)
 
 
-def create_events(
-    db: Session, location: models.Location, alerts: List[dict[str, str]]
+def create_alerts(
+    db: Session, location: models.Location,
+    alerts: List[dict[str, Union[str, datetime.datetime]]]
 ):
     """Create new alerts for the
     location
     """
-    for alert in alerts:
-        event = alert["event"]
-        description = alert["description"]
-        start = alert["start"]
-        end = alert["end"]
-        event_hash = hash_alert(alert)
+    for _alert in alerts:
+        event = _alert["event"]
+        description = _alert["description"]
+        start = _alert["start"].timestamp()
+        end = _alert["end"].timestamp()
+        event_hash = hash_alert(_alert)
         alert = models.Alert(
             event=event,
             message=description,
@@ -62,63 +51,52 @@ def create_events(
     db.commit()
 
 
-def delete_alert(db: Session, alert: models.Alert):
-    """Delete event from the db
+def send_messages(location: models.Location, events: List[dict[str, str]]):
+    """Send messages of new alerts to topics
     """
-    db.delete(alert)
-    db.commit()
+    topic_name = get_topic_name(
+        location.city, location.state, location.country)
+
+    for event in events:
+        message = event["description"]
+        logger.info(f"Sending message to {topic_name}: {message}")
+
+    return topic_name
 
 
-def send_websocket_message(location: models.Location, events: List[dict[str, str]]):
-    """Send websocket message to the clients
-    subscribed to the alert location.
-    """
-    create_connection(location.city, location.state)
-    try:
-        for event in events:
-            event_title = event["event"]
-            message = event["description"]
-            send_message_to_room(
-                location.city, location.state, event_title, message
-            )
-    finally:
-        close_connection()
-
-
-def hash_alert(event) -> str:
+def hash_alert(event: dict[str, Union[str, datetime.datetime]]) -> str:
     """
     Compute a hash for an event. This is used to compare events
     """
-    start = event["start"]
-    end = event["end"]
+    start = event["start"].timestamp()
+    end = event["end"].timestamp()
     description = event["description"]
     event_title = event["event"]
     payload = f"{start}{end}{description}{event_title}"
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
-def update_alert_events():
+def update_alerts(db: Session):
     """Update the alert events
     """
-    from logging import info
-
-    info("Updating alert events")
-
-    db = get_db()
+    logger.info("Updating alerts")
+    now = now_utc()
     locations: List[models.Location] = get_db_locations(db)
+    logger.info(f"Found {len(locations)} locations")
+
     for location in locations:
-        api_alerts = get_location_alerts_api(location)
+        risks = get_location_risks(location)
         db_alerts = location.alerts
 
-        api_alerts_hash = {hash_alert(event): event for event in api_alerts}
+        risks_hash = {hash_alert(risk): risk for risk in risks}
 
-        for db_event in db_alerts:
-            event_hash = db_event.hash
-            if event_hash in api_alerts_hash:
-                del api_alerts_hash[event_hash]
+        for db_alert in db_alerts:
+            if db_alert.end_datetime() <= now:
+                db.delete(db_alert)
+                db.commit()
             else:
-                delete_alert(db, db_event)
+                risks_hash.pop(db_alert.hash, None)
 
-        new_alerts = list(api_alerts_hash.values())
-        create_events(db, location, new_alerts)
-        send_websocket_message(location, new_alerts)
+        new_alerts = list(risks_hash.values())
+        create_alerts(db, location, new_alerts)
+        send_messages(location, new_alerts)
