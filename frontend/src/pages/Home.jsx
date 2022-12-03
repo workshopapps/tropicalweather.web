@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faq from '../components/Home/Faq';
+import Faqs from '../components/Home/Faqs';
 import HourlyUpdate from '../components/Home/HoulyUpdate';
 import Risk from '../components/Home/Risk';
 import '../styles/Home.css';
@@ -304,7 +303,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <FaqSection />
+        <Faqs />
         <section id="landing_download_app">
           <div className="landing_download_container">
             <p>Go Mobile</p>
@@ -331,55 +330,5 @@ export default function Home() {
         </section>
       </div>
     </div>
-  );
-}
-
-function FaqSection() {
-  const [openAll, toggleOpenAll] = useState(false);
-  return (
-    <section className="flex flex-col gap-8 w-full pb-[96px]">
-      <div className="flex items-center justify-between">
-        <h3 className="landing_header_md">Explore FAQs</h3>
-        <button
-          type="button"
-          className="flex items-center gap-2 text-[#565560]"
-          onClick={() => toggleOpenAll((prv) => !prv)}
-        >
-          View full
-          {openAll ? <FaAngleUp /> : <FaAngleDown />}
-        </button>
-      </div>
-      <div className="sm:p-3 flex flex-col gap-8">
-        <Faq
-          position={1}
-          question="1. HOW DO I ADD, SAVE OR DELETE A LOCATION?"
-          answer=" Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your local storage will remove all saved locations."
-          open={openAll}
-        />
-        <Faq
-          question="2. WHAT ARE YOU DOING WITH MY LOCATION DATA?"
-          answer="Tropical weather only uses your location data to give you up to date weather reports and nothing else!"
-          open={openAll}
-        />
-        <Faq
-          question="3. HOW DO I VIEW THE RADAR MAP?"
-          answer="Tropical weather keeps track of your last five locations' searches. Click
-          the drop-down arrow to the top right side of the page, and you should
-          see your most recently viewed 5 locations. When you search for
-          additional locations, they will be replaced by new ones. However,
-          clearing your cookies will remove all saved locations."
-          open={openAll}
-        />
-        <Faq
-          question="4. HOW DO I MANAGE THE NOTIFICATION?"
-          answer="Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
-          open={openAll}
-        />
-      </div>
-    </section>
   );
 }
