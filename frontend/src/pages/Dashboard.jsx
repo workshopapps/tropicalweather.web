@@ -5,6 +5,7 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsShare, BsMap, BsHeart } from 'react-icons/bs';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import axios from 'axios';
+import Share from '../components/share/Share_popup';
 
 import WeatherPreview from '../components/Dashboard/WeatherPreview';
 import PopularLocation from '../components/Home/PopularLocation';
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [currentLocation, setCurrentLocation] = useState();
   const finalApiEndpoint = `https://api.tropicalweather.hng.tech/location?lat=${latitude}&lon=${longitude}`;
   const { search } = useLocation();
+  const [popup, setPopup] = useState(0);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -172,10 +174,18 @@ export default function Dashboard() {
               >
                 <div className="flex justify-between px-6">
                   <span>{`Today . ${time} `}</span>
-                  <button type="button" aria-label="share">
+                  <button
+                    type="button"
+                    aria-label="share"
+                    onClick={() => {
+                    setPopup(!popup);
+                  }}
+                    to=""
+                  >
                     <BsShare />
                   </button>
                 </div>
+                <Share popup={popup} setPopup={setPopup} />
                 <div className="px-6">
                   <p>{currentWeather.main || 'Data is not available yet'}</p>
 
