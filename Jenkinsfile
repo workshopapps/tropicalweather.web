@@ -16,9 +16,20 @@ pipeline {
 		stage("build frontend"){
 
 			steps {
-				sh "cd frontend && npm i --force && CI=false npm run build"
-			} 
+
+				dir('tropicalweather.web/frontend') {
+                    sh "npm install"
+                    sh "CI=false npm run build"
+            }
+
+			// 	sh "pwd"
+			// 	sh "cd ${WORKSPACE}/tropicalweather.web"
+			// 	sh "pwd"
+			// 	sh "cd frontend && sudo npm i --force && CI=false sudo npm run build"
+			// 	sh "pwd"
+			}
         }
+
         stage("build backend"){
 
 			steps {
@@ -26,6 +37,7 @@ pipeline {
                 sh "cd backend && sudo pip install -r requirements.txt"
             }
         }
+
 		stage("deploy") {
 		
 			steps {

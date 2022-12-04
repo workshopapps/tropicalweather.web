@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { BsGlobe } from 'react-icons/bs';
 import { BiSupport } from 'react-icons/bi';
+import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
+  const { t } = useTranslation(['common']);
+
   useEffect(() => {
     //  scroll to top on page load
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -42,21 +45,21 @@ export default function Footer() {
                 About us
               </Link> */}
               <Link to="/" className="link link-hover">
-                Home
+                {t('home')}
               </Link>
               <Link to="/about-us" className="link link-hover">
-                About us
+                {t('aboutus')}
               </Link>
               <Link to="/contact" className="link link-hover">
-                Contact Us
+                {t('contactus')}
               </Link>
               <Link smooth to="/#faq" className="link link-hover">
-                FAQs
+                {t('faqs')}
               </Link>
             </div>
           </div>
           <div>
-            <span className="footer-title">Download the mobile app</span>
+            <span className="footer-title">{t('downloadtheapp')}</span>
             <div className="flex flex-wrap gap-6 mt-6">
               <a
                 href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
@@ -76,9 +79,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-4 pt-5 border-t border-t-white md:flex-row">
-          <p className="order-last text-sm md:order-first md:text-base">
-            © 2022 Weathery, All rights reserved to Team Gear
-          </p>
+          <p className="order-last text-sm md:order-first md:text-base">{t('allrights')}</p>
           <div className="flex gap-6">
             <span className="flex items-center gap-2">
               <Link to="settings">

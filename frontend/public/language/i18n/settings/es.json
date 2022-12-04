@@ -1,0 +1,12 @@
+{
+  "back": "Espalda",
+  "title": "Ajustes",
+  "lang": "Idioma",
+  "langText": "Elija el idioma preferido",
+  "theme": "Tema",
+  "themeText": "Seleccionar tema preferido",
+  "noti": "Notificaciones",
+  "help": "Ayuda",
+  "lightmode": "Modo de luz",
+  "darkmode": "Modo oscuro"
+}
