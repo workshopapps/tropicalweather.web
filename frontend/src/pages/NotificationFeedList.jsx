@@ -1,47 +1,49 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import NotificationFeeds from '../components/NotificationFeedlist/NotificationFeeds';
 import '../styles/NotificationFeedList.css';
 import DeleteNotification from '../components/NotificationFeedlist/DeleteNotification';
 
 export default function NotificationFeedList() {
+  const { t } = useTranslation(['notification']);
   const [location, setLocation] = useState([
     {
       id: 'a',
       events: 'rainy',
-      feed: 'There will be heavy rain for some in northeast with a few brighter exceptions',
-      time: 'Now',
+      feed: `${t('heavyrainnortheast')}`,
+      time: `${t('now')}`,
     },
     {
       id: 'b',
       events: 'rainy',
-      feed: 'There will be heavy rain for some in northeast with a few brighter exceptions',
-      time: '5 mins',
+      feed: `${t('heavyrainnortheast')}`,
+      time: `5 ${t('mins')}`,
     },
 
     {
       id: 'c',
       events: 'sunny',
-      feed: 'There wil be heavy rain for some in northeast with a few brighter exceptions',
-      time: '12 mins',
+      feed: `${t('heavyrainnortheast')}`,
+      time: `12 ${t('mins')}`,
     },
     {
       id: 'd',
       events: 'rainy',
-      feed: ' Showers or longer spells of rain from Saturday night onwards, with some strong winds.',
-      time: '3 hours',
+      feed: `${t('showersorlargespell')}`,
+      time: `3 ${t('hours')}`,
     },
     {
       id: 'e',
       events: 'cloudy',
-      feed: 'There will be dark clouds and skies today. The weather remains cool all through the day.',
-      time: '8 hours',
+      feed: `${t('darkclouds')}`,
+      time: `8 ${t('hours')}`,
     },
     {
       id: 'f',
       events: 'sunny',
-      feed: 'The sun today will be scorching. You stand the risk of being exposed to high dust levels.',
-      time: '12 hours',
+      feed: `${t('sunwillscorch')}`,
+      time: `12 ${t('hours')}`,
     },
   ]);
 
@@ -62,9 +64,9 @@ export default function NotificationFeedList() {
               className="notificaton_feedbg notificaton_feedhome"
               aria-label="home"
             >
-              <span>Back</span>
+              <span>{t('back')}</span>
             </Link>
-            <h1>Notification</h1>
+            <h1>{t('notification')}</h1>
           </div>
 
           <button
