@@ -17,6 +17,8 @@ pipeline {
 
 			steps {
 				sh "pwd"
+				sh "cd tropicalweather.web/"
+				sh "pwd"
 				sh "cd frontend && sudo npm i --force && CI=false sudo npm run build"
 				sh "pwd"
 			}
