@@ -71,17 +71,17 @@ export default function Share({ popup, setPopup }) {
              <h1 className="today-fore">TODAYS FORECAST</h1>
              <div className="share-state">
                <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
-               <p className="lagos-share">{currentLocation || 'Not Available'}</p>
+               <p className="lagos-share">{currentLocation || 'loading...'}</p>
                <img src="/share/div line.png" alt="pop-up" className="share-horline" />
                <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
              </div>
              <div className="share-time">
-               <h2 className="share-heavy">{currentWeather.main || 'Not Available'}</h2>
+               <h2 className="share-heavy">{currentWeather.main || 'Loading...'}</h2>
                <p className="share-ptime">{time}</p>
              </div>
              <div className="share-risk">
                <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
-               <p className="share-arisk">{currentWeather.description || 'Data is not available'}</p>
+               <p className="share-arisk">{currentWeather.description || 'please wait...'}</p>
              </div>
            </div>
          </div>
