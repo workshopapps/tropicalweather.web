@@ -78,7 +78,7 @@ export default function ContactUs() {
               <br />
               <label htmlFor="textarea">Your Messgae</label>
               <br />
-              <textarea className="cu_input" name="textarea" id="textarea" cols="30" rows="10" placeholder="Your Message here..." />
+              <textarea className="cu_input" name="textarea" id="textarea" cols="30" rows="8" placeholder="Your Message here..." />
               <br />
               <div className="cu_button">
                 <button className="cu_button_" type="submit">Send</button>
