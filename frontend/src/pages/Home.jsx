@@ -1,9 +1,13 @@
+/* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
+import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
-// import Share from '../components/share/Share_popup';
+import MobileAdvert from '../components/MobileAdvert';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -12,36 +16,36 @@ export default function Home() {
   const [weatherForecast, setWeatherForecast] = useState([]);
   const slider = useRef(null);
   const [curr, setCurr] = useState(0);
-  const coord = useRef({ longitude: 0, latitude: 0 });
+  const onload = useRef(false);
+  const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
+  const { t } = useTranslation(['home']);
   const getCurrentLocationFromCoords = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/location?lat=${latitude}&lon=${longitude}`
+      `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     const location = `${data.city}, ${data.state}`;
     setUserLocation(location);
+    onload.current = true;
   };
   const getImmediateWeather = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/weather/forecasts/immediate?lat=${latitude}&lng=${longitude}`
+      `${APIURL}/weather/current/by-address?address=${userLocation.replace(', ', '%2C%20')}`
     );
     const data = await response.json();
     setImmediateWeather(data);
   };
   const getWeatherForecast = async () => {
-    const { latitude, longitude } = coord.current;
     const response = await fetch(
-      `${APIURL}/weather/forecasts?lat=${latitude}&lon=${longitude}`
+      `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     setWeatherForecast(data);
   };
   const navigate = useNavigate();
-   const gotoDashboard = (city) => {
-     navigate(`/dashboard?city=${city}`);
-   };
+  const gotoDashboard = (city) => {
+    navigate(`/dashboard?city=${city}`);
+  };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
       let { width } = window.getComputedStyle(slider.current);
@@ -56,19 +60,22 @@ export default function Home() {
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          coord.current = {
+          setCoord({
             longitude: position.coords.longitude,
             latitude: position.coords.latitude,
-          };
+          });
         });
       }
     }
     getLocation();
-    getCurrentLocationFromCoords();
+  }, []);
+  useEffect(() => {
     getImmediateWeather();
-    getWeatherForecast();
   }, [userLocation]);
-
+  if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+    getCurrentLocationFromCoords();
+    getWeatherForecast();
+  }
   return (
     <div id="home">
       <header className="landing_header">
@@ -76,45 +83,73 @@ export default function Home() {
           {userLocation !== 'undefined, undefined' && (
             <p className="homepage-location">{userLocation}</p>
           )}
-          {immediateWeather !== null && immediateWeather.main === 'Clouds' && (
-            <>
-              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="" />
-              <p>
-                Today
-                {immediateWeather.time}
-              </p>
-              <p>{immediateWeather.description}</p>
-            </>
+          {immediateWeather !== null && (
+            <div className="homepg-immed">
+              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
+              <div>
+                <p>
+                  Today
+                  {'  '}
+                  <span>
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1 < 10
+                      ? 0
+                      : ''}
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1}
+                    {' '}
+                    {immediateWeather.datetime.slice(2)}
+                  </span>
+                </p>
+                <p className="homepg-immedp">{immediateWeather.main}</p>
+              </div>
+            </div>
           )}
           <div className="homepg-weatherfc">
             <ul>
               {weatherForecast !== null &&
-                Array.from(new Set(weatherForecast.map((a) => a.time)))
-                  .map((time) => weatherForecast.find((a) => a.time === time))
-                  .map((forecast) => (
-                    <li key={forecast.time}>
-                      {forecast.main === 'Clouds' && (
-                        <>
-                          <p>{forecast.time}</p>
-                          <img
-                            src="./assets/NotificationFeedList/CLOUDY.svg"
-                            alt=""
-                          />
-                          <p>{forecast.main}</p>
-                        </>
-                      )}
-                      {forecast.main === 'Rain' && (
-                        <>
-                          <p>{forecast.time}</p>
-                          <img
-                            src="./assets/NotificationFeedList/icon.svg"
-                            alt=""
-                          />
-                          <p>{forecast.main}</p>
-                        </>
-                      )}
-                    </li>
-                  ))}
+                weatherForecast.map((forecast) => (
+                  <li key={forecast.datetime}>
+                    {forecast.main === 'Clouds' && (
+                      <>
+                        <p>{forecast.datetime}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="cloudy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Rain' && (
+                      <>
+                        <p>{forecast.time}</p>
+                        <img
+                          src="./assets/NotificationFeedList/icon.svg"
+                          alt=""
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Few clouds' && (
+                      <>
+                        <p>{forecast.datetime.slice(11)}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="couldy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                    {forecast.main === 'Scattered clouds' && (
+                      <>
+                        <p>{forecast.datetime.slice(11)}</p>
+                        <img
+                          src="./assets/NotificationFeedList/CLOUDY.svg"
+                          alt="cloudy icon"
+                        />
+                        <p>{forecast.main}</p>
+                      </>
+                    )}
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -125,20 +160,20 @@ export default function Home() {
           <div className="homepg-worldone">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectanglefour.svg" alt="" />
+                <img src="/Home/Rectanglefour.svg" alt="australia flag" />
                 <span> AUS AUSTRALIA</span>
               </div>
               {' '}
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Canberra, Ghana')}
+                onClick={() => gotoDashboard('Canberra, AUSTRALIA')}
                 className="homepg-dash"
               />
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 3.svg" alt="" />
+                <img src="/Home/Rectangle 3.svg" alt="sweden flag" />
                 <span>SWE SWEDEN </span>
                 {' '}
               </div>
@@ -152,7 +187,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 5.svg" alt="" />
+                <img src="/Home/Rectangle 5.svg" alt="netherlands flag" />
                 <span> NLD NETEHERLANDS</span>
               </div>
 
@@ -165,7 +200,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 6.svg" alt="" />
+                <img src="/Home/Rectangle 6.svg" alt="united kingdom flag" />
                 <span>GBR UNITED KINGDOM</span>
               </div>
               <button
@@ -179,7 +214,7 @@ export default function Home() {
           <div className="homepg-worldtwo">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 5 (1).svg" alt="" />
+                <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
                 <span>IDN INDONESIA</span>
               </div>
               <button
@@ -191,7 +226,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 6 (1).svg" alt="" />
+                <img src="/Home/Rectangle 6 (1).svg" alt="japan flag" />
                 <span>JPN JAPAN</span>
               </div>
 
@@ -204,7 +239,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 7.svg" alt="" />
+                <img src="/Home/Rectangle 7.svg" alt="canada flag" />
                 <span>CAN CANADA</span>
               </div>
               <button
@@ -216,7 +251,7 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/Rectangle 8.svg" alt="" />
+                <img src="/Home/Rectangle 8.svg" alt="united states flag" />
                 <span>USA UNITED STATES</span>
               </div>
               <button
@@ -228,7 +263,11 @@ export default function Home() {
             </li>
           </div>
         </ul>
-        <button type="button" className="homepg-explore" onClick={() => gotoDashboard('')}>
+        <button
+          type="button"
+          className="homepg-explore"
+          onClick={() => gotoDashboard('')}
+        >
           Expore all location
         </button>
       </div>
@@ -239,8 +278,8 @@ export default function Home() {
         <div className="landing_sections_wrapper flex flex-col gap-[56px]">
           <div className="w-full flex flex-col gap-[56px]">
             <div className="landing_locations_header">
-              <h3 className="landing_header_md">Popular locations</h3>
-              <h6>upated a minute ago</h6>
+              <h3 className="landing_header_md">{t('popularlocations')}</h3>
+              <h6>{t('updatedamin')}</h6>
             </div>
             <div
               ref={slider}
@@ -274,8 +313,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-[10px]">
-            <h4 className="text-[20px] font-bold">Cities near you</h4>
+          <div className="w-full flex flex-col gap-[56px]">
+            <h4 className="text-[20px] font-bold">{t('citiesnearyou')}</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
@@ -287,23 +326,129 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="landing_download_app">
-        <div className="landing_download_container">
-          <p>Go Mobile</p>
-          <h3 className="landing_header_md">
-            Use the free Tropicalweather app
-          </h3>
-          <p className="homepg-orange">
-            Explore the flexibility and ease that comes with using our Weatherly
-            app on the go!
-          </p>
-          <div>
-            <img src="/app-store.png" alt="" />
-            <img src="/google-play.png" alt="" />
+      <div className="landing_sections_wrapper">
+        <section
+          id="landing_features_and_globe"
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '40px',
+          }}
+          className="py-[96px]"
+        >
+          <div className="landing_features_and_globe">
+            <div className="landing_globe">
+              <div className="landing_showcase">
+                <h3 className="landing_header_md">
+                  {t('neverworryaboutfiguresheading')}
+                </h3>
+                <p>
+                  {t('neverworryaboutfiguresbody')}
+                </p>
+              </div>
+              <div
+                className="landing_ill_container"
+                style={{
+                  '--ill-bg': '#D1FADF',
+                }}
+              >
+                <p>{t('features')}</p>
+                <h3>{t('addmultiplelocationsheading')}</h3>
+                <p>
+                  {t('addmultiplelocationsbody')}
+                </p>
+                <Link to="/signup" className="landing_link_button">
+                  {t('getstarted')}
+                </Link>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
+                  <img
+                    src="/Home/globe.png"
+                    alt=""
+                    style={{
+                      marginInline: 'auto',
+                      width: '80%',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="landing_features">
+              <div
+                className="landing_ill_container"
+                style={{
+                  '--ill-bg': '#FEF2F2',
+                }}
+              >
+                <p>{t('features')}</p>
+                <h3>{t('findoutyourcityforecastheading')}</h3>
+                <p>
+                  {t('findoutyourcityforecastbody')}
+                </p>
+                <Link to="/signup" className="landing_link_button">
+                  {t('getstarted')}
+                </Link>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
+                  <img
+                    src="/Home/fall.png"
+                    alt=""
+                    style={{
+                      marginInline: 'auto',
+                      width: '80%',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <img src="/Home/iphone 13(11).png" alt="" className="homepg-phone" />
-      </section>
+        </section>
+        <FaqSection />
+      </div>
     </div>
+  );
+}
+
+function FaqSection() {
+  const [openAll, toggleOpenAll] = useState(false);
+  const { t } = useTranslation(['home']);
+  return (
+    <section className="flex flex-col gap-8 w-full pb-[96px]">
+      <div className="flex items-center justify-between">
+        <h3 className="landing_header_md">{t('explorefaqs')}</h3>
+        <button
+          type="button"
+          className="flex items-center gap-2 text-[#565560]"
+          onClick={() => toggleOpenAll((prv) => !prv)}
+        >
+          {t('viewfull')}
+          {openAll ? <FaAngleUp /> : <FaAngleDown />}
+        </button>
+      </div>
+      <div className="sm:p-3 flex flex-col gap-8">
+        <Faq
+          position={1}
+          question={`${t('FAQQ1')}`}
+          answer={`${t('FAQA1')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ2')}`}
+          answer={`${t('FAQA2')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ3')}`}
+          answer={`${t('FAQA3')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ4')}`}
+          answer={`${t('FAQA4')}`}
+          open={openAll}
+        />
+      </div>
+      {/* <Faqs /> */}
+      <MobileAdvert />
+    </section>
   );
 }

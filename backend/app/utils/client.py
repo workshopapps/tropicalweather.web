@@ -1,5 +1,5 @@
 
-from typing import Union
+from typing import Union ,List, Dict
 
 import requests
 from conf.settings import settings
@@ -84,3 +84,45 @@ def reverse_geocoding(lat: float, long: float) -> list:
         raise Exception("Invalid request")
 
     return res
+
+
+def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
+    """Get the location alerts for a given latitude and longitude
+
+    Sample response:
+
+    ```json
+    [
+        {
+            "sender_name": "NWS Tulsa",
+            "event": "Severe Thunderstorm Warning",
+            "description": "test",
+            "start": 1646344800,
+            "end": 1646380800,
+        }
+    ]
+    ```
+
+    :param lat: The latitude
+    :type lat: float
+    :param long: The longitude
+    :type long: float
+    :raises Exception: If the request fails
+    :raises Exception: If the response is invalid
+    :return: The location alerts
+    :rtype: List[Dict[str, str]]
+    """
+    res = get("data/3.0/onecall", {"lat": lat,
+              "lon": long, "exclude": "hourly,daily"})
+    if not res:
+        raise Exception("Invalid request")
+
+    alerts: List[dict] = res.get("alerts")
+    if not alerts:
+        raise Exception("Invalid request")
+
+    # remove tags key from the response
+    for alert in alerts:
+        alert.pop("tags", None)
+
+    return alerts

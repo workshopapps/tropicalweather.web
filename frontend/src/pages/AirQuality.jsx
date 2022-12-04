@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import AirIndex from '../components/AirQualityComponents/AirIndex';
 import AllPolutants from '../components/AirQualityComponents/AllPolutants';
 import TodayAirQuality from '../components/AirQualityComponents/TodayAirQuality';
@@ -12,6 +13,8 @@ function AirQuality() {
     const handleKeyDown = () => {
 
     };
+
+  const { t } = useTranslation(['aq']);
   return (
     <div className=" w-[90%] mx-auto">
       <h1 className="font-bold text-2xl mb-[2rem]">Lagos, Nigeria</h1>
@@ -29,21 +32,21 @@ function AirQuality() {
         <div className=" row-span-8 md:col-span-2 md:row-span-1">
           <TodayAirQuality />
           <div className=" bg-[#FEF2F2] mt-[3rem] p-[2rem] rounded-lg">
-            <h1 className="font-bold mb-[2rem] text-2xl">Air Pollutants</h1>
+            <h1 className="font-bold mb-[2rem] text-2xl">{t('airpollutants')}</h1>
             <div className="grid">
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="95small.png" nam="PM2.5 (Particulate matter less than 2.5 microns)" quantity="Moderate" amount="21.16ug/m3" />
-                <AllPolutants src="2.png" nam="CO (Carbon Monoxide)" quantity="Good" amount="628.34 ug/m3" />
+                <AllPolutants src="95small.png" nam={`${t('pm2.5')}`} quantity={`${t('moderate')}`} amount="21.16ug/m3" />
+                <AllPolutants src="2.png" nam={`${t('co')}`} quantity={`${t('good')}`} amount="628.34 ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="49.png" nam="NO2(Nitrogen Dioxide)" quantity="Good" amount="21.16ug/m3" />
-                <AllPolutants src="20.png" nam="O3(Ozone)" quantity="Good" amount="21.16ug/m3" />
+                <AllPolutants src="49.png" nam={`${t('no')}`} quantity={`${t('good')}`} amount="21.16ug/m3" />
+                <AllPolutants src="20.png" nam={`${t('oz')}`} quantity={`${t('good')}`} amount="21.16ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
               <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-none">
-                <AllPolutants src="20.png" nam="PM10 (Particulate matter less than 10 microns)" quantity="Good" amount="32.97ug/m3" />
-                <AllPolutants src="2.png" nam="SO2 (Sulphur Dioxide)" quantity="Good" amount="2.33ug/m3" />
+                <AllPolutants src="20.png" nam={`${t('pm10')}`} quantity={`${t('good')}`} amount="32.97ug/m3" />
+                <AllPolutants src="2.png" nam={`${t('so')}`} quantity={`${t('good')}`} amount="2.33ug/m3" />
               </div>
               <div className="w-[100%] h-[1px] bg-[gray] my-[2rem]" />
             </div>
@@ -51,18 +54,18 @@ function AirQuality() {
               <button type="button" onClick={handleShow} onKeyDown={handleKeyDown}>
                 <img src="AirQuality/Info.png" alt="" />
               </button>
-              <p className="">Air Quality Index</p>
+              <p className="">{`${t('aqi')}`}</p>
             </div>
           </div>
         </div>
 
         <div className="bg-[#FEF2F2] rounded-lg  py-[2rem] h-fit">
-          <h1 className="font-bold  px-[1rem]">Stay Safe</h1>
+          <h1 className="font-bold  px-[1rem]">{`${t('features')}`}</h1>
           <div className="flex gap-[.7rem]">
             <img src="AirQuality/Notebook.png" alt="" />
             <div>
-              <h1 className="p-[.5rem] bg-[#FDEAD7] text-[orange] font-bold w-fit rounded-lg mb-[.7rem] ">FEATURES</h1>
-              <p>Featured stories, photo essays and more by Weathery</p>
+              <h1 className="p-[.5rem] bg-[#FDEAD7] text-[orange] font-bold w-fit rounded-lg mb-[.7rem] ">{`${t('features')}`}</h1>
+              <p>{`${t('featuresbody')}`}</p>
             </div>
           </div>
         </div>

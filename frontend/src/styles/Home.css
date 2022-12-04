@@ -49,7 +49,7 @@
 }
 .homepg-dash {
   display: block;
-  background-image: url("../../public/Home/Frame\ 26086000.svg");
+  background-image: url("../../public/Home/Frame 26086000.svg");
   width: 40px;
   height: 40px;
 }
@@ -60,6 +60,14 @@
   display: flex;
   gap: 1em;
   align-items: center;
+}
+.homepg-immed{
+  align-self: flex-start;
+}
+.homepg-immedp{
+  font-size: 40px;
+    line-height: 52px;
+    text-transform: capitalize;
 }
 .homepg-poplis {
   display: flex;
@@ -146,6 +154,11 @@
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
+}
+
+.landing_location_placeholder{
+  font-size: 0.rem;
+  font-weight: 450;
 }
 
 .landing_locations_container {

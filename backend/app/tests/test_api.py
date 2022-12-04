@@ -133,7 +133,7 @@ class TestWeatherCurrentAPI:
         assert data["detail"]
 
 
-class TestLocationAPI:
+class _TestLocationAPI:
     def test_get_locations_valid(self, mocker, client):
 
         mocker.patch('routers.location.reverse_geocoding',

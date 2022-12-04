@@ -1,0 +1,12 @@
+{
+  "back": "Retour",
+  "title": "Réglages",
+  "lang": "Langue",
+  "langText": "Choisissez la langue préférée",
+  "theme": "Thème",
+  "themeText": "Sélectionnez le thème préféré",
+  "noti": "Avis",
+  "help": "Aider",
+  "lightmode": "Mode lumière",
+  "darkmode": "Mode sombre"
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -19,6 +19,7 @@ import Error404 from './pages/Error404';
 import Settings from './pages/Settings';
 // import Promotions from './pages/Promotions';
 import NotificationFeedList from './pages/NotificationFeedList';
+import Notificationsettings from './pages/Notificationsettings';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter(
@@ -33,16 +34,18 @@ const router = createBrowserRouter(
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
       <Route path="/settings" element={<Settings />} />
-      {/* <Route path="/promotions" element={<Promotions />} /> */}
-      <Route path="*" element={<Error404 />} />
+      <Route path="/notification-settings" element={<Notificationsettings />} />
       <Route path="/notification-feeds" element={<NotificationFeedList />} />
+      <Route path="*" element={<Error404 />} />
     </Route>
   )
 );
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Suspense fallback={null}>
+        <RouterProvider router={router} />
+      </Suspense>
     </QueryClientProvider>
   );
 }

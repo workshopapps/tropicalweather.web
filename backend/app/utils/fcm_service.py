@@ -2,6 +2,8 @@ from firebase_admin import messaging
 from firebase_admin.exceptions import FirebaseError
 from typing import TypeVar
 from conf.runtime import error_logger, logger
+from database import get_db
+import models
 
 
 # Type for TopicManagementResponse
@@ -27,19 +29,76 @@ def get_topic_name(city: str, state: str, country: str):
 
 
 def register_id_to_topic(token: str, topic: str):
-    # These registration tokens come from the client FCM SDKs.
+    """Registers a FCM Token to a topic.
+
+    Args:
+        token (str): FCM Token.
+        topic (str): Topic name.
+
+    Raises:
+        FirebaseError: If unable to register to topic.
+    """
     registration_tokens = [
         token,
     ]
 
-    # Subscribe the devices corresponding to the registration tokens to the
-    # topic.
     try:
         response: T = messaging.subscribe_to_topic(registration_tokens, topic)
-        # See the TopicManagementResponse reference documentation
-        # for the contents of response.
         logger.info(
             f"Successfully subscribed to topic: {response.success_count}")
     except FirebaseError as e:
         error_logger.exception(e)
         raise e
+
+
+def unsubscribe_id_from_topic(token: str, topic: str):
+    """Unregisters a FCM Token from a topic.
+
+    Args:
+        token (str): FCM Token.
+        topic (str): Topic name.
+
+    Raises:
+        FirebaseError: If unable to unregister from topic.
+    """
+    registration_tokens = [
+        token,
+    ]
+
+    try:
+        response: T = messaging.unsubscribe_from_topic(
+            registration_tokens, topic)
+        logger.info(
+            f"Successfully unsubscribed from topic: {response.success_count}")
+
+    except FirebaseError as e:
+        error_logger.exception(e)
+        raise e
+
+
+def unsubscribe_id_all_topics(token: str):
+    """Unregisters a FCM Token from all topics.
+
+    Args:
+        token (str): FCM Token.
+    """
+    registration_tokens = [
+        token,
+    ]
+
+    db = next(get_db())
+    locations: list[models.Location] = db.query(models.Location).all()
+
+    success = 0
+    for location in locations:
+        topic = get_topic_name(location.city, location.state, location.country)
+        try:
+            response: T = messaging.unsubscribe_from_topic(
+                registration_tokens, topic)
+            location.subscription_count -= response.success_count
+            success += response.success_count
+        except FirebaseError:
+            pass
+
+    db.commit()
+    logger.info(f"Successfully unsubscribed from {success} topics")
