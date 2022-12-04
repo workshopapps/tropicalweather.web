@@ -10,7 +10,7 @@ export default function Faqs() {
     setIsOpen((isOpen) => (isOpen === id ? null : id));
   const [openAll, toggleOpenAll] = useState(false);
   return (
-    <div className="faqq">
+    <div className="faqq" id="faq">
       <div className="flex items-center justify-between">
         <h3 className="landing_header_md">Explore FAQs</h3>
         <button
