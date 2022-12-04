@@ -15,7 +15,7 @@ export default function Error404() {
           </div>
         </div>
         <div className="error-col2">
-          <img src="/Error404/illustration.png" alt="oops!!Error" className="Error-ill" />
+          <img src="/Error404/Illustration.png" alt="oops!!Error" className="Error-ill" />
           <img src="/Error404/illustration2.png" alt="oops!!Error" className="Error-ill2" />
           <p className="error-para2">{t('thisisawkward')}</p>
           <div className="error-buttons2">
