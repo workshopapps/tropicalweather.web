@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -41,7 +41,9 @@ const router = createBrowserRouter(
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Suspense fallback={null}>
+        <RouterProvider router={router} />
+      </Suspense>
     </QueryClientProvider>
   );
 }

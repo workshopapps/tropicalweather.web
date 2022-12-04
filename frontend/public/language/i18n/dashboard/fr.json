@@ -1,0 +1,11 @@
+{
+  "back": "Retour",
+  "savecity": "Enregistrer la ville",
+  "today": "Aujourd'hui",
+  "dataisnotavailable": "Les données ne sont pas encore disponibles",
+  "3hourforecast": "Prévision d'intervalle de 3 heures",
+  "loading": "Chargement...",
+  "savedlocations": "Emplacements enregistrés",
+  "nolocation": "Aucune position enregistrée pour le moment",
+  "youcansave": "Vous pouvez enregistrer un emplacement pour afficher les détails plus tard"
+}
