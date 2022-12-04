@@ -70,6 +70,23 @@ class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
     city: Optional[str]
     state: str
 
+class UserCurrentWeather(BaseModel):
+    main: str
+    datetime: str
+    end_datetime: str
+    risk: str
+    city: str
+    state: str
+    country: str
+
+class UserCurrentWeather(BaseModel):
+    main: str
+    datetime: str
+    end_datetime: str
+    risk: str
+    city: str
+    state: str
+    country: str
 
 class PacketModel(BaseModel):
     content: Any

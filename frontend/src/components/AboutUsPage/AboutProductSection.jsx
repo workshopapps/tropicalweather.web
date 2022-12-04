@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MobileAdvert from '../MobileAdvert';
 
 function AboutProductSection() {
   return (
-    <div className="py-10 font-Outfit">
+    <div className=" font-Outfit">
       <div className="container mx-auto ">
         <h3 className="font-bold text-[#2B2A30] text-left  text-2xl sm:text-center md:text-3xl">Our Product Offering</h3>
         <div className="pt-4 md:w-1/2">
@@ -52,42 +53,7 @@ function AboutProductSection() {
           <div className="flex justify-center pt-5 md:py-10 ">
             <Link to="/dashboard" className="font-normal py-3 px-5 bg-[#EF6820] text-white text-lg rounded-lg" type="button"> Get started → </Link>
           </div>
-
-          <div className="rounded-xl  bg-[#FDEAD7]">
-            <div className="container flex flex-col-reverse items-center px-4 mx-auto md:pl-12 lg:flex-row md:gap-12 mt-14 lg:mt-28 font-Outfit md:pr-0">
-              {/* --content- */}
-              <div className="flex flex-col flex-1 py-5 lg:items-start">
-                <p className="font-normal  text-[#EF6820] leading-5 text-xs md:text-base tracking-wide text-start mb-6">GO MOBILE</p>
-                <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">Use the free Tropical Weather app</p>
-                <p className="text-[#565560] text-lg font-normal mb-4 text-start">Explore the flexibility and ease that comes with using our Weatherly app on the go!</p>
-                {/* --button- */}
-                <div className="flex justify-around md:justify-evenly gap-4">
-                  <div>
-                    <img
-                      src="/app-store.png"
-                      alt="ap store"
-                      className="cursor-pointer"
-                    />
-                  </div>
-                  <div>
-                    <img
-                      src="/google-play.png"
-                      alt="play store"
-                      className="cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </div>
-              {/* --image- */}
-              <div className="flex justify-center flex-1 overflow-hidden">
-                <img
-                  src="AboutAsset/Group 275.png"
-                  alt=""
-                  className="hidden w-5/6 md:block h-5/6 sm:h-3/4 md:w-full md:h-full lg:h-full lg:w-full"
-                />
-              </div>
-            </div>
-          </div>
+          <MobileAdvert />
         </div>
       </div>
     </div>
