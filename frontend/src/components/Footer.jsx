@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import { BsGlobe } from 'react-icons/bs';
 import { BiSupport } from 'react-icons/bi';
 
@@ -50,7 +50,7 @@ export default function Footer() {
               <Link to="/contact" className="link link-hover">
                 Contact Us
               </Link>
-              <Link to="/" className="link link-hover">
+              <Link smooth to="/#faq" className="link link-hover">
                 FAQs
               </Link>
             </div>
