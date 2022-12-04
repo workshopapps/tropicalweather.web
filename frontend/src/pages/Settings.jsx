@@ -57,7 +57,7 @@ export default function Settings() {
   };
   return (
     <div className="settings">
-      <Link to="/dashboard" className="settings_back">
+      <Link to="/" className="settings_back">
         <TfiAngleLeft />
         <span>{t('back')}</span>
       </Link>
