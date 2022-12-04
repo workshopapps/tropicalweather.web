@@ -44,9 +44,9 @@ export default function PopularLocation({ location, bin, remove }) {
         )}
       </div>
       <div className="landing_location_body">
-        {isFetching ? <p className="landing_location_placeholder" style={{ color: 'gray' }}>{t('updating')}</p> : null}
+        {isFetching ? <p className="landing_location_placeholder" style={{ color: 'gray', fontSize: '13px' }}>{t('updating')}</p> : null}
         {isError && !isFetching ? (
-          <p className="landing_location_placeholder" style={{ color: 'red' }}>{t('somethingwentwrong')}</p>
+          <p className="landing_location_placeholder" style={{ color: 'red', fontSize: '15px' }}>{t('somethingwentwrong')}</p>
         ) : (
           <>
             <h5>{response.main}</h5>
