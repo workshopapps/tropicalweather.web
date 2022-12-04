@@ -13,8 +13,8 @@ export default function Error404() {
           </div>
         </div>
         <div className="error-col2">
-          <img src="/Error404/illustration.png" alt="oops!!Error" className="Error-ill" />
-          <img src="/Error404/illustration (2).png" alt="oops!!Error" className="Error-ill2" />
+          <img src="/Error404/Illustration.png" alt="oops!!Error" className="Error-ill" />
+          <img src="/Error404/Illustration (2).png" alt="oops!!Error" className="Error-ill2" />
           <p className="error-para2">This is awkward! Our site is under the weather or you are lost in the clouds. Either way, our site is still a delightful means for weather forecast.</p>
           <div className="error-buttons2">
             <Link to="/" className="Error-button">Go Back To Home Page</Link>

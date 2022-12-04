@@ -45,7 +45,7 @@ export default function Share({ popup, setPopup }) {
 
   const getCurrentForecastFromLocation = async (location) => {
     const response = await fetch(
-      `${APIURL}/weather/current?address=${location}`
+      `${APIURL}/weather/forecasts?lat=${location}`
     );
     const data = await response.json();
     setCurrentWeather(data);

@@ -5,6 +5,9 @@
    align-items: center;
    padding: 40px 70px;
 }
+.Error-ill{
+    display: block;
+  }
 .error-col1{
     display: flex;
     flex-direction: column;
