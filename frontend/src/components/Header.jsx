@@ -52,7 +52,7 @@ export default function Header() {
       <div className="items-center justify-end  hidden w-full m lg:flex gap-x-4">
         <label
           htmlFor="search"
-          className="relative border-b justify-self-end border-grey-200"
+          className="relative w-full max-w-xl border-b justify-self-end border-grey-200"
         >
           <input
             type="text"
@@ -61,7 +61,7 @@ export default function Header() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for city"
-            className="outline-none px-12 w-full  py-4"
+            className="outline-none px-14 w-full  py-4"
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
