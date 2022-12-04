@@ -156,6 +156,11 @@
   color: #565560;
 }
 
+.landing_location_placeholder{
+  font-size: 0.rem;
+  font-weight: 450;
+}
+
 .landing_locations_container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
