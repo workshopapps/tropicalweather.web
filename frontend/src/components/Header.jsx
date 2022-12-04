@@ -4,7 +4,6 @@ import { CiSearch } from 'react-icons/ci';
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
-import '../styles/Header.css';
 
 export default function Header() {
   const [toggle, setToggle] = useState(false);
@@ -50,21 +49,10 @@ export default function Header() {
           <img src="/tropiclogo.png" alt="logo" />
         </Link>
       </div>
-      <ul className="header_nav-links-list">
-        <li className="header_nav-link">
-          <Link to="/about-us">About us</Link>
-        </li>
-        <li className="header_nav-link">
-          <Link to="/contact">Contact us</Link>
-        </li>
-        <li className="header_nav-link">
-          <Link to="/">FAQs</Link>
-        </li>
-      </ul>
       <div className="items-center justify-end  hidden w-full m lg:flex gap-x-4">
         <label
           htmlFor="search"
-          className="relative border-b justify-self-end border-grey-200 header_searcbox"
+          className="relative border-b justify-self-end border-grey-200"
         >
           <input
             type="text"
@@ -73,7 +61,7 @@ export default function Header() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for city"
-            className="outline-none px-12  py-4"
+            className="outline-none px-12 w-full  py-4"
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
