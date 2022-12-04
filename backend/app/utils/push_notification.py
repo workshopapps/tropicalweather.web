@@ -1,13 +1,5 @@
-from dattime import datetime
-import firebase_admin
-from firebase_admin import auth, credentials, messaging
-
-from decouple import config
-
-path_key_dir = config.get("GOOGLE_APPLICATION_CREDENTIALS")
-
-cred = credentials.Certificate(path_key_dir)
-firebase_admin.initialize_app(cred)
+from datetime import datetime
+from firebase_admin import messaging
 
 
 def send_notification_to_topic(payload, topic):
