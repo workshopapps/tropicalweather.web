@@ -1,0 +1,26 @@
+.header_logo{
+    width: 37.5%;
+}
+
+.header_nav-links-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    width: 50%;
+}
+
+.header_nav-link > :link, .header_nav-link > :visited{
+    color: #aaa;
+    font-weight: 500;
+}
+
+.header_nav-link > :hover, .header_nav-link > :active{
+    color: #ef6820;
+}
+
+@media screen and (max-width: 65em){
+    .header_nav-links-list{
+        display: none;
+    }
+}

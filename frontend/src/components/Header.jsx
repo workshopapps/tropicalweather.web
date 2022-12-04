@@ -5,6 +5,7 @@ import { CiSearch } from 'react-icons/ci';
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import MobileHeaderToggle from './MobileHeaderToggle';
+import '../styles/Header.css';
 
 export default function Header() {
   const [toggle, setToggle] = useState(false);
@@ -47,15 +48,26 @@ export default function Header() {
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
-      <div>
+      <div className="header_logo">
         <Link to="/">
           <img src="/tropiclogo.png" alt="logo" />
         </Link>
       </div>
+      <ul className="header_nav-links-list">
+        <li className="header_nav-link">
+          <Link to="/about-us">About us</Link>
+        </li>
+        <li className="header_nav-link">
+          <Link to="/contact">Contact us</Link>
+        </li>
+        <li className="header_nav-link">
+          <Link to="/">FAQs</Link>
+        </li>
+      </ul>
       <div className="items-center justify-end  hidden w-full m lg:flex gap-x-4">
         <label
           htmlFor="search"
-          className="relative w-full max-w-xl border-b justify-self-end border-grey-200"
+          className="relative border-b justify-self-end border-grey-200 header_searcbox"
         >
           <input
             type="text"
@@ -96,7 +108,7 @@ export default function Header() {
         </label>
         <button
           type="button"
-          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max"
+          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
         >
           {t('getapp')}
         </button>
