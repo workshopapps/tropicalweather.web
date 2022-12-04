@@ -16,8 +16,8 @@ pipeline {
 		stage("build frontend"){
 
 			steps {
-				sh "cd frontend && npm i --force && CI=false npm run build"
-			} 
+				sh "cd frontend && sudo npm i --force && CI=false sudo npm run build"
+			}
         }
         stage("build backend"){
 
