@@ -44,7 +44,6 @@ export default function Dashboard() {
       `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
-    console.log(data);
     setCurrentWeather(data.current);
     setTimeline(data.todays_timeline);
   };
@@ -100,7 +99,7 @@ export default function Dashboard() {
     setToast(true);
     setTimeout(() => {
       setToast(false);
-    }, 3000);
+    }, 5000);
   };
 
   const addLocation = async (location) => {
@@ -111,7 +110,7 @@ export default function Dashboard() {
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     showToast();
   };
-  console.log(savedLocations);
+
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
@@ -120,17 +119,18 @@ export default function Dashboard() {
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
         <div
-          className="absolute flex items-center gap-3 p-1 bg-gray-200 rounded-lg"
+          className="absolute flex items-center gap-3 p-1 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
             padding: '10px 20px',
-            width: 'fit-content',
-            background: 'rgba(209, 250, 223, 0.1)',
+            width: 'min(95%, 400px)',
+            background: '#FAFAFA',
             border: '1px solid #054F31',
+            zIndex: 1
           }}
         >
-          <AiFillCheckCircle color="#054F31" />
+          <AiFillCheckCircle color="#054F31" style={{ flexShrink: 0 }} />
           <p style={{ fontSize: '16px' }}>
             {`${currentLocation} has been added to saved locations`}
           </p>

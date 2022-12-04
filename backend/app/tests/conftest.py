@@ -3,8 +3,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import sessionmaker, Session
 from ..conf.settings import settings as app_settings
 
-from main import app, get_db
-from database import get_db_engine
+from main import app
+from database import get_db_engine, get_db
 import pytest
 
 engine = get_db_engine(test_mode=True)
@@ -14,7 +14,6 @@ TestingSessionLocal = sessionmaker(
 
 @pytest.fixture(scope="function")
 def settings():
-    # Allow overriding settings for tests
     yield app_settings.copy(deep=True)
 
 
