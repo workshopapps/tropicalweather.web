@@ -64,6 +64,41 @@ async def immediate_weather_forecast(lat: float = None, lng: float = None):
 
     return result
 
+
+# @router.get("/forecasts/tomorrow")
+# async def weather_data(lat: float, lon: float):
+#     try:
+#         result = weather(lat, lon)
+#     except Exception:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="Can't retrive weather data for this location"
+#         )
+
+#     epoch = convert()
+
+#     starting_point = None
+
+#     for index, _data in enumerate(result):
+#         if _data['dt'] >= epoch:
+#             starting_point = index
+#             break
+
+#     if starting_point is None:
+#         raise HTTPException(
+#             status_code=status.HTTP_400_BAD_REQUEST,
+#             detail="Weather condition not found, Please try again"
+#         )
+#     result = result[starting_point:10]
+#     bus = []
+#     for forecast in result:
+#         data = convert_epoch_to_datetime(forecast.get('dt'))
+#         data['main'] = forecast['weather'][0]['main']
+#         data['description'] = forecast['weather'][0]['description']
+#         bus.append(data)
+#     return bus
+
+
 @router.get('/forecasts/tomorrow/immediate')
 async def get_tommorrows_weather(lat: float, lon: float):
 
@@ -319,11 +354,12 @@ async def weather_tomorrow_by_location(lat: float, lon: float):
     hourly_forecasts = client.get_hourly_forecast(
         lat, lon, hourly_params=['weathercode'])
 
-    hourly_time = hourly_forecasts['hourly']['time']
-    hourly_weathercode = hourly_forecasts['hourly']['weathercode']
-    hourly_apparent_temperature = hourly_forecasts['hourly']['apparent_temperature']
-    hourly_precipitation = hourly_forecasts['hourly']['precipitation']
+    hourly_time: list[str] = hourly_forecasts['hourly']['time']
+    hourly_weathercode: list[str] = hourly_forecasts['hourly']['weathercode']
+    hourly_apparent_temperature: list[str] = hourly_forecasts['hourly']['apparent_temperature']
+    hourly_precipitation: list[str] = hourly_forecasts['hourly']['precipitation']
 
+    
     for i in range(24, 48):
         main = WmoCodes.get_wmo_code(hourly_weathercode[i])
         date_time = datetime.strptime(hourly_time[i], "%Y-%m-%dT%H:%M")
@@ -360,11 +396,13 @@ async def weather_tomorrow(address: str):
 
     response = client.get_hourly_forecast(
         lat, lon, hourly_params=['weathercode'])
+    
 
     hourly_time: list[str] = response["hourly"]["time"]
     hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
     hourly_precipitation: list[str] = response["hourly"]["precipitation"]
     hourly_weathercode: list[str] = response["hourly"]["weathercode"]
+
 
     result = []
 
@@ -382,7 +420,7 @@ async def weather_tomorrow(address: str):
 
         res = {
             "main": weather_desc,
-            "datetime": hourly_time[i].replace("T", " "),
+            "datetime": index_time.replace("T", " "),
             "risk": risk,
             "state": geo['state'],
             "city": geo['city'],
@@ -411,6 +449,60 @@ async def forecast_by_address(address: str):
     data = hourly_forecasts(lat, lon)
 
     return data
+
+"""
+{
+    "main": "Shower rain",
+    "datetime": "2020-01-01 12:00:00",
+    "risk": "Extreame Heat",
+    "state": "Lagos",
+    "city": "Ikorodu",
+    "country": "Nigeria",
+}
+"""
+@router.get('/weekly')
+async def weather_this_week_by_location(lat: float, lon: float):
+    try:
+        address = reverse_geocode(lat, lon)
+        city = address.get('city')
+        state = address.get('state')
+        country = address.get('country')
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+
+    result = []
+
+    daily_forecasts = client.get_daily_forecast(
+        lat, lon, daily_params=['weathercode'], timezone="Africa/Lagos")
+
+    daily_time: list[str] = daily_forecasts['daily']['time']
+    daily_weathercode: list[str] = daily_forecasts['daily']['weathercode']
+    daily_apparent_temperature: list[str] = daily_forecasts['daily']['apparent_temperature_max']
+    daily_precipitation: list[str] = daily_forecasts['daily']['precipitation_sum']
+
+    
+    for i in range(7):
+        main = WmoCodes.get_wmo_code(daily_weathercode[i])
+        date_time = datetime.strptime(daily_time[i], "%Y-%m-%d")
+        risk = get_risk(
+            daily_apparent_temperature[i], daily_precipitation[i])
+
+        res = {
+            "main": main,
+            "datetime": date_time,
+            "risk": risk,
+            "state": state,
+            "city": city,
+            "country": country,
+        }
+
+        result.append(res)
+
+    return result
 
 
 @router.get("/weekly/by-address")
