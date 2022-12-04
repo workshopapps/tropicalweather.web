@@ -6,6 +6,8 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
+
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
 
@@ -61,6 +63,7 @@ export default function Dashboard() {
       `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
+    console.log(data);
     setCurrentWeather(data.current);
     setTimeline(data.todays_timeline);
   };
@@ -94,7 +97,7 @@ export default function Dashboard() {
       }
       getCurrentLocationWeather();
     }
-  }, [coord.latitude]);
+  }, [coord]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -120,18 +123,18 @@ export default function Dashboard() {
   };
 
   const addLocation = async (location) => {
-    if (savedLocations.some((loc) => loc.location === location)) return;
+    if (savedLocations.some((loc) => loc === location)) return;
     const locs = savedLocations;
     locs.push(location);
     setSavedLocations(locs);
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     showToast();
   };
-
+  console.log(savedLocations);
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
-
+  const { t } = useTranslation(['dashboard']);
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
@@ -155,7 +158,7 @@ export default function Dashboard() {
       <div className="pt-6">
         <Link to="/" className="items-center hidden mb-6 md:flex">
           <TfiAngleLeft className="mr-2 text-lg" />
-          <span className="text-lg">Back</span>
+          <span className="text-lg">{t('back')}</span>
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
           <div className="relative w-full max-w-2xl">
@@ -171,7 +174,7 @@ export default function Dashboard() {
                     className="flex items-center gap-2 text-primary-btn"
                   >
                     <BsHeart />
-                    <span>Save city</span>
+                    <span>{t('savecity')}</span>
                   </button>
                 )}
                 <div className="relative">
@@ -188,7 +191,7 @@ export default function Dashboard() {
             </div>
             <div className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
               <p>
-                Today
+                {t('today')}
                 <span className="uppercase">{` ${time}`}</span>
               </p>
               {/* <p className="text-4xl font-bold">{currentWeather.}</p> */}
@@ -203,14 +206,14 @@ export default function Dashboard() {
             </div>
             <section id="saved-locations" className="mt-20">
               <div className="flex items-center justify-between w-full">
-                <h2 className="text-2xl font-bold">Saved Locations</h2>
+                <h2 className="text-2xl font-bold">{t('savedlocations')}</h2>
               </div>
 
               {savedLocations.length < 1 ? (
                 <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
                   <BsMap className="text-3xl text-primary-btn" />
-                  <h2 className="text-2xl font-bold">No Location saved yet</h2>
-                  <p>You can save a location to view the details later</p>
+                  <h2 className="text-2xl font-bold">{t('nolocation')}</h2>
+                  <p>{t('youcansave')}</p>
                 </div>
               ) : (
                 <div className="flex flex-col justify-start gap-10 my-10">
@@ -239,7 +242,7 @@ export default function Dashboard() {
             </section>
           </div>
           <section id="timeline-forecast" className="flex-1 my-10 md:my-0">
-            <p className="mb-4 text-xl font-bold">Today</p>
+            <p className="mb-4 text-xl font-bold">{t('today')}</p>
             {timeline.length > 0 ? (
               timeline.map((day, index) => (
                 <WeatherTimeline
@@ -252,7 +255,7 @@ export default function Dashboard() {
               ))
             ) : (
               <p className="text-xl font-semibold">
-                No weather data available yet
+                {t('dataisnotavailable')}
               </p>
             )}
           </section>
