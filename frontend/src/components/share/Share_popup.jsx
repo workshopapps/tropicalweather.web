@@ -71,7 +71,7 @@ export default function Share({ popup, setPopup }) {
              <h1 className="today-fore">TODAYS FORECAST</h1>
              <div className="share-state">
                <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
-               <p className="lagos-share">{currentLocation}</p>
+               <p className="lagos-share">{currentLocation || 'Not Available'}</p>
                <img src="/share/div line.png" alt="pop-up" className="share-horline" />
                <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
              </div>
