@@ -43,7 +43,7 @@ async def get_user_current_weather(lat: float, lon: float):
     :return: Current weather for a user
     :rtype: UserCurrentWeather
     """
-    location = reverse_geocode(lat=lat, lon=lon)
+    location = reverse_geocoding(lat=lat, long=lon)
     result = user_current_forecasts(lat=lat, lon=lon)
     result['city'] = location['city']
     result['state'] = location['state']
