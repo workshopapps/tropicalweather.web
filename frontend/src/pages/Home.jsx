@@ -444,7 +444,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <FaqSection />
+        <div id="faq">
+          <FaqSection />
+        </div>
       </div>
     </div>
   );
