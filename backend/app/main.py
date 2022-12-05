@@ -1,6 +1,9 @@
 import ast
 
+import firebase_admin
+import redis
 from conf.settings import settings
+from decouple import config
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -8,18 +11,18 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from routers import alert, location, weather, share
 from utils.general import get_status
-from database import engine
+from database import engine, get_db  # noqa: F401
 import models
-from conf.runtime import initialize_firebase
-from utils.cache import get_cache, set_cache
+
 
 models.Base.metadata.create_all(bind=engine)
+
 
 # Application initilization
 app = FastAPI()
 
 # Setup firebase [Must happen once]
-initialize_firebase()
+firebase_admin.initialize_app()
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,11 +51,19 @@ templates = Jinja2Templates(
     directory=settings.TEMPLATES_DIR
 )
 
+rd = redis.Redis.from_url(settings.WEBSOCKET_REDIS_URL)
+
+
+# We need a prefix for redis keys, because we there are multiple
+# apps using the same redis instance
+prefix = config("APP_NAME", default="fastapi")
+
 
 @app.get('/status', response_class=HTMLResponse)
 async def status_page(request: Request):
     the_request = {'request': request}
-    cache = get_cache('status')
+    cache_key = f"{prefix}:status"
+    cache = rd.get(cache_key)
 
     if cache:
         data = ast.literal_eval(cache)
@@ -60,6 +71,6 @@ async def status_page(request: Request):
             "status.html", {**the_request, **data})
     else:
         data = get_status()
-        set_cache("status", str(data), 120)
-
+        rd.set(cache_key, str(data))
+        rd.expire(cache_key, 120)
     return templates.TemplateResponse("status.html", {**the_request, **data})

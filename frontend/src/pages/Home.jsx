@@ -20,42 +20,27 @@ export default function Home() {
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['home']);
   const getCurrentLocationFromCoords = async () => {
-    try {
-       const response = await fetch(
-         `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       const location = `${data.city}, ${data.state}`;
-       setUserLocation(location);
-       onload.current = true;
-    } catch (error) {
-      // console.log(error);
-    }
+    const response = await fetch(
+      `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
+    const data = await response.json();
+    const location = `${data.city}, ${data.state}`;
+    setUserLocation(location);
+    onload.current = true;
   };
   const getImmediateWeather = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/current/by-address?address=${userLocation.replace(
-          ', ',
-          '%2C%20'
-        )}`
-      );
-      const data = await response.json();
-      setImmediateWeather(data);
-    } catch (error) {
-      // console.log(error);
-    }
-    };
+    const response = await fetch(
+      `${APIURL}/weather/current/by-address?address=${userLocation.replace(', ', '%2C%20')}`
+    );
+    const data = await response.json();
+    setImmediateWeather(data);
+  };
   const getWeatherForecast = async () => {
-    try {
-       const response = await fetch(
-         `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       setWeatherForecast(data);
-    } catch (error) {
-      // console.log(error);
-    }
+    const response = await fetch(
+      `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
+    const data = await response.json();
+    setWeatherForecast(data);
   };
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
@@ -91,59 +76,30 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
-  console.log(weatherForecast, userLocation);
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
-          {userLocation !== null && (
+          {userLocation !== 'undefined, undefined' && (
             <p className="homepage-location">{userLocation}</p>
-          )}
-          {userLocation === null && (
-            <p className="homepage-location">location loading....</p>
           )}
           {immediateWeather !== null && (
             <div className="homepg-immed">
-              <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
-                alt="clouds icons"
-              />
+              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
               <div>
                 <p>
                   Today
-                  {' '}
-                  <span> </span>
+                  {'  '}
                   <span>
-                    {Number(immediateWeather.datetime.slice(11)) + 1 < 10
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1 < 10
                       ? 0
                       : ''}
-                    {Number(immediateWeather.datetime.slice(11, 13)) + 1 < 24
-                      ? Number(immediateWeather.datetime.slice(11, 13)) + 1
-                      : Number(immediateWeather.datetime.slice(11, 13)) + 1}
-                    :00
+                    {Number(immediateWeather.datetime.slice(0, 2)) + 1}
+                    {' '}
+                    {immediateWeather.datetime.slice(2)}
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
-              </div>
-            </div>
-          )}
-          {immediateWeather === null && (
-            <div className="homepg-immed">
-              <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
-                alt="clouds icons"
-              />
-              <div>
-                <p>
-                  Today
-                  {' '}
-                  <span>
-                    {new Date().getHours()}
-                    :00
-                    {new Date().getHours() < 12 ? ' am' : ' pm'}
-                  </span>
-                </p>
-                <p className="homepg-immedp">forecast loading...</p>
               </div>
             </div>
           )}
@@ -151,7 +107,7 @@ export default function Home() {
             <ul>
               {weatherForecast !== null &&
                 weatherForecast.map((forecast) => (
-                  <li key={forecast.datetime} className="homepg-heroforecast">
+                  <li key={forecast.datetime}>
                     {forecast.main === 'Clouds' && (
                       <>
                         <p>{forecast.datetime}</p>
@@ -194,11 +150,6 @@ export default function Home() {
                     )}
                   </li>
                 ))}
-              {!weatherForecast.length && (
-                <p className="homepg-heroforecast">
-                  weather forecasts for the day loading...
-                </p>
-              )}
             </ul>
           </div>
         </div>
@@ -392,7 +343,9 @@ export default function Home() {
                 <h3 className="landing_header_md">
                   {t('neverworryaboutfiguresheading')}
                 </h3>
-                <p>{t('neverworryaboutfiguresbody')}</p>
+                <p>
+                  {t('neverworryaboutfiguresbody')}
+                </p>
               </div>
               <div
                 className="landing_ill_container"
@@ -402,7 +355,9 @@ export default function Home() {
               >
                 <p>{t('features')}</p>
                 <h3>{t('addmultiplelocationsheading')}</h3>
-                <p>{t('addmultiplelocationsbody')}</p>
+                <p>
+                  {t('addmultiplelocationsbody')}
+                </p>
                 <Link to="/signup" className="landing_link_button">
                   {t('getstarted')}
                 </Link>
@@ -427,7 +382,9 @@ export default function Home() {
               >
                 <p>{t('features')}</p>
                 <h3>{t('findoutyourcityforecastheading')}</h3>
-                <p>{t('findoutyourcityforecastbody')}</p>
+                <p>
+                  {t('findoutyourcityforecastbody')}
+                </p>
                 <Link to="/signup" className="landing_link_button">
                   {t('getstarted')}
                 </Link>

@@ -50,7 +50,7 @@ export default function NotificationFeeds({ feeds }) {
                 <>
                   <div className="notificaton_feed-listcontent">
                     <img
-                      src="./assets/NotificationFeedList/CLOUDY.svg"
+                      src="./assets/NotificationFeedList/cloudy.svg"
                       alt="cloudy icon"
                     />
                     <p className="notificaton_feed-feed">{news.feed}</p>

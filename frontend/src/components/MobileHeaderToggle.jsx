@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HashLink as Link } from 'react-router-hash-link';
+import { NavLink } from 'react-router-dom';
 import { RiHome6Line } from 'react-icons/ri';
 import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
@@ -83,7 +83,7 @@ function Navigation({ handleClickProp, style, itemStyle }) {
     },
     {
       name: `${t('faqs')}`,
-      link: '/#faq',
+      link: '/',
       icon: <BsQuestionCircle />,
     },
   ];
@@ -121,15 +121,14 @@ function MenuItem({
  pathName, path, icon, handleClickProp,
 }) {
   return (
-    <Link
-      smooth
+    <NavLink
       to={path}
       className="rounded-lg p-2 mb-2 text-lg font-bold mobile-nav__item text-gray-600 flex items-center gap-4"
       onClick={handleClickProp}
     >
       <span>{icon}</span>
       <span>{pathName}</span>
-    </Link>
+    </NavLink>
   );
 }
 

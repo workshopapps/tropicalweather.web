@@ -47,7 +47,7 @@ export default function Header() {
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
-      <div className="header_logo">
+      <div>
         <Link to="/">
           <img src="/tropiclogo.png" alt="logo" />
         </Link>
@@ -96,7 +96,7 @@ export default function Header() {
         </label>
         <button
           type="button"
-          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
+          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max"
         >
           {t('getapp')}
         </button>

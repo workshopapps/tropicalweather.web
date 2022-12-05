@@ -11,7 +11,7 @@
   border: 1px solid #b5b5b5;
   border-radius: 40px;
   position: absolute;
-  top: 2em;
+  top: 1em;
   left: 2em;
   padding: 0.4em 0.8em;
 }
@@ -46,13 +46,6 @@
   padding: 0 1em;
 
   overflow-x: auto;
-}
-  
-  
-.homepg-heroforecast{
-  display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 .homepg-dash {
   display: block;
@@ -161,11 +154,6 @@
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
   color: #565560;
-}
-
-.landing_location_placeholder{
-  font-size: 0.rem;
-  font-weight: 450;
 }
 
 .landing_locations_container {
@@ -480,10 +468,6 @@
     flex-direction: row;
     justify-content: space-between;
   }
-.homepg-immed {
-    display: flex;
-    align-items: flex-start;
-}
   .homepg-worldone {
     display: block;
   }
