@@ -19,7 +19,28 @@ export default function Dashboard() {
   const [showPopup, setShowPopup] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
-  const [timeline, setTimeline] = useState([]);
+  const { t } = useTranslation(['dashboard']);
+
+  const [timeline, setTimeline] = useState([
+    {
+      location: 'Abuja, Nigeria',
+      main: `${t('sunny')}`,
+      risk: `${t('sunny')} ${t('risk')} 75F`,
+      datetime: '1:00PM',
+    },
+    {
+      location: 'Kaduna, Nigeria',
+      main: `${t('scatteredrain')}`,
+      risk: `${t('sunny')} ${t('risk')} 40C`,
+      datetime: '3:00 PM',
+    },
+    {
+      location: 'Lagos, Nigeria',
+      main: `${t('sunny')}`,
+      risk: `${t('sunny')} ${t('risk')} 75F`,
+      datetime: '6:00 PM',
+    },
+  ]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const { search } = useLocation();
@@ -114,7 +135,7 @@ export default function Dashboard() {
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
-  const { t } = useTranslation(['dashboard']);
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (

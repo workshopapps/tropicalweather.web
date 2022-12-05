@@ -7,5 +7,8 @@
   "loading": "Cargando...",
   "savedlocations": "Ubicaciones guardadas",
   "nolocation": "Aún no se ha guardado ninguna ubicación",
-  "youcansave": "Puede guardar una ubicación para ver los detalles más tarde"
+  "youcansave": "Puede guardar una ubicación para ver los detalles más tarde",
+  "sunny": "soleado",
+  "risk": " con un máximo de ",
+  "scatterdrain": "Lluvia dispersa"
 }
