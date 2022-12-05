@@ -22,20 +22,20 @@ export default function Dashboard() {
   const [timeline, setTimeline] = useState([
     {
       location: 'Abuja, Nigeria',
-      main: 'Sunny',
-      risk: 'Sunny with a high of 75F',
+      main: `${t('sunny')}`,
+      risk: `${t('sunny')} ${t('risk')} 75F`,
       datetime: '1:00PM',
     },
     {
       location: 'Kaduna, Nigeria',
-      main: 'Scattered Rain',
-      risk: 'Sunny with a high of 40C',
+      main: `${t('scatteredrain')}`,
+      risk: `${t('sunny')} ${t('risk')} 40C`,
       datetime: '3:00 PM',
     },
     {
       location: 'Lagos, Nigeria',
-      main: 'Sunny',
-      risk: 'Sunny with a high of 75F',
+      main: `${t('sunny')}`,
+      risk: `${t('sunny')} ${t('risk')} 75F`,
       datetime: '6:00 PM',
     },
   ]);

@@ -1,10 +1,17 @@
 {
-  "searchforcity": "Rechercher une ville",
-  "typethreechar": "Tapez au moins trois caractères",
-  "nocities": "Aucune ville trouvée",
-  "loading": "Chargement...",
-  "getapp": "Obtenir l'application",
-  "aboutus": "À propos de nous",
-  "downloadtheapp": "Téléchargez l'application mobile",
-  "allrights": "© 2022 Tropical weather, Tous droits réservés à Team Gear"
+  "getintouch": "Prendre contact",
+  "askusanything": "Demandez-nous tout, et nous aimerions avoir de vos nouvelles",
+  "instantchat": "Chat Instantané",
+  "phoneno": "Numéro de téléphone",
+  "address": "Adresse",
+  "ig": "IG",
+  "fb": "Facebook",
+  "twitter": "Twitter",
+  "office": "Bureau",
+  "sendusmessage": "Envoyez-nous un message",
+  "yourname": "Votre Nom",
+  "youremail": "Votre E-mail",
+  "yourmessage": "Votre Message",
+  "here": "ici...",
+  "send": "Envoyer"
 }

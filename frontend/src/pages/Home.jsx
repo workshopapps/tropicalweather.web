@@ -88,7 +88,7 @@ export default function Home() {
               <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
               <div>
                 <p>
-                  Today
+                  {t('today')}
                   {'  '}
                   <span>
                     {Number(immediateWeather.datetime.slice(0, 2)) + 1 < 10
@@ -115,7 +115,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('clouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Rain' && (
@@ -125,7 +125,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/icon.svg"
                           alt=""
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('rain')}</p>
                       </>
                     )}
                     {forecast.main === 'Few clouds' && (
@@ -135,7 +135,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="couldy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('fewclouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Scattered clouds' && (
@@ -145,7 +145,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('scatteredclouds')}</p>
                       </>
                     )}
                   </li>
@@ -155,7 +155,7 @@ export default function Home() {
         </div>
       </header>
       <div className="homepg-worldforecast">
-        <h2>World Forecast</h2>
+        <h2>{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
           <div className="homepg-worldone">
             <li className="homepg-poplis">
@@ -268,7 +268,7 @@ export default function Home() {
           className="homepg-explore"
           onClick={() => gotoDashboard('')}
         >
-          Expore all location
+          {t('explorealllocations')}
         </button>
       </div>
       <section
