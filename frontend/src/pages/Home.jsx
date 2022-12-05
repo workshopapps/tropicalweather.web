@@ -100,7 +100,7 @@ export default function Home() {
             <p className="homepage-location">{userLocation}</p>
           )}
           {userLocation === null && (
-            <p className="homepage-location">location loading....</p>
+            <p className="homepage-location">{t('locationloading')}</p>
           )}
           {immediateWeather !== null && (
             <div className="homepg-immed">
@@ -110,9 +110,8 @@ export default function Home() {
               />
               <div>
                 <p>
-                  Today
-                  {' '}
-                  <span> </span>
+                  {t('today')}
+                  {'  '}
                   <span>
                     {Number(immediateWeather.datetime.slice(11)) + 1 < 10
                       ? 0
@@ -135,7 +134,7 @@ export default function Home() {
               />
               <div>
                 <p>
-                  Today
+                  {t('today')}
                   {' '}
                   <span>
                     {new Date().getHours()}
@@ -143,7 +142,7 @@ export default function Home() {
                     {new Date().getHours() < 12 ? ' am' : ' pm'}
                   </span>
                 </p>
-                <p className="homepg-immedp">forecast loading...</p>
+                <p className="homepg-immedp">{t('forecastloading')}</p>
               </div>
             </div>
           )}
@@ -159,7 +158,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('clouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Rain' && (
@@ -169,7 +168,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/icon.svg"
                           alt=""
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('rain')}</p>
                       </>
                     )}
                     {forecast.main === 'Few clouds' && (
@@ -179,7 +178,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="couldy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('fewclouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Scattered clouds' && (
@@ -189,14 +188,14 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('scatteredclouds')}</p>
                       </>
                     )}
                   </li>
                 ))}
               {!weatherForecast.length && (
                 <p className="homepg-heroforecast">
-                  weather forecasts for the day loading...
+                  {t('weatherforecastfortheday')}
                 </p>
               )}
             </ul>
@@ -204,7 +203,7 @@ export default function Home() {
         </div>
       </header>
       <div className="homepg-worldforecast">
-        <h2>World Forecast</h2>
+        <h2>{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
           <div className="homepg-worldone">
             <li className="homepg-poplis">
@@ -317,7 +316,7 @@ export default function Home() {
           className="homepg-explore"
           onClick={() => gotoDashboard('')}
         >
-          Expore all location
+          {t('explorealllocations')}
         </button>
       </div>
       <section
