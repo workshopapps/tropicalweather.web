@@ -30,37 +30,37 @@ export default function ShareMenu() {
       return (
         <div className="share-button-cover">
           <div className="share-btn-container">
-            <a href="https://weathery.hng.tech" ref={btnRefLinkedin} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefLinkedin} className="twitter-btn">
               <img src="/share/share-link (1).png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefTwitter} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefTwitter} className="twitter-btn">
               <img src="/share/twitter-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefWhatsapp} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefWhatsapp} className="twitter-btn">
               <img src="/share/whatsapp-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefSlack} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefSlack} className="twitter-btn">
               <img src="/share/slack-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn1">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn1">
               <img src="/share/more-icon (1).png" alt="" className="share-tweet" />
             </a>
           </div>
           <hr />
           <div className="share-btn-container1">
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn">
               <img src="/share/share-link (1).png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn">
               <img src="/share/twitter-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn">
               <img src="/share/whatsapp-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn">
               <img src="/share/slack-icon.png" alt="" className="share-tweet" />
             </a>
-            <a href="https://weathery.hng.tech" ref={btnRefMore} className="twitter-btn1">
+            <a href="https://tropicalweather.hng.tech" ref={btnRefMore} className="twitter-btn1">
               <img src="/share/more-icon (1).png" alt="" className="share-tweet" />
             </a>
           </div>
