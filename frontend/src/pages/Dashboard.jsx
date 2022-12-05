@@ -19,6 +19,8 @@ export default function Dashboard() {
   const [showPopup, setShowPopup] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
+  const { t } = useTranslation(['dashboard']);
+
   const [timeline, setTimeline] = useState([
     {
       location: 'Abuja, Nigeria',
@@ -133,7 +135,7 @@ export default function Dashboard() {
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
-  const { t } = useTranslation(['dashboard']);
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
