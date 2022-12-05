@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../styles/ContactUs.css';
 import { BiPhoneCall } from 'react-icons/bi';
@@ -6,15 +6,29 @@ import { GoLocation } from 'react-icons/go';
 import { TiSocialTwitterCircular } from 'react-icons/ti';
 import { FaInstagram } from 'react-icons/fa';
 import { RiFacebookCircleLine } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 export default function ContactUs() {
   const { t } = useTranslation(['contact']);
+  const [toast, setToast] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setToast(true);
+    e.target.reset();
+    setTimeout(() => {
+      setToast(false);
+      navigate('/contact');
+    }, 3000);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
       }, []);
   return (
-    <div className="contact_us_container">
+    <div className="relative contact_us_container">
       <div className="contact_us_header">
         <h2 className="text-center">{t('getintouch')}</h2>
         <p>{t('askusanything')}</p>
@@ -98,7 +112,7 @@ export default function ContactUs() {
         <div className="cu_form">
           <div className="cu_form_t">
             <h2>{t('sendusmessage')}</h2>
-            <form className="cu_form_sub" action="">
+            <form className="cu_form_sub" action="" onSubmit={handleSubmit}>
               <label htmlFor="name">{t('yourname')}</label>
               <br />
               <input className="cu_input" type="text" placeholder="Doe Mavis" />
@@ -131,6 +145,23 @@ export default function ContactUs() {
           </div>
         </div>
       </div>
+      {toast ? (
+        <div
+          className="absolute flex items-center gap-2 p-1 bg-gray-200 rounded-lg"
+          style={{
+            left: '50%',
+            bottom: '1.5%',
+            transform: 'translateX(-50%)',
+            padding: '10px',
+            width: 'fit-content',
+            background: 'rgba(255, 255, 255, 0.9)',
+            border: '1px solid #054F39',
+          }}
+        >
+          <AiFillCheckCircle color="#054F39" />
+          <p style={{ fontSize: '16px' }}>{t('messagehasbeensent')}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

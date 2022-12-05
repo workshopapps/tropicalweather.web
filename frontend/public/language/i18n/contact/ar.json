@@ -13,5 +13,6 @@
      "youremail": "بريدك الإلكتروني" ,
      "yourmessage": "رسالتك" ,
      "here": "هنا...",
-     "send": "إرسال"
+     "send": "إرسال",
+     "messagehasbeensent": "تم ارسال رسالتك!"
 }
