@@ -19,26 +19,7 @@ export default function Dashboard() {
   const [showPopup, setShowPopup] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
-  const [timeline, setTimeline] = useState([
-    {
-      location: 'Abuja, Nigeria',
-      main: 'Sunny',
-      risk: 'Sunny with a high of 75F',
-      datetime: '1:00PM',
-    },
-    {
-      location: 'Kaduna, Nigeria',
-      main: 'Scattered Rain',
-      risk: 'Sunny with a high of 40C',
-      datetime: '3:00 PM',
-    },
-    {
-      location: 'Lagos, Nigeria',
-      main: 'Sunny',
-      risk: 'Sunny with a high of 75F',
-      datetime: '6:00 PM',
-    },
-  ]);
+  const [timeline, setTimeline] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const { search } = useLocation();
@@ -63,7 +44,6 @@ export default function Dashboard() {
       `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
-    console.log(data);
     setCurrentWeather(data.current);
     setTimeline(data.todays_timeline);
   };
@@ -119,7 +99,7 @@ export default function Dashboard() {
     setToast(true);
     setTimeout(() => {
       setToast(false);
-    }, 3000);
+    }, 5000);
   };
 
   const addLocation = async (location) => {
@@ -130,7 +110,7 @@ export default function Dashboard() {
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     showToast();
   };
-  console.log(savedLocations);
+
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
@@ -139,17 +119,18 @@ export default function Dashboard() {
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
         <div
-          className="flex items-center gap-3 absolute p-1 bg-gray-200 rounded-lg"
+          className="absolute flex items-center gap-3 p-1 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
             padding: '10px 20px',
-            width: 'fit-content',
-            background: 'rgba(209, 250, 223, 0.1)',
+            width: 'min(95%, 400px)',
+            background: '#FAFAFA',
             border: '1px solid #054F31',
+            zIndex: 1
           }}
         >
-          <AiFillCheckCircle color="#054F31" />
+          <AiFillCheckCircle color="#054F31" style={{ flexShrink: 0 }} />
           <p style={{ fontSize: '16px' }}>
             {`${currentLocation} has been added to saved locations`}
           </p>
@@ -247,7 +228,7 @@ export default function Dashboard() {
               timeline.map((day, index) => (
                 <WeatherTimeline
                   risk={day.risk}
-                  datetime={day.datetime}
+                  datetime={formatTime(day.datetime)}
                   main={day.main}
                   key={day.datetime}
                   last={index === timeline.length - 1}

@@ -3,11 +3,11 @@ import hashlib
 from typing import List, Union
 
 import models
-from conf.runtime import logger
 from sqlalchemy.orm import Session
 from utils.fcm_service import get_topic_name
 from utils.general import get_risks_by_address
 from utils.timer import now_utc
+from utils.logger import basic_logger as logger
 
 
 def get_db_locations(db: Session) -> List[models.Location]:
