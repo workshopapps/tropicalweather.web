@@ -12,6 +12,10 @@ export default function Settings() {
   const [language, setLanguage] = useState('');
   const { i18n, t } = useTranslation(['settings']);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const languageData = [
     {
       title: `${t('nenglish')}`,
