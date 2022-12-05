@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 export default function NotificationFeeds({ feeds }) {
+  const { t } = useTranslation(['notification']);
   if (feeds.length < 1) {
     return (
       <div className="notificaton_feed-nolist">
@@ -10,11 +12,8 @@ export default function NotificationFeeds({ feeds }) {
             alt="a trash icon"
             className="notificaton_feed-bigtrash"
           />
-          <p className="notificaton_feed-emptyy">Empty</p>
-          <p className="notificaton_feed-ntn">
-            Nothing to see here When you receive weather updates, they will
-            appear here.
-          </p>
+          <p className="notificaton_feed-empty">{t('empty')}</p>
+          <p className="notificaton_feed-ntn">{t('nothingtosee')}</p>
         </div>
       </div>
     );
@@ -51,7 +50,7 @@ export default function NotificationFeeds({ feeds }) {
                 <>
                   <div className="notificaton_feed-listcontent">
                     <img
-                      src="./assets/NotificationFeedList/cloudy.svg"
+                      src="./assets/NotificationFeedList/CLOUDY.svg"
                       alt="cloudy icon"
                     />
                     <p className="notificaton_feed-feed">{news.feed}</p>

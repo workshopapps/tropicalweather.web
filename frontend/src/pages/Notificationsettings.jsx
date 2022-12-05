@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import '../styles/NotificationSettings.css';
 import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
@@ -8,20 +9,22 @@ export default function Notificationsettings() {
   const toggleSwitch = () => {
     setToggle(!toggle);
   };
+
+  const { t } = useTranslation(['notification']);
   return (
     <div className="notificationsettings__container">
       <div className="return__btn--container">
         <img src={BackIcon} alt="Back Icon" />
-        <p>Back</p>
+        <p>{t('back')}</p>
       </div>
       <div className="notification__header">
-        <h2>Notifications</h2>
-        <p>Choose when and how we can contact you</p>
+        <h2>{t('notification')}</h2>
+        <p>{t('choosewhenwecancontact')}</p>
       </div>
       <div className="notification__push">
         <div className="notification__push--text">
-          <h3>Enable push notification</h3>
-          <p>Receive the latest weather news, forecast, updates from us</p>
+          <h3>{t('enablepushnotification')}</h3>
+          <p>{t('receivelatestnews')}</p>
         </div>
         <button type="button" className="toggle-btn" onClick={toggleSwitch}>
           {toggle ? (
@@ -34,11 +37,8 @@ export default function Notificationsettings() {
       <div className="notificationsettings">
         <div className="notificationsetting">
           <div className="notificationsetting__header">
-            <h3>Reminders</h3>
-            <p>
-              These are notification to remind you of updates you might have
-              missed
-            </p>
+            <h3>{t('reminders')}</h3>
+            <p>{t('remindernotification')}</p>
           </div>
           <div className="notificationsetting__option">
             <input
@@ -47,7 +47,7 @@ export default function Notificationsettings() {
               className="notificationsetting__option2--input"
             />
             <h5 className="notificationsetting__option--heading-text">
-              Do not notify me
+              {t('dontnotify')}
             </h5>
           </div>
           <div className="notificationsetting__option1">
@@ -58,10 +58,10 @@ export default function Notificationsettings() {
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">
-                Important reminders only
+                {t('dontnotify')}
               </h5>
               <p className="notificationsetting__option--description">
-                Only notify me if the reminder is tagged as important
+                {t('notifyimportantreminders')}
               </p>
             </div>
           </div>
@@ -73,10 +73,10 @@ export default function Notificationsettings() {
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">
-                All reminders
+                {t('allreminders')}
               </h5>
               <p className="notificationsetting__option--description">
-                Notify me for all reminders
+                {t('notifyallreminders')}
               </p>
             </div>
           </div>
@@ -84,11 +84,8 @@ export default function Notificationsettings() {
 
         <section className="notificationsetting">
           <div className="notificationsetting__header">
-            <h3>More activity about you</h3>
-            <p>
-              These are notifications for posts on your profile, details and
-              list of notifications
-            </p>
+            <h3>{t('moreactivityaboutyou')}</h3>
+            <p>{t('aboutyounotification')}</p>
           </div>
           <div className="notificationsetting__option">
             <input
@@ -97,7 +94,7 @@ export default function Notificationsettings() {
               className="notificationsetting__option2--input"
             />
             <h5 className="notificationsetting__option--heading-text">
-              Do not notify me
+              {t('dontnotify')}
             </h5>
           </div>
           <div className="notificationsetting__option2">
@@ -108,10 +105,10 @@ export default function Notificationsettings() {
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">
-                All reminders
+                {t('allreminders')}
               </h5>
               <p className="notificationsetting__option--description">
-                Notify me for all reminders
+                {t('notifyallreminders')}
               </p>
             </div>
           </div>

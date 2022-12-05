@@ -1,7 +1,7 @@
 from firebase_admin import messaging
 from firebase_admin.exceptions import FirebaseError
 from typing import TypeVar
-from conf.runtime import error_logger, logger
+from utils.logger import basic_logger, error_logger
 from database import get_db
 import models
 
@@ -44,7 +44,7 @@ def register_id_to_topic(token: str, topic: str):
 
     try:
         response: T = messaging.subscribe_to_topic(registration_tokens, topic)
-        logger.info(
+        basic_logger.info(
             f"Successfully subscribed to topic: {response.success_count}")
     except FirebaseError as e:
         error_logger.exception(e)
@@ -68,7 +68,7 @@ def unsubscribe_id_from_topic(token: str, topic: str):
     try:
         response: T = messaging.unsubscribe_from_topic(
             registration_tokens, topic)
-        logger.info(
+        basic_logger.info(
             f"Successfully unsubscribed from topic: {response.success_count}")
 
     except FirebaseError as e:
@@ -101,4 +101,4 @@ def unsubscribe_id_all_topics(token: str):
             pass
 
     db.commit()
-    logger.info(f"Successfully unsubscribed from {success} topics")
+    basic_logger.info(f"Successfully unsubscribed from {success} topics")

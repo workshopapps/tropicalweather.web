@@ -8,23 +8,31 @@ router = APIRouter(
 
 
 @router.get('/location', response_model=locationResponse)
-async def get_location(lat: float, lon: float):
-    
-       
+async def get_location(lat: float, lon: float): 
+
+    try:
+            
         address : list(dict(str,str)) = reverse_geocoding(lat, lon)
         if address is None: 
             
             raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, 
             detail= "Invalid-Parameters")
-        
+
         for location in address:
             city = location.get('name')
             state = location.get('state')
 
         response = {
         'city': city,
-        'state': state
+        'state': state,
+        'lat': lat,
+        'lon': lon
         }
 
         return response
+    
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail= "Cannot Retrieve weather data for this location")

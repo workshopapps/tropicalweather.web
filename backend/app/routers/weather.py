@@ -1,10 +1,13 @@
 from datetime import datetime
 from typing import List
+import pytz
 
 from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
-from schemas import (AlertsResponse, CurrentWeatherResponse, ImmediateForecastResponse, RiskEvent, RiskLevel,
-                     RiskResponse, WeatherResponse)
+from schemas import (AlertsResponse, CurrentWeatherResponse,
+                     ImmediateForecastResponse, RiskEvent, RiskLevel,
+                     RiskResponse, WeatherResponse, SingleWeatherResponse,
+                     WeatherResponse, UserCurrentWeather)
 from sqlalchemy.orm import Session
 from utils.client import reverse_geocoding, weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
@@ -14,6 +17,7 @@ from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
 from utils.hourly_forecast import hourly_forecasts
 from utils.open_meteo import client
 from utils.weather_code import WmoCodes
+from utils.user_current_forecast import user_current_forecasts
 
 router = APIRouter(
     prefix="/weather",
@@ -27,7 +31,27 @@ async def weather_forecasts(lat: float, lon: float):
     return hourly_forecasts(lat, lon)
 
 
-@router.get('/current', response_model=CurrentWeatherResponse)
+@router.get('/current', response_model=UserCurrentWeather)
+async def get_user_current_weather(lat: float, lon: float):
+    """Get current weather for a given address
+
+    :param lat: Latitude to get weather for
+    :param lon: Longitude to get weather for
+    :type lat: float
+    :type lon: float
+    :raises HTTPException: If lat or lon is not valid or not found
+    :return: Current weather for a user
+    :rtype: UserCurrentWeather
+    """
+    location = reverse_geocoding(lat=lat, long=lon)
+    result = user_current_forecasts(lat=lat, lon=lon)
+    result['city'] = location['city']
+    result['state'] = location['state']
+    result['country'] = location['country']
+    return result
+
+
+@router.get('/current/by-address', response_model=UserCurrentWeather)
 async def get_current_weather(address: str):
     """Get current weather for a given address
 
@@ -35,21 +59,16 @@ async def get_current_weather(address: str):
     :type address: str
     :raises HTTPException: If address is not valid or not found
     :return: Current weather for the address
-    :rtype: CurrentWeatherResponse
+    :rtype: UserCurrentWeather
     """
 
     geo_address = geocode_address(address)
     lat, lon = geo_address['lat'], geo_address['lon']
-
-    weather_data = weather_api_call(lon, lat)
-
-    return {
-        "city": geo_address['city'],
-        "state": geo_address['state'],
-        'main': weather_data['main'],
-        'description': weather_data['description'],
-        **convert_epoch_to_datetime(weather_data['dt'])
-    }
+    result = user_current_forecasts(lat=lat, lon=lon)
+    result['city'] = geo_address['city']
+    result['state'] = geo_address['state']
+    result['country'] = geo_address['country']
+    return result
 
 
 @router.get("/forecasts/immediate", response_model=ImmediateForecastResponse)
@@ -119,11 +138,17 @@ async def get_tommorrows_weather(lat: float, lon: float):
             detail="Can't retrive weather data for this location"
         )
 
-
 @router.get('/alerts/list', response_model=List[AlertsResponse])
 def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
-    latlng = reverse_geocoding(lat, lon)
+    latlng = reverse_geocode(lat, lon)
+
+    # if coordinate is incorrect, raise this exception
+    if latlng is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"location not found for this coordinates or incorrect coordinates")
+
     city = latlng.get('city')
     state = latlng.get('state')
 
@@ -134,18 +159,32 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
     if loc_obj is not None:
         for mydata in loc_obj.alerts:
 
-            date_time = convert_epoch_to_datetime(mydata.end)
+            # date_time -> type:INT from model
+            date_time = mydata.end
 
-            alert_instance = {
-                'event': mydata.event,
-                'message': mydata.message,
-                'date': date_time['date'],
-                'time': date_time['time']
+            if date_time is not None:
+                # date -> type:TimeStamp from date_time
+                date_obj = datetime.fromtimestamp(date_time, tz=pytz.utc)
+                alert_instance = {
+                    'event': mydata.event,
+                    'message': mydata.message,
+                    'datetime': datetime.strptime(date_obj, '%Y/%m/%d %H:%M')
+                }
+
+                data.append(alert_instance)
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="No active weather alert for this location")
+    else:         
+        alert_instance = {
+            'event': "None",
+            'message': "No alert event for this location",
+            'datetime': str(datetime.now(tz=pytz.utc))
             }
-
-            data.append(alert_instance)
-
+        data.append(alert_instance)
     return data
+
 
 
 @router.get('/risk', response_model=List[RiskResponse])
