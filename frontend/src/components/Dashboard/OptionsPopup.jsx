@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlineHome, AiOutlineShareAlt } from 'react-icons/ai';
 import { BsBell } from 'react-icons/bs';
 import { FiSettings } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import Share from '../share/Share_popup';
 
 export default function OptionsPopup({ display }) {
-  const [popup, setPopup] = useState(0);
   return (
     <ul
       className={`${
@@ -19,19 +17,8 @@ export default function OptionsPopup({ display }) {
         <p>Home</p>
       </li>
       <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
-        <button
-          type="button"
-          aria-label="share"
-          className="text-xl flex flex-direction:row items-center gap-2 py-2"
-          onClick={() => {
-            setPopup(!popup);
-          }}
-          to=""
-        >
-          <AiOutlineShareAlt className="text-xl" />
-          <p>Share</p>
-        </button>
-        <Share popup={popup} setPopup={setPopup} />
+        <AiOutlineShareAlt className="text-xl" />
+        <p>Share</p>
       </li>
       <li>
         <Link

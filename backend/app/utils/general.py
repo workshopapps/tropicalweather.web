@@ -212,14 +212,10 @@ def geocode_address(
             detail="Address not found. Please retry again",
         )
 
-    city = g.city
-    if city is None:
-        city = g.county
-
     return {
         "lat": g.lat,
         "lon": g.lng,
-        "city": city,
+        "city": g.city,
         "state": g.state,
         "country": g.country
     }
@@ -254,12 +250,8 @@ def reverse_geocode(lat: float, lon: float):
             detail="Address not found. Please retry again",
         )
 
-    city = g.city
-    if city is None:
-        city = g.county
-
     return {
-        'city': city,
+        'city': g.city,
         'state': g.state,
         'country': g.country
     }

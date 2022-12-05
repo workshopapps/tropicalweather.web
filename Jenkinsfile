@@ -22,7 +22,6 @@ pipeline {
         		}
 			}
         }
-
         stage("build backend"){
 
 			steps {
@@ -30,7 +29,6 @@ pipeline {
                 sh "cd backend && sudo pip install -r requirements.txt"
             }
         }
-
 		stage("deploy") {
 		
 			steps {

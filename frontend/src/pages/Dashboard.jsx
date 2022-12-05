@@ -139,7 +139,7 @@ export default function Dashboard() {
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
         <div
-          className="absolute flex items-center gap-3 p-1 bg-gray-200 rounded-lg"
+          className="flex items-center gap-3 absolute p-1 bg-gray-200 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
@@ -247,7 +247,7 @@ export default function Dashboard() {
               timeline.map((day, index) => (
                 <WeatherTimeline
                   risk={day.risk}
-                  datetime={formatTime(day.datetime)}
+                  datetime={day.datetime}
                   main={day.main}
                   key={day.datetime}
                   last={index === timeline.length - 1}
