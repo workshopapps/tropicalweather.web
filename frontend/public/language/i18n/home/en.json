@@ -6,13 +6,11 @@
     "weatherupdates": "Weather Updates",
     "updatedamin": "Updated a minute ago",
     "hourlyupdates": "Hourly Updates",
-    "today": "Today",
-    "rain": "Rain",
+    "todaythursday": "Today, Thursday",
+    "rainy": "Rainy",
     "sunny": "Sunny",
     "clear": "Clear",
-    "clouds": "Clouds",
-    "fewclouds": "Few clouds",
-    "scatteredclouds": "Scattered clouds",
+    "cloudy": "Cloudy",
     "risk": "Risk",
     "low": "LOW",
     "mid": "MID",
@@ -49,10 +47,5 @@
     "FAQQ3": "3. HOW DO I VIEW THE RADAR MAP?",
     "FAQA3": "Tropical weather keeps track of your last five locations' searches. Click the drop-down arrow to the top right side of the page, and you should see your most recently viewed 5 locations. When you search for additional locations, they will be replaced by new ones. However, clearing your cookies will remove all saved locations.",
     "FAQQ4": "4. HOW DO I MANAGE THE NOTIFICATION?",
-    "FAQA4": "Go to  your notifications page and click and the menu icon and you can manage and customize your notifications",
-    "explorealllocations": "Expore all locations",
-    "worldforecast": "World Forecast",
-    "locationloading": "location loading....",
-    "forecastloading": "Forecast Loading...",
-    "weatherforecastfortheday": "weather forecasts for the day loading..."
+    "FAQA4": "Go to  your notifications page and click and the menu icon and you can manage and customize your notifications"
 }

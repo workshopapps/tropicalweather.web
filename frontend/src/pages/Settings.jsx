@@ -33,6 +33,16 @@ export default function Settings() {
       subtitle: `${t('arabic')}`,
       value: 'ar',
     },
+    {
+      title: `${t('npolish')}`,
+      subtitle: `${t('polish')}`,
+      value: 'po',
+    },
+    {
+      title: `${t('nchinese')}`,
+      subtitle: `${t('chinese')}`,
+      value: 'ch',
+    },
   ];
 
   useEffect(() => {

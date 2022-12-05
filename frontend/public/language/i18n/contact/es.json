@@ -1,17 +1,10 @@
 {
-  "getintouch": "Ponte en contacto",
-  "askusanything": "Pregúntanos todo y nos encantaría saber de ti",
-  "instantchat": "Chat instantáneo",
-  "phoneno": "Número de teléfono",
-  "address": " Dirección",
-  "ig": "ig",
-  "fb": "Facebook",
-  "twitter": "Twitter",
-  "office": "Oficina",
-  "sendusmessage": "Envíanos un Mensaje",
-  "yourname": "Tu nombre",
-  "youremail": "Tu correo electrónico",
-  "yourmessage": "Tu mensaje",
-  "here": "aquí...",
-  "send": "Enviar"
+  "searchforcity": "Buscar ciudad",
+  "typethreechar": "Escriba al menos tres caracteres",
+  "nocities": "No se encontraron ciudades",
+  "loading": "Cargando...",
+  "getapp": "Obtener aplicaciones",
+  "aboutus": "Sobre nosotros",
+  "downloadtheapp": "Descarga la aplicación móvil",
+  "allrights": "© 2022 Tropical weather, Todos los derechos reservados a Team Gear"
 }

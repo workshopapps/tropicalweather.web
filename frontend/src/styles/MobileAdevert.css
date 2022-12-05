@@ -75,11 +75,6 @@
   #about--mobile__app {
     margin-top: 30px;
   }
-
-  .about-mobile-text2{
-    font-size: 24px;
-    line-height: 1.2;
-  }
 }
 @media (max-width: 550px) {
   #about--mobile__app {

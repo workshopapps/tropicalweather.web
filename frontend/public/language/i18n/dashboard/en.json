@@ -7,8 +7,6 @@
     "loading": "Loading...",
     "savedlocations": "Saved Locations",
     "nolocation": "No Location saved yet",
-    "youcansave": "You can save a location to view the details later",
-    "sunny": "Sunny",
-    "risk": " with a high of ",
-    "scatteredrain": "Scattered Rain"
+    "youcansave": "You can save a location to view the details later"
+
 }
