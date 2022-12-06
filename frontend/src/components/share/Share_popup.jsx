@@ -45,7 +45,7 @@ export default function Share({ popup, setPopup }) {
 
   const getCurrentForecastFromLocation = async (location) => {
     const response = await fetch(
-      `${APIURL}/weather/current?address=${location}`
+      `${APIURL}/weather/forecasts?lat=${location}`
     );
     const data = await response.json();
     setCurrentWeather(data);
@@ -60,40 +60,37 @@ export default function Share({ popup, setPopup }) {
     }
   }, [coords]);
 
-  return (
-    <div className={` ${!popup ? 'share-close' : 'share-background'}`}>
-      <div className="share-popup">
-        <div className="relative  items-center w-full">
-          <h1 className="share-share self-center">Share</h1>
-          <GrClose onClick={() => setPopup(!popup)} className="absolute right-[0px] top-[0]" />
-        </div>
-
-        <div className="row1">
-          <img src="/share/share-backIMG.png" alt="pop-up" className="share-img" />
-          <div className="share-location">
-            <h1 className="today-fore">TODAYS FORECAST</h1>
-            <div className="share-state">
-              <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
-              <p className="lagos-share">{currentLocation || 'Not Available'}</p>
-              <img src="/share/div line.png" alt="pop-up" className="share-horline" />
-              <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
-            </div>
-            <div className="share-time">
-              <h2 className="share-heavy">{currentWeather.main || 'Not Available'}</h2>
-              <p className="share-ptime">{time}</p>
-            </div>
-            <div className="share-risk">
-              <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
-              <p className="share-arisk">{currentWeather.description || 'Data is not available'}</p>
-            </div>
-          </div>
-        </div>
-        <Sharemenu />
-      </div>
-    </div>
-  );
-}
-
+   return (
+     <div className={` ${!popup ? 'share-close' : 'share-background'}`}>
+       <div className="share-popup">
+         <GrClose className="close" onClick={() => setPopup(!popup)} />
+         <h1 className="share-share">Share</h1>
+         <div className="row1">
+           <img src="/share/share-backIMG.png" alt="pop-up" className="share-img" />
+           <div className="share-location">
+             <h1 className="today-fore">TODAYS FORECAST</h1>
+             <div className="share-state">
+               <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
+               <p className="lagos-share">{currentLocation || 'loading...'}</p>
+               <img src="/share/div line.png" alt="pop-up" className="share-horline" />
+               <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
+             </div>
+             <div className="share-time">
+               <h2 className="share-heavy">{currentWeather.main || 'Loading...'}</h2>
+               <p className="share-ptime">{time}</p>
+             </div>
+             <div className="share-risk">
+               <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
+               <p className="share-arisk">{currentWeather.description || 'please wait...'}</p>
+             </div>
+           </div>
+         </div>
+         <Sharemenu />
+       </div>
+     </div>
+   );
+ }
+ 
 Share.propTypes = {
   popup: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setPopup: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
