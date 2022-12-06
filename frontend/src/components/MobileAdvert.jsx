@@ -1,17 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import Phone from './aboutphone.png';
 import '../styles/MobileAdevert.css';
 
 export default function MobileAdvert() {
+  const { t } = useTranslation(['home']);
   return (
     <section id="about--mobile__app">
       <div className="about--mobile__container">
-        <p className="about-mobile-go">Go Mobile</p>
+        <p className="about-mobile-go">{t('gomobile')}</p>
         <h3 className="about-mobile-text2">
-          Use the free Tropical weather app
+          {t('usetheappheading')}
         </h3>
         <p className="about-mobile-text3">
-          Explore the flexibility and ease that comes with using our
-          Tropical weather app on the go!
+          {t('usetheappbody')}
         </p>
         <div className="about__download_btn">
           <a
