@@ -13,7 +13,7 @@ from utils.client import reverse_geocoding, weather
 from utils.general import (convert, convert_epoch_to_datetime, geocode_address,
                            get_immediate_weather_api_call, get_location_obj,
                            get_risk, immediate_weather_api_call_tommorrow,
-                           weather_api_call, weather_forcast_extended_call)
+                           weather_api_call, weather_forcast_extended_call, reverse_geocode)
 from utils.hourly_forecast import hourly_forecasts
 from utils.open_meteo import client
 from utils.weather_code import WmoCodes
@@ -151,8 +151,9 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     city = latlng.get('city')
     state = latlng.get('state')
+    country = latlng.get('country')
 
-    loc_obj = get_location_obj(db, city, state)
+    loc_obj = get_location_obj(db, city, state, country)
 
     data = []
 
