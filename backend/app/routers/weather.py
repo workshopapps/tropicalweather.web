@@ -242,15 +242,16 @@ async def get_extended_forecast(lat: float, lon: float):
         temp = res['hourly']['temperature_2m']
         prec = res['hourly']['precipitation']
         match = weather_code[time_index]
+        
         end_datetime :str = ""
         for i in range(time_index, len(weather_code)):
-        
+            
             if match != weather_code[i]:
-                end_datetime = hourly_timestamps[i]        
-                break 
-            end_datetime = hourly_timestamps[i]    
-            break
-        
+                
+                end_datetime= hourly_timestamps[i]
+           
+                break
+                
         risk = get_risk(temperature, precipitation)
         todays_timeline = []
         for forecast in range(time_index, 24): 
@@ -313,7 +314,7 @@ async def get_extended_forcast_by_address(address):
     main = res['current_weather']['weathercode']
     datetime = res['current_weather']['time']
     hourly_timestamps: list(str) = res['hourly']['time']
-
+    print(hourly_timestamps)
     # get the current time index to be used in other parameters
     time_index: int = hourly_timestamps.index(datetime)
 
@@ -327,12 +328,11 @@ async def get_extended_forcast_by_address(address):
     match = weather_code[time_index]
     end_datetime: str = ""
     for i in range(time_index, len(weather_code)):
-
+        print(hourly_timestamps[i])
         if match != weather_code[i]:
             end_datetime = hourly_timestamps[i]        
             break 
-        end_datetime = hourly_timestamps[i]    
-        break
+        
 
     risk = get_risk(temperature, precipitation)
     todays_timeline = []
