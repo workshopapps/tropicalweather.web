@@ -7,7 +7,7 @@ export default function WeatherTimeline({ main, datetime, risk, last }) {
     if (main.toLowerCase().includes('sun')) {
       return '/dashboard/sunny.png';
     } if (main.toLowerCase().includes('rain')) {
-      return '/dashboard/rain.png';
+      return '/dashboard/rainy.png';
     }
       return '/dashboard/cloudy.png';
   }
