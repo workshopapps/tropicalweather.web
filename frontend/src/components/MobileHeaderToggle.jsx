@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import { RiHome6Line } from 'react-icons/ri';
-// import { FaRegLightbulb } from 'react-icons/fa';
 import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
-// import { CgEnter } from 'react-icons/cg';
 import { GrClose } from 'react-icons/gr';
+import { useTranslation } from 'react-i18next';
 
 export default function MobileHeaderToggle({ handleToggle, toggle }) {
   return (
@@ -65,25 +64,26 @@ MobileHeader.propTypes = {
 };
 
 function Navigation({ handleClickProp, style, itemStyle }) {
+  const { t } = useTranslation(['common']);
   const links = [
     {
-      name: 'Home',
+      name: `${t('home')}`,
       link: '/',
       icon: <RiHome6Line />,
     },
     {
-      name: 'About Us',
+      name: `${t('aboutus')}`,
       link: '/about-us',
       icon: <BsBriefcase />,
     },
     {
-      name: 'Contact Us',
+      name: `${t('contactus')}`,
       link: '/contact',
       icon: <BiInfoCircle />,
     },
     {
-      name: 'FAQs',
-      link: '/',
+      name: `${t('faqs')}`,
+      link: '/#faq',
       icon: <BsQuestionCircle />,
     },
   ];
@@ -121,14 +121,15 @@ function MenuItem({
  pathName, path, icon, handleClickProp,
 }) {
   return (
-    <NavLink
+    <Link
+      smooth
       to={path}
       className="rounded-lg p-2 mb-2 text-lg font-bold mobile-nav__item text-gray-600 flex items-center gap-4"
       onClick={handleClickProp}
     >
       <span>{icon}</span>
       <span>{pathName}</span>
-    </NavLink>
+    </Link>
   );
 }
 

@@ -10,9 +10,8 @@ export default function OptionsPopup({ display }) {
   const [popup, setPopup] = useState(0);
   return (
     <ul
-      className={`${
-        display ? 'grid grid-cols-1' : 'hidden'
-      } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y`}
+      className={`${display ? 'grid grid-cols-1' : 'hidden'
+        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y`}
     >
       <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
         <AiOutlineHome className="text-xl" />
@@ -42,9 +41,11 @@ export default function OptionsPopup({ display }) {
           <p>Notifications</p>
         </Link>
       </li>
-      <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
-        <FiSettings className="text-xl" />
-        <p>Settings</p>
+      <li>
+        <Link to="/settings" className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
+          <FiSettings className="text-xl" />
+          <p>Settings</p>
+        </Link>
       </li>
     </ul>
   );

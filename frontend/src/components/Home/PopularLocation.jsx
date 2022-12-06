@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
 
 import BASEURL from '../../constants';
 import '../../styles/Home.css';
@@ -19,6 +20,8 @@ export default function PopularLocation({ location, bin, remove }) {
   if (data) {
     response = data.data;
   }
+
+  const { t } = useTranslation(['home']);
   return (
     <article className="landing_location_brief">
       <div className="landing_location_brief_header flex items-center justify-between justify-content gap-10">
@@ -41,9 +44,9 @@ export default function PopularLocation({ location, bin, remove }) {
         )}
       </div>
       <div className="landing_location_body">
-        {isFetching ? <p style={{ color: 'gray' }}>Updating...</p> : null}
+        {isFetching ? <p className="landing_location_placeholder" style={{ color: 'gray', fontSize: '13px' }}>{t('updating')}</p> : null}
         {isError && !isFetching ? (
-          <p style={{ color: 'red' }}>Something went wrong</p>
+          <p className="landing_location_placeholder" style={{ color: 'red', fontSize: '15px' }}>{t('somethingwentwrong')}</p>
         ) : (
           <>
             <h5>{response.main}</h5>
@@ -52,7 +55,7 @@ export default function PopularLocation({ location, bin, remove }) {
               to={`/dashboard?city=${location}`}
               className="landing_link_button"
             >
-              View more info →
+              {t('viewmoreinfo')}
             </Link>
           </>
         )}

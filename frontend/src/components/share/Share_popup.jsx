@@ -90,9 +90,9 @@ export default function Share({ popup, setPopup }) {
      </div>
    );
  }
-
- Share.propTypes = {
+ 
+Share.propTypes = {
   popup: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setPopup: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
- };
+};

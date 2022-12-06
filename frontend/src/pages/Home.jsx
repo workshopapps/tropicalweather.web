@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faqs from '../components/Home/Faqs';
-// import HourlyUpdate from '../components/Home/HoulyUpdate';
-// import Risk from '../components/Home/Risk';
+import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
-// import Share from '../components/share/Share_popup';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -20,28 +18,44 @@ export default function Home() {
   const [curr, setCurr] = useState(0);
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
+  const { t } = useTranslation(['home']);
   const getCurrentLocationFromCoords = async () => {
-    const response = await fetch(
-      `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    const location = `${data.city}, ${data.state}`;
-    setUserLocation(location);
-    onload.current = true;
+    try {
+       const response = await fetch(
+         `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+       );
+       const data = await response.json();
+       const location = `${data.city}, ${data.state}`;
+       setUserLocation(location);
+       onload.current = true;
+    } catch (error) {
+      // console.log(error);
+    }
   };
   const getImmediateWeather = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/current/by-address?address=${userLocation.replace(', ', '%2C%20')}`
-    );
-    const data = await response.json();
-    setImmediateWeather(data);
-  };
+    try {
+      const response = await fetch(
+        `${APIURL}/weather/current/by-address?address=${userLocation.replace(
+          ', ',
+          '%2C%20'
+        )}`
+      );
+      const data = await response.json();
+      setImmediateWeather(data);
+    } catch (error) {
+      // console.log(error);
+    }
+    };
   const getWeatherForecast = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    setWeatherForecast(data);
+    try {
+       const response = await fetch(
+         `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
+       );
+       const data = await response.json();
+       setWeatherForecast(data);
+    } catch (error) {
+      // console.log(error);
+    }
   };
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
@@ -77,30 +91,58 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
+  console.log(weatherForecast, userLocation);
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
-          {userLocation !== 'undefined, undefined' && (
+          {userLocation !== null && (
             <p className="homepage-location">{userLocation}</p>
+          )}
+          {userLocation === null && (
+            <p className="homepage-location">{t('locationloading')}</p>
           )}
           {immediateWeather !== null && (
             <div className="homepg-immed">
-              <img src="./assets/NotificationFeedList/CLOUDY.svg" alt="clouds icons" />
+              <img
+                src="./assets/NotificationFeedList/CLOUDY.svg"
+                alt="clouds icons"
+              />
               <div>
                 <p>
-                  Today
+                  {t('today')}
                   {'  '}
                   <span>
-                    {Number(immediateWeather.datetime.slice(0, 2)) + 1 < 10
+                    {Number(immediateWeather.datetime.slice(11)) + 1 < 10
                       ? 0
                       : ''}
-                    {Number(immediateWeather.datetime.slice(0, 2)) + 1}
-                    {' '}
-                    {immediateWeather.datetime.slice(2)}
+                    {Number(immediateWeather.datetime.slice(11, 13)) + 1 < 24
+                      ? Number(immediateWeather.datetime.slice(11, 13)) + 1
+                      : Number(immediateWeather.datetime.slice(11, 13)) + 1}
+                    :00
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
+              </div>
+            </div>
+          )}
+          {immediateWeather === null && (
+            <div className="homepg-immed">
+              <img
+                src="./assets/NotificationFeedList/CLOUDY.svg"
+                alt="clouds icons"
+              />
+              <div>
+                <p>
+                  {t('today')}
+                  {' '}
+                  <span>
+                    {new Date().getHours()}
+                    :00
+                    {new Date().getHours() < 12 ? ' am' : ' pm'}
+                  </span>
+                </p>
+                <p className="homepg-immedp">{t('forecastloading')}</p>
               </div>
             </div>
           )}
@@ -108,7 +150,7 @@ export default function Home() {
             <ul>
               {weatherForecast !== null &&
                 weatherForecast.map((forecast) => (
-                  <li key={forecast.datetime}>
+                  <li key={forecast.datetime} className="homepg-heroforecast">
                     {forecast.main === 'Clouds' && (
                       <>
                         <p>{forecast.datetime}</p>
@@ -116,7 +158,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('clouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Rain' && (
@@ -126,7 +168,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/icon.svg"
                           alt=""
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('rain')}</p>
                       </>
                     )}
                     {forecast.main === 'Few clouds' && (
@@ -136,7 +178,7 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="couldy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('fewclouds')}</p>
                       </>
                     )}
                     {forecast.main === 'Scattered clouds' && (
@@ -146,17 +188,22 @@ export default function Home() {
                           src="./assets/NotificationFeedList/CLOUDY.svg"
                           alt="cloudy icon"
                         />
-                        <p>{forecast.main}</p>
+                        <p>{t('scatteredclouds')}</p>
                       </>
                     )}
                   </li>
                 ))}
+              {!weatherForecast.length && (
+                <p className="homepg-heroforecast">
+                  {t('weatherforecastfortheday')}
+                </p>
+              )}
             </ul>
           </div>
         </div>
       </header>
       <div className="homepg-worldforecast">
-        <h2>World Forecast</h2>
+        <h2>{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
           <div className="homepg-worldone">
             <li className="homepg-poplis">
@@ -269,7 +316,7 @@ export default function Home() {
           className="homepg-explore"
           onClick={() => gotoDashboard('')}
         >
-          Expore all location
+          {t('explorealllocations')}
         </button>
       </div>
       <section
@@ -279,8 +326,8 @@ export default function Home() {
         <div className="landing_sections_wrapper flex flex-col gap-[56px]">
           <div className="w-full flex flex-col gap-[56px]">
             <div className="landing_locations_header">
-              <h3 className="landing_header_md">Popular locations</h3>
-              <h6>upated a minute ago</h6>
+              <h3 className="landing_header_md">{t('popularlocations')}</h3>
+              <h6>{t('updatedamin')}</h6>
             </div>
             <div
               ref={slider}
@@ -314,8 +361,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col gap-[10px]">
-            <h4 className="text-[20px] font-bold">Cities near you</h4>
+          <div className="w-full flex flex-col gap-[56px]">
+            <h4 className="text-[20px] font-bold">{t('citiesnearyou')}</h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
@@ -327,8 +374,125 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Faqs />
-      <MobileAdvert />
+      <div className="landing_sections_wrapper">
+        <section
+          id="landing_features_and_globe"
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '40px',
+          }}
+          className="py-[96px]"
+        >
+          <div className="landing_features_and_globe">
+            <div className="landing_globe">
+              <div className="landing_showcase">
+                <h3 className="landing_header_md">
+                  {t('neverworryaboutfiguresheading')}
+                </h3>
+                <p>{t('neverworryaboutfiguresbody')}</p>
+              </div>
+              <div
+                className="landing_ill_container"
+                style={{
+                  '--ill-bg': '#D1FADF',
+                }}
+              >
+                <p>{t('features')}</p>
+                <h3>{t('addmultiplelocationsheading')}</h3>
+                <p>{t('addmultiplelocationsbody')}</p>
+                <Link to="/signup" className="landing_link_button">
+                  {t('getstarted')}
+                </Link>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
+                  <img
+                    src="/Home/globe.png"
+                    alt=""
+                    style={{
+                      marginInline: 'auto',
+                      width: '80%',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="landing_features">
+              <div
+                className="landing_ill_container"
+                style={{
+                  '--ill-bg': '#FEF2F2',
+                }}
+              >
+                <p>{t('features')}</p>
+                <h3>{t('findoutyourcityforecastheading')}</h3>
+                <p>{t('findoutyourcityforecastbody')}</p>
+                <Link to="/signup" className="landing_link_button">
+                  {t('getstarted')}
+                </Link>
+                <div style={{ width: '100%', paddingTop: '24px' }}>
+                  <img
+                    src="/Home/fall.png"
+                    alt=""
+                    style={{
+                      marginInline: 'auto',
+                      width: '80%',
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div id="faq">
+          <FaqSection />
+        </div>
+      </div>
     </div>
+  );
+}
+
+function FaqSection() {
+  const [openAll, toggleOpenAll] = useState(false);
+  const { t } = useTranslation(['home']);
+  return (
+    <section className="flex flex-col gap-8 w-full pb-[96px]">
+      <div className="flex items-center justify-between">
+        <h3 className="landing_header_md">{t('explorefaqs')}</h3>
+        <button
+          type="button"
+          className="flex items-center gap-2 text-[#565560]"
+          onClick={() => toggleOpenAll((prv) => !prv)}
+        >
+          {t('viewfull')}
+          {openAll ? <FaAngleUp /> : <FaAngleDown />}
+        </button>
+      </div>
+      <div className="sm:p-3 flex flex-col gap-8">
+        <Faq
+          position={1}
+          question={`${t('FAQQ1')}`}
+          answer={`${t('FAQA1')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ2')}`}
+          answer={`${t('FAQA2')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ3')}`}
+          answer={`${t('FAQA3')}`}
+          open={openAll}
+        />
+        <Faq
+          question={`${t('FAQQ4')}`}
+          answer={`${t('FAQA4')}`}
+          open={openAll}
+        />
+      </div>
+      {/* <Faqs /> */}
+      <MobileAdvert />
+    </section>
   );
 }
