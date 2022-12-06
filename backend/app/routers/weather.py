@@ -419,7 +419,6 @@ async def weather_tomorrow_by_location(lat: float, lon: float):
     return result
 
 
-# -------------------------------------------------------------------------------
 @router.get("/forecasts/tomorrow/by-address")
 async def weather_tomorrow(address: str):
     try:
@@ -488,6 +487,50 @@ async def forecast_by_address(address: str):
     data = hourly_forecasts(lat, lon)
 
     return data
+
+@router.get('/weekly')
+async def weather_this_week_by_location(lat: float, lon: float):
+    try:
+        address = reverse_geocode(lat, lon)
+        city = address.get('city')
+        state = address.get('state')
+        country = address.get('country')
+
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can't retrieve weather data for this location"
+        )
+
+    result = []
+
+    daily_forecasts = client.get_daily_forecast(
+        lat, lon, daily_params=['weathercode'], timezone="Africa/Lagos")
+
+    daily_time: list[str] = daily_forecasts['daily']['time']
+    daily_weathercode: list[str] = daily_forecasts['daily']['weathercode']
+    daily_apparent_temperature: list[str] = daily_forecasts['daily']['apparent_temperature_max']
+    daily_precipitation: list[str] = daily_forecasts['daily']['precipitation_sum']
+
+    
+    for i in range(7):
+        main = WmoCodes.get_wmo_code(daily_weathercode[i])
+        date_time = datetime.strptime(daily_time[i], "%Y-%m-%d")
+        risk = get_risk(
+            daily_apparent_temperature[i], daily_precipitation[i])
+
+        res = {
+            "main": main,
+            "datetime": date_time,
+            "risk": risk,
+            "state": state,
+            "city": city,
+            "country": country,
+        }
+
+        result.append(res)
+
+    return result
 
 @router.get("/weekly/by-address")
 async def weather_this_week(address: str):
