@@ -91,16 +91,16 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
-  console.log(weatherForecast, userLocation);
+  // console.log(weatherForecast, userLocation);
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
-            <p className="homepage-location">{userLocation}</p>
+            <p className="homepage-location ml-[-16px] md:ml-6">{userLocation}</p>
           )}
           {userLocation === null && (
-            <p className="homepage-location">{t('locationloading')}</p>
+            <p className="homepage-location ml-0 md:ml-6">{t('locationloading')}</p>
           )}
           {immediateWeather !== null && (
             <div className="homepg-immed">
@@ -150,7 +150,7 @@ export default function Home() {
             <ul>
               {weatherForecast !== null &&
                 weatherForecast.map((forecast) => (
-                  <li key={forecast.datetime} className="homepg-heroforecast">
+                  <li key={forecast.datetime} className="homepg-heroforecast ml-2 md:ml-[12px]">
                     {forecast.main === 'Clouds' && (
                       <>
                         <p>{forecast.datetime}</p>

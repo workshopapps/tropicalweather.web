@@ -44,6 +44,7 @@ export default function Header() {
     data?.data.results?.map((res) => `${res.name}, ${res.country}`) || [];
 
   const { t } = useTranslation(['common']);
+  const appetizeLink = 'https://appetize.io/app/bqwyj7oz3nifvrbjr33urhwfhe?device=pixel4&osVersion=11.0&scale=75';
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
@@ -94,12 +95,14 @@ export default function Header() {
             </ul>
           )}
         </label>
-        <button
-          type="button"
-          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
-        >
-          {t('getapp')}
-        </button>
+        <a href={appetizeLink} target="_blank" rel="noreferrer">
+          <button
+            type="button"
+            className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
+          >
+            {t('getapp')}
+          </button>
+        </a>
       </div>
       <div className="mobilesearch-abs" data-visible={search}>
         <label
