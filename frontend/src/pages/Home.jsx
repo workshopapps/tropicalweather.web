@@ -153,7 +153,7 @@ export default function Home() {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
                   <li key={forecast.datetime} className="homepg-heroforecast text-center">
-                    <p>{forecast.datetime}</p>
+                    <p>{forecast.datetime.slice(11)}</p>
                     <img
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
