@@ -15,7 +15,7 @@ export default function WeatherTimeline({ main, datetime, risk, last }) {
   return (
     <div className="flex items-start justify-between mb-3">
       <div className="flex gap-2">
-        <span className="w-10 text-right break-words">{datetime}</span>
+        <span className="w-20">{datetime}</span>
         <div className="flex flex-col items-center gap-4">
           <VscCircleOutline className="text-2xl text-gray-600" />
           <div className={`w-0.5 h-20 bg-gray-600 line ${last ? 'hidden h-0' : ''}`} />

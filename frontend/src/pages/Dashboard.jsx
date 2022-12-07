@@ -1,13 +1,13 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { Link, useLocation } from 'react-router-dom';
 import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
+import { GrClose } from 'react-icons/gr';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
-
+import Share from '../components/Dashboard/Share';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
 
@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [savedLocations, setSavedLocations] = useState([]);
   const [toast, setToast] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const [timeline, setTimeline] = useState([]);
@@ -44,7 +45,6 @@ export default function Dashboard() {
       `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
-    console.log(data);
     setCurrentWeather(data.current);
     setTimeline(data.todays_timeline);
   };
@@ -111,7 +111,6 @@ export default function Dashboard() {
     localStorage.setItem('saved-locations', JSON.stringify(locs));
     showToast();
   };
-  console.log(savedLocations);
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
@@ -137,9 +136,9 @@ export default function Dashboard() {
         </div>
       ) : null}
       <div className="pt-6">
-        <Link to="/" className="items-center hidden mb-6 md:flex">
+        <Link to="/" className="items-center hidden mb-6 md:flex w-max">
           <TfiAngleLeft className="mr-2 text-lg" />
-          <span className="text-lg">{t('back')}</span>
+          <span className="text-lg">{t('Back')}</span>
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
           <div className="relative w-full max-w-2xl">
@@ -155,27 +154,39 @@ export default function Dashboard() {
                     className="flex items-center gap-2 text-primary-btn"
                   >
                     <BsHeart />
-                    <span>{t('savecity')}</span>
+                    <span>{t('Save city')}</span>
                   </button>
                 )}
                 <div className="relative">
-                  <button
-                    type="button"
-                    className="btn btn-ghost btn-circle"
-                    onClick={() => setShowPopup(!showPopup)}
-                  >
-                    <BsThreeDotsVertical />
-                  </button>
-                  <OptionsPopup display={showPopup} />
+                  {!showPopup && (
+                    <button
+                      title="open"
+                      type="button"
+                      className="pt-2 btn btn-ghost btn-circle"
+                      onClick={() => setShowPopup(true)}
+                    >
+                      <BsThreeDotsVertical />
+                    </button>
+                  )}
+                  {showPopup && (
+                    <button
+                      title="close"
+                      type="button"
+                      className="pt-2 btn btn-ghost btn-circle"
+                      onClick={() => setShowPopup(false)}
+                    >
+                      <GrClose />
+                    </button>
+                  )}
+                  <OptionsPopup display={showPopup} setPopup={setShowShare} />
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
               <p>
-                {t('today')}
+                {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
               </p>
-              {/* <p className="text-4xl font-bold">{currentWeather.}</p> */}
               <p className="text-xl font-bold text-gray-600">
                 {`${formatTime(currentWeather.datetime)} to ${formatTime(
                   currentWeather.end_datetime
@@ -187,14 +198,14 @@ export default function Dashboard() {
             </div>
             <section id="saved-locations" className="mt-20">
               <div className="flex items-center justify-between w-full">
-                <h2 className="text-2xl font-bold">{t('savedlocations')}</h2>
+                <h2 className="text-2xl font-bold">{t('Saved Locations')}</h2>
               </div>
 
               {savedLocations.length < 1 ? (
                 <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
                   <BsMap className="text-3xl text-primary-btn" />
-                  <h2 className="text-2xl font-bold">{t('nolocation')}</h2>
-                  <p>{t('youcansave')}</p>
+                  <h2 className="text-2xl font-bold">{t('No Location saved yet')}</h2>
+                  <p>{t('You can save a location to view the details later')}</p>
                 </div>
               ) : (
                 <div className="flex flex-col justify-start gap-10 my-10">
@@ -222,8 +233,10 @@ export default function Dashboard() {
               )}
             </section>
           </div>
-          <section id="timeline-forecast" className="flex-1 my-10 md:my-0">
-            <p className="mb-4 text-xl font-bold">{t('today')}</p>
+          <section id="timeline-forecast" className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] overflow-y-auto">
+            <div>
+              <p className="mb-4 text-xl font-bold">{t('Today')}</p>
+            </div>
             {timeline.length > 0 ? (
               timeline.map((day, index) => (
                 <WeatherTimeline
@@ -236,12 +249,19 @@ export default function Dashboard() {
               ))
             ) : (
               <p className="text-xl font-semibold">
-                {t('dataisnotavailable')}
+                {t('Data is not available for this location yet..')}
               </p>
             )}
           </section>
         </div>
       </div>
+      <Share
+        popup={showShare}
+        setPopup={setShowShare}
+        currentLocation={currentLocation}
+        currentWeather={currentWeather}
+        time={time}
+      />
     </div>
   );
 }
