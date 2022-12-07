@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/react';
+
 import React, { Suspense } from 'react';
 import {
   createBrowserRouter,
@@ -39,7 +41,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
-export default function App() {
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Suspense fallback={null}>
@@ -48,3 +50,5 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+
+export default Sentry.withProfiler(App);

@@ -20,6 +20,8 @@ export default function Dashboard() {
   const [showShare, setShowShare] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
+  const { t } = useTranslation(['dashboard']);
+
   const [timeline, setTimeline] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -100,7 +102,7 @@ export default function Dashboard() {
     setToast(true);
     setTimeout(() => {
       setToast(false);
-    }, 3000);
+    }, 5000);
   };
 
   const addLocation = async (location) => {
@@ -114,22 +116,28 @@ export default function Dashboard() {
   const isSaved = savedLocations.some(
     (location) => location === currentLocation
   );
-  const { t } = useTranslation(['dashboard']);
+
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
         <div
-          className="absolute flex items-center gap-3 p-1 bg-gray-200 rounded-lg"
+          className="absolute flex items-center gap-3 p-1 rounded-lg"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
             padding: '10px 20px',
-            width: 'fit-content',
-            background: 'rgba(209, 250, 223, 0.1)',
+            width: 'min(95%, 400px)',
+            background: '#FAFAFA',
             border: '1px solid #054F31',
+            zIndex: 1
           }}
         >
-          <AiFillCheckCircle color="#054F31" />
+          <AiFillCheckCircle color="#054F31" style={{ flexShrink: 0 }} />
           <p style={{ fontSize: '16px' }}>
             {`${currentLocation} has been added to saved locations`}
           </p>

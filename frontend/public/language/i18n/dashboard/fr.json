@@ -7,5 +7,9 @@
   "loading": "Chargement...",
   "savedlocations": "Emplacements enregistrés",
   "nolocation": "Aucune position enregistrée pour le moment",
-  "youcansave": "Vous pouvez enregistrer un emplacement pour afficher les détails plus tard"
+  "youcansave": "Vous pouvez enregistrer un emplacement pour afficher les détails plus tard",
+  "sunny": "Ensoleillé",
+  "risk": " avec un maximum de ",
+  "scatteredrain": "Pluie dispersée",
+  "messagehasbeensent": "Votre message a été envoyé!"
 }

@@ -1,9 +1,6 @@
 import ast
-
-import firebase_admin
-import redis
+import sentry_sdk
 from conf.settings import settings
-from decouple import config
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -11,18 +8,28 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from routers import alert, location, weather, share
 from utils.general import get_status
-from database import engine, get_db  # noqa: F401
+from database import engine
 import models
+from conf.runtime import initialize_firebase
+from utils.cache import get_cache, set_cache
 
 
+
+sentry_sdk.init(
+    dsn="https://ad6e50cf03a24a2f8a15ae7251a0d4dc@o4504281393201152.ingest.sentry.io/4504286223859712",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+)
 models.Base.metadata.create_all(bind=engine)
-
 
 # Application initilization
 app = FastAPI()
 
 # Setup firebase [Must happen once]
-firebase_admin.initialize_app()
+initialize_firebase()
 
 app.add_middleware(
     CORSMiddleware,
@@ -51,19 +58,11 @@ templates = Jinja2Templates(
     directory=settings.TEMPLATES_DIR
 )
 
-rd = redis.Redis.from_url(settings.WEBSOCKET_REDIS_URL)
-
-
-# We need a prefix for redis keys, because we there are multiple
-# apps using the same redis instance
-prefix = config("APP_NAME", default="fastapi")
-
 
 @app.get('/status', response_class=HTMLResponse)
 async def status_page(request: Request):
     the_request = {'request': request}
-    cache_key = f"{prefix}:status"
-    cache = rd.get(cache_key)
+    cache = get_cache('status')
 
     if cache:
         data = ast.literal_eval(cache)
@@ -71,6 +70,6 @@ async def status_page(request: Request):
             "status.html", {**the_request, **data})
     else:
         data = get_status()
-        rd.set(cache_key, str(data))
-        rd.expire(cache_key, 120)
+        set_cache("status", str(data), 120)
+
     return templates.TemplateResponse("status.html", {**the_request, **data})

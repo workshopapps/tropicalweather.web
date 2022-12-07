@@ -38,9 +38,11 @@ export default function OptionsPopup({ display, setPopup }) {
           <p>Notifications</p>
         </Link>
       </li>
-      <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
-        <FiSettings className="text-xl" />
-        <p>Settings</p>
+      <li>
+        <Link to="/settings" className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
+          <FiSettings className="text-xl" />
+          <p>Settings</p>
+        </Link>
       </li>
     </ul>
   );

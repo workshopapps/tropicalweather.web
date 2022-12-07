@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import phone from '../aboutphone.png';
 import MobileAdvert from '../MobileAdvert';
 
 function AboutProductSection() {
@@ -40,7 +41,7 @@ function AboutProductSection() {
           </div>
 
           <div className="rounded-xl  bg-[#FDEAD7]">
-            <div className="container flex flex-col-reverse items-center px-4 mx-auto md:pl-12 lg:flex-row md:gap-12 mt-14 lg:mt-28 font-Outfit md:pr-0">
+            <div className="container flex flex-col items-center px-4 mx-auto md:pl-12 lg:flex-row md:gap-12 mt-14 lg:mt-28 font-Outfit md:pr-0">
               {/* --content- */}
               <div className="flex flex-col flex-1 py-5 lg:items-start">
                 <p className="font-normal  text-[#EF6820] leading-5 text-xs md:text-base tracking-wide text-start mb-6">{t('gomobile')}</p>
@@ -67,14 +68,14 @@ function AboutProductSection() {
               {/* --image- */}
               <div className="flex justify-center flex-1 overflow-hidden">
                 <img
-                  src="AboutAsset/Group 275.png"
+                  src={phone}
                   alt=""
-                  className="hidden w-5/6 md:block h-5/6 sm:h-3/4 md:w-full md:h-full lg:h-full lg:w-full"
+                  className=""
                 />
               </div>
             </div>
           </div>
-          <MobileAdvert />
+          {/* <MobileAdvert /> */}
         </div>
       </div>
     </div>
