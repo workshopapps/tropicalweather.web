@@ -8,6 +8,7 @@ import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
+import getWeatherDescriptionCategory from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -21,13 +22,13 @@ export default function Home() {
   const { t } = useTranslation(['home']);
   const getCurrentLocationFromCoords = async () => {
     try {
-       const response = await fetch(
-         `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       const location = `${data.city}, ${data.state}`;
-       setUserLocation(location);
-       onload.current = true;
+      const response = await fetch(
+        `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+      );
+      const data = await response.json();
+      const location = `${data.city}, ${data.state}`;
+      setUserLocation(location);
+      onload.current = true;
     } catch (error) {
       // console.log(error);
     }
@@ -45,14 +46,14 @@ export default function Home() {
     } catch (error) {
       // console.log(error);
     }
-    };
+  };
   const getWeatherForecast = async () => {
     try {
-       const response = await fetch(
-         `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       setWeatherForecast(data);
+      const response = await fetch(
+        `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
+      );
+      const data = await response.json();
+      setWeatherForecast(data);
     } catch (error) {
       // console.log(error);
     }
@@ -91,7 +92,7 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
-  console.log(weatherForecast, userLocation);
+
   return (
     <div id="home">
       <header className="landing_header">
@@ -105,7 +106,7 @@ export default function Home() {
           {immediateWeather !== null && (
             <div className="homepg-immed">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(immediateWeather.main)}`}
                 alt="clouds icons"
               />
               <div>
@@ -129,7 +130,7 @@ export default function Home() {
           {immediateWeather === null && (
             <div className="homepg-immed">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src="./assets/NotificationFeedList/clouds.svg"
                 alt="clouds icons"
               />
               <div>
@@ -148,51 +149,19 @@ export default function Home() {
           )}
           <div className="homepg-weatherfc">
             <ul>
-              {weatherForecast !== null &&
-                weatherForecast.map((forecast) => (
-                  <li key={forecast.datetime} className="homepg-heroforecast">
-                    {forecast.main === 'Clouds' && (
-                      <>
-                        <p>{forecast.datetime}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="cloudy icon"
-                        />
-                        <p>{t('clouds')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Rain' && (
-                      <>
-                        <p>{forecast.time}</p>
-                        <img
-                          src="./assets/NotificationFeedList/icon.svg"
-                          alt=""
-                        />
-                        <p>{t('rain')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Few clouds' && (
-                      <>
-                        <p>{forecast.datetime.slice(11)}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="couldy icon"
-                        />
-                        <p>{t('fewclouds')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Scattered clouds' && (
-                      <>
-                        <p>{forecast.datetime.slice(11)}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="cloudy icon"
-                        />
-                        <p>{t('scatteredclouds')}</p>
-                      </>
-                    )}
+              {weatherForecast.map((forecast) => {
+                const category = getWeatherDescriptionCategory(forecast.main);
+                return (
+                  <li key={forecast.datetime} className="homepg-heroforecast text-center">
+                    <p>{forecast.datetime.slice(11)}</p>
+                    <img
+                      src={`./assets/NotificationFeedList/${category}`}
+                      alt=""
+                    />
+                    <p>{t(forecast.main.replace(' ', '').toLowerCase())}</p>
                   </li>
-                ))}
+                );
+              })}
               {!weatherForecast.length && (
                 <p className="homepg-heroforecast">
                   {t('weatherforecastfortheday')}
