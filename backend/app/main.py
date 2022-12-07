@@ -13,8 +13,10 @@ import models
 from conf.runtime import initialize_firebase
 from utils.cache import get_cache, set_cache
 
+
+
 sentry_sdk.init(
-    dsn="https://f96d09e259ce4d5788506224710f9f84@o4504281393201152.ingest.sentry.io/4504281395953664",
+    dsn="https://ad6e50cf03a24a2f8a15ae7251a0d4dc@o4504281393201152.ingest.sentry.io/4504286223859712",
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
