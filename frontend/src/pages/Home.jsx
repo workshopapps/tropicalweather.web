@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
-import React, { useRef, useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-// import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import PopularLocation from "../components/Home/PopularLocation";
-// import Faq from "../components/Home/Faq";
-import "../styles/Home.css";
-import NearCity from "../components/Home/NearCity";
-import MobileAdvert from "../components/MobileAdvert";
+import React, { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+//import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import PopularLocation from '../components/Home/PopularLocation';
+//import Faq from '../components/Home/Faq';
+import '../styles/Home.css';
+import NearCity from '../components/Home/NearCity';
+import MobileAdvert from '../components/MobileAdvert';
+import getWeatherDescriptionCategory from '../libs/Home';
 
 export default function Home() {
   const APIURL = "https://api.tropicalweather.hng.tech";
@@ -93,13 +94,12 @@ export default function Home() {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
-  console.log(weatherForecast, userLocation);
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
-            <p className="homepage-location">{userLocation}</p>
+            <p className="homepage-location ml-[-16px] md:ml-6">{userLocation}</p>
           )}
           {userLocation === null && (
             <p className="homepage-location">{t("locationloading")}</p>
@@ -107,7 +107,7 @@ export default function Home() {
           {immediateWeather !== null && (
             <div className="homepg-immed">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(immediateWeather.main)}`}
                 alt="clouds icons"
               />
               <div>
@@ -132,7 +132,7 @@ export default function Home() {
           {immediateWeather === null && (
             <div className="homepg-immed">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src="./assets/NotificationFeedList/clouds.svg"
                 alt="clouds icons"
               />
               <div>
@@ -194,7 +194,8 @@ export default function Home() {
                       </>
                     )}
                   </li>
-                ))}
+                );
+              })}
               {!weatherForecast.length && (
                 <p className="homepg-heroforecast">
                   {t("weatherforecastfortheday")}
