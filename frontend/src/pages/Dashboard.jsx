@@ -61,7 +61,7 @@ export default function Dashboard() {
     const response = await fetch(
     `${APIURL}/weather/forcast/extended/by_address?address=${currentLocation.replace(
         ', ',
-        '%2C%20'`
+        '%2C%20')}`
     );
     const data = await response.json();
     setTomorrowTimeline(data);
