@@ -11,7 +11,7 @@ export default function OptionsPopup({ display }) {
   return (
     <ul
       className={`${display ? 'grid grid-cols-1' : 'hidden'
-        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y`}
+        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y bg-[var(--accents-1)]`}
     >
       <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
         <AiOutlineHome className="text-xl" />
@@ -21,7 +21,7 @@ export default function OptionsPopup({ display }) {
         <button
           type="button"
           aria-label="share"
-          className="text-xl flex flex-direction:row items-center gap-2 py-2"
+          className="flex flex-direction:row items-center gap-2 py-2"
           onClick={() => {
             setPopup(!popup);
           }}
