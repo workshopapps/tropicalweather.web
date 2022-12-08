@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import Share from '../components/Dashboard/Share';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
+import TimelineOptions from '../components/Dashboard/TimelineOptions';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -18,11 +19,14 @@ export default function Dashboard() {
   const [toast, setToast] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [showTimelineOptions, setShowTimelineOptions] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['dashboard']);
 
-  const [timeline, setTimeline] = useState([]);
+  const [todayTimeline, setTodayTimeline] = useState([]);
+  const [tomorrowTimeline, setTomorrowTimeline] = useState([]);
+  const [weeklyTimeline, setWeeklyTimeline] = useState([]);
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const { search } = useLocation();
@@ -48,7 +52,23 @@ export default function Dashboard() {
     );
     const data = await response.json();
     setCurrentWeather(data.current);
-    setTimeline(data.todays_timeline);
+    setTodayTimeline(data.todays_timeline);
+  };
+
+  const getTomorrowWeather = async () => {
+    const response = await fetch(
+      `${APIURL}/weather/forecasts/tomorrow?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
+    const data = await response.json();
+    setTomorrowTimeline(data);
+  };
+
+  const getWeeklyWeather = async () => {
+    const response = await fetch(
+      `${APIURL}/weather/weekly?lat=${coord.latitude}&lon=${coord.longitude}`
+    );
+    const data = await response.json();
+    setWeeklyTimeline(data);
   };
 
   const options = {
@@ -79,6 +99,8 @@ export default function Dashboard() {
         getCurrentLocationFromCoords();
       }
       getCurrentLocationWeather();
+      getTomorrowWeather();
+      getWeeklyWeather();
     }
   }, [coord]);
 
@@ -121,6 +143,23 @@ export default function Dashboard() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const [timeline, setTimeline] = useState(todayTimeline);
+  const timelineToDisplay = (timeline) => {
+    switch (timeline) {
+      case 'today':
+        setTimeline(todayTimeline);
+        break;
+      case 'tomorrow':
+        setTimeline(tomorrowTimeline);
+        break;
+      case 'weekly':
+        setTimeline(weeklyTimeline);
+        break;
+      default:
+        return todayTimeline;
+    }
+  };
 
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
@@ -241,25 +280,32 @@ export default function Dashboard() {
               )}
             </section>
           </div>
-          <section id="timeline-forecast" className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] overflow-y-auto">
-            <div>
+          <section id="timeline-forecast" className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] overflow-y-auto relative">
+            <div className="flex items-center justify-between">
               <p className="mb-4 text-xl font-bold">{t('Today')}</p>
+              {!showTimelineOptions && (
+                <button
+                  title="open"
+                  type="button"
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => setShowTimelineOptions(true)}
+                >
+                  <BsThreeDotsVertical />
+                </button>
+              )}
+              {showTimelineOptions && (
+                <button
+                  title="close"
+                  type="button"
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => setShowTimelineOptions(false)}
+                >
+                  <GrClose />
+                </button>
+              )}
             </div>
-            {timeline.length > 0 ? (
-              timeline.map((day, index) => (
-                <WeatherTimeline
-                  risk={day.risk}
-                  datetime={formatTime(day.datetime)}
-                  main={day.main}
-                  key={day.datetime}
-                  last={index === timeline.length - 1}
-                />
-              ))
-            ) : (
-              <p className="text-xl font-semibold">
-                {t('Data is not available for this location yet..')}
-              </p>
-            )}
+            <WeatherTimeline timelineData={timeline} />
+            <TimelineOptions display={showTimelineOptions} setTimeline={timelineToDisplay} />
           </section>
         </div>
       </div>
