@@ -21,6 +21,7 @@ import Error404 from './pages/Error404';
 import Settings from './pages/Settings';
 import NotificationFeedList from './pages/NotificationFeedList';
 import Notificationsettings from './pages/Notificationsettings';
+import './styles/Theme.css';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter(

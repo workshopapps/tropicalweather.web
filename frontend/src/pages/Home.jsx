@@ -330,8 +330,8 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full flex flex-col gap-[56px]">
-            <h4 className="text-[20px] font-bold">{t('citiesnearyou')}</h4>
-            <div className="w-full grid grid-cols-2 md:grid-cols-3">
+            <h4 className="text-[20px] font-bold text-[#1E1E1E]">{t('citiesnearyou')}</h4>
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 text-[#1E1E1E]">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
               <NearCity city="Onitsha" state="Lokoja" />

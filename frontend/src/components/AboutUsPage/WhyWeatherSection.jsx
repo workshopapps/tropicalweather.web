@@ -9,20 +9,20 @@ function WhyWeatherSection() {
       <div className="flex flex-col items-center flex-1 lg:items-start">
         <p className="mb-6 text-2xl font-bold leading-5 tracking-wide text-center md:text-3xl md:text-start">{t('whytropicalweather')}</p>
         <p className="text-[#EF6820] font-bold text-[18px] md:text-2xl mb-4 text-start">{t('weensure')}</p>
-        <p className="text-[#82808F] text-sm md:text-lg font-normal mb-4 text-start">{t('weensurebody')}</p>
+        <p className="text-[var(--accents-6)] text-sm md:text-lg font-normal mb-4 text-start">{t('weensurebody')}</p>
         {/* --content- */}
         <div className="flex justify-between gap-8">
           <div>
-            <p className="text-[#2B2A30] font-bold text-2xl md:text-4xl">100+</p>
-            <p className="text-[#82808F] text-xs md:text-base">{t('forecastmodels')}</p>
+            <p className="text-[var(--accents-7)] font-bold text-2xl md:text-4xl">100+</p>
+            <p className="text-[var(--accents-6)] text-xs md:text-base">{t('forecastmodels')}</p>
           </div>
           <div>
-            <p className="text-[#2B2A30] font-bold text-2xl md:text-4xl">500K+</p>
-            <p className="text-[#82808F] text-xs md:text-base">{t('locations')}</p>
+            <p className="text-[var(--accents-7)]] font-bold text-2xl md:text-4xl">500K+</p>
+            <p className="text-[var(--accents-6)] text-xs md:text-base">{t('locations')}</p>
           </div>
           <div>
-            <p className="text-[#2B2A30] font-bold text-2xl md:text-4xl">10K+</p>
-            <p className="text-[#82808F] text-xs md:text-base">{t('satisfiedusers')}</p>
+            <p className="text-[var(--accents-7)] font-bold text-2xl md:text-4xl">10K+</p>
+            <p className="text-[var(--accents-6)] text-xs md:text-base">{t('satisfiedusers')}</p>
           </div>
         </div>
         <div className="pt-5">

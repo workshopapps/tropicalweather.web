@@ -180,9 +180,9 @@ export default function Dashboard() {
             transform: 'translateX(-50%)',
             padding: '10px 20px',
             width: 'min(95%, 400px)',
-            background: '#FAFAFA',
-            border: '1px solid #054F31',
-            zIndex: 1
+            background: 'var(--accents-2)',
+            border: '2px solid #054F31',
+            zIndex: 1,
           }}
         >
           <AiFillCheckCircle color="#054F31" style={{ flexShrink: 0 }} />
@@ -197,8 +197,8 @@ export default function Dashboard() {
           <span className="text-lg">{t('Back')}</span>
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
-          <div className="relative flex-1 w-full">
-            <div className="flex flex-col gap-2 px-5 mb-5 md:flex-row md:justify-between">
+          <div className="relative w-full max-w-2xl">
+            <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)]">
               <h1 className="text-2xl font-bold">
                 {currentLocation || 'Input Location from search bar'}
               </h1>
@@ -238,7 +238,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
+            <section className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
               <p>
                 {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
@@ -250,11 +250,16 @@ export default function Dashboard() {
                 )}`}
               </p>
               <span className="px-8 py-2 font-semibold text-base text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max flex items-center gap-2">
-                {currentWeather.risk !== 'None' && <IoMdAlert className="text-red-500" />}
+                {currentWeather.risk !== 'None' && (
+                  <IoMdAlert className="text-red-500" />
+                )}
                 <p>{currentWeather.risk}</p>
               </span>
             </section>
-            <section id="timeline-forecast" className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 h-[500px] overflow-y-auto relative block lg:hidden">
+            <section
+              id="timeline-forecast"
+              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 h-[500px] overflow-y-auto relative block lg:hidden"
+            >
               <div className="flex items-center justify-between mb-4">
                 <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
                 {!showTimelineOptions && (
@@ -279,7 +284,10 @@ export default function Dashboard() {
                 )}
               </div>
               <WeatherTimeline timelineData={timeline} />
-              <TimelineOptions display={showTimelineOptions} setTimeline={timelineToDisplay} />
+              <TimelineOptions
+                display={showTimelineOptions}
+                setTimeline={timelineToDisplay}
+              />
             </section>
             <section id="saved-locations" className="mt-20">
               <div className="flex items-center justify-between w-full">
@@ -289,14 +297,18 @@ export default function Dashboard() {
               {savedLocations.length < 1 ? (
                 <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
                   <BsMap className="text-3xl text-primary-btn" />
-                  <h2 className="text-2xl font-bold">{t('No Location saved yet')}</h2>
-                  <p>{t('You can save a location to view the details later')}</p>
+                  <h2 className="text-2xl font-bold">
+                    {t('No Location saved yet')}
+                  </h2>
+                  <p>
+                    {t('You can save a location to view the details later')}
+                  </p>
                 </div>
               ) : (
                 <div className="flex flex-col justify-start gap-10 my-10">
                   {savedLocations.map((location) => (
                     <div
-                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md"
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md bg-[var(--accents-primary)]"
                       key={location}
                     >
                       <div className="flex items-center gap-4">
@@ -318,7 +330,10 @@ export default function Dashboard() {
               )}
             </section>
           </div>
-          <section id="timeline-forecast" className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-xl lg:w-[450px]">
+          <section
+            id="timeline-forecast"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-xl lg:w-[450px]"
+          >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
               {!showTimelineOptions && (
@@ -343,7 +358,10 @@ export default function Dashboard() {
               )}
             </div>
             <WeatherTimeline timelineData={timeline} />
-            <TimelineOptions display={showTimelineOptions} setTimeline={timelineToDisplay} />
+            <TimelineOptions
+              display={showTimelineOptions}
+              setTimeline={timelineToDisplay}
+            />
           </section>
         </div>
       </div>

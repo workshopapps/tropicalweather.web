@@ -49,6 +49,18 @@ export default function Settings() {
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
   };
+
+  const toggleTheme = (theme) => {
+    const body = document.querySelector('body');
+    if (theme === 'dark') {
+      body.className = 'dark';
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      body.className = '';
+      document.documentElement.style.colorScheme = 'light';
+    }
+    localStorage.setItem('theme', theme);
+  };
   return (
     <div className="settings">
       <Link to="/dashboard" className="settings_back">
@@ -117,11 +129,23 @@ export default function Settings() {
           <p className="settings_dropdown-body">{t('themeText')}</p>
           {themeIsActive && (
             <div className="settings_dropdown-content theme_dropdown-content">
-              <div className="settings_dropdown-item">
+              <div
+                className="settings_dropdown-item"
+                tabIndex={0}
+                role="button"
+                onKeyDown={() => toggleTheme('light')}
+                onClick={() => toggleTheme('light')}
+              >
                 {t('lightmode')}
                 <BsFillSunFill />
               </div>
-              <div className="settings_dropdown-item">
+              <div
+                className="settings_dropdown-item"
+                tabIndex={0}
+                role="button"
+                onKeyDown={() => toggleTheme('light')}
+                onClick={() => toggleTheme('dark')}
+              >
                 {t('darkmode')}
                 <BsFillMoonFill />
               </div>

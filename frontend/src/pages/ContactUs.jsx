@@ -26,7 +26,7 @@ export default function ContactUs() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-      }, []);
+  }, []);
   return (
     <div className="relative contact_us_container">
       <div className="contact_us_header">
