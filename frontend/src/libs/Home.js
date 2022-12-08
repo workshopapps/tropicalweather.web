@@ -13,3 +13,22 @@ export default function getWeatherDescriptionCategory(description) {
     }
     return 'clear.png';
 }
+
+export function to12HourFormat(date) {
+    const time = Number(date.slice(11, 13));
+    let val = '12 pm';
+    if (time === 0) {
+        val = '12 am';
+    } else if (time < 12) {
+        val = `${time} am`;
+    } else if (time === 12) {
+        val = '12 pm';
+    } else {
+        val = `${time - 12} pm`;
+    }
+
+    if (val.length === 4) {
+        return `0${val}`;
+    }
+    return val;
+}

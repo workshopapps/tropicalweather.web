@@ -8,7 +8,7 @@ import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
-import getWeatherDescriptionCategory from '../libs/Home';
+import getWeatherDescriptionCategory, { to12HourFormat } from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -94,7 +94,7 @@ export default function Home() {
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="homepg-immed">
+            <div className="homepg-immed gap-2">
               <img
                 src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
                   immediateWeather.main
@@ -116,6 +116,9 @@ export default function Home() {
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
+                <h2 className="text-2xl mt-2">
+                  {`${to12HourFormat(immediateWeather.datetime)} to ${to12HourFormat(immediateWeather.end_datetime)}`}
+                </h2>
               </div>
             </div>
           )}
