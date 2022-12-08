@@ -343,8 +343,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-        <MobileAdvert />
+      <MobileAdvert />
     </div>
   );
 }
-
