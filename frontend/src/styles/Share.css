@@ -1,7 +1,8 @@
-.share-close{
+.share-close {
     display: none !important;
 }
-.share-background{
+
+.share-background {
     position: fixed;
     top: 0px;
     right: 0px;
@@ -14,23 +15,26 @@
     align-items: center;
     justify-content: center;
 }
-.share-share{
+
+.share-share {
     font-size: 30px;
     font-weight: 700;
-     text-align:center;
-     margin-bottom: 20px;
-     color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--accents-7);
 }
-.share-popup{
+
+.share-popup {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: var(--share-popup);
     border-radius: 16px;
     padding: 40px 40px;
 }
-.share-img{
+
+.share-img {
     width: 80%;
     display: flex;
     flex-direction: row;
@@ -38,61 +42,71 @@
     align-items: center;
     margin-left: 50px;
 }
-.row1{
+
+.row1 {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.share-location{
-   position: absolute;
-   top: 20px;
-   left: 70px;
+
+.share-location {
+    position: absolute;
+    top: 20px;
+    left: 70px;
 }
-.share-state{
+
+.share-state {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
 }
-.today-fore{
+
+.today-fore {
     font-style: normal;
     font-family: 'outfit';
     font-size: 11px;
     font-weight: 700;
     line-height: 16px;
-    color: #565560;
+    color: var(--accents-7);
     margin-bottom: 15px;
 }
-.share-mark{
+
+.share-mark {
     margin-right: 10px;
 }
-.lagos-share{
+
+.lagos-share {
     margin-right: 10px;
-    color: #4D5E6E;
+    color: var(--accents-7);
 }
-.share-horline{
+
+.share-horline {
     margin-right: 10px;
 }
-.share-heavy{
+
+.share-heavy {
     font-size: 30px;
     font-weight: 700;
     line-height: 44px;
     font-family: 'outfit';
     font-style: normal;
-    color: #4D5E6F;
+    color: var(--share-load);
     margin-bottom: 5px;
 }
-.share-ptime{
+
+.share-ptime {
     font-size: 24px;
     font-weight: 700;
     line-height: 34px;
     font-family: 'outfit';
     font-style: normal;
-    color: rgba(77, 94, 111, 0.8);
+    color: var(--accents-6);
     margin-bottom: 20px;
 }
-.share-risk{
+
+.share-risk {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -101,110 +115,134 @@
     padding: 5px 30px;
     border-radius: 40px;
 }
-.share-alert{
+
+.share-alert {
     margin-right: 7px;
 }
-.share-arisk{
+
+.share-arisk {
     font-family: 'outfit';
     font-style: normal;
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    color: #565560;
+    color: var(--accents-6);
 }
-.share-btn-container{
+
+.share-btn-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 40px;
 }
-.twitter-btn{
+
+.twitter-btn {
     margin-right: 30px;
 }
-.share-btn-container1{
+
+.share-btn-container1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 40px;
 }
-hr{
+
+hr {
     margin-top: 40px;
 }
-.close{
+
+.close {
     position: absolute;
     top: 50px;
     margin-left: 420px;
     font-size: 16px;
     cursor: pointer;
 }
+
 @media screen and (max-width: 580px) {
-    .share-share{
+    .share-share {
         font-size: 25px;
         margin-bottom: 20px;
     }
-    .share-popup{
+
+    .share-popup {
         border-radius: 12px;
         height: 90%;
         margin: 0px 20px;
         padding: 0px 20px;
     }
-    .share-img{
+
+    .share-img {
         width: 100%;
         margin-left: 0px;
     }
-    .share-location{
+
+    .share-location {
         position: absolute;
         top: 39px;
         left: 31px;
-     }
-     .share-state{
-         margin-bottom: 3px;
-     }
-     .today-fore{
-         margin-bottom: 10px;
-     }
-     .share-mark{
-         margin-right: 10px;
-     }
-     .share-horline{
-         margin-right: 10px;
-     }
-     .share-heavy{
-         font-size: 25px;
-         margin-bottom: 0px;
-     }
-     .share-ptime{
-         font-size: 22px;
-         margin-bottom: 10px;
-     }
-     .share-risk{
-         padding: 5px 25px;
-     }
-     .share-arisk{
-         font-size: 13px;
-     }
-     .share-btn-container{
-         margin-top: 30px;
-     }
-     .share-btn-container1{
-         margin-top: 30px;
-     }
-     hr{
-         margin-top: 30px;
-     }
-     .close{
-         position: absolute;
-         margin-right: 6px;
-         font-size: 20px;
-         margin-top: 14px;
-         cursor: pointer;
-         color: red;
-     }
+    }
+
+    .share-state {
+        margin-bottom: 3px;
+    }
+
+    .today-fore {
+        margin-bottom: 10px;
+    }
+
+    .share-mark {
+        margin-right: 10px;
+    }
+
+    .share-horline {
+        margin-right: 10px;
+    }
+
+    .share-heavy {
+        font-size: 25px;
+        margin-bottom: 0px;
+    }
+
+    .share-ptime {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .share-risk {
+        padding: 5px 25px;
+    }
+
+    .share-arisk {
+        font-size: 13px;
+    }
+
+    .share-btn-container {
+        margin-top: 30px;
+    }
+
+    .share-btn-container1 {
+        margin-top: 30px;
+    }
+
+    hr {
+        margin-top: 30px;
+    }
+
+    .close {
+        position: absolute;
+        margin-right: 6px;
+        font-size: 20px;
+        margin-top: 14px;
+        cursor: pointer;
+        color: red;
+    }
 }
+
 @media screen and (max-width: 500px) {
-    .close{
+    .close {
         position: absolute;
         margin-right: 94px;
         font-size: 20px;
@@ -213,167 +251,211 @@ hr{
         color: red;
     }
 }
+
 @media screen and (max-width: 450px) {
-    .share-location{
+    .share-location {
         position: absolute;
         top: 15px;
         left: 20px;
-     }
-     .share-risk{
+    }
+
+    .share-risk {
         padding: 3px 32px;
     }
 }
+
 @media screen and (max-width: 405px) {
-    .close{
+    .close {
         margin-right: 150px;
         font-size: 14px;
         margin-top: 73px;
     }
-    .share-share{
+
+    .share-share {
         font-size: 20px;
         margin-bottom: 10px;
     }
-    .share-popup{
+
+    .share-popup {
         border-radius: 12px;
         height: 70%;
     }
-    .share-location{
+
+    .share-location {
         top: 10px;
         left: 15px;
-     }
-     .share-state{
-         margin-bottom: 2px;
-     }
-     .today-fore{
-         margin-bottom: 6px;
-     }
-     .share-mark{
-         margin-right: 7px;
-     }
-     .share-horline{
-         margin-right: 7px;
-     }
-     .share-heavy{
-         font-size: 22px;
-     }
-     .share-ptime{
-         font-size: 20px;
-         margin-bottom: 8px;
-     }
-     .share-risk{
-         padding: 3px 20px;
-     }
-     .share-arisk{
-         font-size: 12px;
-     }
-     .share-btn-container{
-         margin-top: 40px;
-     }
-     .twitter-btn{
+    }
+
+    .share-state {
+        margin-bottom: 2px;
+    }
+
+    .today-fore {
+        margin-bottom: 6px;
+    }
+
+    .share-mark {
+        margin-right: 7px;
+    }
+
+    .share-horline {
+        margin-right: 7px;
+    }
+
+    .share-heavy {
+        font-size: 22px;
+    }
+
+    .share-ptime {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .share-risk {
+        padding: 3px 20px;
+    }
+
+    .share-arisk {
+        font-size: 12px;
+    }
+
+    .share-btn-container {
+        margin-top: 40px;
+    }
+
+    .twitter-btn {
         margin-right: 10px;
     }
 }
+
 @media screen and (max-width: 380px) {
-    .close{
+    .close {
         margin-right: 204px;
         font-size: 13px;
         margin-top: 81px;
     }
-    .share-share{
+
+    .share-share {
         font-size: 16px;
         margin-bottom: 5px;
     }
-    .share-popup{
+
+    .share-popup {
         border-radius: 10px;
         height: 70%;
     }
-    .share-location{
+
+    .share-location {
         top: 8px;
         left: 10px;
-     }
-     .share-state{
+    }
+
+    .share-state {
         font-size: 12px;
-         margin-bottom: 0px;
-     }
-     .today-fore{
-         margin-bottom: 4px;
-     }
-     .share-mark{
-         margin-right: 6px;
-     }
-     .share-horline{
-         margin-right: 6px;
-     }
-     .share-heavy{
-         font-size: 20px;
-     }
-     .share-ptime{
-         font-size: 17px;
-         margin-bottom: 5px;
-     }
-     .share-risk{
-         padding: 2px 15px;
-     }
-     .share-arisk{
-         font-size: 11px;
-     }
-     .share-btn-container{
-         margin-top: 35px;
-     }
-     .twitter-btn{
+        margin-bottom: 0px;
+    }
+
+    .today-fore {
+        margin-bottom: 4px;
+    }
+
+    .share-mark {
+        margin-right: 6px;
+    }
+
+    .share-horline {
+        margin-right: 6px;
+    }
+
+    .share-heavy {
+        font-size: 20px;
+    }
+
+    .share-ptime {
+        font-size: 17px;
+        margin-bottom: 5px;
+    }
+
+    .share-risk {
+        padding: 2px 15px;
+    }
+
+    .share-arisk {
+        font-size: 11px;
+    }
+
+    .share-btn-container {
+        margin-top: 35px;
+    }
+
+    .twitter-btn {
         margin-right: 5px;
     }
 }
+
 @media screen and (max-width: 350px) {
-    .close{
+    .close {
         margin-right: 197px;
         font-size: 14px;
         margin-top: 103px;
     }
-    .share-share{
+
+    .share-share {
         font-size: 16px;
         margin-bottom: 5px;
     }
-    .share-popup{
+
+    .share-popup {
         border-radius: 10px;
         height: 60%;
         padding: 5px 10px;
     }
-    .share-location{
+
+    .share-location {
         top: 4px;
         left: 12px;
-     }
-     .share-state{
+    }
+
+    .share-state {
         font-size: 10px;
-     }
-     .today-fore{
+    }
+
+    .today-fore {
         font-size: 9px;
-         margin-bottom: 2px;
-     }
-     .share-mark{
-         margin-right: 3px;
-     }
-     .share-horline{
-         margin-right: 3px;
-     }
-     .share-heavy{
-         font-size: 18px;
-         margin-bottom: 0px;
-     }
-     .share-ptime{
-         font-size: 13px;
-         margin-bottom: 3px;
-     }
-     .share-risk{
-         padding: 2px 12px;
-     }
-     .share-arisk{
-         font-size: 9px;
-     }
-     .share-btn-container{
-         margin-top: 30px;
-     }
-     .twitter-btn{
+        margin-bottom: 2px;
+    }
+
+    .share-mark {
+        margin-right: 3px;
+    }
+
+    .share-horline {
+        margin-right: 3px;
+    }
+
+    .share-heavy {
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+
+    .share-ptime {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+
+    .share-risk {
+        padding: 2px 12px;
+    }
+
+    .share-arisk {
+        font-size: 9px;
+    }
+
+    .share-btn-container {
+        margin-top: 30px;
+    }
+
+    .twitter-btn {
         margin-right: 3px;
     }
 }

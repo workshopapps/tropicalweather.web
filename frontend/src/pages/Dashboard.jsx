@@ -151,8 +151,8 @@ export default function Dashboard() {
             transform: 'translateX(-50%)',
             padding: '10px 20px',
             width: 'min(95%, 400px)',
-            background: '#FAFAFA',
-            border: '1px solid #054F31',
+            background: 'var(--accents-2)',
+            border: '2px solid #054F31',
             zIndex: 1
           }}
         >
