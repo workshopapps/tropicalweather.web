@@ -19,7 +19,7 @@
 }
 
 .settings_item {
-    border-top: 1px solid var(--accents-3);
+    border-top: 1px solid var(--accents-2);
     padding-block: 0.8rem;
 }
 
@@ -51,8 +51,8 @@
     position: absolute;
     top: calc(90% + .1rem);
     right: 0;
-    background-color: var(--accents-2);
-    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.15);
+    background-color: var(--accents-1);
+    box-shadow: 1px 1px 3px 2px var(--accents-2);
     border-radius: 4px;
     padding-block: 0.3rem;
     z-index: 1;
