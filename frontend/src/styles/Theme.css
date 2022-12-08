@@ -1,0 +1,31 @@
+:root {
+    --background: #FFF;
+    --accents-1: #FAFAFA;
+    --accents-2: #EAEAEA;
+    --accents-3: #999;
+    --accents-4: #888;
+    --accents-5: #666;
+    --accents-6: #444;
+    --accents-7: #333;
+    --accents-8: #111;
+    --foreground: #000
+}
+
+.dark {
+    --background: #1E1E1E;
+    --foreground: #FFF;
+    --accents-1: #1c1c1c;
+    --accents-2: #333;
+    --accents-3: #444;
+    --accents-4: #666;
+    --accents-5: #888;
+    --accents-6: #999;
+    --accents-7: #EAEAEA;
+    --accents-8: #FAFAFA;
+    color: var(--foreground);
+    color-scheme: dark;
+}
+
+body {
+    background-color: var(--background);
+}
