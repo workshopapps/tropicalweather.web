@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import './index.css';
+import './i18n';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
