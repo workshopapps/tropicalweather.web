@@ -26,7 +26,6 @@ export default function Home() {
         `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
       );
       const data = await response.json();
-      console.log(data);
       setUserLocation(`${data.city}, ${data.state}`);
       setWeatherForecast(data.todays_timeline);
       setImmediateWeather(data.current);
