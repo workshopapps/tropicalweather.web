@@ -127,11 +127,23 @@ export default function Settings() {
           <p className="settings_dropdown-body">{t('themeText')}</p>
           {themeIsActive && (
             <div className="settings_dropdown-content theme_dropdown-content">
-              <div className="settings_dropdown-item" tabIndex={0} role="button" onKeyDown={() => toggleTheme('light')} onClick={() => toggleTheme('light')}>
+              <div
+                className="settings_dropdown-item"
+                tabIndex={0}
+                role="button"
+                onKeyDown={() => toggleTheme('light')}
+                onClick={() => toggleTheme('light')}
+              >
                 {t('lightmode')}
                 <BsFillSunFill />
               </div>
-              <div className="settings_dropdown-item" tabIndex={0} role="button" onKeyDown={() => toggleTheme('light')} onClick={() => toggleTheme('dark')}>
+              <div
+                className="settings_dropdown-item"
+                tabIndex={0}
+                role="button"
+                onKeyDown={() => toggleTheme('light')}
+                onClick={() => toggleTheme('dark')}
+              >
                 {t('darkmode')}
                 <BsFillMoonFill />
               </div>

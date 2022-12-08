@@ -30,6 +30,7 @@
     --accents-primary: #2B2A30;
     color: var(--foreground);
     color-scheme: dark;
+    transition: all .5s linear;
 }
 
 body {

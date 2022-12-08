@@ -3,6 +3,7 @@ import { HashLink as Link } from 'react-router-hash-link';
 import { BsGlobe } from 'react-icons/bs';
 import { BiSupport } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
+import ReactThemeToggleButton from './Settings/ToggleTheme';
 
 export default function Footer() {
   const { t } = useTranslation(['common']);
@@ -79,7 +80,9 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-4 pt-5 border-t border-t-white md:flex-row">
-          <p className="order-last text-sm md:order-first md:text-base">{t('allrights')}</p>
+          <p className="order-last text-sm md:order-first md:text-base">
+            {t('allrights')}
+          </p>
           <div className="flex gap-6">
             <span className="flex items-center gap-2">
               <Link to="settings">
@@ -94,8 +97,7 @@ export default function Footer() {
               <span className="hidden md:block">United Kingdom</span>
             </span>
             <span className="flex items-center gap-2">
-              <BiSupport />
-              <span className="hidden md:block">Customer Support</span>
+              <ReactThemeToggleButton />
             </span>
           </div>
         </div>
