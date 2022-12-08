@@ -249,7 +249,7 @@ async def get_extended_forecast(lat: float, lon: float):
             if weather_code[i] in normal_cloud_code_list: 
                 
                 
-                if temperatures[i] >= 33:
+                if temperatures[i] >= 35:
                     main = "Sunny"
                     start_time = hourly_timestamps[i]
                     break
