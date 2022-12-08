@@ -23,8 +23,10 @@ export default function ReactThemeToggleButton() {
     if (theme === 'dark') {
       body.className = 'dark';
       setTheme('dark');
+      document.documentElement.style.colorScheme = 'dark';
     } else {
       body.className = '';
+      document.documentElement.style.colorScheme = 'light';
       setTheme('light');
     }
     localStorage.setItem('theme', theme);

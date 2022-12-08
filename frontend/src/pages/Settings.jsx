@@ -54,8 +54,10 @@ export default function Settings() {
     const body = document.querySelector('body');
     if (theme === 'dark') {
       body.className = 'dark';
+      document.documentElement.style.colorScheme = 'dark';
     } else {
       body.className = '';
+      document.documentElement.style.colorScheme = 'light';
     }
     localStorage.setItem('theme', theme);
   };
