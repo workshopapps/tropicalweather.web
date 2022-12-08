@@ -1,10 +1,10 @@
 from logging.config import fileConfig
 
 from alembic import context
-from conf.settings import settings
+from conf.settings import BASE_DIR, settings
 from database import Base
-from sqlalchemy import engine_from_config, pool
 from models import Alert, Location  # noqa
+from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -27,15 +27,28 @@ target_metadata = Base.metadata
 # ... etc.
 
 
+DB_TYPE = settings.DB_TYPE
+
+
 def get_url():
-    db_user = settings.DB_USER
-    db_password = settings.DB_PASSWORD
-    db_host = settings.DB_HOST
-    db_name = settings.DB_NAME
-    my_sql_driver = settings.MYSQL_DRIVER
-    db_port = settings.DB_PORT
-    return f"mysql+{my_sql_driver}://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-    # return f"postgresql://{db_user}:{db_password}@{db_host}/{db_name}"
+    DB_USER = settings.DB_USER
+    DB_PASSWORD = settings.DB_PASSWORD
+    DB_HOST = settings.DB_HOST
+    DB_PORT = settings.DB_PORT
+    DB_NAME = settings.DB_NAME
+
+    if DB_TYPE == "sqlite":
+        BASE_PATH = f"sqlite:///{BASE_DIR}"
+        DATABASE_URL = BASE_PATH + "/database.db"
+
+    elif DB_TYPE == "mysql":
+        MYSQL_DRIVER = settings.MYSQL_DRIVER
+        DATABASE_URL = f"mysql+{MYSQL_DRIVER}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"  # noqa: E501
+
+    elif DB_TYPE == "postgresql":
+        DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"  # noqa: E501
+
+    return DATABASE_URL
 
 
 def run_migrations_offline() -> None:
