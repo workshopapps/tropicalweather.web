@@ -1,36 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { AiOutlineHome, AiOutlineShareAlt } from 'react-icons/ai';
-import { BsBell } from 'react-icons/bs';
+import { AiOutlineHome } from 'react-icons/ai';
+import { BsBell, BsShare } from 'react-icons/bs';
 import { FiSettings } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import Share from '../share/Share_popup';
 
-export default function OptionsPopup({ display }) {
-  const [popup, setPopup] = useState(0);
+export default function OptionsPopup({ display, setPopup }) {
   return (
     <ul
-      className={`${display ? 'grid grid-cols-1' : 'hidden'
-        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y bg-[var(--accents-1)]`}
+      className={`${
+        display ? 'grid grid-cols-1' : 'hidden'
+      } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y`}
     >
       <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
         <AiOutlineHome className="text-xl" />
         <p>Home</p>
       </li>
-      <li className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
+      <li className="cursor-pointer hover:text-primary-btn">
         <button
           type="button"
-          aria-label="share"
-          className="flex flex-direction:row items-center gap-2 py-2"
+          title="share"
+          className="flex items-center gap-2 py-2 text-xl"
           onClick={() => {
-            setPopup(!popup);
+            setPopup(true);
           }}
-          to=""
         >
-          <AiOutlineShareAlt className="text-xl" />
-          <p>Share</p>
+          <BsShare className="text-xl" />
+          <p className="text-base">Share</p>
         </button>
-        <Share popup={popup} setPopup={setPopup} />
       </li>
       <li>
         <Link
@@ -42,7 +39,10 @@ export default function OptionsPopup({ display }) {
         </Link>
       </li>
       <li>
-        <Link to="/settings" className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn">
+        <Link
+          to="/settings"
+          className="flex items-center gap-2 py-2 cursor-pointer hover:text-primary-btn"
+        >
           <FiSettings className="text-xl" />
           <p>Settings</p>
         </Link>
@@ -53,4 +53,5 @@ export default function OptionsPopup({ display }) {
 
 OptionsPopup.propTypes = {
   display: PropTypes.bool.isRequired,
+  setPopup: PropTypes.func.isRequired,
 };

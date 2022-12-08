@@ -19,7 +19,6 @@ import FullWeatherDetails from './pages/FullWeatherDetails';
 import LandingPage from './pages/LandingPage';
 import Error404 from './pages/Error404';
 import Settings from './pages/Settings';
-// import Promotions from './pages/Promotions';
 import NotificationFeedList from './pages/NotificationFeedList';
 import Notificationsettings from './pages/Notificationsettings';
 import './styles/Theme.css';
