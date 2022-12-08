@@ -215,43 +215,82 @@ async def get_extended_forecast(lat: float, lon: float):
     try:
 
         # API call
-        '''
-        req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=GMT&current_weather=true"
-
-        res = requests.get(req).json()
-        '''
         res = weather_forcast_extended_call(lat, lon)
-
+        
         address = reverse_geocoding(lat, lon)
 
         city: str = address[0]['name']
+        
         state: str = address[0]['state']
         country: str = address[0]['country']
-        main = res['current_weather']['weathercode']
+        
         datetime = res['current_weather']['time']
         hourly_timestamps: list(str) = res['hourly']['time']
-
-        # get the current time index to be used in other parameters
         time_index: int = hourly_timestamps.index(datetime)
-
+        temperatures = res['hourly']['temperature_2m']
         weather_code = res['hourly']['weathercode']
-        weather_code[time_index]
+        
+        
         temperature = res['hourly']['temperature_2m'][time_index]
-
+        
         precipitation = res['hourly']['precipitation'][time_index]
         temp = res['hourly']['temperature_2m']
         prec = res['hourly']['precipitation']
-        match = weather_code[time_index]
         
-        end_datetime :str = ""
-        for i in range(time_index, len(weather_code)):
+        
+        rain_code_list = [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82]
+        fog_code_list = [45, 46, 47, 48]
+        normal_cloud_code_list = [0,1,2,3,4]
+
+        
+
+        for i in range(time_index, 24): 
             
-            if match != weather_code[i]:
+            if weather_code[i] in normal_cloud_code_list: 
                 
-                end_datetime= hourly_timestamps[i]
-           
+                
+                if temperatures[i] >= 33:
+                    main = "Sunny"
+                    start_time = hourly_timestamps[i]
+                    break
+                    
+                
+            if weather_code[i] in fog_code_list:
+                main = WmoCodes.get_wmo_code(weather_code[i])
+                start_time = hourly_timestamps[i]
+                break 
+            
+            if weather_code[i] in rain_code_list:
+                main = WmoCodes.get_wmo_code(weather_code[i])
+                start_time = hourly_timestamps[i]
                 break
+            else:
+                main = "Clear skies"
+                start_time=datetime   
+                    
+        start_time_index = hourly_timestamps.index(start_time)
+    
+        match = weather_code[start_time_index]
+        end_datetime=""
+        
+        if main == "Sunny":
+            
+            for i in range(start_time_index, 24):
                 
+                if temperatures[i] < 33:
+                    end_datetime= hourly_timestamps[i]
+                    break
+
+        else:
+            for i in range(start_time_index, 24):
+                if match != weather_code[i]:
+                    end_datetime= hourly_timestamps[i]
+                    break    
+         
+        if main == "Clear skies":
+            #start_time = datetime
+            end_datetime = hourly_timestamps[24] 
+    
         risk = get_risk(temperature, precipitation)
         todays_timeline = []
         for forecast in range(time_index, 24):
@@ -274,8 +313,8 @@ async def get_extended_forecast(lat: float, lon: float):
             todays_timeline.append(time_line)
 
         current = {
-            "main": WmoCodes.get_wmo_code(main),
-            "datetime": datetime.replace("T", " "),
+            "main": main,
+            "datetime": start_time.replace("T", " "),
             "end_datetime": end_datetime.replace("T", " "),
             "risk": risk
         }
@@ -302,20 +341,131 @@ async def get_extended_forecast(lat: float, lon: float):
 async def get_extended_forcast_by_address(address):
 
     city_and_state = geocode_address(address)
-
+    
     lat = city_and_state['lat']
     lon = city_and_state['lon']
     #city = city_and_state['city']
     state = city_and_state['state']
     country = city_and_state['country']
-
+    get_city = reverse_geocoding(lat, lon)
+    city = get_city[0]['name']
+    
+    
     res = weather_forcast_extended_call(lat, lon)
+    
+    datetime = res['current_weather']['time']
+    hourly_timestamps: list(str) = res['hourly']['time']
+    time_index: int = hourly_timestamps.index(datetime)
+    temperatures = res['hourly']['temperature_2m']
+    weather_code = res['hourly']['weathercode']
+    
+    
+    temperature = res['hourly']['temperature_2m'][time_index]
+    
+    precipitation = res['hourly']['precipitation'][time_index]
+    temp = res['hourly']['temperature_2m']
+    prec = res['hourly']['precipitation']
+    
+    
+    rain_code_list = [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82]
+    fog_code_list = [45, 46, 47, 48]
+    normal_cloud_code_list = [0,1,2,3,4]
+
+    
+
+    for i in range(time_index, 24): 
+        
+        if weather_code[i] in normal_cloud_code_list: 
+            
+            if temperatures[i] > 33:
+                main = "Sunny"
+                start_time = hourly_timestamps[i]
+                break
+                
+            
+        if weather_code[i] in fog_code_list:
+            main = WmoCodes.get_wmo_code(weather_code[i])
+            start_time = hourly_timestamps[i]
+            break 
+        
+        if weather_code[i] in rain_code_list:
+            main = WmoCodes.get_wmo_code(weather_code[i])
+            start_time = hourly_timestamps[i]
+            break
+        else:
+            main = "Clear skies"
+            start_time=datetime    
+    
+    start_time_index = hourly_timestamps.index(start_time)
+
+    match = weather_code[start_time_index]
+    end_datetime=""
+    
+    if main == "Sunny":
+            
+            for i in range(start_time_index, 24):
+                
+                if temperatures[i] < 33:
+                    end_datetime= hourly_timestamps[i]
+                    break
+
+    else:
+        for i in range(start_time_index, 24):
+            if match != weather_code[i]:
+                end_datetime= hourly_timestamps[i]
+                break    
+    
+    if main == "Clear skies":
+        
+        end_datetime = hourly_timestamps[24] 
+
+    risk = get_risk(temperature, precipitation)
+    todays_timeline = []
+    for forecast in range(time_index, 24):
+
+        main_weather = WmoCodes.get_wmo_code(weather_code[forecast])
+        datetime_by_index = hourly_timestamps[forecast]
+        temperature_by_index = temp[forecast]
+        precipitation_by_index = prec[forecast]
+        risk_by_index = get_risk(
+            temperature_by_index, precipitation_by_index)
+
+        time_line = {
+
+            "main": main_weather,
+            "datetime": datetime_by_index.replace("T", " "),
+            "risk": risk_by_index
+
+        }
+
+        todays_timeline.append(time_line)
+
+    current = {
+        "main": main,
+        "datetime": start_time.replace("T", " "),
+        "end_datetime": end_datetime.replace("T", " "),
+        "risk": risk
+    }
+
+    result = {
+
+        "city": city,
+        "state": state,
+        "country": country,
+        "current": current,
+        "todays_timeline": todays_timeline
+
+    }
+    return result
+
+   
+'''
     get_city = reverse_geocoding(lat, lon)
     city = get_city[0]['name']
     main = res['current_weather']['weathercode']
     datetime = res['current_weather']['time']
     hourly_timestamps: list(str) = res['hourly']['time']
-    print(hourly_timestamps)
+    
     # get the current time index to be used in other parameters
     time_index: int = hourly_timestamps.index(datetime)
 
@@ -329,7 +479,7 @@ async def get_extended_forcast_by_address(address):
     match = weather_code[time_index]
     end_datetime: str = ""
     for i in range(time_index, len(weather_code)):
-        print(hourly_timestamps[i])
+        
         if match != weather_code[i]:
             end_datetime = hourly_timestamps[i]        
             break 
@@ -372,7 +522,7 @@ async def get_extended_forcast_by_address(address):
 
     }
     return result
-
+'''
 
 @router.get("/forecasts/tomorrow")
 async def weather_tomorrow_by_location(lat: float, lon: float):
