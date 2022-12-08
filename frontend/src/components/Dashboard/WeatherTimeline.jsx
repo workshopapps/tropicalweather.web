@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment/moment';
 import PropTypes from 'prop-types';
 import { VscCircleOutline } from 'react-icons/vsc';
+import { IoMdAlert } from 'react-icons/io';
 
 export default function WeatherTimeline({ timelineData }) {
   function selectIcon(main) {
@@ -31,7 +32,10 @@ export default function WeatherTimeline({ timelineData }) {
                 </div>
                 <div className="flex flex-col">
                   <span>{day.main}</span>
-                  <span>{day.risk}</span>
+                  <span className="flex items-center gap-4">
+                    <p>{day.risk}</p>
+                    {day.risk !== 'None' && <IoMdAlert className="text-red-500" />}
+                  </span>
                 </div>
               </div>
               <img src={selectIcon(day.main)} alt={day.main} className="object-contain h-auto" />
@@ -39,7 +43,7 @@ export default function WeatherTimeline({ timelineData }) {
           ))
         ) : (
           <p className="text-xl font-semibold">
-            Data is not available for this location yet..
+            Data is not available for this location yet.. Please refresh.
           </p>
         )
       }
