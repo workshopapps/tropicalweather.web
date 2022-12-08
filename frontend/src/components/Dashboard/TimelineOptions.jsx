@@ -7,7 +7,7 @@ export default function TimelineOptions({ display, setTimeline }) {
   return (
     <div
       className={`${display ? 'grid grid-cols-1' : 'hidden'
-        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-10 right-0 divide-y bg-white`}
+        } p-3 shadow dropdown-content menu bg-base-100 rounded-box w-52 absolute top-20 right-0 divide-y bg-white`}
     >
       <button
         type="button"

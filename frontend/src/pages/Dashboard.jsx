@@ -20,13 +20,14 @@ export default function Dashboard() {
   const [showPopup, setShowPopup] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [showTimelineOptions, setShowTimelineOptions] = useState(false);
-  const [userLocation, setUserLocation] = useState(null);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['dashboard']);
-
+  // timeline data
   const [todayTimeline, setTodayTimeline] = useState([]);
   const [tomorrowTimeline, setTomorrowTimeline] = useState([]);
   const [weeklyTimeline, setWeeklyTimeline] = useState([]);
+  const [timeline, setTimeline] = useState(todayTimeline);
+  const [currentTimeline, setCurrentTimeline] = useState('Today');
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const { search } = useLocation();
@@ -44,7 +45,6 @@ export default function Dashboard() {
     const data = await response.json();
     const location = `${data.city}, ${data.state}`;
     setCurrentLocation(location);
-    setUserLocation(location);
   };
   const getCurrentLocationWeather = async () => {
     const response = await fetch(
@@ -53,6 +53,7 @@ export default function Dashboard() {
     const data = await response.json();
     setCurrentWeather(data.current);
     setTodayTimeline(data.todays_timeline);
+    setTimeline(data.todays_timeline);
   };
 
   const getTomorrowWeather = async () => {
@@ -87,13 +88,16 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    const locationInterval = setInterval(() => {
-      navigator.geolocation.getCurrentPosition(success, error, options);
-    }, 2000);
-    return () => clearInterval(locationInterval);
-  }, [userLocation]);
+    if (coord.latitude <= 0) {
+      const locationTimeout = setTimeout(() => {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+      }, 2000);
+      return () => clearTimeout(locationTimeout);
+    }
+  }, [coord]);
 
   useEffect(() => {
+    console.log(coord);
     if (coord.latitude !== 0) {
       if (!currentLocation) {
         getCurrentLocationFromCoords();
@@ -144,18 +148,23 @@ export default function Dashboard() {
     window.scrollTo(0, 0);
   }, []);
 
-  const [timeline, setTimeline] = useState(todayTimeline);
   const timelineToDisplay = (timeline) => {
     switch (timeline) {
       case 'today':
         setTimeline(todayTimeline);
-        break;
+        setCurrentTimeline('Today');
+        setShowTimelineOptions(false);
+        return;
       case 'tomorrow':
         setTimeline(tomorrowTimeline);
-        break;
+        setCurrentTimeline('Tomorrow');
+        setShowTimelineOptions(false);
+        return;
       case 'weekly':
         setTimeline(weeklyTimeline);
-        break;
+        setCurrentTimeline('Weekly');
+        setShowTimelineOptions(false);
+        return;
       default:
         return todayTimeline;
     }
@@ -229,11 +238,12 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
+            <section className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero">
               <p>
                 {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
               </p>
+              <p className="text-4xl font-bold">{currentWeather.main}</p>
               <p className="text-xl font-bold text-gray-600">
                 {`${formatTime(currentWeather.datetime)} to ${formatTime(
                   currentWeather.end_datetime
@@ -242,7 +252,34 @@ export default function Dashboard() {
               <p className="px-8 py-2 font-semibold text-sm text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max">
                 {currentWeather.risk}
               </p>
-            </div>
+            </section>
+            <section id="timeline-forecast" className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 h-[500px] overflow-y-auto relative block lg:hidden">
+              <div className="flex items-center justify-between mb-4">
+                <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
+                {!showTimelineOptions && (
+                  <button
+                    title="open"
+                    type="button"
+                    className="btn btn-ghost btn-circle"
+                    onClick={() => setShowTimelineOptions(true)}
+                  >
+                    <BsThreeDotsVertical />
+                  </button>
+                )}
+                {showTimelineOptions && (
+                  <button
+                    title="close"
+                    type="button"
+                    className="btn btn-ghost btn-circle"
+                    onClick={() => setShowTimelineOptions(false)}
+                  >
+                    <GrClose />
+                  </button>
+                )}
+              </div>
+              <WeatherTimeline timelineData={timeline} />
+              <TimelineOptions display={showTimelineOptions} setTimeline={timelineToDisplay} />
+            </section>
             <section id="saved-locations" className="mt-20">
               <div className="flex items-center justify-between w-full">
                 <h2 className="text-2xl font-bold">{t('Saved Locations')}</h2>
@@ -280,9 +317,9 @@ export default function Dashboard() {
               )}
             </section>
           </div>
-          <section id="timeline-forecast" className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] overflow-y-auto relative">
-            <div className="flex items-center justify-between">
-              <p className="mb-4 text-xl font-bold">{t('Today')}</p>
+          <section id="timeline-forecast" className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] md:overflow-y-auto relative hidden lg:block">
+            <div className="flex items-center justify-between mb-4">
+              <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
               {!showTimelineOptions && (
                 <button
                   title="open"
