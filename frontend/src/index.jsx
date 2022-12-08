@@ -6,8 +6,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// eslint-disable-next-line no-unused-expressions
-process.env.NODE_ENV === 'production' && Sentry.init({
+Sentry.init({
   dsn: 'https://62a675e1069f4d30a3c104f150332657@o4504280994086912.ingest.sentry.io/4504281058181120',
   integrations: [new BrowserTracing()],
 
