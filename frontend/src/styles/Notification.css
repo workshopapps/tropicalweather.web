@@ -1,6 +1,7 @@
 .notification__wrapper {
   width: 90%;
   margin: auto;
+  background-color: red;
 }
 
 .notification__wrapper h3 {
@@ -19,7 +20,6 @@
   line-height: 20px;
   letter-spacing: 0.01em;
   text-align: left;
-  color: #565560;
   margin: 1rem 0rem;
 }
 
@@ -58,7 +58,7 @@
   line-height: 24px;
   letter-spacing: 0em;
   text-align: left;
-  color: #161518;
+  color: red;
 }
 
 .notification-content p {
@@ -94,8 +94,8 @@
   top: 425px;
   border-radius: 0px;
   padding: 7px 9px 7px 9px;
-  accent-color: #;
-}ef6820
+  accent-color: #ef6820;
+}
 
 .notification__ind h6 {
   font-family: Outfit;
