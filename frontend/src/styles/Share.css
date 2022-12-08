@@ -160,6 +160,30 @@ hr {
   font-size: 16px;
   cursor: pointer;
 }
+.copy-area {
+    display: flex;
+    flex-direction: column;
+  }
+  .copy-feedback {
+    margin-left: 1rem;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: -5px;
+    visibility: hidden;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'outfit';
+    background-color: grey;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    padding: 2px 20px;
+    border-radius: 3px;
+  }
+  
+  .copy-feedback.active {
+    visibility: visible;
+  }
 
 @media screen and (max-width: 580px) {
   .share-share {
