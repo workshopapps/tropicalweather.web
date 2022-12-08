@@ -136,6 +136,11 @@ export default function Dashboard() {
     (location) => location === currentLocation
   );
 
+  // Scroll to top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="relative px-4 md:px-16 text-grey-900">
       {toast ? (
