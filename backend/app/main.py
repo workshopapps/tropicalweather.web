@@ -1,5 +1,5 @@
 import ast
-
+import sentry_sdk
 from conf.settings import settings
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +13,16 @@ import models
 from conf.runtime import initialize_firebase
 from utils.cache import get_cache, set_cache
 
+
+
+sentry_sdk.init(
+    dsn="https://ad6e50cf03a24a2f8a15ae7251a0d4dc@o4504281393201152.ingest.sentry.io/4504286223859712",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
+)
 models.Base.metadata.create_all(bind=engine)
 
 # Application initilization

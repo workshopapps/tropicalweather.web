@@ -9,31 +9,31 @@ function AboutProductSection() {
   return (
     <div className=" font-Outfit">
       <div className="container mx-auto ">
-        <h3 className="font-bold text-[#2B2A30] text-center text-2xl md:text-3xl">{t('ourproductoffering')}</h3>
+        <h3 className="font-bold text-[var(--accents-7)] text-center text-2xl md:text-3xl">{t('ourproductoffering')}</h3>
         <div className="pt-4 md:w-1/2">
           <div className="flex gap-4 py-5">
             <div className="text-[#EF6820] font-bold text-xl md:text-2xl">01.</div>
-            <div className="text-[#2B2A30] font-bold text-xl md:text-2xl">{t('userprediction')}</div>
+            <div className="text-[var(--accents-7)] font-bold text-xl md:text-2xl">{t('userprediction')}</div>
           </div>
-          <p className="text-[#82808F] text-sm md:text-lg">{t('userpredictionbody')}</p>
+          <p className="text-[var(--accents-6)] text-sm md:text-lg">{t('userpredictionbody')}</p>
         </div>
 
         <div className="flex justify-end">
           <div className="pt-4 md:w-1/2">
             <div className="flex gap-4 py-5">
               <div className="text-[#EF6820] font-bold text-xl md:text-2xl">02.</div>
-              <div className="text-[#2B2A30] font-bold text-xl md:text-2xl">{t('accuratedata')}</div>
+              <div className="text-[var(--accents-7)] font-bold text-xl md:text-2xl">{t('accuratedata')}</div>
             </div>
-            <p className="text-[#82808F] text-sm md:text-lg">{t('accuratedatabody')}</p>
+            <p className="text-[var(--accents-6)] text-sm md:text-lg">{t('accuratedatabody')}</p>
           </div>
         </div>
 
         <div className="pt-4 md:w-1/2">
           <div className="flex gap-4 py-5">
             <div className="text-[#EF6820] font-bold text-xl md:text-2xl">03.</div>
-            <div className="text-[#2B2A30] font-bold text-xl md:text-2xl">{t('userexperience')}</div>
+            <div className="text-[var(--accents-7)] font-bold text-xl md:text-2xl">{t('userexperience')}</div>
           </div>
-          <p className="text-[#82808F] text-sm md:text-lg">{t('userexperiencebody')}</p>
+          <p className="text-[var(--accents-6)] text-sm md:text-lg">{t('userexperiencebody')}</p>
         </div>
         <div>
           <div className="flex justify-center pt-5 md:py-10 ">

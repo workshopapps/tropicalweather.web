@@ -1,0 +1,40 @@
+:root {
+    --background: #FFF;
+    --accents-1: #FAFAFA;
+    --accents-2: #EAEAEA;
+    --accents-3: #999;
+    --accents-4: #888;
+    --accents-5: #666;
+    --accents-6: #444;
+    --accents-7: #333;
+    --accents-8: #111;
+    --share-load: #0a7f96;
+    --foreground: #000;
+    --accents-primary: #FFF;
+    --share-popup: white;
+    --d-bg: white
+}
+
+.dark {
+    --background: #111;
+    --foreground: #FFF;
+    --accents-1: #1c1c1c;
+    --accents-2: #333;
+    --accents-3: #444;
+    --accents-4: #666;
+    --accents-5: #888;
+    --accents-6: #999;
+    --accents-7: #EAEAEA;
+    --accents-8: #FAFAFA;
+    --share-popup: #2B2A30;
+    --share-load: #D5F7FE;
+    --accents-primary: #2B2A30;
+    --d-bg: #2B2A30;
+    color: var(--foreground);
+    color-scheme: dark;
+    transition: all .5s linear;
+}
+
+body {
+    background-color: var(--background);
+}

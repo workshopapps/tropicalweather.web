@@ -1,12 +1,14 @@
 .notificaton_feed-container {
   padding: 1.5em;
 }
+
 .notificaton_feedhd {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1em;
 }
+
 .notificaton_feedbg {
   height: 20px;
   width: 22px;
@@ -15,23 +17,29 @@
   background-size: cover;
   cursor: pointer;
 }
+
 .notificaton_feedhome {
   background-image: url("../../public/assets/NotificationFeedList/Arrows.svg");
 }
+
 .notificaton_feedhome span {
   display: none;
 }
+
 .notificaton_feedhd-flex {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .notificaton_feedhd-flex h1 {
   font-weight: 700;
 }
+
 .notificaton_feedtrash {
   background-image: url("../../public/assets/NotificationFeedList/delete.svg");
 }
+
 .notificaton_feed-nolist {
   min-height: 30vh;
   display: flex;
@@ -40,15 +48,19 @@
   text-align: center;
   margin: 7em 0;
 }
+
 .notificaton_feed-bigtrash {
   margin: 0 auto 2em;
 }
+
 .notificaton_feed-empty {
   margin-bottom: 0.5em;
 }
+
 .notificaton_feed-none {
   display: none;
 }
+
 .notificaton_feed-delecon {
   display: flex;
   align-items: center;
@@ -60,6 +72,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .notificaton_feed-dele {
   background-color: white;
   border-radius: 10px;
@@ -68,38 +81,44 @@
   padding: 1em;
   margin: 1em;
 }
+
 .notificaton_feed-list {
   display: flex;
   align-items: flex-end;
   margin-bottom: 1.5em;
   justify-content: space-between;
-  background: #ffffff;
-  box-shadow: 0px 1px 1px rgba(77, 94, 111, 0.25);
+  background: var(--background);
+  box-shadow: 0px 1px 1px var(--accents-2);
   border-radius: 8px;
   padding: 0.5em;
   position: relative;
 }
+
 .notificaton_feed-listcontent {
   display: flex;
   align-items: flex-start;
   gap: 0.5em;
   margin-bottom: 1em;
 }
+
 .notificaton_feed-feed {
   font-weight: 400;
   font-size: 16px;
   max-width: 400px;
 }
+
 .notificaton_feed-time {
   font-size: 12px;
   position: absolute;
   bottom: .2em;
   right: 1em;
 }
+
 .notificatin_feed-hd {
   color: #ef6820;
   font-weight: 700;
 }
+
 .notificaton_feed-btnflex {
   display: flex;
   align-items: center;
@@ -107,24 +126,29 @@
   gap: 1em;
   margin: 1em 0;
 }
+
 .notificaton_feed-ntn {
   max-width: 300px;
 }
+
 .notificaton_feed-btn {
   padding: 0.5em 1em;
   width: 150px;
 }
+
 .notificaton_feed-cancel {
   border: 1px solid #ef6820;
   border-radius: 8px;
   color: #ef6820;
 }
+
 .notificaton_feed-empty {
   background: #ef6820;
   border: 1px solid #ef6820;
   border-radius: 8px;
   color: #ffffff;
 }
+
 @media (min-width: 60rem) {
   .notificaton_feed-time {
     font-size: 12px;
@@ -132,29 +156,36 @@
     bottom: auto;
     right: auto;
   }
+
   .notificaton_feed-list {
     align-items: flex-start;
   }
+
   .notificaton_feed-container {
     padding-inline: 8em;
   }
+
   .notificaton_feedhd-flex {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+
   .notificaton_feedhd-flex h1 {
     margin-top: 1em;
     grid-column: 1;
     grid-row: 2;
     font-size: 24px;
   }
+
   .notificaton_feedhome {
     background-image: none;
   }
+
   .notificaton_feedhome span {
     display: block;
   }
+
   .notificaton_feed-listcontent {
-  margin-bottom: 0em;
-}
+    margin-bottom: 0em;
+  }
 }
