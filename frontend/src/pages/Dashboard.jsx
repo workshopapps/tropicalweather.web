@@ -5,6 +5,7 @@ import { TfiAngleLeft } from 'react-icons/tfi';
 import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
+import { IoMdAlert } from 'react-icons/io';
 import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import Share from '../components/Dashboard/Share';
@@ -97,7 +98,6 @@ export default function Dashboard() {
   }, [coord]);
 
   useEffect(() => {
-    console.log(coord);
     if (coord.latitude !== 0) {
       if (!currentLocation) {
         getCurrentLocationFromCoords();
@@ -249,9 +249,12 @@ export default function Dashboard() {
                   currentWeather.end_datetime
                 )}`}
               </p>
-              <p className="px-8 py-2 font-semibold text-sm text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max">
-                {currentWeather.risk}
-              </p>
+              <span className="px-8 py-2 font-semibold text-base text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max flex items-center gap-2">
+                {currentWeather.risk !== 'None' && (
+                  <IoMdAlert className="text-red-500" />
+                )}
+                <p>{currentWeather.risk}</p>
+              </span>
             </section>
             <section
               id="timeline-forecast"
@@ -329,7 +332,7 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="flex-1 px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[400px] md:overflow-y-auto relative hidden lg:block"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-xl lg:w-[450px]"
           >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
