@@ -1,0 +1,23 @@
+Zuri Chat
+
+1. Work done: I coded the FileStorage files_upload method.
+Github PR: https://github.com/zurichat/zc_messaging/pull/157
+Test: setup the zc_messaging project, cd into the backend directory and run `pytest -k test_file_storage`
+
+2. Work done: Created an endpoint for uploading files for DM and Channels messages.
+Live link: https://chat.zuri.chat/docs#/files/upload_files_api_v1_org__org_id__room__room_id__files_upload_post
+Github PR: https://github.com/zurichat/zc_messaging/pull/177
+Test: test by using the api, or using the message box in zuri chat. Upload files, enter message click send.
+
+
+Team Project: Tropical Weather
+
+1. Work done: Created an endpoint to generate forecast share link for mobile app.
+Live link: https://api.tropicalweather.hng.tech/generate/share-link?city=Ikorodu&state=Lagos&country=Nigeria
+Github PR: https://github.com/workshopapps/tropicalweather.web/pull/173
+Test: by using the api, or using the mobile app click on share location, use the shared link to get to the location's forecast.
+
+2. Work done: Endpoint to register user's device to receive alerts for a location
+Live link: https://api.tropicalweather.hng.tech/docs#/weather-alerts/subscribe_token_to_alert_topic_weather_alerts_subscribe_get
+Github PR: https://github.com/workshopapps/tropicalweather.web/pull/170
+Test: 
