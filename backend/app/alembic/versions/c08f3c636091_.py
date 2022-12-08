@@ -45,3 +45,5 @@ def downgrade() -> None:
     op.drop_table('alerts')
     op.drop_table('location')
     # ### end Alembic commands ###
+
+    
