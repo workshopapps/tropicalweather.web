@@ -59,7 +59,9 @@ export default function Dashboard() {
 
   const getTomorrowWeather = async () => {
     const response = await fetch(
-      `${APIURL}/weather/forecasts/tomorrow?lat=${coord.latitude}&lon=${coord.longitude}`
+    `${APIURL}/weather/forcast/extended/by_address?address=${currentLocation.replace(
+        ', ',
+        '%2C%20'`
     );
     const data = await response.json();
     setTomorrowTimeline(data);
