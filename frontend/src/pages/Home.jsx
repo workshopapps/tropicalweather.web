@@ -23,30 +23,19 @@ export default function Home() {
   const getCurrentLocationFromCoords = async () => {
     try {
       const response = await fetch(
-        `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+        `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
       );
       const data = await response.json();
-      const location = `${data.city}, ${data.state}`;
-      setUserLocation(location);
+      console.log(data);
+      setUserLocation(`${data.city}, ${data.state}`);
+      setWeatherForecast(data.todays_timeline);
+      setImmediateWeather(data.current);
       onload.current = true;
     } catch (error) {
       // console.log(error);
     }
   };
-  const getImmediateWeather = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/current/by-address?address=${userLocation.replace(
-          ', ',
-          '%2C%20'
-        )}`
-      );
-      const data = await response.json();
-      setImmediateWeather(data);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
+
   const getWeatherForecast = async () => {
     try {
       const response = await fetch(
@@ -85,9 +74,7 @@ export default function Home() {
     }
     getLocation();
   }, []);
-  useEffect(() => {
-    getImmediateWeather();
-  }, [userLocation]);
+
   if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
     getCurrentLocationFromCoords();
     getWeatherForecast();
@@ -97,15 +84,21 @@ export default function Home() {
       <header className="landing_header">
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
-            <p className="homepage-location ml-[-16px] md:ml-6">{userLocation}</p>
+            <p className="homepage-location ml-[-16px] md:ml-6">
+              {userLocation}
+            </p>
           )}
           {userLocation === null && (
-            <p className="homepage-location ml-0 md:ml-6">{t('locationloading')}</p>
+            <p className="homepage-location ml-0 md:ml-6">
+              {t('locationloading')}
+            </p>
           )}
           {immediateWeather !== null && (
             <div className="homepg-immed">
               <img
-                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(immediateWeather.main)}`}
+                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
+                  immediateWeather.main
+                )}`}
                 alt="clouds icons"
               />
               <div>
@@ -151,7 +144,10 @@ export default function Home() {
               {weatherForecast.map((forecast) => {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
-                  <li key={forecast.datetime} className="homepg-heroforecast text-center">
+                  <li
+                    key={forecast.datetime}
+                    className="homepg-heroforecast text-center"
+                  >
                     <p>{forecast.datetime.slice(11)}</p>
                     <img
                       src={`./assets/NotificationFeedList/${category}`}
@@ -330,7 +326,9 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full flex flex-col gap-[56px]">
-            <h4 className="text-[20px] font-bold text-[#1E1E1E]">{t('citiesnearyou')}</h4>
+            <h4 className="text-[20px] font-bold text-[#1E1E1E]">
+              {t('citiesnearyou')}
+            </h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3 text-[#1E1E1E]">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
