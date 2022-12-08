@@ -4,7 +4,6 @@ import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import './index.css';
 import App from './App';
-import i18n from './i18n';
 import reportWebVitals from './reportWebVitals';
 
 // eslint-disable-next-line no-unused-expressions
