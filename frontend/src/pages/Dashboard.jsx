@@ -226,7 +226,7 @@ export default function Dashboard() {
                 <div className="flex flex-col justify-start gap-10 my-10">
                   {savedLocations.map((location) => (
                     <div
-                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md"
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md bg-[var(--accents-primary)]"
                       key={location}
                     >
                       <div className="flex items-center gap-4">
