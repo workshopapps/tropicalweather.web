@@ -151,8 +151,9 @@ def get_alert_list(lon: float, lat: float, db: Session = Depends(get_db)):
 
     city = latlng.get('city')
     state = latlng.get('state')
+    country = latlng.get('country')
 
-    loc_obj = get_location_obj(db, city, state)
+    loc_obj = get_location_obj(db, city, state, country)
 
     data = []
 
