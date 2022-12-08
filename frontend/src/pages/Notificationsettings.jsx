@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import axios from 'axios';
 import '../styles/NotificationSettings.css';
 import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
 
 export default function Notificationsettings() {
+  const APIURL = 'https://api.tropicalweather.hng.tech';
   const [toggle, setToggle] = useState(false);
   const toggleSwitch = () => {
     setToggle(!toggle);
+    console.log(toggle)
+    axios.get(`${APIURL}/weather/alerts/subscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
+      .then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      });
   };
 
   const { t } = useTranslation(['notification']);
