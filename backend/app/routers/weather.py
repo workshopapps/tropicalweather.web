@@ -249,7 +249,7 @@ async def get_extended_forecast(lat: float, lon: float):
             if weather_code[i] in normal_cloud_code_list: 
                 
                 
-                if temperatures[i] > 33:
+                if temperatures[i] >= 33:
                     main = "Sunny"
                     start_time = hourly_timestamps[i]
                     break
@@ -273,10 +273,19 @@ async def get_extended_forecast(lat: float, lon: float):
         match = weather_code[start_time_index]
         end_datetime=""
         
-        for i in range(start_time_index, 24):
-            if match != weather_code[i]:
-                end_datetime= hourly_timestamps[i]
-                break    
+        if main == "Sunny":
+            
+            for i in range(start_time_index, 24):
+                
+                if temperatures[i] < 33:
+                    end_datetime= hourly_timestamps[i]
+                    break
+
+        else:
+            for i in range(start_time_index, 24):
+                if match != weather_code[i]:
+                    end_datetime= hourly_timestamps[i]
+                    break    
          
         if main == "Clear skies":
             #start_time = datetime
@@ -340,8 +349,8 @@ async def get_extended_forcast_by_address(address):
     country = city_and_state['country']
     get_city = reverse_geocoding(lat, lon)
     city = get_city[0]['name']
-    print(lat)
-    print(lon)
+    
+    
     res = weather_forcast_extended_call(lat, lon)
     
     datetime = res['current_weather']['time']
@@ -392,11 +401,20 @@ async def get_extended_forcast_by_address(address):
     match = weather_code[start_time_index]
     end_datetime=""
     
-    for i in range(start_time_index, 24):
-        if match != weather_code[i]:
-            end_datetime= hourly_timestamps[i]
-            break    
-        
+    if main == "Sunny":
+            
+            for i in range(start_time_index, 24):
+                
+                if temperatures[i] < 33:
+                    end_datetime= hourly_timestamps[i]
+                    break
+
+    else:
+        for i in range(start_time_index, 24):
+            if match != weather_code[i]:
+                end_datetime= hourly_timestamps[i]
+                break    
+    
     if main == "Clear skies":
         
         end_datetime = hourly_timestamps[24] 
