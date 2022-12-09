@@ -40,7 +40,7 @@ export default function Home() {
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
       setImmediateWeather(data.current);
-      const pas = new Date().getHours();
+      const pas = new Date().getUTCHours();
       savedForecast.current = savedForecast.current.slice(0, pas).concat(data.todays_timeline);
       setWeatherForecast(savedForecast.current);
       localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
@@ -81,7 +81,7 @@ export default function Home() {
   useEffect(() => {
     const { scrollWidth, offsetWidth } = forecastContainer.current;
     setLneWidth(scrollWidth);
-    const t = new Date().getHours() + 1;
+    const t = new Date().getUTCHours() + 1;
     setCurrentTime(t);
     const scroll = (scrollWidth / 24) * t - 50;
     if (forecastContainer.current) {
