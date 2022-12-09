@@ -171,7 +171,11 @@ export default function Home() {
               >
                 <div
                   className="relative bg-[#F7B27A] h-0.5"
-                  style={{ width: `${((lineWidth / 24) * currentTime - 50)}px` }}
+                  style={{
+                    width: `${((lineWidth / 24) * currentTime - 50)}px`,
+                    transition: 'all 1s ease-out',
+                    transitionDelay: '1s'
+                  }}
                 >
                   <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">
                     {' '}
