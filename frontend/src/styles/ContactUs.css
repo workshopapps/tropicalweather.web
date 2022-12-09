@@ -16,7 +16,7 @@
   font-weight: 700;
   font-size: 40px;
   line-height: 52px;
-  color: #161518;
+  color: var(--accents-7);
   margin-bottom: 0px;
 }
 
@@ -29,7 +29,7 @@
   margin-top: 0px;
 }
 
-.contact_us_instant_chat{
+.contact_us_instant_chat {
   width: 100%;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .contact_us_instant_chat_tag p {
-  color: #161518;
+  color: var(--accents-6);
   margin: 8px 0px 8px 6px;
 }
 
@@ -68,7 +68,7 @@
 
 .cu_form {
   margin-top: 52px;
-  background: #fef6ef;
+  background: var(--accents-1);
   border-radius: 4px;
   width: 100%;
   padding: 1.2rem;
@@ -85,7 +85,7 @@
 .cu_form_t h2 {
   margin-bottom: 32px;
   text-align: center;
-  color: #161518;
+  color: var(--aaccents-7);
   font-weight: 600;
   font-size: 28px;
   line-height: 35px;
@@ -96,12 +96,12 @@
   width: 100%;
 }
 
-.cu_form_sub > label {
+.cu_form_sub>label {
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   letter-spacing: 0.01em;
-  color: #161518;
+  color: var(--accents-6);
   margin-top: 32px;
 }
 
@@ -188,7 +188,7 @@
   .cu_img_1 {
     display: none;
   }
-  
+
   .cu_form {
     display: flex;
     flex-direction: column;
@@ -203,7 +203,7 @@
   }
 
 
-  .contact_us_instant_chat{
+  .contact_us_instant_chat {
     width: 40%;
   }
 

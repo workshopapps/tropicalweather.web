@@ -1,379 +1,485 @@
-.share-close{
-    display: none !important;
+.share-close {
+  display: none !important;
 }
-.share-background{
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(22, 21, 24, 0.74);
-    z-index: 400;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+
+.share-background {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(22, 21, 24, 0.74);
+  z-index: 400;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
-.share-share{
-    font-size: 30px;
-    font-weight: 700;
-     text-align:center;
-     margin-bottom: 20px;
-     color: #000;
+
+.share-share {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
 }
-.share-popup{
+
+.share-popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px 40px;
+}
+
+.share-img {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.row1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.share-location {
+  position: absolute;
+  top: 20px;
+  left: 70px;
+}
+
+.share-state {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.today-fore {
+  font-style: normal;
+  font-family: 'outfit';
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #565560;
+  margin-bottom: 15px;
+}
+
+.share-mark {
+  margin-right: 10px;
+}
+
+.lagos-share {
+  margin-right: 10px;
+  color: #4D5E6E;
+}
+
+.share-horline {
+  margin-right: 10px;
+}
+
+.share-heavy {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 44px;
+  font-family: 'outfit';
+  font-style: normal;
+  color: #4D5E6F;
+  margin-bottom: 5px;
+}
+
+.share-ptime {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34px;
+  font-family: 'outfit';
+  font-style: normal;
+  color: rgba(77, 94, 111, 0.8);
+  margin-bottom: 20px;
+}
+
+.share-risk {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(181, 181, 181, 0.5);
+  padding: 5px 30px;
+  border-radius: 40px;
+}
+
+.share-alert {
+  margin-right: 7px;
+}
+
+.share-arisk {
+  font-family: 'outfit';
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #565560;
+}
+
+.share-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.twitter-btn {
+  margin-right: 30px;
+}
+
+.share-btn-container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+hr {
+  margin-top: 40px;
+}
+
+.close {
+  position: absolute;
+  top: 50px;
+  margin-left: 420px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.copy-area {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 16px;
-    padding: 40px 40px;
-}
-.share-img{
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-left: 50px;
-}
-.row1{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.share-location{
-   position: absolute;
-   top: 20px;
-   left: 70px;
-}
-.share-state{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.today-fore{
-    font-style: normal;
-    font-family: 'outfit';
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 16px;
-    color: #565560;
-    margin-bottom: 15px;
-}
-.share-mark{
-    margin-right: 10px;
-}
-.lagos-share{
-    margin-right: 10px;
-    color: #4D5E6E;
-}
-.share-horline{
-    margin-right: 10px;
-}
-.share-heavy{
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 44px;
-    font-family: 'outfit';
-    font-style: normal;
-    color: #4D5E6F;
-    margin-bottom: 5px;
-}
-.share-ptime{
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 34px;
-    font-family: 'outfit';
-    font-style: normal;
-    color: rgba(77, 94, 111, 0.8);
-    margin-bottom: 20px;
-}
-.share-risk{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    box-sizing: border-box;
-    border: 1px solid rgba(181, 181, 181, 0.5);
-    padding: 5px 30px;
-    border-radius: 40px;
-}
-.share-alert{
-    margin-right: 7px;
-}
-.share-arisk{
-    font-family: 'outfit';
-    font-style: normal;
+  }
+  .copy-feedback {
+    margin-left: 1rem;
+    position: absolute;
+    margin-top: -30px;
+    margin-left: -5px;
+    visibility: hidden;
+    color: #fff;
     font-size: 12px;
     font-weight: 400;
-    line-height: 16px;
-    color: #565560;
-}
-.share-btn-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-}
-.twitter-btn{
-    margin-right: 30px;
-}
-.share-btn-container1{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-}
-hr{
-    margin-top: 40px;
-}
-.close{
-    position: absolute;
-    top: 50px;
-    margin-left: 420px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    font-family: 'outfit';
+    background-color: grey;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    padding: 2px 20px;
+    border-radius: 3px;
+  }
+  
+  .copy-feedback.active {
+    visibility: visible;
+  }
+
 @media screen and (max-width: 580px) {
-    .share-share{
-        font-size: 25px;
-        margin-bottom: 20px;
-    }
-    .share-popup{
-        border-radius: 12px;
-        height: 90%;
-        margin: 0px 20px;
-        padding: 0px 20px;
-    }
-    .share-img{
-        width: 100%;
-        margin-left: 0px;
-    }
-    .share-location{
-        position: absolute;
-        top: 39px;
-        left: 31px;
-     }
-     .share-state{
-         margin-bottom: 3px;
-     }
-     .today-fore{
-         margin-bottom: 10px;
-     }
-     .share-mark{
-         margin-right: 10px;
-     }
-     .share-horline{
-         margin-right: 10px;
-     }
-     .share-heavy{
-         font-size: 25px;
-         margin-bottom: 0px;
-     }
-     .share-ptime{
-         font-size: 22px;
-         margin-bottom: 10px;
-     }
-     .share-risk{
-         padding: 5px 25px;
-     }
-     .share-arisk{
-         font-size: 13px;
-     }
-     .share-btn-container{
-         margin-top: 30px;
-     }
-     .share-btn-container1{
-         margin-top: 30px;
-     }
-     hr{
-         margin-top: 30px;
-     }
-     .close{
-         position: absolute;
-         margin-right: 6px;
-         font-size: 20px;
-         margin-top: 14px;
-         cursor: pointer;
-         color: red;
-     }
+  .share-share {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  .share-popup {
+    border-radius: 12px;
+    height: 90%;
+    margin: 0px 20px;
+    padding: 0px 20px;
+  }
+
+  .share-img {
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .share-location {
+    position: absolute;
+    top: 39px;
+    left: 31px;
+  }
+
+  .share-state {
+    margin-bottom: 3px;
+  }
+
+  .today-fore {
+    margin-bottom: 10px;
+  }
+
+  .share-mark {
+    margin-right: 10px;
+  }
+
+  .share-horline {
+    margin-right: 10px;
+  }
+
+  .share-heavy {
+    font-size: 25px;
+    margin-bottom: 0px;
+  }
+
+  .share-ptime {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .share-risk {
+    padding: 5px 25px;
+  }
+
+  .share-arisk {
+    font-size: 13px;
+  }
+
+  .share-btn-container {
+    margin-top: 30px;
+  }
+
+  .share-btn-container1 {
+    margin-top: 30px;
+  }
+
+  hr {
+    margin-top: 30px;
+  }
+
+  .close {
+    position: absolute;
+    margin-right: 6px;
+    font-size: 20px;
+    margin-top: 14px;
+    cursor: pointer;
+    color: red;
+  }
 }
+
 @media screen and (max-width: 500px) {
-    .close{
-        position: absolute;
-        margin-right: 94px;
-        font-size: 20px;
-        margin-top: 14px;
-        cursor: pointer;
-        color: red;
-    }
+  .close {
+    position: absolute;
+    margin-right: 94px;
+    font-size: 20px;
+    margin-top: 14px;
+    cursor: pointer;
+    color: red;
+  }
 }
+
 @media screen and (max-width: 450px) {
-    .share-location{
-        position: absolute;
-        top: 15px;
-        left: 20px;
-     }
-     .share-risk{
-        padding: 3px 32px;
-    }
+  .share-location {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+  }
+
+  .share-risk {
+    padding: 3px 32px;
+  }
 }
+
 @media screen and (max-width: 405px) {
-    .close{
-        margin-right: 150px;
-        font-size: 14px;
-        margin-top: 73px;
-    }
-    .share-share{
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-    .share-popup{
-        border-radius: 12px;
-        height: 70%;
-    }
-    .share-location{
-        top: 10px;
-        left: 15px;
-     }
-     .share-state{
-         margin-bottom: 2px;
-     }
-     .today-fore{
-         margin-bottom: 6px;
-     }
-     .share-mark{
-         margin-right: 7px;
-     }
-     .share-horline{
-         margin-right: 7px;
-     }
-     .share-heavy{
-         font-size: 22px;
-     }
-     .share-ptime{
-         font-size: 20px;
-         margin-bottom: 8px;
-     }
-     .share-risk{
-         padding: 3px 20px;
-     }
-     .share-arisk{
-         font-size: 12px;
-     }
-     .share-btn-container{
-         margin-top: 40px;
-     }
-     .twitter-btn{
-        margin-right: 10px;
-    }
+  .close {
+    margin-right: 150px;
+    font-size: 14px;
+    margin-top: 73px;
+  }
+
+  .share-share {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .share-popup {
+    border-radius: 12px;
+    height: 70%;
+  }
+
+  .share-location {
+    top: 10px;
+    left: 15px;
+  }
+
+  .share-state {
+    margin-bottom: 2px;
+  }
+
+  .today-fore {
+    margin-bottom: 6px;
+  }
+
+  .share-mark {
+    margin-right: 7px;
+  }
+
+  .share-horline {
+    margin-right: 7px;
+  }
+
+  .share-heavy {
+    font-size: 22px;
+  }
+
+  .share-ptime {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .share-risk {
+    padding: 3px 20px;
+  }
+
+  .share-arisk {
+    font-size: 12px;
+  }
+
+  .share-btn-container {
+    margin-top: 40px;
+  }
+
+  .twitter-btn {
+    margin-right: 10px;
+  }
 }
+
 @media screen and (max-width: 380px) {
-    .close{
-        margin-right: 204px;
-        font-size: 13px;
-        margin-top: 81px;
-    }
-    .share-share{
-        font-size: 16px;
-        margin-bottom: 5px;
-    }
-    .share-popup{
-        border-radius: 10px;
-        height: 70%;
-    }
-    .share-location{
-        top: 8px;
-        left: 10px;
-     }
-     .share-state{
-        font-size: 12px;
-         margin-bottom: 0px;
-     }
-     .today-fore{
-         margin-bottom: 4px;
-     }
-     .share-mark{
-         margin-right: 6px;
-     }
-     .share-horline{
-         margin-right: 6px;
-     }
-     .share-heavy{
-         font-size: 20px;
-     }
-     .share-ptime{
-         font-size: 17px;
-         margin-bottom: 5px;
-     }
-     .share-risk{
-         padding: 2px 15px;
-     }
-     .share-arisk{
-         font-size: 11px;
-     }
-     .share-btn-container{
-         margin-top: 35px;
-     }
-     .twitter-btn{
-        margin-right: 5px;
-    }
+  .close {
+    margin-right: 204px;
+    font-size: 13px;
+    margin-top: 81px;
+  }
+
+  .share-share {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .share-popup {
+    border-radius: 10px;
+    height: 70%;
+  }
+
+  .share-location {
+    top: 8px;
+    left: 10px;
+  }
+
+  .share-state {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+
+  .today-fore {
+    margin-bottom: 4px;
+  }
+
+  .share-mark {
+    margin-right: 6px;
+  }
+
+  .share-horline {
+    margin-right: 6px;
+  }
+
+  .share-heavy {
+    font-size: 20px;
+  }
+
+  .share-ptime {
+    font-size: 17px;
+    margin-bottom: 5px;
+  }
+
+  .share-risk {
+    padding: 2px 15px;
+  }
+
+  .share-arisk {
+    font-size: 11px;
+  }
+
+  .share-btn-container {
+    margin-top: 35px;
+  }
+
+  .twitter-btn {
+    margin-right: 5px;
+  }
 }
+
 @media screen and (max-width: 350px) {
-    .close{
-        margin-right: 197px;
-        font-size: 14px;
-        margin-top: 103px;
-    }
-    .share-share{
-        font-size: 16px;
-        margin-bottom: 5px;
-    }
-    .share-popup{
-        border-radius: 10px;
-        height: 60%;
-        padding: 5px 10px;
-    }
-    .share-location{
-        top: 4px;
-        left: 12px;
-     }
-     .share-state{
-        font-size: 10px;
-     }
-     .today-fore{
-        font-size: 9px;
-         margin-bottom: 2px;
-     }
-     .share-mark{
-         margin-right: 3px;
-     }
-     .share-horline{
-         margin-right: 3px;
-     }
-     .share-heavy{
-         font-size: 18px;
-         margin-bottom: 0px;
-     }
-     .share-ptime{
-         font-size: 13px;
-         margin-bottom: 3px;
-     }
-     .share-risk{
-         padding: 2px 12px;
-     }
-     .share-arisk{
-         font-size: 9px;
-     }
-     .share-btn-container{
-         margin-top: 30px;
-     }
-     .twitter-btn{
-        margin-right: 3px;
-    }
+  .close {
+    margin-right: 197px;
+    font-size: 14px;
+    margin-top: 103px;
+  }
+
+  .share-share {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .share-popup {
+    border-radius: 10px;
+    height: 60%;
+    padding: 5px 10px;
+  }
+
+  .share-location {
+    top: 4px;
+    left: 12px;
+  }
+
+  .share-state {
+    font-size: 10px;
+  }
+
+  .today-fore {
+    font-size: 9px;
+    margin-bottom: 2px;
+  }
+
+  .share-mark {
+    margin-right: 3px;
+  }
+
+  .share-horline {
+    margin-right: 3px;
+  }
+
+  .share-heavy {
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+
+  .share-ptime {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+
+  .share-risk {
+    padding: 2px 12px;
+  }
+
+  .share-arisk {
+    font-size: 9px;
+  }
+
+  .share-btn-container {
+    margin-top: 30px;
+  }
+
+  .twitter-btn {
+    margin-right: 3px;
+  }
 }

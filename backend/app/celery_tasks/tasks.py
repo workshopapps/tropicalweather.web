@@ -1,6 +1,6 @@
 import datetime
 import hashlib
-from typing import List, Union
+from typing import List, Union, Dict
 
 import models
 from sqlalchemy.orm import Session
@@ -8,6 +8,7 @@ from utils.fcm_service import get_topic_name
 from utils.general import get_risks_by_address
 from utils.timer import now_utc
 from utils.logger import basic_logger as logger
+from utils.push_notification import send_notification_to_topic
 
 
 def get_db_locations(db: Session) -> List[models.Location]:
@@ -21,6 +22,7 @@ def get_location_risks(location: models.Location):
     from the api
     """
     address = f"{location.city}, {location.state}, {location.country}"
+    logger.info(f"Getting risks for {address}")
     return get_risks_by_address(address)
 
 
@@ -51,7 +53,10 @@ def create_alerts(
     db.commit()
 
 
-def send_messages(location: models.Location, events: List[dict[str, str]]):
+def send_messages(
+    location: models.Location,
+    events: List[Dict[str, Union[datetime.datetime, str]]]
+):
     """Send messages of new alerts to topics
     """
     topic_name = get_topic_name(
@@ -59,6 +64,7 @@ def send_messages(location: models.Location, events: List[dict[str, str]]):
 
     for event in events:
         message = event["description"]
+        send_notification_to_topic(event, topic_name)
         logger.info(f"Sending message to {topic_name}: {message}")
 
     return topic_name

@@ -34,6 +34,7 @@ pipeline {
 		stage("deploy") {
 		
 			steps {
+				sh "sudo rm -rf /home/johnoni/tropicalweather.web"
 				sh "sudo cp -r ${WORKSPACE}/tropicalweather.web /home/johnoni/"
 				sh "sudo cp -r /home/johnoni/tropicalweather_env/logged /home/johnoni/tropicalweather.web/backend/logs"
 				sh "sudo cp -r /home/johnoni/tropicalweather_env/app.env /home/johnoni/tropicalweather.web/backend/app/.env"

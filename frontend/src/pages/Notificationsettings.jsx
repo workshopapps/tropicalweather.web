@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/NotificationSettings.css';
 import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
 
+function getFormValues1() {
+  const storedValues1 = localStorage.getItem('radio1');
+  if (!storedValues1) return 'eng';
+  return JSON.parse(storedValues1);
+}
+
+function getFormValues2() {
+  const storedValues2 = localStorage.getItem('radio2');
+  if (!storedValues2) return 'eng';
+  return JSON.parse(storedValues2);
+}
+
+function getToggleVal() {
+  const toggleVal = localStorage.getItem('toggle');
+  return JSON.parse(toggleVal);
+}
+
 export default function Notificationsettings() {
+
   const APIURL = 'https://api.tropicalweather.hng.tech';
   const [subscribeMessage, setSubscribeMessage] = useState('');
   const [unsubscribeMessage, setUnsubscribeMessage] = useState('');
@@ -32,6 +50,32 @@ export default function Notificationsettings() {
       });
   }
   const [toggle, setToggle] = useState(true);
+
+  const [radioVal1, setRadioVal1] = useState(getFormValues1);
+  const [radioVal2, setRadioVal2] = useState(getFormValues2);
+  const [toggle, setToggle] = useState(getToggleVal);
+
+  useEffect(() => {
+    localStorage.setItem('radio1', JSON.stringify(radioVal1));
+  }, [radioVal1]);
+
+  useEffect(() => {
+    localStorage.setItem('radio2', JSON.stringify(radioVal2));
+  }, [radioVal2]);
+
+  useEffect(() => {
+    localStorage.setItem('toggle', JSON.stringify(toggle));
+  }, [toggle]);
+
+  const handleChange1 = (e) => {
+    setRadioVal1(e.target.value);
+  };
+
+  const handleChange2 = (e) => {
+    setRadioVal2(e.target.value);
+  };
+
+
   const toggleSwitch = () => {
     // toast("yeah it works");
     setToggle(!toggle);
@@ -111,6 +155,9 @@ theme: "light",
               type="radio"
               name="radio"
               className="notificationsetting__option2--input"
+              onChange={handleChange1}
+              value="radu"
+              checked={radioVal1 === 'radu'}
             />
             <h5 className="notificationsetting__option--heading-text">
               {t('dontnotify')}
@@ -121,6 +168,9 @@ theme: "light",
               type="radio"
               name="radio"
               className="notificationsetting__option2--input"
+              onChange={handleChange1}
+              value="radv"
+              checked={radioVal1 === 'radv'}
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">
@@ -136,6 +186,9 @@ theme: "light",
               type="radio"
               name="radio"
               className="notificationsetting__option2--input"
+              onChange={handleChange1}
+              value="radw"
+              checked={radioVal1 === 'radw'}
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">
@@ -158,6 +211,9 @@ theme: "light",
               type="radio"
               name="radio2"
               className="notificationsetting__option2--input"
+              value="radx"
+              onChange={handleChange2}
+              checked={radioVal2 === 'radx'}
             />
             <h5 className="notificationsetting__option--heading-text">
               {t('dontnotify')}
@@ -168,6 +224,9 @@ theme: "light",
               type="radio"
               name="radio2"
               className="notificationsetting__option2--input"
+              value="rady"
+              onChange={handleChange2}
+              checked={radioVal2 === 'rady'}
             />
             <div>
               <h5 className="notificationsetting__option--heading-text">

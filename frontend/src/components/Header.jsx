@@ -12,16 +12,16 @@ export default function Header() {
   const searchRef = useRef(null);
   const navigate = useNavigate();
   const [search, setSearch] = useState('false');
-   const handleSearch = () => {
+  const handleSearch = () => {
     if (search === 'false') {
-           setSearch('true');
+      setSearch('true');
     } else {
       setSearch('false');
     }
-   };
-      const closeSearch = (e) => {
-      setQuery(e.target.value);
-      };
+  };
+  const closeSearch = (e) => {
+    setQuery(e.target.value);
+  };
   const handleToggle = (param) => {
     setToggle(param);
   };
@@ -29,7 +29,7 @@ export default function Header() {
     setQuery('');
     searchRef.current.blur();
     navigate(`/dashboard?city=${city}`);
-      setSearch('false');
+    setSearch('false');
   };
 
   const { data, isLoading } = useQuery(
@@ -44,6 +44,7 @@ export default function Header() {
     data?.data.results?.map((res) => `${res.name}, ${res.country}`) || [];
 
   const { t } = useTranslation(['common']);
+  const appetizeLink = 'https://appetize.io/app/bqwyj7oz3nifvrbjr33urhwfhe?device=pixel4&osVersion=11.0&scale=75';
 
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-16 lg:gap-10">
@@ -68,14 +69,14 @@ export default function Header() {
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
-            <ul className="absolute z-10 w-full shadow bg-white py-4 max-h-96 overflow-y-auto">
+            <ul className="absolute z-10 w-full shadow shadow-[var(--accents-2)] bg-[var(--background)] py-4 max-h-96 overflow-y-auto">
               {query.length < 3 ? (
                 <p className="text-gray-500 text-center">
                   {t('typethreechar')}
                 </p>
               ) : null}
               {searchResults.map((city) => (
-                <li className="hover:bg-[#FDEAD7]" key={city}>
+                <li className="hover:bg-[#FDEAD7] hover:text-[black]" key={city}>
                   <button
                     className="py-5 px-4 w-full text-left"
                     type="button"
@@ -94,12 +95,14 @@ export default function Header() {
             </ul>
           )}
         </label>
-        <button
-          type="button"
-          className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
-        >
-          {t('getapp')}
-        </button>
+        <a href={appetizeLink} target="_blank" rel="noreferrer">
+          <button
+            type="button"
+            className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
+          >
+            {t('getapp')}
+          </button>
+        </a>
       </div>
       <div className="mobilesearch-abs" data-visible={search}>
         <label

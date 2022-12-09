@@ -8,6 +8,7 @@ import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
+import getWeatherDescriptionCategory, { to12HourFormat } from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -21,38 +22,26 @@ export default function Home() {
   const { t } = useTranslation(['home']);
   const getCurrentLocationFromCoords = async () => {
     try {
-       const response = await fetch(
-         `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       const location = `${data.city}, ${data.state}`;
-       setUserLocation(location);
-       onload.current = true;
+      const response = await fetch(
+        `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
+      );
+      const data = await response.json();
+      setUserLocation(`${data.city}, ${data.state}`);
+      setWeatherForecast(data.todays_timeline);
+      setImmediateWeather(data.current);
+      onload.current = true;
     } catch (error) {
       // console.log(error);
     }
   };
-  const getImmediateWeather = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/current/by-address?address=${userLocation.replace(
-          ', ',
-          '%2C%20'
-        )}`
-      );
-      const data = await response.json();
-      setImmediateWeather(data);
-    } catch (error) {
-      // console.log(error);
-    }
-    };
+
   const getWeatherForecast = async () => {
     try {
-       const response = await fetch(
-         `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-       );
-       const data = await response.json();
-       setWeatherForecast(data);
+      const response = await fetch(
+        `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
+      );
+      const data = await response.json();
+      setWeatherForecast(data);
     } catch (error) {
       // console.log(error);
     }
@@ -84,28 +73,31 @@ export default function Home() {
     }
     getLocation();
   }, []);
-  useEffect(() => {
-    getImmediateWeather();
-  }, [userLocation]);
+
   if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
     getCurrentLocationFromCoords();
     getWeatherForecast();
   }
-  console.log(weatherForecast, userLocation);
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
-            <p className="homepage-location">{userLocation}</p>
+            <p className="homepage-location ml-[-16px] md:ml-6">
+              {userLocation}
+            </p>
           )}
           {userLocation === null && (
-            <p className="homepage-location">{t('locationloading')}</p>
+            <p className="homepage-location ml-0 md:ml-6">
+              {t('locationloading')}
+            </p>
           )}
           {immediateWeather !== null && (
-            <div className="homepg-immed">
+            <div className="homepg-immed gap-2">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
+                  immediateWeather.main
+                )}`}
                 alt="clouds icons"
               />
               <div>
@@ -123,13 +115,16 @@ export default function Home() {
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
+                <h2 className="text-2xl mt-2">
+                  {`${to12HourFormat(immediateWeather.datetime)} to ${to12HourFormat(immediateWeather.end_datetime)}`}
+                </h2>
               </div>
             </div>
           )}
           {immediateWeather === null && (
             <div className="homepg-immed">
               <img
-                src="./assets/NotificationFeedList/CLOUDY.svg"
+                src="./assets/NotificationFeedList/clouds.svg"
                 alt="clouds icons"
               />
               <div>
@@ -148,51 +143,22 @@ export default function Home() {
           )}
           <div className="homepg-weatherfc">
             <ul>
-              {weatherForecast !== null &&
-                weatherForecast.map((forecast) => (
-                  <li key={forecast.datetime} className="homepg-heroforecast">
-                    {forecast.main === 'Clouds' && (
-                      <>
-                        <p>{forecast.datetime}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="cloudy icon"
-                        />
-                        <p>{t('clouds')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Rain' && (
-                      <>
-                        <p>{forecast.time}</p>
-                        <img
-                          src="./assets/NotificationFeedList/icon.svg"
-                          alt=""
-                        />
-                        <p>{t('rain')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Few clouds' && (
-                      <>
-                        <p>{forecast.datetime.slice(11)}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="couldy icon"
-                        />
-                        <p>{t('fewclouds')}</p>
-                      </>
-                    )}
-                    {forecast.main === 'Scattered clouds' && (
-                      <>
-                        <p>{forecast.datetime.slice(11)}</p>
-                        <img
-                          src="./assets/NotificationFeedList/CLOUDY.svg"
-                          alt="cloudy icon"
-                        />
-                        <p>{t('scatteredclouds')}</p>
-                      </>
-                    )}
+              {weatherForecast.map((forecast) => {
+                const category = getWeatherDescriptionCategory(forecast.main);
+                return (
+                  <li
+                    key={forecast.datetime}
+                    className="homepg-heroforecast text-center"
+                  >
+                    <p>{forecast.datetime.slice(11)}</p>
+                    <img
+                      src={`./assets/NotificationFeedList/${category}`}
+                      alt=""
+                    />
+                    <p>{t(forecast.main.replace(' ', '').toLowerCase())}</p>
                   </li>
-                ))}
+                );
+              })}
               {!weatherForecast.length && (
                 <p className="homepg-heroforecast">
                   {t('weatherforecastfortheday')}
@@ -362,8 +328,10 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full flex flex-col gap-[56px]">
-            <h4 className="text-[20px] font-bold">{t('citiesnearyou')}</h4>
-            <div className="w-full grid grid-cols-2 md:grid-cols-3">
+            <h4 className="text-[20px] font-bold text-[#1E1E1E]">
+              {t('citiesnearyou')}
+            </h4>
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 text-[#1E1E1E]">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
               <NearCity city="Onitsha" state="Lokoja" />
@@ -374,125 +342,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="landing_sections_wrapper">
-        <section
-          id="landing_features_and_globe"
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '40px',
-          }}
-          className="py-[96px]"
-        >
-          <div className="landing_features_and_globe">
-            <div className="landing_globe">
-              <div className="landing_showcase">
-                <h3 className="landing_header_md">
-                  {t('neverworryaboutfiguresheading')}
-                </h3>
-                <p>{t('neverworryaboutfiguresbody')}</p>
-              </div>
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#D1FADF',
-                }}
-              >
-                <p>{t('features')}</p>
-                <h3>{t('addmultiplelocationsheading')}</h3>
-                <p>{t('addmultiplelocationsbody')}</p>
-                <Link to="/signup" className="landing_link_button">
-                  {t('getstarted')}
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/globe.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="landing_features">
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#FEF2F2',
-                }}
-              >
-                <p>{t('features')}</p>
-                <h3>{t('findoutyourcityforecastheading')}</h3>
-                <p>{t('findoutyourcityforecastbody')}</p>
-                <Link to="/signup" className="landing_link_button">
-                  {t('getstarted')}
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/fall.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div id="faq">
-          <FaqSection />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FaqSection() {
-  const [openAll, toggleOpenAll] = useState(false);
-  const { t } = useTranslation(['home']);
-  return (
-    <section className="flex flex-col gap-8 w-full pb-[96px]">
-      <div className="flex items-center justify-between">
-        <h3 className="landing_header_md">{t('explorefaqs')}</h3>
-        <button
-          type="button"
-          className="flex items-center gap-2 text-[#565560]"
-          onClick={() => toggleOpenAll((prv) => !prv)}
-        >
-          {t('viewfull')}
-          {openAll ? <FaAngleUp /> : <FaAngleDown />}
-        </button>
-      </div>
-      <div className="sm:p-3 flex flex-col gap-8">
-        <Faq
-          position={1}
-          question={`${t('FAQQ1')}`}
-          answer={`${t('FAQA1')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ2')}`}
-          answer={`${t('FAQA2')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ3')}`}
-          answer={`${t('FAQA3')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ4')}`}
-          answer={`${t('FAQA4')}`}
-          open={openAll}
-        />
-      </div>
-      {/* <Faqs /> */}
       <MobileAdvert />
-    </section>
+    </div>
   );
 }

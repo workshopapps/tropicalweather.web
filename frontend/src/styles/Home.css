@@ -6,6 +6,7 @@
   font-family: "Outfit";
   position: relative;
 }
+
 .homepage-location {
   background: rgba(255, 255, 255, 0.24);
   border: 1px solid #b5b5b5;
@@ -15,16 +16,20 @@
   left: 2em;
   padding: 0.4em 0.8em;
 }
+
 .homepg-weatherfc {
   max-width: 100%;
 }
+
 .homepg-worldone {
   display: none;
 }
+
 .homepg-worldforecast {
   text-align: center;
   padding: 2em;
 }
+
 .homepg-explore {
   background: #ef6820;
   border-radius: 8px;
@@ -34,10 +39,12 @@
   padding: 1em;
   margin-top: 3em;
 }
+
 .homepg-worldforecast h2 {
   font-size: 24px;
   font-weight: 700;
 }
+
 .homepg-weatherfc ul {
   display: flex;
   align-items: flex-start;
@@ -47,41 +54,48 @@
 
   overflow-x: auto;
 }
-  
-  
-.homepg-heroforecast{
+
+
+.homepg-heroforecast {
   display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
+
 .homepg-dash {
   display: block;
   background-image: url("../../public/Home/Frame 26086000.svg");
   width: 40px;
   height: 40px;
 }
+
 .homepg-weatherfc li {
   list-style: none;
 }
+
 .homepg-popflex {
   display: flex;
   gap: 1em;
   align-items: center;
 }
-.homepg-immed{
+
+.homepg-immed {
   align-self: flex-start;
 }
-.homepg-immedp{
+
+.homepg-immedp {
   font-size: 40px;
-    line-height: 52px;
-    text-transform: capitalize;
+  line-height: 52px;
+  text-transform: capitalize;
 }
+
 .homepg-poplis {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
 }
+
 .landing_header {
   background-image: url("/public/Home/bg.jpg");
   background-size: cover;
@@ -140,6 +154,7 @@
 
 .landing_locations_header {
   display: flex;
+  color: #1E1E1E;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
@@ -163,12 +178,13 @@
   color: #565560;
 }
 
-.landing_location_placeholder{
+.landing_location_placeholder {
   font-size: 0.rem;
   font-weight: 450;
 }
 
 .landing_locations_container {
+  color: #1E1E1E;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 25px;
@@ -181,11 +197,11 @@
   display: none;
 }
 
-.landing_scroll_indicator > div {
+.landing_scroll_indicator>div {
   border-radius: 50%;
   width: 7px;
   height: 7px;
-  background-color: lightgrey;
+  background-color: var(--accents-3);
 }
 
 .landing_location_brief {
@@ -196,7 +212,7 @@
 
 @media screen and (max-width: 768px) {
   .landing_location_brief {
-    background-color: white;
+    background-color: var(--background);
     border-radius: 10px;
     padding: 10px;
   }
@@ -284,7 +300,6 @@
   line-height: 44px;
   letter-spacing: -0.025em;
   font-feature-settings: "tnum" on, "lnum" on;
-  color: #161518;
 }
 
 .landing_showcase p {
@@ -292,7 +307,7 @@
   font-size: 18px;
   line-height: 28px;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
-  color: #565560;
+  color: var(--accents-6);
 }
 
 .landing_ill_container {
@@ -346,9 +361,11 @@
 .landing_download_container {
   color: var(--l-primary-color);
 }
+
 .homepg-orange {
   color: black;
 }
+
 .landing_download_container h3 {
   font-weight: 700;
   font-size: 40px;
@@ -390,7 +407,7 @@
   grid-row-gap: 20px;
 }
 
-.landing_phones_container > img {
+.landing_phones_container>img {
   width: 500px;
 }
 
@@ -466,7 +483,7 @@
     gap: 88px;
   }
 
-  .landing_download_container div > img {
+  .landing_download_container div>img {
     width: 50%;
   }
 
@@ -475,31 +492,39 @@
     line-height: 140%;
   }
 }
+
 @media (min-width: 60rem) {
   #landing_download_app {
     flex-direction: row;
     justify-content: space-between;
   }
-.homepg-immed {
+
+  .homepg-immed {
     display: flex;
     align-items: flex-start;
-}
+  }
+
   .homepg-worldone {
     display: block;
   }
+
   .homepg-worldforecast {
     padding: 3em 5em;
   }
+
   .homepg-worldul {
     display: flex;
     justify-content: space-between;
   }
+
   .homepg-poplis {
     gap: 3em;
   }
+
   .homepg-phone {
     content: url("../../public/Home/iPhone\ 13.png");
   }
+
   .landing_download_container div {
     justify-content: left;
   }

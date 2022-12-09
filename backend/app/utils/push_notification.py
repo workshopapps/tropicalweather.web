@@ -1,6 +1,11 @@
 from datetime import datetime
 from firebase_admin import messaging
 
+from conf.runtime import initialize_firebase
+
+
+initialize_firebase()
+
 
 def send_notification_to_topic(payload, topic):
 
@@ -9,7 +14,7 @@ def send_notification_to_topic(payload, topic):
         data={
             "event": payload["event"],
             "message": payload["description"],
-            "datetime": datetime.strptime(payload["end"], "%Y-%m-%d %H:%M"),
+            "datetime": datetime.strftime(payload["end"], "%Y-%m-%d %H:%M"),
         },
         topic=topic,
     )
