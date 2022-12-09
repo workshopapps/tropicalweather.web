@@ -363,7 +363,6 @@ export default function Dashboard() {
         setPopup={setShowShare}
         currentLocation={currentLocation}
         currentWeather={currentWeather}
-        time={time}
       />
     </div>
   );
