@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { Link, useLocation } from 'react-router-dom';
 import { TfiAngleLeft } from 'react-icons/tfi';
-import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { IoMdAlert } from 'react-icons/io';
-import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
+import { AiFillCheckCircle } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import Share from '../components/Dashboard/Share';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
@@ -17,6 +16,8 @@ import {
   getTomorrowWeatherForecastFromAddressOrLatLong,
   getWeeklyWeatherForecastFromAddressOrLatLong,
 } from '../libs/dashboardForecast';
+import { getSavedLocations, saveLocation, deleteLocations } from '../libs/savedLocations';
+import SavedLocations from '../components/Dashboard/SavedLocations';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const city = new URLSearchParams(search).get('city');
-    if (city.length > 5) {
+    if (city?.length > 5) {
       setSearchCity(city);
       setCurrentLocation(city);
     }
@@ -133,41 +134,36 @@ export default function Dashboard() {
       getTomorrowWeather();
       getWeeklyWeather();
     }
-  }, [coord, searchCity]);
+  }, [coord, searchCity, currentLocation]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('saved-locations'));
-    if (!data || data.length === 0) {
-      setSavedLocations([]);
-      localStorage.setItem('saved-locations', JSON.stringify(savedLocations));
-    } else {
-      setSavedLocations(data);
-    }
+    const savedLocations = getSavedLocations();
+    setSavedLocations(savedLocations);
   }, []);
 
-  const removeLocation = (location) => {
-    const loc = savedLocations.filter((item) => item !== location);
-    localStorage.setItem('saved-locations', JSON.stringify(loc));
-    setSavedLocations([]);
-    setSavedLocations(loc);
-  };
   const showToast = () => {
     setToast(true);
     setTimeout(() => {
       setToast(false);
     }, 5000);
   };
+  const [editLocations, setEditLocations] = useState(false);
+  const [locationIdsToDelete, setlocationIdsToDelete] = useState([]);
 
-  const addLocation = async (location) => {
-    if (savedLocations.some((loc) => loc === location)) return;
-    const locs = savedLocations;
-    locs.push(location);
-    setSavedLocations(locs);
-    localStorage.setItem('saved-locations', JSON.stringify(locs));
+  const clearLocations = () => {
+    const newLocations = deleteLocations(locationIdsToDelete);
+    setSavedLocations(newLocations);
+    setEditLocations(false);
+  };
+
+  const addLocation = (location) => {
+    if (savedLocations.some((loc) => loc.location === location)) return;
+    setSavedLocations(saveLocation(location));
     showToast();
   };
+
   const isSaved = savedLocations.some(
-    (location) => location === currentLocation
+    (location) => location.location === currentLocation
   );
 
   // Scroll to top
@@ -227,7 +223,7 @@ export default function Dashboard() {
           <div className="relative w-full">
             <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)]">
               <h1 className="text-2xl font-bold">
-                {currentLocation || 'Input Location from search bar'}
+                {currentLocation || 'Fetching location data...'}
               </h1>
               <div className="flex items-center self-end gap-4">
                 {isSaved ? null : (
@@ -316,46 +312,14 @@ export default function Dashboard() {
                 setTimeline={timelineToDisplay}
               />
             </section>
-            <section id="saved-locations" className="mt-20">
-              <div className="flex items-center justify-between w-full">
-                <h2 className="text-2xl font-bold">{t('Saved Locations')}</h2>
-              </div>
-
-              {savedLocations.length < 1 ? (
-                <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
-                  <BsMap className="text-3xl text-primary-btn" />
-                  <h2 className="text-2xl font-bold">
-                    {t('No Location saved yet')}
-                  </h2>
-                  <p>
-                    {t('You can save a location to view the details later')}
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col justify-start gap-10 my-10">
-                  {savedLocations.map((location) => (
-                    <div
-                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md bg-[var(--accents-primary)]"
-                      key={location}
-                    >
-                      <div className="flex items-center gap-4">
-                        <HiOutlineLocationMarker className="text-lg" />
-                        <span className="text-sm capitalize md:text-xl">
-                          {location}
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeLocation(location)}
-                        className="bdr-50% p-2 rounded-full"
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
+            <SavedLocations
+              locations={savedLocations}
+              clearLocations={clearLocations}
+              addToDeleteList={setlocationIdsToDelete}
+              editLocations={editLocations}
+              setEditLocations={setEditLocations}
+              deleteList={locationIdsToDelete}
+            />
           </div>
           <section
             id="timeline-forecast"
