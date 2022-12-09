@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-select-async-paginate": "^0.7.0",
     "react-share": "^4.4.1",
+    "react-toastify": "^9.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
