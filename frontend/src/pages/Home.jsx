@@ -174,7 +174,7 @@ export default function Home() {
                   style={{
                     width: `${((lineWidth / 24) * currentTime - 50)}px`,
                     transition: 'all 1s ease-out',
-                    transitionDelay: '1s'
+                    transitionDelay: '.5s'
                   }}
                 >
                   <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">

@@ -63,14 +63,14 @@ export default function Footer() {
             <span className="footer-title">{t('downloadtheapp')}</span>
             <div className="flex flex-wrap gap-6 mt-6">
               <a
-                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                href=" https://drive.google.com/file/d/1wVcNyyWW0VAWcheReb5cVRidFW6Rl45S/view?usp=drivesdk"
                 target="_BLANK"
                 rel="noreferrer"
               >
                 <img src="/app-store.png" alt="app store" />
               </a>
               <a
-                href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+                href=" https://drive.google.com/file/d/1wVcNyyWW0VAWcheReb5cVRidFW6Rl45S/view?usp=drivesdk"
                 target="_BLANK"
                 rel="noreferrer"
               >

@@ -16,14 +16,14 @@ export default function MobileAdvert() {
         </p>
         <div className="about__download_btn">
           <a
-            href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+            href=" https://drive.google.com/file/d/1wVcNyyWW0VAWcheReb5cVRidFW6Rl45S/view?usp=drivesdk"
             target="_BLANK"
             rel="noreferrer"
           >
             <img src="/app-store.png" alt="" className="app--store" />
           </a>
           <a
-            href="https://appetize.io/app/lca2f4kgwzqiveyfwvjqlmplsq?device=pixel4&osVersion=11.0&scale=75"
+            href=" https://drive.google.com/file/d/1wVcNyyWW0VAWcheReb5cVRidFW6Rl45S/view?usp=drivesdk"
             target="_BLANK"
             rel="noreferrer"
           >
