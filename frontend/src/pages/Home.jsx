@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment/moment';
 import { Link, useNavigate } from 'react-router-dom';
 import PopularLocation from '../components/Home/PopularLocation';
 import '../styles/Home.css';
@@ -34,6 +35,7 @@ export default function Home() {
       savedForecast.current = patchForecast;
     }
   }, []);
+  const time = moment().format('h:mm a');
 
   const getCurrentLocationFromCoords = async () => {
     try {
@@ -130,13 +132,7 @@ export default function Home() {
                   {t('today')}
                   {'  '}
                   <span>
-                    {Number(immediateWeather.datetime.slice(11)) + 1 < 10
-                      ? 0
-                      : ''}
-                    {Number(immediateWeather.datetime.slice(11, 13)) + 1 < 24
-                      ? Number(immediateWeather.datetime.slice(11, 13)) + 1
-                      : Number(immediateWeather.datetime.slice(11, 13)) + 1}
-                    :00
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
@@ -159,9 +155,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    {new Date().getHours()}
-                    :00
-                    {new Date().getHours() < 12 ? ' am' : ' pm'}
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
