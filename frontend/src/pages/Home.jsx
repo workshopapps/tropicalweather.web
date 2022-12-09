@@ -2,9 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
@@ -20,6 +18,20 @@ export default function Home() {
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['home']);
+  const savedForecast = useRef([]);
+  const [lineWidth, setLneWidth] = useState('100%');
+  const forecastContainer = useRef();
+  const [currentTime, setCurrentTime] = useState(1);
+
+  useEffect(() => {
+    const sv = localStorage.getItem('forecast');
+    if (sv !== null) {
+      savedForecast.current = JSON.parse(sv);
+    } else {
+      savedForecast.current = new Array(24).fill({ main: 'No data', datetime: '2022-12-09 00:00', risk: 'No data' });
+    }
+  }, []);
+
   const getCurrentLocationFromCoords = async () => {
     try {
       const response = await fetch(
@@ -27,25 +39,17 @@ export default function Home() {
       );
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
-      setWeatherForecast(data.todays_timeline);
       setImmediateWeather(data.current);
+      const pas = new Date().getUTCHours();
+      savedForecast.current = savedForecast.current.slice(0, pas).concat(data.todays_timeline);
+      setWeatherForecast(savedForecast.current);
+      localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
       onload.current = true;
     } catch (error) {
       // console.log(error);
     }
   };
 
-  const getWeatherForecast = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-      );
-      const data = await response.json();
-      setWeatherForecast(data);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
     navigate(`/dashboard?city=${city}`);
@@ -74,10 +78,26 @@ export default function Home() {
     getLocation();
   }, []);
 
-  if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
-    getCurrentLocationFromCoords();
-    getWeatherForecast();
-  }
+  useEffect(() => {
+    const { scrollWidth, offsetWidth } = forecastContainer.current;
+    setLneWidth(scrollWidth);
+    const t = new Date().getUTCHours() + 1;
+    setCurrentTime(t);
+    const scroll = (scrollWidth / 24) * t - 50;
+    if (forecastContainer.current) {
+      forecastContainer.current.scrollTo({
+        left: (scroll) - offsetWidth / 2,
+        behavior: 'smooth',
+      });
+    }
+  }, [immediateWeather]);
+
+  useEffect(() => {
+    if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+      getCurrentLocationFromCoords();
+    }
+  }, [coord.latitude]);
+
   return (
     <div id="home">
       <header className="landing_header">
@@ -142,13 +162,38 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul>
-              {weatherForecast.map((forecast) => {
+            <ul className="relative pt-10 mt-[10px]" ref={forecastContainer}>
+              <div
+                className="absolute w-[1000px] bg-white/50 mt-8 top-[-20px]"
+                style={{
+                  width: `${lineWidth - 50}px`
+                }}
+              >
+                <div
+                  className="relative bg-[#F7B27A] h-0.5"
+                  style={{
+                    width: `${((lineWidth / 24) * currentTime - 50)}px`,
+                    transition: 'all 1s ease-out',
+                    transitionDelay: '1s'
+                  }}
+                >
+                  <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">
+                    {' '}
+                  </span>
+                </div>
+              </div>
+              {weatherForecast.map((forecast, index) => {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
                   <li
                     key={forecast.datetime}
                     className="homepg-heroforecast text-center"
+                    style={{
+                      width: '100px',
+                      flexShrink: 0,
+                      paddingInline: '15px',
+                    }}
+                    id={`fcst-${index + 1}`}
                   >
                     <p>{forecast.datetime.slice(11)}</p>
                     <img
