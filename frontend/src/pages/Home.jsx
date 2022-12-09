@@ -1,14 +1,16 @@
 /* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment/moment';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
-import getWeatherDescriptionCategory, { to12HourFormat } from '../libs/Home';
+import getWeatherDescriptionCategory, {
+  patchForecast,
+  to12HourFormat,
+} from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -20,6 +22,21 @@ export default function Home() {
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['home']);
+  const savedForecast = useRef([]);
+  const [lineWidth, setLneWidth] = useState('100%');
+  const forecastContainer = useRef();
+  const [currentTime, setCurrentTime] = useState(1);
+
+  useEffect(() => {
+    const sv = localStorage.getItem('forecast');
+    if (sv !== null) {
+      savedForecast.current = JSON.parse(sv);
+    } else {
+      savedForecast.current = patchForecast;
+    }
+  }, []);
+  const time = moment().format('h:mm a');
+
   const getCurrentLocationFromCoords = async () => {
     try {
       const response = await fetch(
@@ -27,25 +44,19 @@ export default function Home() {
       );
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
-      setWeatherForecast(data.todays_timeline);
       setImmediateWeather(data.current);
+      const pas = new Date().getHours();
+      savedForecast.current = savedForecast.current
+        .slice(0, pas)
+        .concat(data.todays_timeline);
+      setWeatherForecast(savedForecast.current);
+      localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
       onload.current = true;
     } catch (error) {
       // console.log(error);
     }
   };
 
-  const getWeatherForecast = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-      );
-      const data = await response.json();
-      setWeatherForecast(data);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
     navigate(`/dashboard?city=${city}`);
@@ -74,10 +85,26 @@ export default function Home() {
     getLocation();
   }, []);
 
-  if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
-    getCurrentLocationFromCoords();
-    getWeatherForecast();
-  }
+  useEffect(() => {
+    const { scrollWidth, offsetWidth } = forecastContainer.current;
+    setLneWidth(scrollWidth);
+    const t = new Date().getHours() + 1;
+    setCurrentTime(t);
+    const scroll = (scrollWidth / 24) * t - 50;
+    if (forecastContainer.current) {
+      forecastContainer.current.scrollTo({
+        left: scroll - offsetWidth / 2,
+        behavior: 'smooth',
+      });
+    }
+  }, [immediateWeather]);
+
+  useEffect(() => {
+    if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+      getCurrentLocationFromCoords();
+    }
+  }, [coord.latitude]);
+
   return (
     <div id="home">
       <header className="landing_header">
@@ -105,18 +132,14 @@ export default function Home() {
                   {t('today')}
                   {'  '}
                   <span>
-                    {Number(immediateWeather.datetime.slice(11)) + 1 < 10
-                      ? 0
-                      : ''}
-                    {Number(immediateWeather.datetime.slice(11, 13)) + 1 < 24
-                      ? Number(immediateWeather.datetime.slice(11, 13)) + 1
-                      : Number(immediateWeather.datetime.slice(11, 13)) + 1}
-                    :00
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
-                <h2 className="mt-2 text-2xl">
-                  {`${to12HourFormat(immediateWeather.datetime)} to ${to12HourFormat(immediateWeather.end_datetime)}`}
+                <h2 className="text-2xl mt-2">
+                  {`${to12HourFormat(
+                    immediateWeather.datetime
+                  )} to ${to12HourFormat(immediateWeather.end_datetime)}`}
                 </h2>
               </div>
             </div>
@@ -132,9 +155,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    {new Date().getHours()}
-                    :00
-                    {new Date().getHours() < 12 ? ' am' : ' pm'}
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
@@ -142,15 +163,40 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul>
-              {weatherForecast.map((forecast) => {
+            <ul className="relative pt-10 mt-[10px]" ref={forecastContainer}>
+              <div
+                className="absolute w-[1000px] bg-white/50 mt-8 top-[-20px]"
+                style={{
+                  width: `${lineWidth - 50}px`,
+                }}
+              >
+                <div
+                  className="relative bg-[#F7B27A] h-0.5"
+                  style={{
+                    width: `${(lineWidth / 24) * currentTime - 50}px`,
+                    transition: 'all 1s ease-out',
+                    transitionDelay: '.5s',
+                  }}
+                >
+                  <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">
+                    {' '}
+                  </span>
+                </div>
+              </div>
+              {weatherForecast.map((forecast, index) => {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
                   <li
                     key={forecast.datetime}
-                    className="text-center homepg-heroforecast"
+                    className="homepg-heroforecast text-center"
+                    style={{
+                      width: '100px',
+                      flexShrink: 0,
+                      paddingInline: '15px',
+                    }}
+                    id={`fcst-${index + 1}`}
                   >
-                    <p>{forecast.datetime.slice(11)}</p>
+                    <p>{to12HourFormat(forecast.datetime)}</p>
                     <img
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
@@ -226,6 +272,57 @@ export default function Home() {
             </li>
           </div>
           <div className="homepg-worldtwo">
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
+                <span>DE GERMANY</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Berlin, GERMANY')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/SouthAfricaFlag.svg" alt="South Africa flag" />
+                <span>RSA SOUTH AFRICA</span>
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Pretoria, SOUTH AFRICA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/JamaicaFlag.svg" alt="Jamaica flag" />
+                <span>JM JAMAICA</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Kingston, JAMAICA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/ScotlandFlag.svg" alt="Scotland flag" />
+                <span>SCT SCOTLAND</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Edinburgh, SCOTLAND')}
+                className="homepg-dash"
+              />
+            </li>
+          </div>
+          <div className="homepg-worldthree">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
