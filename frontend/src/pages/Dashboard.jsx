@@ -224,7 +224,7 @@ export default function Dashboard() {
           <span className="text-lg">{t('Back')}</span>
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
-          <div className="relative w-full max-w-2xl">
+          <div className="relative w-full">
             <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)]">
               <h1 className="text-2xl font-bold">
                 {currentLocation || 'Input Location from search bar'}
@@ -359,7 +359,7 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-xl lg:w-[450px]"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px]"
           >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
