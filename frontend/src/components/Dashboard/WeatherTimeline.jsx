@@ -43,7 +43,7 @@ export default function WeatherTimeline({ timelineData }) {
           ))
         ) : (
           <p className="text-xl font-semibold">
-            Data is not available for this location yet.. Please refresh.
+            Data is not available for this location yet.. Please refresh after a few seconds.
           </p>
         )
       }
