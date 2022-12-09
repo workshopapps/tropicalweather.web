@@ -9,7 +9,7 @@ class TestGenerateShareLink:
             "/generate/share-link?city=a&state=b&country=c"
         )
         assert response.json().get("link") == \
-            "https://tropicalweather.hng.tech/share/a-b-c"
+            "https://tropicalweather.hng.tech/dashboard?city=a, b, c"
 
 
 class _TestWeatherForecastsAPI:
