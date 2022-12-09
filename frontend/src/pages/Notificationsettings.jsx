@@ -1,29 +1,87 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/NotificationSettings.css';
 import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
 
 export default function Notificationsettings() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
-  const [toggle, setToggle] = useState(false);
-  const toggleSwitch = () => {
-    setToggle(!toggle);
-    console.log(toggle)
+  const [subscribeMessage, setSubscribeMessage] = useState('');
+  const [unsubscribeMessage, setUnsubscribeMessage] = useState('');
+
+  function subscribeApi() {
     axios.get(`${APIURL}/weather/alerts/subscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
       .then((res) => {
-        console.log(res);
+        // console.log(res.data.message);
+        setSubscribeMessage(res.data.message);
       }).catch((err) => {
         console.log(err);
       });
+  }
+  function unsubscribeApi() {
+    axios.get(`${APIURL}/weather/alerts/unsubscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
+      .then((res) => {
+        // console.log(res.data.message);
+        setUnsubscribeMessage(res.data.message);
+        // toast(`${subscribeMessage}`);
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+  const [toggle, setToggle] = useState(true);
+  const toggleSwitch = () => {
+    // toast("yeah it works");
+    setToggle(!toggle);
+    console.log(toggle);
+    if (toggle === true) {
+      // subscribeApi();
+      console.log(subscribeMessage);
+toast.success(`${subscribeMessage}`, {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: true,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "light",
+});
+    } else if (toggle === false) {
+      // unsubscribeApi();
+      console.log(unsubscribeMessage);
+      toast.success(`${unsubscribeMessage}`, {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: true,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "light",
+});
+    }
   };
+  if (toggle === true) {
+      subscribeApi();
+      // console.log(subscribeMessage);
+      // toast(`${subscribeMessage}`);
+    } else if (toggle === false) {
+      unsubscribeApi();
+      // console.log(unsubscribeMessage);
 
+      // toast(`${unsubscribeMessage}`);
+    }
   const { t } = useTranslation(['notification']);
   return (
     <div className="notificationsettings__container">
-      <div className="return__btn--container">
-        <img src={BackIcon} alt="Back Icon" />
-        <p>{t('back')}</p>
+      <div>
+        <Link to="/settings" className="return__btn--container">
+          <img src={BackIcon} alt="Back Icon" />
+          <p>{t('back')}</p>
+        </Link>
       </div>
       <div className="notification__header">
         <h2>{t('notification')}</h2>
@@ -122,6 +180,18 @@ export default function Notificationsettings() {
           </div>
         </section>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
