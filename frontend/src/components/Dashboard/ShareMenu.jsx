@@ -66,7 +66,7 @@ export default function ShareMenu() {
           <div className="share-btn-container">
             <CopyToClipboard text={postUrl} onCopy={onCopyText}>
               <div className="copy-area">
-                <img src="/share/share-link (1).png" alt="" className="twitter-btn" />
+                <img src="/share/share-link (1).png" alt="" className="twitter-btn btn-twit" />
                 <span className={`copy-feedback ${isCopied ? 'active' : ''}`}>Copied!</span>
               </div>
             </CopyToClipboard>
