@@ -27,7 +27,8 @@ export default function Home() {
     const sv = localStorage.getItem('forecast');
     if (sv !== null) {
       savedForecast.current = JSON.parse(sv);
-      setWeatherForecast(JSON.parse(sv));
+    } else {
+      savedForecast.current = new Array(24).fill({ main: 'No data', datetime: '2022-12-09 00:00', risk: 'No data' });
     }
   }, []);
 
@@ -39,7 +40,10 @@ export default function Home() {
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
       setImmediateWeather(data.current);
-      // setWeatherForecast(data.todays_timeline);
+      const pas = new Date().getHours();
+      savedForecast.current = savedForecast.current.slice(0, pas).concat(data.todays_timeline);
+      setWeatherForecast(savedForecast.current);
+      localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
       onload.current = true;
     } catch (error) {
       // console.log(error);
