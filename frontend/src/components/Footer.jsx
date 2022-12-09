@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { BsGlobe } from 'react-icons/bs';
-import { BiSupport } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import ReactThemeToggleButton from './Settings/ToggleTheme';
 
@@ -13,7 +12,7 @@ export default function Footer() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
   return (
-    <footer className="self-end pt-16 text-white bg-primary-btn-clicked">
+    <footer className="self-end pt-16 mt-10 text-white bg-primary-btn-clicked">
       <div className="p-4 bg-[#B93815] md:py-10 md:px-16">
         <div className="flex flex-col gap-10 pb-12 md:flex-row md:justify-between md:items-center">
           <div>
@@ -36,15 +35,6 @@ export default function Footer() {
               </svg>
             </Link>
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
-              {/* <Link
-                onClick={() => {
-          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        }}
-                to="/about-us"
-                className="link link-hover"
-              >
-                About us
-              </Link> */}
               <Link to="/" className="link link-hover">
                 {t('home')}
               </Link>

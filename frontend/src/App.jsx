@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react';
-
 import React, { Suspense } from 'react';
 import {
   createBrowserRouter,

@@ -2,16 +2,23 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { Link, useLocation } from 'react-router-dom';
 import { TfiAngleLeft } from 'react-icons/tfi';
-import { BsMap, BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { IoMdAlert } from 'react-icons/io';
-import { AiFillCheckCircle, AiOutlineDelete } from 'react-icons/ai';
+import { AiFillCheckCircle } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import Share from '../components/Dashboard/Share';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
 import TimelineOptions from '../components/Dashboard/TimelineOptions';
+import {
+  getWeatherForecastFromAddressOrLatLong,
+  getTomorrowWeatherForecastFromAddressOrLatLong,
+  getWeeklyWeatherForecastFromAddressOrLatLong,
+} from '../libs/dashboardForecast';
+import { getSavedLocations, saveLocation, deleteLocations } from '../libs/savedLocations';
+import SavedLocations from '../components/Dashboard/SavedLocations';
+import Footer from '../components/Dashboard/Footer';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -31,48 +38,68 @@ export default function Dashboard() {
   const [currentTimeline, setCurrentTimeline] = useState('Today');
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [searchCity, setSearchCity] = useState(null);
   const { search } = useLocation();
 
   useEffect(() => {
     const city = new URLSearchParams(search).get('city');
-    setCurrentLocation(city);
+    if (city?.length > 5) {
+      setSearchCity(city);
+      setCurrentLocation(city);
+    }
   }, [search]);
 
   const formatTime = (time) => moment(time).format('h:mm a');
+
   const getCurrentLocationFromCoords = async () => {
     const response = await fetch(
       `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     const location = `${data.city}, ${data.state}`;
-    setCurrentLocation(location);
+    if (currentLocation === null) {
+      setCurrentLocation(location);
+    }
   };
+
   const getCurrentLocationWeather = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    setCurrentWeather(data.current);
-    setTodayTimeline(data.todays_timeline);
-    setTimeline(data.todays_timeline);
+    if (searchCity) {
+      const data = await getWeatherForecastFromAddressOrLatLong(searchCity);
+      setCurrentWeather(data.current);
+      setTodayTimeline(data.todays_timeline);
+      setTimeline(data.todays_timeline);
+    } else {
+      const data = await getWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setCurrentWeather(data.current);
+      setTodayTimeline(data.todays_timeline);
+      setTimeline(data.todays_timeline);
+    }
   };
 
   const getTomorrowWeather = async () => {
-    const response = await fetch(
-    `${APIURL}/weather/forcast/extended/by_address?address=${currentLocation.replace(
-        ', ',
-        '%2C%20')}`
-    );
-    const data = await response.json();
-    setTomorrowTimeline(data);
+    if (searchCity) {
+      const data = await getTomorrowWeatherForecastFromAddressOrLatLong(searchCity);
+      setTomorrowTimeline(data);
+    } else {
+      const data = await getTomorrowWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setTomorrowTimeline(data);
+    }
   };
 
   const getWeeklyWeather = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/weekly?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    setWeeklyTimeline(data);
+    if (searchCity) {
+      const data = await getWeeklyWeatherForecastFromAddressOrLatLong(searchCity);
+      setWeeklyTimeline(data);
+    } else {
+      const data = await getWeeklyWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setWeeklyTimeline(data);
+    }
   };
 
   const options = {
@@ -91,7 +118,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (coord.latitude <= 0) {
+    if (coord.latitude === 0) {
       const locationTimeout = setTimeout(() => {
         navigator.geolocation.getCurrentPosition(success, error, options);
       }, 2000);
@@ -108,41 +135,36 @@ export default function Dashboard() {
       getTomorrowWeather();
       getWeeklyWeather();
     }
-  }, [coord]);
+  }, [coord, searchCity, currentLocation]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('saved-locations'));
-    if (!data || data.length === 0) {
-      setSavedLocations([]);
-      localStorage.setItem('saved-locations', JSON.stringify(savedLocations));
-    } else {
-      setSavedLocations(data);
-    }
+    const savedLocations = getSavedLocations();
+    setSavedLocations(savedLocations);
   }, []);
 
-  const removeLocation = (location) => {
-    const loc = savedLocations.filter((item) => item !== location);
-    localStorage.setItem('saved-locations', JSON.stringify(loc));
-    setSavedLocations([]);
-    setSavedLocations(loc);
-  };
   const showToast = () => {
     setToast(true);
     setTimeout(() => {
       setToast(false);
     }, 5000);
   };
+  const [editLocations, setEditLocations] = useState(false);
+  const [locationIdsToDelete, setlocationIdsToDelete] = useState([]);
 
-  const addLocation = async (location) => {
-    if (savedLocations.some((loc) => loc === location)) return;
-    const locs = savedLocations;
-    locs.push(location);
-    setSavedLocations(locs);
-    localStorage.setItem('saved-locations', JSON.stringify(locs));
+  const clearLocations = () => {
+    const newLocations = deleteLocations(locationIdsToDelete);
+    setSavedLocations(newLocations);
+    setEditLocations(false);
+  };
+
+  const addLocation = (location) => {
+    if (savedLocations.some((loc) => loc.location === location)) return;
+    setSavedLocations(saveLocation(location));
     showToast();
   };
+
   const isSaved = savedLocations.some(
-    (location) => location === currentLocation
+    (location) => location.location === currentLocation
   );
 
   // Scroll to top
@@ -164,7 +186,7 @@ export default function Dashboard() {
         return;
       case 'weekly':
         setTimeline(weeklyTimeline);
-        setCurrentTimeline('Weekly');
+        setCurrentTimeline('This week');
         setShowTimelineOptions(false);
         return;
       default:
@@ -173,7 +195,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative px-4 md:px-16 text-grey-900">
+    <div className="relative px-4 mb-20 md:px-16 text-grey-900">
       {toast ? (
         <div
           className="absolute flex items-center gap-3 p-1 rounded-lg"
@@ -199,10 +221,10 @@ export default function Dashboard() {
           <span className="text-lg">{t('Back')}</span>
         </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
-          <div className="relative w-full max-w-2xl">
+          <div className="relative w-full">
             <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)]">
               <h1 className="text-2xl font-bold">
-                {currentLocation || 'Input Location from search bar'}
+                {currentLocation || 'Fetching location data...'}
               </h1>
               <div className="flex items-center self-end gap-4">
                 {isSaved ? null : (
@@ -240,7 +262,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
+            <section className="flex flex-1 flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
               <p>
                 {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
@@ -259,8 +281,8 @@ export default function Dashboard() {
               </span>
             </section>
             <section
-              id="timeline-forecast"
-              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 h-[500px] overflow-y-auto relative block lg:hidden"
+              id="mobile-timeline-forecast"
+              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max"
             >
               <div className="flex items-center justify-between mb-4">
                 <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
@@ -291,50 +313,18 @@ export default function Dashboard() {
                 setTimeline={timelineToDisplay}
               />
             </section>
-            <section id="saved-locations" className="mt-20">
-              <div className="flex items-center justify-between w-full">
-                <h2 className="text-2xl font-bold">{t('Saved Locations')}</h2>
-              </div>
-
-              {savedLocations.length < 1 ? (
-                <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
-                  <BsMap className="text-3xl text-primary-btn" />
-                  <h2 className="text-2xl font-bold">
-                    {t('No Location saved yet')}
-                  </h2>
-                  <p>
-                    {t('You can save a location to view the details later')}
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col justify-start gap-10 my-10">
-                  {savedLocations.map((location) => (
-                    <div
-                      className="flex items-center justify-between gap-2 p-4 rounded-lg shadow-md bg-[var(--accents-primary)]"
-                      key={location}
-                    >
-                      <div className="flex items-center gap-4">
-                        <HiOutlineLocationMarker className="text-lg" />
-                        <span className="text-sm capitalize md:text-xl">
-                          {location}
-                        </span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeLocation(location)}
-                        className="bdr-50% p-2 rounded-full"
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </section>
+            <SavedLocations
+              locations={savedLocations}
+              clearLocations={clearLocations}
+              addToDeleteList={setlocationIdsToDelete}
+              editLocations={editLocations}
+              setEditLocations={setEditLocations}
+              deleteList={locationIdsToDelete}
+            />
           </div>
           <section
             id="timeline-forecast"
-            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-xl lg:w-[450px]"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-screen"
           >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
@@ -367,6 +357,7 @@ export default function Dashboard() {
           </section>
         </div>
       </div>
+      <Footer />
       <Share
         popup={showShare}
         setPopup={setShowShare}

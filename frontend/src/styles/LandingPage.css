@@ -5,22 +5,26 @@
 .mobile {
   display: none;
 }
-header{
+
+header {
   position: relative;
 
 }
-.mobile-search{
+
+.mobile-search {
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #E8E7EA;
- padding: 1em;
+  padding: 1em;
 }
-.mobilesearch-abs{
+
+.mobilesearch-abs {
   display: none;
 }
-.mobilesearch-abs[data-visible="true"]{
+
+.mobilesearch-abs[data-visible="true"] {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,11 +37,13 @@ header{
   background-color: white;
 
 }
-.mobilecon-flex{
+
+.mobilecon-flex {
   display: flex;
   gap: .5em;
   align-items: center;
 }
+
 .head-text {
   position: absolute;
   margin-top: -540px;
@@ -1180,8 +1186,9 @@ header{
     margin-right: 15px;
   }
 }
-@media (min-width:60rem) {
-  .mobile-search{
+
+@media (min-width:1024px) {
+  .mobile-search {
     display: none;
   }
 }

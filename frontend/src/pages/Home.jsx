@@ -115,12 +115,12 @@ export default function Home() {
             </p>
           )}
           {userLocation === null && (
-            <p className="homepage-location ml-0 md:ml-6">
+            <p className="ml-0 homepage-location md:ml-6">
               {t('locationloading')}
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="homepg-immed gap-2">
+            <div className="gap-2 homepg-immed">
               <img
                 src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
                   immediateWeather.main
@@ -227,7 +227,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Canberra, AUSTRALIA')}
+                onClick={() => gotoDashboard('Canberra, Australia')}
                 className="homepg-dash"
               />
             </li>
@@ -254,7 +254,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Amsterdam, NETEHERLANDS')}
+                onClick={() => gotoDashboard('Amsterdam, Netherlands')}
                 className="homepg-dash"
               />
             </li>
@@ -266,7 +266,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('London, UNITED KINGDOM')}
+                onClick={() => gotoDashboard('London, United Kingdom')}
                 className="homepg-dash"
               />
             </li>
@@ -331,7 +331,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Jakarta, INDONESIA')}
+                onClick={() => gotoDashboard('Jakarta, Indonesia')}
                 className="homepg-dash"
               />
             </li>
@@ -356,7 +356,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Ottawa, CANADA')}
+                onClick={() => gotoDashboard('Ottawa, Canada')}
                 className="homepg-dash"
               />
             </li>
@@ -368,7 +368,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('WashingtonDc, UNITED STATES')}
+                onClick={() => gotoDashboard('WashingtonDc, United States')}
                 className="homepg-dash"
               />
             </li>
