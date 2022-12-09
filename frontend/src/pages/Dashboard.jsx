@@ -18,6 +18,7 @@ import {
 } from '../libs/dashboardForecast';
 import { getSavedLocations, saveLocation, deleteLocations } from '../libs/savedLocations';
 import SavedLocations from '../components/Dashboard/SavedLocations';
+import Footer from '../components/Dashboard/Footer';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -194,7 +195,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative px-4 md:px-16 text-grey-900">
+    <div className="relative px-4 mb-20 md:px-16 text-grey-900">
       {toast ? (
         <div
           className="absolute flex items-center gap-3 p-1 rounded-lg"
@@ -280,8 +281,8 @@ export default function Dashboard() {
               </span>
             </section>
             <section
-              id="timeline-forecast"
-              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 h-[500px] overflow-y-auto relative block lg:hidden"
+              id="mobile-timeline-forecast"
+              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max"
             >
               <div className="flex items-center justify-between mb-4">
                 <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
@@ -323,7 +324,7 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px]"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-screen"
           >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
@@ -356,6 +357,7 @@ export default function Dashboard() {
           </section>
         </div>
       </div>
+      <Footer />
       <Share
         popup={showShare}
         setPopup={setShowShare}

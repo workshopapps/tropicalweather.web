@@ -35,15 +35,6 @@ export default function Footer() {
               </svg>
             </Link>
             <div className="flex flex-col flex-wrap gap-6 mt-8 md:flex-row">
-              {/* <Link
-                onClick={() => {
-          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        }}
-                to="/about-us"
-                className="link link-hover"
-              >
-                About us
-              </Link> */}
               <Link to="/" className="link link-hover">
                 {t('home')}
               </Link>
