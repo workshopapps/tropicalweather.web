@@ -21,6 +21,9 @@
 .homepg-worldone {
   display: none;
 }
+.homepg-worldtwo {
+  display: none;
+}
 .homepg-worldforecast {
   text-align: center;
   padding: 2em;
@@ -47,12 +50,11 @@
 
   overflow-x: auto;
 }
-  
-  
-.homepg-heroforecast{
+
+.homepg-heroforecast {
   display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
 .homepg-dash {
   display: block;
@@ -68,13 +70,13 @@
   gap: 1em;
   align-items: center;
 }
-.homepg-immed{
+.homepg-immed {
   align-self: flex-start;
 }
-.homepg-immedp{
+.homepg-immedp {
   font-size: 40px;
-    line-height: 52px;
-    text-transform: capitalize;
+  line-height: 52px;
+  text-transform: capitalize;
 }
 .homepg-poplis {
   display: flex;
@@ -163,8 +165,8 @@
   color: #565560;
 }
 
-.landing_location_placeholder{
-  font-size: 0.rem;
+.landing_location_placeholder {
+  font-size: 0rem;
   font-weight: 450;
 }
 
@@ -475,16 +477,19 @@
     line-height: 140%;
   }
 }
-@media (min-width: 60rem) {
+@media (min-width: 64rem) {
   #landing_download_app {
     flex-direction: row;
     justify-content: space-between;
   }
-.homepg-immed {
+  .homepg-immed {
     display: flex;
     align-items: flex-start;
-}
+  }
   .homepg-worldone {
+    display: block;
+  }
+  .homepg-worldtwo {
     display: block;
   }
   .homepg-worldforecast {

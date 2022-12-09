@@ -4,14 +4,7 @@
   max-width: 894px;
   position: relative;
 }
-/* .return__btn--container {
-  display: flex;
-  align-items: center;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  gap: 8px;
-} */
-.return__btn--containerp {
+.return__btn--container {
   display: flex;
   align-items: center;
   margin-top: 24px;

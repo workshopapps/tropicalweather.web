@@ -40,27 +40,27 @@ export default function Notificationsettings() {
       // subscribeApi();
       console.log(subscribeMessage);
 toast.success(`${subscribeMessage}`, {
-position: "top-right",
+position: 'top-right',
 autoClose: 5000,
 hideProgressBar: true,
 closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-theme: "light",
+theme: 'light',
 });
     } else if (toggle === false) {
       // unsubscribeApi();
       console.log(unsubscribeMessage);
       toast.success(`${unsubscribeMessage}`, {
-position: "top-right",
+position: 'top-right',
 autoClose: 5000,
 hideProgressBar: true,
 closeOnClick: true,
 pauseOnHover: true,
 draggable: true,
 progress: undefined,
-theme: "light",
+theme: 'light',
 });
     }
   };
