@@ -51,8 +51,13 @@
   justify-content: flex-start;
   align-items: flex-start;
   overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+.homepg-weatherfc ul::-webkit-scrollbar {
+  display: none;
+}
 
 .homepg-heroforecast {
   display: flex;
