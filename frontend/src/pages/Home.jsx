@@ -6,7 +6,7 @@ import PopularLocation from '../components/Home/PopularLocation';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
-import getWeatherDescriptionCategory, { to12HourFormat } from '../libs/Home';
+import getWeatherDescriptionCategory, { patchForecast, to12HourFormat } from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -28,7 +28,7 @@ export default function Home() {
     if (sv !== null) {
       savedForecast.current = JSON.parse(sv);
     } else {
-      savedForecast.current = new Array(24).fill({ main: 'No data', datetime: '2022-12-09 00:00', risk: 'No data' });
+      savedForecast.current = patchForecast;
     }
   }, []);
 
@@ -195,7 +195,7 @@ export default function Home() {
                     }}
                     id={`fcst-${index + 1}`}
                   >
-                    <p>{forecast.datetime.slice(11)}</p>
+                    <p>{to12HourFormat(forecast.datetime)}</p>
                     <img
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
