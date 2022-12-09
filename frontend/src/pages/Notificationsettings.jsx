@@ -25,7 +25,6 @@ function getToggleVal() {
 }
 
 export default function Notificationsettings() {
-
   const APIURL = 'https://api.tropicalweather.hng.tech';
   const [subscribeMessage, setSubscribeMessage] = useState('');
   const [unsubscribeMessage, setUnsubscribeMessage] = useState('');
@@ -50,10 +49,12 @@ export default function Notificationsettings() {
       });
   }
   const [toggle, setToggle] = useState(true);
-
   const [radioVal1, setRadioVal1] = useState(getFormValues1);
   const [radioVal2, setRadioVal2] = useState(getFormValues2);
-  const [toggle, setToggle] = useState(getToggleVal);
+
+  useEffect(() => {
+    setToggle(getToggleVal());
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('radio1', JSON.stringify(radioVal1));
@@ -75,7 +76,6 @@ export default function Notificationsettings() {
     setRadioVal2(e.target.value);
   };
 
-
   const toggleSwitch = () => {
     // toast("yeah it works");
     setToggle(!toggle);
@@ -83,41 +83,41 @@ export default function Notificationsettings() {
     if (toggle === true) {
       // subscribeApi();
       console.log(subscribeMessage);
-toast.success(`${subscribeMessage}`, {
-position: "top-right",
-autoClose: 5000,
-hideProgressBar: true,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "light",
-});
+      toast.success(`${subscribeMessage}`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     } else if (toggle === false) {
       // unsubscribeApi();
       console.log(unsubscribeMessage);
       toast.success(`${unsubscribeMessage}`, {
-position: "top-right",
-autoClose: 5000,
-hideProgressBar: true,
-closeOnClick: true,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "light",
-});
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
   if (toggle === true) {
-      subscribeApi();
-      // console.log(subscribeMessage);
-      // toast(`${subscribeMessage}`);
-    } else if (toggle === false) {
-      unsubscribeApi();
-      // console.log(unsubscribeMessage);
+    subscribeApi();
+    // console.log(subscribeMessage);
+    // toast(`${subscribeMessage}`);
+  } else if (toggle === false) {
+    unsubscribeApi();
+    // console.log(unsubscribeMessage);
 
-      // toast(`${unsubscribeMessage}`);
-    }
+    // toast(`${unsubscribeMessage}`);
+  }
   const { t } = useTranslation(['notification']);
   return (
     <div className="notificationsettings__container">
