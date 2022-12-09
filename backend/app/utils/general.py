@@ -16,9 +16,15 @@ from sqlalchemy.orm import Session
 from .client import weather
 from .open_meteo import client
 from .timer import now_utc
+from .weather_code import WmoCodes
 
 
-def get_risk_message(risk: str):
+FLOODING = "Flooding"
+HEATWAVE = "Heatwave"
+SUNNY = "Sunny"
+
+
+def get_event_message(event: str):
     """Format the risk message
 
     Args:
@@ -27,7 +33,14 @@ def get_risk_message(risk: str):
     Returns:
         str: The formatted risk message
     """
-    return f"There is a high risk of {risk} in your area"
+    if event == FLOODING:
+        return "Flooding is expected in your area"
+    elif event == HEATWAVE:
+        return "A heatwave is expected in your area"
+    elif event == SUNNY:
+        return "It will be sunny in your area"
+    else:
+        return f"There will be {event} in your area"
 
 
 def get_risks_by_location(
@@ -40,6 +53,7 @@ def get_risks_by_location(
     hourly_time: list[str] = response["hourly"]["time"]
     hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
     hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+    weather_code: list[str] = response['hourly']['weathercode']
 
     now = now_utc()
 
@@ -63,7 +77,9 @@ def get_risks_by_location(
         if pointer != "":
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
-            current_risk = get_risk(index_temp, index_precipitation)
+            index_weather_code = weather_code[i]
+            current_risk = get_event(
+                index_weather_code, index_temp, index_precipitation)
 
             if current_risk != pointer:  # changed
                 results[-1]["end"] = index_time
@@ -75,7 +91,9 @@ def get_risks_by_location(
         if index_time >= now:
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
-            risk = get_risk(index_temp, index_precipitation)
+            index_weather_code = weather_code[i]
+            risk = get_event(index_weather_code, index_temp,
+                             index_precipitation)
 
             if risk is None:
                 continue
@@ -84,7 +102,7 @@ def get_risks_by_location(
                 "start": index_time,
                 "end": max_time,
                 "event": risk,
-                "description": get_risk_message(risk)
+                "description": get_event_message(risk)
             }
 
             pointer = risk
@@ -458,14 +476,22 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
     Returns:
         Optional[str]: risk of the weather or None
     """
-    if temp > 30 and precipitation > 0.5:
-        return "Flooding"
-    elif temp > 30:
-        return "Heatwave"
-    elif precipitation > 0.5:
-        return "Flooding"
+    if precipitation > 0.5:
+        return FLOODING
+    elif temp > 38:
+        return HEATWAVE
     else:
         return "None"
+
+
+def get_event(weather_code: str, temp: float, precipitation: float):
+    risk = get_risk(temp, precipitation)
+    if risk == "None":
+        if 0 < int(weather_code) <= 4:
+            return SUNNY
+        main = WmoCodes.get_wmo_code(weather_code)
+        return main
+    return risk
 
 
 def weather_forcast_extended_call(lat: float, lon: float):
