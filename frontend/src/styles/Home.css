@@ -25,7 +25,9 @@
 .homepg-worldone {
   display: none;
 }
-
+.homepg-worldtwo {
+  display: none;
+}
 .homepg-worldforecast {
   text-align: center;
   padding: 2em;
@@ -157,7 +159,7 @@
 
 .landing_locations_header {
   display: flex;
-  color: #1E1E1E;
+  color: #1e1e1e;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
@@ -182,12 +184,12 @@
 }
 
 .landing_location_placeholder {
-  font-size: 0.rem;
+  font-size: 0rem;
   font-weight: 450;
 }
 
 .landing_locations_container {
-  color: #1E1E1E;
+  color: #1e1e1e;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 25px;
@@ -200,7 +202,7 @@
   display: none;
 }
 
-.landing_scroll_indicator>div {
+.landing_scroll_indicator > div {
   border-radius: 50%;
   width: 7px;
   height: 7px;
@@ -410,7 +412,7 @@
   grid-row-gap: 20px;
 }
 
-.landing_phones_container>img {
+.landing_phones_container > img {
   width: 500px;
 }
 
@@ -486,7 +488,7 @@
     gap: 88px;
   }
 
-  .landing_download_container div>img {
+  .landing_download_container div > img {
     width: 50%;
   }
 
@@ -510,7 +512,9 @@
   .homepg-worldone {
     display: block;
   }
-
+  .homepg-worldtwo {
+    display: block;
+  }
   .homepg-worldforecast {
     padding: 3em 5em;
   }
