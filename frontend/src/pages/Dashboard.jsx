@@ -12,6 +12,11 @@ import Share from '../components/Dashboard/Share';
 import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
 import OptionsPopup from '../components/Dashboard/OptionsPopup';
 import TimelineOptions from '../components/Dashboard/TimelineOptions';
+import {
+  getWeatherForecastFromAddressOrLatLong,
+  getTomorrowWeatherForecastFromAddressOrLatLong,
+  getWeeklyWeatherForecastFromAddressOrLatLong,
+} from '../libs/dashboardForecast';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -31,48 +36,68 @@ export default function Dashboard() {
   const [currentTimeline, setCurrentTimeline] = useState('Today');
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [searchCity, setSearchCity] = useState(null);
   const { search } = useLocation();
 
   useEffect(() => {
     const city = new URLSearchParams(search).get('city');
-    setCurrentLocation(city);
+    if (city.length > 5) {
+      setSearchCity(city);
+      setCurrentLocation(city);
+    }
   }, [search]);
 
   const formatTime = (time) => moment(time).format('h:mm a');
+
   const getCurrentLocationFromCoords = async () => {
     const response = await fetch(
       `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
     );
     const data = await response.json();
     const location = `${data.city}, ${data.state}`;
-    setCurrentLocation(location);
+    if (currentLocation === null) {
+      setCurrentLocation(location);
+    }
   };
+
   const getCurrentLocationWeather = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    setCurrentWeather(data.current);
-    setTodayTimeline(data.todays_timeline);
-    setTimeline(data.todays_timeline);
+    if (searchCity) {
+      const data = await getWeatherForecastFromAddressOrLatLong(searchCity);
+      setCurrentWeather(data.current);
+      setTodayTimeline(data.todays_timeline);
+      setTimeline(data.todays_timeline);
+    } else {
+      const data = await getWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setCurrentWeather(data.current);
+      setTodayTimeline(data.todays_timeline);
+      setTimeline(data.todays_timeline);
+    }
   };
 
   const getTomorrowWeather = async () => {
-    const response = await fetch(
-    `${APIURL}/weather/forcast/extended/by_address?address=${currentLocation.replace(
-        ', ',
-        '%2C%20')}`
-    );
-    const data = await response.json();
-    setTomorrowTimeline(data);
+    if (searchCity) {
+      const data = await getTomorrowWeatherForecastFromAddressOrLatLong(searchCity);
+      setTomorrowTimeline(data);
+    } else {
+      const data = await getTomorrowWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setTomorrowTimeline(data);
+    }
   };
 
   const getWeeklyWeather = async () => {
-    const response = await fetch(
-      `${APIURL}/weather/weekly?lat=${coord.latitude}&lon=${coord.longitude}`
-    );
-    const data = await response.json();
-    setWeeklyTimeline(data);
+    if (searchCity) {
+      const data = await getWeeklyWeatherForecastFromAddressOrLatLong(searchCity);
+      setWeeklyTimeline(data);
+    } else {
+      const data = await getWeeklyWeatherForecastFromAddressOrLatLong(
+        null, coord.latitude, coord.longitude
+      );
+      setWeeklyTimeline(data);
+    }
   };
 
   const options = {
@@ -91,7 +116,7 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (coord.latitude <= 0) {
+    if (coord.latitude === 0) {
       const locationTimeout = setTimeout(() => {
         navigator.geolocation.getCurrentPosition(success, error, options);
       }, 2000);
@@ -108,7 +133,7 @@ export default function Dashboard() {
       getTomorrowWeather();
       getWeeklyWeather();
     }
-  }, [coord]);
+  }, [coord, searchCity]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('saved-locations'));
@@ -164,7 +189,7 @@ export default function Dashboard() {
         return;
       case 'weekly':
         setTimeline(weeklyTimeline);
-        setCurrentTimeline('Weekly');
+        setCurrentTimeline('This week');
         setShowTimelineOptions(false);
         return;
       default:
@@ -240,7 +265,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
+            <section className="flex flex-1 flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
               <p>
                 {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>

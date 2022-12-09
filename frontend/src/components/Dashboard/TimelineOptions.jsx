@@ -41,7 +41,7 @@ export default function TimelineOptions({ display, setTimeline }) {
         }}
       >
         <BsCalendar4Week className="text-xl" />
-        <p>Weekly</p>
+        <p>This week</p>
       </button>
     </div>
   );
