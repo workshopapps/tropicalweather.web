@@ -3,6 +3,7 @@ import moment from 'moment/moment';
 import PropTypes from 'prop-types';
 import { VscCircleOutline } from 'react-icons/vsc';
 import { IoMdAlert } from 'react-icons/io';
+import { useTranslation } from 'react-i18next';
 
 export default function WeatherTimeline({ timelineData }) {
   function selectIcon(main) {
@@ -18,6 +19,8 @@ export default function WeatherTimeline({ timelineData }) {
 
   const lastIndex = timelineData.length - 1;
 
+  const { t } = useTranslation(['dashboard']);
+
   return (
     <>
       {
@@ -31,10 +34,10 @@ export default function WeatherTimeline({ timelineData }) {
                   <div className={`w-0.5 h-20 bg-gray-600 line ${index === lastIndex ? 'hidden h-0' : ''}`} />
                 </div>
                 <div className="flex flex-col">
-                  <span>{day.main}</span>
+                  <span>{t(day?.main?.replace(' ', '').toLowerCase())}</span>
                   <span className="flex items-center gap-4">
                     <p>{day.risk}</p>
-                    {day.risk !== 'None' && <IoMdAlert className="text-red-500" />}
+                    {day.risk !== `${t('none')}` && <IoMdAlert className="text-red-500" />}
                   </span>
                 </div>
               </div>
@@ -42,9 +45,7 @@ export default function WeatherTimeline({ timelineData }) {
             </div>
           ))
         ) : (
-          <p className="text-xl font-semibold">
-            Data is not available for this location yet.. Please refresh after a few seconds.
-          </p>
+          <p className="text-xl font-semibold">{t('datanotavailable')}</p>
         )
       }
     </>
