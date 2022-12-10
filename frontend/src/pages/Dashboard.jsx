@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
-import { Link, useLocation } from 'react-router-dom';
-import { TfiAngleLeft } from 'react-icons/tfi';
+import { useLocation } from 'react-router-dom';
 import { BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { IoMdAlert } from 'react-icons/io';
@@ -195,7 +194,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative px-4 mb-20 md:px-16 text-grey-900">
+    <div className="relative px-4 mb-36 md:mb-20 md:px-16 text-grey-900">
       {toast ? (
         <div
           className="absolute flex items-center gap-3 p-1 rounded-lg"
@@ -216,13 +215,9 @@ export default function Dashboard() {
         </div>
       ) : null}
       <div className="pt-6">
-        <Link to="/" className="items-center hidden mb-6 md:flex w-max">
-          <TfiAngleLeft className="mr-2 text-lg" />
-          <span className="text-lg">{t('Back')}</span>
-        </Link>
         <div className="flex flex-col w-full gap-10 md:flex-row">
           <div className="relative w-full">
-            <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)]">
+            <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)] rounded-t-lg">
               <h1 className="text-2xl font-bold">
                 {currentLocation || 'Fetching location data...'}
               </h1>
@@ -262,18 +257,18 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-1 flex-col gap-4 px-5 py-8 rounded-lg shadow-lg hero bg-[var(--d-bg)]">
+            <section className="flex flex-1 flex-col gap-4 px-5 py-8 shadow-lg hero bg-[var(--d-bg)] rounded-b-lg">
               <p>
                 {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
               </p>
               <p className="text-4xl font-bold">{currentWeather.main}</p>
-              <p className="text-xl font-bold text-gray-600">
+              <p className="text-xl font-bold opacity-90">
                 {`${formatTime(currentWeather.datetime)} to ${formatTime(
                   currentWeather.end_datetime
                 )}`}
               </p>
-              <span className="px-8 py-2 font-semibold text-base text-gray-500 rounded-[40px] border border-gray-400 bg-[#D5F7FE]/10 w-max flex items-center gap-2">
+              <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
                 {currentWeather.risk !== 'None' && (
                   <IoMdAlert className="text-red-500" />
                 )}
@@ -324,7 +319,7 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-screen"
+            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:min-h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-[calc(100vh-250px)]"
           >
             <div className="flex items-center justify-between mb-4">
               <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
