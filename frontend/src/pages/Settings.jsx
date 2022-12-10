@@ -6,15 +6,26 @@ import { Link } from 'react-router-dom';
 import '../styles/Settings.css';
 import i18next from 'i18next';
 
+function getLanguageValues() {
+  const storedLanguageValue = localStorage.getItem('language');
+  if (!storedLanguageValue) return '';
+  return JSON.parse(storedLanguageValue);
+}
+
 export default function Settings() {
   const [languageIsActive, setLanguageIsActive] = useState(false);
   const [themeIsActive, setThemeIsActive] = useState(false);
+  const [languageVal, setLanguageVal] = useState(getLanguageValues);
   const [language, setLanguage] = useState('');
   const { i18n, t } = useTranslation(['settings']);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('language', JSON.stringify(languageVal));
+  }, [languageVal]);
 
   const languageData = [
     {
@@ -46,9 +57,10 @@ export default function Settings() {
   });
 
   const handleLanguageChange = (e) => {
-    // console.log(e.target);
+    setLanguageVal(e.target.value);
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
+    e.target.classList.add('active_setting');
   };
 
   const toggleTheme = (theme) => {
@@ -61,6 +73,10 @@ export default function Settings() {
       document.documentElement.style.colorScheme = 'light';
     }
     localStorage.setItem('theme', theme);
+  };
+
+  const toggleClass = (e) => {
+    e.classList.add('active_setting');
   };
   return (
     <div className="settings">
@@ -98,6 +114,7 @@ export default function Settings() {
                     value={value}
                     name={language}
                     onChange={handleLanguageChange}
+                    checked={languageVal === value}
                   />
                   <div className="settings_dropdown-item-text">
                     <h3>{title}</h3>
@@ -135,7 +152,10 @@ export default function Settings() {
                 tabIndex={0}
                 role="button"
                 onKeyDown={() => toggleTheme('light')}
-                onClick={() => toggleTheme('light')}
+                onClick={() => {
+                  toggleTheme('light');
+                  toggleClass();
+                }}
               >
                 {t('lightmode')}
                 <BsFillSunFill />

@@ -3,14 +3,18 @@ import { GrClose } from 'react-icons/gr';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { BsMap, BsThreeDotsVertical, BsPencil } from 'react-icons/bs';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 export default function SavedLocations({
   locations, clearLocations, editLocations, setEditLocations, addToDeleteList, deleteList }) {
   const [openEdit, setOpenEdit] = useState(false);
+  const { t } = useTranslation(['dashboard']);
   return (
     <section id="saved-locations" className="mt-20">
       <div className="relative flex items-center justify-between w-full">
-        <h2 className="text-2xl font-bold">Saved Locations</h2>
+        <h2 className="text-2xl font-bold">
+          {t('savedlocations')}
+        </h2>
         {!openEdit && (
           <button
             title="open"
@@ -39,7 +43,7 @@ export default function SavedLocations({
             onClick={() => { setEditLocations(true); setOpenEdit(false); }}
           >
             <BsPencil className="text-xl" />
-            <p>Edit</p>
+            <p>{t('edit')}</p>
           </button>
         )}
       </div>
@@ -48,10 +52,10 @@ export default function SavedLocations({
         <div className="flex flex-col items-center justify-center gap-3 py-12 mx-auto w-max md:py-20">
           <BsMap className="text-3xl text-primary-btn" />
           <h2 className="text-2xl font-bold">
-            No Location saved yet
+            {t('nolocation')}
           </h2>
           <p>
-            You can save a location to view the details later
+            {t('youcansave')}
           </p>
         </div>
       ) : (

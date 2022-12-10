@@ -153,8 +153,10 @@ export default function ContactUs() {
             bottom: '1.5%',
             transform: 'translateX(-50%)',
             padding: '10px',
-            width: 'fit-content',
-            background: 'rgba(255, 255, 255, 0.9)',
+            width: 'max-content',
+            background: 'rgba(255, 255, 255)',
+            color: '#333',
+            zIndex: 10,
             border: '1px solid #054F39',
           }}
         >
