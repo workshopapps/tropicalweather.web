@@ -13,5 +13,6 @@
   "youremail": "Votre E-mail",
   "yourmessage": "Votre Message",
   "here": "ici...",
-  "send": "Envoyer"
+  "send": "Envoyer",
+  "messagehasbeensent": "Votre message a été envoyé!"
 }

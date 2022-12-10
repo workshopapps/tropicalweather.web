@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BsCalendar4Week, BsCalendar4Event } from 'react-icons/bs';
 import { MdOutlineViewWeek } from 'react-icons/md';
+import { useTranslation } from 'react-i18next';
 
 export default function TimelineOptions({ display, setTimeline }) {
+  const { t } = useTranslation(['dashboard']);
   return (
     <div
       className={`${
@@ -19,7 +21,7 @@ export default function TimelineOptions({ display, setTimeline }) {
         }}
       >
         <MdOutlineViewWeek className="text-xl" />
-        <p>Today</p>
+        <p>{t('today')}</p>
       </button>
       <button
         type="button"
@@ -30,7 +32,7 @@ export default function TimelineOptions({ display, setTimeline }) {
         }}
       >
         <BsCalendar4Event className="text-xl" />
-        <p>Tomorrow</p>
+        <p>{t('tomorrow')}</p>
       </button>
       <button
         type="button"
@@ -41,7 +43,7 @@ export default function TimelineOptions({ display, setTimeline }) {
         }}
       >
         <BsCalendar4Week className="text-xl" />
-        <p>This week</p>
+        <p>{t('thisweek')}</p>
       </button>
     </div>
   );
