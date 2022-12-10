@@ -36,11 +36,11 @@ export default function ReactThemeToggleButton() {
     <span>
       {theme === 'light' ? (
         <button type="button" onClick={() => toggleTheme('dark')}>
-          <BsFillMoonFill size={25} />
+          <BsFillMoonFill size={20} />
         </button>
       ) : (
         <button type="button" onClick={() => toggleTheme('light')}>
-          <BsFillSunFill color="yellow" size={25} />
+          <BsFillSunFill color="yellow" size={20} />
         </button>
       )}
     </span>
