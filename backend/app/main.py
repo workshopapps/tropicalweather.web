@@ -17,6 +17,7 @@ from elasticapm.contrib.starlette import make_apm_client, ElasticAPM
 
 apm = make_apm_client({
     'SERVICE_NAME': 'Api-TropicalWeather',
+    'ENVIRONMENT': 'production',
 })
 
 # sentry_sdk.init(
