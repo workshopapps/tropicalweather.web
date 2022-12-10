@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@elastic/apm-rum-react": "^1.4.2",
     "@sentry/react": "^7.23.0",
     "@sentry/tracing": "^7.23.0",
     "@tanstack/react-query": "^4.18.0",
