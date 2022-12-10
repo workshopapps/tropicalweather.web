@@ -15,7 +15,9 @@ from utils.cache import get_cache, set_cache
 
 from elasticapm.contrib.starlette import make_apm_client, ElasticAPM
 
-apm = make_apm_client()
+apm = make_apm_client({
+    'SERVICE_NAME': 'Api-TropicalWeather',
+})
 
 # sentry_sdk.init(
 #     dsn="https://ad6e50cf03a24a2f8a15ae7251a0d4dc@o4504281393201152.ingest.sentry.io/4504286223859712",
@@ -42,6 +44,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 # Registering routes
