@@ -16,10 +16,10 @@ export default function Share({ popup, setPopup, currentLocation, currentWeather
         <div className="row1">
           <img src="/share/share-backIMG.png" alt="pop-up" className="share-img" />
           <div className="share-location">
-            <h1 className="today-fore">TODAY FORECAST</h1>
+            <h1 className="today-fore">TODAY&apos;S FORECAST</h1>
             <div className="share-state">
               <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
-              <p className="lagos-share">{currentLocation || 'Not Available'}</p>
+              <p className="lagos-share">{currentLocation || 'Fetching Location data...'}</p>
               <img src="/share/div line.png" alt="pop-up" className="share-horline" />
               {
                 currentWeather.main?.toLowerCase().includes('sun')
@@ -40,7 +40,7 @@ export default function Share({ popup, setPopup, currentLocation, currentWeather
             </div>
             <div className="share-time">
               <h2 className="share-heavy">{currentWeather.main || 'Loading...'}</h2>
-              <p className="share-ptime">{currentWeather.datetime}</p>
+              <p className="share-ptime">{currentWeather.datetime || 'Getting time...'}</p>
             </div>
             <div className="share-risk">
               <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
