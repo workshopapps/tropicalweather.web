@@ -16,13 +16,13 @@ export default function MobileHeaderToggle({ handleToggle, toggle }) {
         onClick={() => handleToggle(true)}
       >
         <span
-          className="w-full h-0.5 rounded-xl bg-black"
+          className="w-full h-0.5 rounded-xl bg-gray-600"
         />
         <span
-          className="w-full h-0.5  rounded-xl bg-black"
+          className="w-full h-0.5  rounded-xl bg-gray-600"
         />
         <span
-          className="w-full h-0.5 rounded-xl bg-black"
+          className="w-full h-0.5 rounded-xl bg-gray-600"
         />
       </button>
       <MobileHeader isOpen={toggle} toggleNav={handleToggle} />
