@@ -4,7 +4,7 @@
   "instantchat": "Chat instantáneo",
   "phoneno": "Número de teléfono",
   "address": " Dirección",
-  "ig": "IG",
+  "ig": "ig",
   "fb": "Facebook",
   "twitter": "Twitter",
   "office": "Oficina",
@@ -13,6 +13,5 @@
   "youremail": "Tu correo electrónico",
   "yourmessage": "Tu mensaje",
   "here": "aquí...",
-  "send": "Enviar",
-  "messagehasbeensent": "¡Su mensaje ha sido enviado!"
+  "send": "Enviar"
 }

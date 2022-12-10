@@ -49,8 +49,8 @@ export default function PopularLocation({ location, bin, remove }) {
           <p className="landing_location_placeholder" style={{ color: 'red', fontSize: '15px' }}>{t('somethingwentwrong')}</p>
         ) : (
           <>
-            <h5>{t(response.main.replace(' ', '').toLowerCase())}</h5>
-            {/* <p>{t(response.description.replace(' ', '').toLowerCase())}</p> */}
+            <h5>{response.main}</h5>
+            <p>{response.description}</p>
             <Link
               to={`/dashboard?city=${location}`}
               className="landing_link_button"

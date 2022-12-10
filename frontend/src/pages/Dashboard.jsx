@@ -210,7 +210,7 @@ export default function Dashboard() {
         >
           <AiFillCheckCircle color="#054F31" style={{ flexShrink: 0 }} />
           <p style={{ fontSize: '16px' }}>
-            {`${currentLocation} ${t('hasbeenadded')}`}
+            {`${currentLocation} has been added to saved locations`}
           </p>
         </div>
       ) : null}
@@ -219,7 +219,7 @@ export default function Dashboard() {
           <div className="relative w-full">
             <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)] rounded-t-lg">
               <h1 className="text-2xl font-bold">
-                {currentLocation || `${t('fetchingdata')}`}
+                {currentLocation || 'Fetching location data...'}
               </h1>
               <div className="flex items-center self-end gap-4">
                 {isSaved ? null : (
@@ -229,7 +229,7 @@ export default function Dashboard() {
                     className="flex items-center gap-2 text-primary-btn"
                   >
                     <BsHeart />
-                    <span>{t('savecity')}</span>
+                    <span>{t('Save city')}</span>
                   </button>
                 )}
                 <div className="relative">
@@ -259,17 +259,17 @@ export default function Dashboard() {
             </div>
             <section className="flex flex-1 flex-col gap-4 px-5 py-8 shadow-lg hero bg-[var(--d-bg)] rounded-b-lg">
               <p>
-                {t('today')}
+                {t('Today')}
                 <span className="uppercase">{` ${time}`}</span>
               </p>
-              <p className="text-4xl font-bold">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
+              <p className="text-4xl font-bold">{currentWeather.main}</p>
               <p className="text-xl font-bold opacity-80">
-                {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(
+                {`${formatTime(currentWeather.datetime)} to ${formatTime(
                   currentWeather.end_datetime
                 )}`}
               </p>
               <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
-                {currentWeather.risk !== `${t('none')}` && (
+                {currentWeather.risk !== 'None' && (
                   <IoMdAlert className="text-red-500" />
                 )}
                 <p>{currentWeather.risk}</p>
@@ -280,7 +280,7 @@ export default function Dashboard() {
               className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max"
             >
               <div className="flex items-center justify-between mb-4">
-                <p className="mb-4 text-xl font-bold">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
+                <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
                 {!showTimelineOptions && (
                   <button
                     title="open"

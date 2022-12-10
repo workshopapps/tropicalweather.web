@@ -32,6 +32,7 @@ export default function Notificationsettings() {
   function subscribeApi() {
     axios.get(`${APIURL}/weather/alerts/subscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
       .then((res) => {
+        // console.log(res.data.message);
         setSubscribeMessage(res.data.message);
       }).catch((err) => {
         console.log(err);
@@ -40,7 +41,9 @@ export default function Notificationsettings() {
   function unsubscribeApi() {
     axios.get(`${APIURL}/weather/alerts/unsubscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
       .then((res) => {
+        // console.log(res.data.message);
         setUnsubscribeMessage(res.data.message);
+        // toast(`${subscribeMessage}`);
       }).catch((err) => {
         console.log(err);
       });
@@ -74,8 +77,12 @@ export default function Notificationsettings() {
   };
 
   const toggleSwitch = () => {
+    // toast("yeah it works");
     setToggle(!toggle);
+    console.log(toggle);
     if (toggle === true) {
+      // subscribeApi();
+      console.log(subscribeMessage);
       toast.success(`${subscribeMessage}`, {
         position: 'top-right',
         autoClose: 5000,
@@ -87,6 +94,8 @@ export default function Notificationsettings() {
         theme: 'light',
       });
     } else if (toggle === false) {
+      // unsubscribeApi();
+      console.log(unsubscribeMessage);
       toast.success(`${unsubscribeMessage}`, {
         position: 'top-right',
         autoClose: 5000,
@@ -101,8 +110,13 @@ export default function Notificationsettings() {
   };
   if (toggle === true) {
     subscribeApi();
+    // console.log(subscribeMessage);
+    // toast(`${subscribeMessage}`);
   } else if (toggle === false) {
     unsubscribeApi();
+    // console.log(unsubscribeMessage);
+
+    // toast(`${unsubscribeMessage}`);
   }
   const { t } = useTranslation(['notification']);
   return (

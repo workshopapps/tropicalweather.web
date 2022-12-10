@@ -135,11 +135,11 @@ export default function Home() {
                     {time}
                   </span>
                 </p>
-                <p className="homepg-immedp">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                <p className="homepg-immedp">{immediateWeather.main}</p>
                 <h2 className="text-2xl mt-2">
                   {`${to12HourFormat(
                     immediateWeather.datetime
-                  )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
+                  )} to ${to12HourFormat(immediateWeather.end_datetime)}`}
                 </h2>
               </div>
             </div>

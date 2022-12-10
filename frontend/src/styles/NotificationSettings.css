@@ -4,18 +4,25 @@
   max-width: 894px;
   position: relative;
 }
-.return__btn--container {
+/* .return__btn--container {
   display: flex;
   align-items: center;
   margin-top: 24px;
   margin-bottom: 24px;
-  gap: 6px;
+  gap: 8px;
+} */
+.return__btn--containerp {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  gap: 8px;
 }
 .return__btn--container p {
   font-family: "Outfit";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
   letter-spacing: 0.01em;
   font-feature-settings: "tnum" on, "lnum" on, "liga" off;
