@@ -16,9 +16,15 @@ from sqlalchemy.orm import Session
 from .client import weather
 from .open_meteo import client
 from .timer import now_utc
+from .weather_code import WmoCodes
 
 
-def get_risk_message(risk: str):
+FLOODING = "Flooding"
+HEATWAVE = "Heatwave"
+SUNNY = "Sunny"
+
+
+def get_event_message(event: str):
     """Format the risk message
 
     Args:
@@ -27,7 +33,14 @@ def get_risk_message(risk: str):
     Returns:
         str: The formatted risk message
     """
-    return f"There is a high risk of {risk} in your area"
+    if event == FLOODING:
+        return "Flooding is expected in your area"
+    elif event == HEATWAVE:
+        return "A heatwave is expected in your area"
+    elif event == SUNNY:
+        return "It will be sunny in your area"
+    else:
+        return f"There will be {event} in your area"
 
 
 def get_risks_by_location(
@@ -40,6 +53,7 @@ def get_risks_by_location(
     hourly_time: list[str] = response["hourly"]["time"]
     hourly_temp: list[str] = response["hourly"]["apparent_temperature"]
     hourly_precipitation: list[str] = response["hourly"]["precipitation"]
+    weather_code: list[str] = response['hourly']['weathercode']
 
     now = now_utc()
 
@@ -63,7 +77,9 @@ def get_risks_by_location(
         if pointer != "":
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
-            current_risk = get_risk(index_temp, index_precipitation)
+            index_weather_code = weather_code[i]
+            current_risk = get_event(
+                index_weather_code, index_temp, index_precipitation)
 
             if current_risk != pointer:  # changed
                 results[-1]["end"] = index_time
@@ -75,7 +91,9 @@ def get_risks_by_location(
         if index_time >= now:
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
-            risk = get_risk(index_temp, index_precipitation)
+            index_weather_code = weather_code[i]
+            risk = get_event(index_weather_code, index_temp,
+                             index_precipitation)
 
             if risk is None:
                 continue
@@ -84,7 +102,7 @@ def get_risks_by_location(
                 "start": index_time,
                 "end": max_time,
                 "event": risk,
-                "description": get_risk_message(risk)
+                "description": get_event_message(risk)
             }
 
             pointer = risk
@@ -417,106 +435,35 @@ def get_location_obj(
 
 
 def get_status():
-    try:
-        forecast_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts?lat=6.605407&lon=3.279887')  # noqa
-        if forecast_response.status_code == 200:
-            forecasts = 'up'
-        else:
-            forecasts = 'down'
-    except Exception:
-        forecasts = 'down'
-    try:
-        current_response = requests.get(
-            'https://api.weathery.hng.tech/weather/current?address=Iyana%20Ipaja')  # noqa
-        if current_response.status_code == 200:
-            current = 'up'
-        else:
-            current = 'down'
-    except Exception:
-        current = 'down'
+    urls = [
+        ("forecasts", "https://api.tropicalweather.hng.tech/weather/forecasts?lat=6.5631&lon=3.2506"),
+        ("current", "https://api.tropicalweather.hng.tech/weather/current?lat=6.5631&lon=3.2506"),
+        ("current-by-address", "https://api.tropicalweather.hng.tech/weather/current/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("forecasts-immediate", "https://api.tropicalweather.hng.tech/weather/forecasts/immediate?lat=6.5631&lng=3.2506"),
+        ("tomorrow-immediate", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/immediate?lat=6.5631&lon=3.2506"),
+        ("alerts-list", "https://api.tropicalweather.hng.tech/weather/alerts/list?lon=6.5631&lat=3.2506"),
+        ("risk", "https://api.tropicalweather.hng.tech/weather/risk?lat=6.5631&lon=3.2506"),
+        ("forecast-extended", "https://api.tropicalweather.hng.tech/weather/forcast/extended?lat=6.5631&lon=3.2506"),
+        ("forecast-extended-by-addres", "https://api.tropicalweather.hng.tech/weather/forcast/extended/by_address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("forecasts-tomorrow", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow?lat=6.5631&lon=3.2506"),
+        ("forecasts-tomorrow-address", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("location", "https://api.tropicalweather.hng.tech/location?lat=6.5631&lon=3.2506"),
+        ("share", "https://api.tropicalweather.hng.tech/generate/share-link?city=Ikotun&state=Lagos%20State&country=Nigeria")
+    ]
 
-    try:
-        tomorrow_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow?lat=6.605407&lon=3.279887')  # noqa
-        if tomorrow_response.status_code == 200:
-            tomorrow = 'up'
-        else:
-            tomorrow = 'down'
-    except Exception:
-        tomorrow = 'down'
+    response = {}
 
-    try:
-        immediate_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/immediate?lat=6.605407&lon=3.279887')  # noqa
-        if immediate_response.status_code == 200:
-            immediate = 'up'
-        else:
-            immediate = 'down'
-    except Exception:
-        immediate = 'down'
+    for key, url in urls:
+        try:
+            forecast_response = requests.get(url)  # noqa
+            if forecast_response.status_code == 200:
+                response[key] = 'up'
+            else:
+                response[key] = 'down'
+        except Exception:
+            response[key] = 'down'
 
-    try:
-        tomorrow_im_response = requests.get(
-            'https://api.weathery.hng.tech/weather/forecasts/tomorrow/immediate?lat=6.605407&lon=3.279887')  # noqa
-        if tomorrow_im_response.status_code == 200:
-            tomorrow_im = 'up'
-        else:
-            tomorrow_im = 'down'
-    except Exception:
-        tomorrow_im = 'down'
-
-    try:
-        location_response = requests.get(
-            'https://api.weathery.hng.tech/location?lat=6.605407&lon=3.279887')
-        if location_response.status_code == 200:
-            location = 'up'
-        else:
-            location = 'down'
-    except Exception:
-        location = 'down'
-
-    try:
-        risk_response = requests.get(
-            'https://api.weathery.hng.tech/weather/risk?lat=6.605407&lon=3.279887')  # noqa
-        if risk_response.status_code == 200:
-            risk = 'up'
-        else:
-            risk = 'down'
-    except Exception:
-        risk = 'down'
-
-    try:
-        alert_city_response = requests.get(
-            'https://api.weathery.hng.tech/weather/alerts/gberigbe')
-        if alert_city_response.status_code == 200:
-            alert_city = 'up'
-        else:
-            alert_city = 'down'
-    except Exception:
-        alert_city = 'down'
-
-    try:
-        alert_list_response = requests.get(
-            'https://api.weathery.hng.tech/weather/alerts/lists?lat=6.605407&lon=3.279887')  # noqa
-        if alert_list_response.status_code == 200:
-            alert_list = 'up'
-        else:
-            alert_list = 'down'
-    except Exception:
-        alert_list = 'down'
-
-    return {
-        "forecasts": forecasts,
-        "current": current,
-        "immediate": immediate,
-        "tomorrow": tomorrow,
-        "tomorrow_im": tomorrow_im,
-        "location": location,
-        "risk": risk,
-        "alert_city": alert_city,
-        "alert_list": alert_list
-    }
+    return response
 
 
 def get_risk(temp: float, precipitation: float) -> Optional[str]:
@@ -529,14 +476,22 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
     Returns:
         Optional[str]: risk of the weather or None
     """
-    if temp > 30 and precipitation > 0.5:
-        return "Flooding"
-    elif temp > 30:
-        return "Heatwave"
-    elif precipitation > 0.5:
-        return "Flooding"
+    if precipitation > 0.5:
+        return FLOODING
+    elif temp > 38:
+        return HEATWAVE
     else:
         return "None"
+
+
+def get_event(weather_code: str, temp: float, precipitation: float):
+    risk = get_risk(temp, precipitation)
+    if risk == "None":
+        if 0 < int(weather_code) <= 4:
+            return SUNNY
+        main = WmoCodes.get_wmo_code(weather_code)
+        return main
+    return risk
 
 
 def weather_forcast_extended_call(lat: float, lon: float):

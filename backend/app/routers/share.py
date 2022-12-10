@@ -2,7 +2,6 @@
 
 from fastapi import APIRouter
 from schemas import ShareLink
-from utils.general import compose_location
 
 router = APIRouter(
     tags=['weather-share'],
@@ -22,10 +21,9 @@ async def generate_share_link(city: str, state: str, country: str):
         ShareLink: Share link
     """
 
-    uid = compose_location(
-        city, state, country
-    )
+    address = f"{city}, {state}, {country}"
+    link = f"https://tropicalweather.hng.tech/dashboard?city={address}"
 
     return {
-        "link": f"https://tropicalweather.hng.tech/share/{uid}"
+        "link": link
     }

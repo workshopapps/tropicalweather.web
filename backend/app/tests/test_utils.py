@@ -7,7 +7,7 @@ from fastapi import HTTPException
 
 from ..conf.settings import BASE_DIR, Settings
 from ..utils.general import (compose_location, convert_epoch_to_datetime,
-                             decompose_merged_location, get_risk_message,
+                             decompose_merged_location, get_event_message,
                              get_risks_by_location, get_weather_forecast,
                              weather_api_call, get_risks_by_address)
 
@@ -29,7 +29,7 @@ def test_get_risks_by_address(mocker):
 
 
 def test_get_risk_message():
-    text = get_risk_message("test")
+    text = get_event_message("test")
     assert len(text) > len("test")
     assert text.find("test") != -1
 
@@ -60,7 +60,7 @@ class TestGetRisksByLocation:
                 "start": datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC),
                 "end": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
                 "event": "Heatwave",
-                "description": get_risk_message("Heatwave")
+                "description": get_event_message("Heatwave")
             },
         ]
 
@@ -89,19 +89,19 @@ class TestGetRisksByLocation:
                 "start": datetime(2022, 12, 3, 0, 0, tzinfo=pytz.UTC),
                 "end": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
                 "event": "Heatwave",
-                "description": get_risk_message("Heatwave")
+                "description": get_event_message("Heatwave")
             },
             {
                 "start": datetime(2022, 12, 3, 4, 0, tzinfo=pytz.UTC),
                 "end": datetime(2022, 12, 3, 7, 0, tzinfo=pytz.UTC),
                 "event": "Flooding",
-                "description": get_risk_message("Flooding")
+                "description": get_event_message("Flooding")
             },
             {
                 "start": datetime(2022, 12, 3, 7, 0, tzinfo=pytz.UTC),
                 "end": datetime(2022, 12, 3, 9, 0, tzinfo=pytz.UTC),
                 "event": "Heatwave",
-                "description": get_risk_message("Heatwave")
+                "description": get_event_message("Heatwave")
             },
         ]
 

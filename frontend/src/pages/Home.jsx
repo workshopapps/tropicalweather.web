@@ -1,14 +1,16 @@
 /* eslint-disable no-console */
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment/moment';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import PopularLocation from '../components/Home/PopularLocation';
-import Faq from '../components/Home/Faq';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
 import MobileAdvert from '../components/MobileAdvert';
-import getWeatherDescriptionCategory from '../libs/Home';
+import getWeatherDescriptionCategory, {
+  patchForecast,
+  to12HourFormat,
+} from '../libs/Home';
 
 export default function Home() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -20,44 +22,41 @@ export default function Home() {
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
   const { t } = useTranslation(['home']);
+  const savedForecast = useRef([]);
+  const [lineWidth, setLneWidth] = useState('100%');
+  const forecastContainer = useRef();
+  const [currentTime, setCurrentTime] = useState(1);
+
+  useEffect(() => {
+    const sv = localStorage.getItem('forecast');
+    if (sv !== null) {
+      savedForecast.current = JSON.parse(sv);
+    } else {
+      savedForecast.current = patchForecast;
+    }
+  }, []);
+  const time = moment().format('h:mm a');
+
   const getCurrentLocationFromCoords = async () => {
     try {
       const response = await fetch(
-        `${APIURL}/location?lat=${coord.latitude}&lon=${coord.longitude}`
+        `${APIURL}/weather/forcast/extended?lat=${coord.latitude}&lon=${coord.longitude}`
       );
       const data = await response.json();
-      const location = `${data.city}, ${data.state}`;
-      setUserLocation(location);
+      setUserLocation(`${data.city}, ${data.state}`);
+      setImmediateWeather(data.current);
+      const pas = new Date().getHours();
+      savedForecast.current = savedForecast.current
+        .slice(0, pas)
+        .concat(data.todays_timeline);
+      setWeatherForecast(savedForecast.current);
+      localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
       onload.current = true;
     } catch (error) {
       // console.log(error);
     }
   };
-  const getImmediateWeather = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/current/by-address?address=${userLocation.replace(
-          ', ',
-          '%2C%20'
-        )}`
-      );
-      const data = await response.json();
-      setImmediateWeather(data);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
-  const getWeatherForecast = async () => {
-    try {
-      const response = await fetch(
-        `${APIURL}/weather/forecasts?lat=${coord.latitude}&lon=${coord.longitude}`
-      );
-      const data = await response.json();
-      setWeatherForecast(data);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
+
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
     navigate(`/dashboard?city=${city}`);
@@ -85,27 +84,47 @@ export default function Home() {
     }
     getLocation();
   }, []);
+
   useEffect(() => {
-    getImmediateWeather();
-  }, [userLocation]);
-  if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
-    getCurrentLocationFromCoords();
-    getWeatherForecast();
-  }
+    const { scrollWidth, offsetWidth } = forecastContainer.current;
+    setLneWidth(scrollWidth);
+    const t = new Date().getHours() + 1;
+    setCurrentTime(t);
+    const scroll = (scrollWidth / 24) * t - 50;
+    if (forecastContainer.current) {
+      forecastContainer.current.scrollTo({
+        left: scroll - offsetWidth / 2,
+        behavior: 'smooth',
+      });
+    }
+  }, [immediateWeather]);
+
+  useEffect(() => {
+    if (coord.latitude !== 0 && coord.longitude !== 0 && !onload.current) {
+      getCurrentLocationFromCoords();
+    }
+  }, [coord.latitude]);
+
   return (
     <div id="home">
       <header className="landing_header">
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
-            <p className="homepage-location ml-[-16px] md:ml-6">{userLocation}</p>
+            <p className="homepage-location ml-[-16px] md:ml-6">
+              {userLocation}
+            </p>
           )}
           {userLocation === null && (
-            <p className="homepage-location ml-0 md:ml-6">{t('locationloading')}</p>
+            <p className="ml-0 homepage-location md:ml-6">
+              {t('locationloading')}
+            </p>
           )}
           {immediateWeather !== null && (
-            <div className="homepg-immed">
+            <div className="gap-2 homepg-immed">
               <img
-                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(immediateWeather.main)}`}
+                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
+                  immediateWeather.main
+                )}`}
                 alt="clouds icons"
               />
               <div>
@@ -113,16 +132,15 @@ export default function Home() {
                   {t('today')}
                   {'  '}
                   <span>
-                    {Number(immediateWeather.datetime.slice(11)) + 1 < 10
-                      ? 0
-                      : ''}
-                    {Number(immediateWeather.datetime.slice(11, 13)) + 1 < 24
-                      ? Number(immediateWeather.datetime.slice(11, 13)) + 1
-                      : Number(immediateWeather.datetime.slice(11, 13)) + 1}
-                    :00
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{immediateWeather.main}</p>
+                <h2 className="text-2xl mt-2">
+                  {`${to12HourFormat(
+                    immediateWeather.datetime
+                  )} to ${to12HourFormat(immediateWeather.end_datetime)}`}
+                </h2>
               </div>
             </div>
           )}
@@ -137,9 +155,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    {new Date().getHours()}
-                    :00
-                    {new Date().getHours() < 12 ? ' am' : ' pm'}
+                    {time}
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
@@ -147,12 +163,40 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul>
-              {weatherForecast.map((forecast) => {
+            <ul className="relative pt-10 mt-[10px]" ref={forecastContainer}>
+              <div
+                className="absolute w-[1000px] bg-white/50 mt-8 top-[-20px]"
+                style={{
+                  width: `${lineWidth - 50}px`,
+                }}
+              >
+                <div
+                  className="relative bg-[#F7B27A] h-0.5"
+                  style={{
+                    width: `${(lineWidth / 24) * currentTime - 50}px`,
+                    transition: 'all 1s ease-out',
+                    transitionDelay: '.5s',
+                  }}
+                >
+                  <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">
+                    {' '}
+                  </span>
+                </div>
+              </div>
+              {weatherForecast.map((forecast, index) => {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
-                  <li key={forecast.datetime} className="homepg-heroforecast text-center">
-                    <p>{forecast.datetime.slice(11)}</p>
+                  <li
+                    key={forecast.datetime}
+                    className="homepg-heroforecast text-center"
+                    style={{
+                      width: '100px',
+                      flexShrink: 0,
+                      paddingInline: '15px',
+                    }}
+                    id={`fcst-${index + 1}`}
+                  >
+                    <p>{to12HourFormat(forecast.datetime)}</p>
                     <img
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
@@ -183,7 +227,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Canberra, AUSTRALIA')}
+                onClick={() => gotoDashboard('Canberra, Australia')}
                 className="homepg-dash"
               />
             </li>
@@ -210,7 +254,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Amsterdam, NETEHERLANDS')}
+                onClick={() => gotoDashboard('Amsterdam, Netherlands')}
                 className="homepg-dash"
               />
             </li>
@@ -222,12 +266,63 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('London, UNITED KINGDOM')}
+                onClick={() => gotoDashboard('London, United Kingdom')}
                 className="homepg-dash"
               />
             </li>
           </div>
           <div className="homepg-worldtwo">
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
+                <span>DE GERMANY</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Berlin, GERMANY')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/SouthAfricaFlag.svg" alt="South Africa flag" />
+                <span>RSA SOUTH AFRICA</span>
+              </div>
+
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Pretoria, SOUTH AFRICA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/JamaicaFlag.svg" alt="Jamaica flag" />
+                <span>JM JAMAICA</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Kingston, JAMAICA')}
+                className="homepg-dash"
+              />
+            </li>
+            <li className="homepg-poplis">
+              <div className="homepg-popflex">
+                <img src="/Home/ScotlandFlag.svg" alt="Scotland flag" />
+                <span>SCT SCOTLAND</span>
+              </div>
+              <button
+                type="button"
+                aria-label="go to dashboard"
+                onClick={() => gotoDashboard('Edinburgh, SCOTLAND')}
+                className="homepg-dash"
+              />
+            </li>
+          </div>
+          <div className="homepg-worldthree">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
@@ -236,7 +331,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Jakarta, INDONESIA')}
+                onClick={() => gotoDashboard('Jakarta, Indonesia')}
                 className="homepg-dash"
               />
             </li>
@@ -261,7 +356,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('Ottawa, CANADA')}
+                onClick={() => gotoDashboard('Ottawa, Canada')}
                 className="homepg-dash"
               />
             </li>
@@ -273,7 +368,7 @@ export default function Home() {
               <button
                 type="button"
                 aria-label="go to dashboard"
-                onClick={() => gotoDashboard('WashingtonDc, UNITED STATES')}
+                onClick={() => gotoDashboard('WashingtonDc, United States')}
                 className="homepg-dash"
               />
             </li>
@@ -330,7 +425,9 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full flex flex-col gap-[56px]">
-            <h4 className="text-[20px] font-bold text-[#1E1E1E]">{t('citiesnearyou')}</h4>
+            <h4 className="text-[20px] font-bold text-[#1E1E1E]">
+              {t('citiesnearyou')}
+            </h4>
             <div className="w-full grid grid-cols-2 md:grid-cols-3 text-[#1E1E1E]">
               <NearCity city="Aba" state="Nigeria" />
               <NearCity city="Ile-Ife" state="Osun state" />
@@ -342,125 +439,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="landing_sections_wrapper">
-        <section
-          id="landing_features_and_globe"
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '40px',
-          }}
-          className="py-[96px]"
-        >
-          <div className="landing_features_and_globe">
-            <div className="landing_globe">
-              <div className="landing_showcase">
-                <h3 className="landing_header_md">
-                  {t('neverworryaboutfiguresheading')}
-                </h3>
-                <p>{t('neverworryaboutfiguresbody')}</p>
-              </div>
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#D1FADF',
-                }}
-              >
-                <p>{t('features')}</p>
-                <h3>{t('addmultiplelocationsheading')}</h3>
-                <p>{t('addmultiplelocationsbody')}</p>
-                <Link to="/signup" className="landing_link_button">
-                  {t('getstarted')}
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/globe.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="landing_features">
-              <div
-                className="landing_ill_container"
-                style={{
-                  '--ill-bg': '#FEF2F2',
-                }}
-              >
-                <p>{t('features')}</p>
-                <h3>{t('findoutyourcityforecastheading')}</h3>
-                <p>{t('findoutyourcityforecastbody')}</p>
-                <Link to="/signup" className="landing_link_button">
-                  {t('getstarted')}
-                </Link>
-                <div style={{ width: '100%', paddingTop: '24px' }}>
-                  <img
-                    src="/Home/fall.png"
-                    alt=""
-                    style={{
-                      marginInline: 'auto',
-                      width: '80%',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div id="faq">
-          <FaqSection />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FaqSection() {
-  const [openAll, toggleOpenAll] = useState(false);
-  const { t } = useTranslation(['home']);
-  return (
-    <section className="flex flex-col gap-8 w-full pb-[96px]">
-      <div className="flex items-center justify-between">
-        <h3 className="landing_header_md">{t('explorefaqs')}</h3>
-        <button
-          type="button"
-          className="flex items-center gap-2 text-[#565560]"
-          onClick={() => toggleOpenAll((prv) => !prv)}
-        >
-          {t('viewfull')}
-          {openAll ? <FaAngleUp /> : <FaAngleDown />}
-        </button>
-      </div>
-      <div className="sm:p-3 flex flex-col gap-8">
-        <Faq
-          position={1}
-          question={`${t('FAQQ1')}`}
-          answer={`${t('FAQA1')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ2')}`}
-          answer={`${t('FAQA2')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ3')}`}
-          answer={`${t('FAQA3')}`}
-          open={openAll}
-        />
-        <Faq
-          question={`${t('FAQQ4')}`}
-          answer={`${t('FAQA4')}`}
-          open={openAll}
-        />
-      </div>
-      {/* <Faqs /> */}
       <MobileAdvert />
-    </section>
+    </div>
   );
 }

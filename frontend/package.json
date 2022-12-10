@@ -10,7 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.0",
-    "i18next": "^22.0.6",
+    "i18next": "^22.1.4",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.0.2",
     "moment": "^2.29.4",
@@ -28,6 +28,7 @@
     "react-scripts": "5.0.1",
     "react-select-async-paginate": "^0.7.0",
     "react-share": "^4.4.1",
+    "react-toastify": "^9.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

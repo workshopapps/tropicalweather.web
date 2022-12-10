@@ -46,6 +46,7 @@ export default function Settings() {
   });
 
   const handleLanguageChange = (e) => {
+    // console.log(e.target);
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
   };

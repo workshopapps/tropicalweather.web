@@ -4,28 +4,43 @@ import { GrClose } from 'react-icons/gr';
 import PropTypes from 'prop-types';
 import Sharemenu from './ShareMenu';
 
-export default function Share({ popup, setPopup, currentLocation, currentWeather, time }) {
+export default function Share({ popup, setPopup, currentLocation, currentWeather }) {
   return (
     <div className={` ${!popup ? 'share-close' : 'share-background'}`}>
       <div className="share-popup">
         <div className="relative items-center w-full">
           <h1 className="self-center share-share">Share</h1>
-          <GrClose onClick={() => setPopup(!popup)} className="absolute right-[0px] top-[0]" />
+          <GrClose onClick={() => setPopup(!popup)} className="absolute right-[0px] top-[0px] cursor-pointer" />
         </div>
 
         <div className="row1">
           <img src="/share/share-backIMG.png" alt="pop-up" className="share-img" />
           <div className="share-location">
-            <h1 className="today-fore">TODAYS FORECAST</h1>
+            <h1 className="today-fore">TODAY FORECAST</h1>
             <div className="share-state">
               <img src="/share/marker-pin-01.png" alt="pop-up" className="share-mark" />
               <p className="lagos-share">{currentLocation || 'Not Available'}</p>
               <img src="/share/div line.png" alt="pop-up" className="share-horline" />
-              <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
+              {
+                currentWeather.main?.toLowerCase().includes('sun')
+                && <img src="/share/sunny.png" alt="pop-up" className="share-rain" />
+              }
+              {
+                currentWeather.main?.toLowerCase().includes('cloudy')
+                 && <img src="/share/cloudy.png" alt="pop-up" className="share-rain" />
+              }
+              {
+                currentWeather.main?.toLowerCase().includes('rain')
+                && <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
+              }
+              {
+                currentWeather.main?.toLowerCase().includes('clear')
+                && <img src="/share/clear.png" alt="pop-up" className="share-rain" />
+              }
             </div>
             <div className="share-time">
               <h2 className="share-heavy">{currentWeather.main || 'Loading...'}</h2>
-              <p className="share-ptime">{time}</p>
+              <p className="share-ptime">{currentWeather.datetime}</p>
             </div>
             <div className="share-risk">
               <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
@@ -44,5 +59,4 @@ Share.propTypes = {
   setPopup: PropTypes.func.isRequired,
   currentLocation: PropTypes.string.isRequired,
   currentWeather: PropTypes.objectOf(PropTypes.string).isRequired,
-  time: PropTypes.string.isRequired,
 };

@@ -11,3 +11,10 @@ html {
   color: #EF6820;
   background: #FDEAD7;
 }
+
+.checked-box:checked {
+  background-image: url('../public/checkbox_tick.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

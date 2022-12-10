@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 1px;
 }
 
 .today-fore {
@@ -70,7 +70,7 @@
   font-weight: 700;
   line-height: 16px;
   color: #565560;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .share-mark {
@@ -80,6 +80,7 @@
 .lagos-share {
   margin-right: 10px;
   color: #4D5E6E;
+  font-size: 15px;
 }
 
 .share-horline {
@@ -94,6 +95,7 @@
   font-style: normal;
   color: #4D5E6F;
   margin-bottom: 5px;
+  margin-top: -10px;
 }
 
 .share-ptime {
@@ -110,10 +112,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
+  justify-content: center;
   box-sizing: border-box;
   border: 1px solid rgba(181, 181, 181, 0.5);
-  padding: 5px 30px;
+  padding: 6px 20px;
   border-radius: 40px;
+  width: 50%;
 }
 
 .share-alert {
@@ -140,7 +145,9 @@
 .twitter-btn {
   margin-right: 30px;
 }
-
+.btn-twit{
+    cursor: pointer;
+}
 .share-btn-container1 {
   display: flex;
   flex-direction: row;
