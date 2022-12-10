@@ -1,21 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import { init as initApm } from '@elastic/apm-rum';
-
 import './index.css';
 import './i18n';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-const apm = initApm({
-
-  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-  serviceName: 'Tropicalweather',
-
-  // Set the service environment
-  environment: 'production'
-});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
