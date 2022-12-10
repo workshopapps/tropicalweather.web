@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react';
 import React, { Suspense } from 'react';
 import {
   createBrowserRouter,
@@ -51,4 +50,4 @@ function App() {
   );
 }
 
-export default Sentry.withProfiler(App);
+export default App;
