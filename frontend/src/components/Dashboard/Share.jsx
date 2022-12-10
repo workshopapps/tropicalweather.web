@@ -4,7 +4,7 @@ import { GrClose } from 'react-icons/gr';
 import PropTypes from 'prop-types';
 import Sharemenu from './ShareMenu';
 
-export default function Share({ popup, setPopup, currentLocation, currentWeather }) {
+export default function Share({ popup, setPopup, currentLocation, currentWeather, formatTime }) {
   return (
     <div className={` ${!popup ? 'share-close' : 'share-background'}`}>
       <div className="share-popup">
@@ -27,11 +27,11 @@ export default function Share({ popup, setPopup, currentLocation, currentWeather
               }
               {
                 currentWeather.main?.toLowerCase().includes('cloudy')
-                 && <img src="/share/cloudy.png" alt="pop-up" className="share-rain" />
+                 && <img src="/share/cloudy (1).png" alt="pop-up" className="share-rain" />
               }
               {
                 currentWeather.main?.toLowerCase().includes('rain')
-                && <img src="/share/ion_rainy-sharp.png" alt="pop-up" className="share-rain" />
+                && <img src="/share/cloudy (1).png" alt="pop-up" className="share-rain" />
               }
               {
                 currentWeather.main?.toLowerCase().includes('clear')
@@ -40,7 +40,7 @@ export default function Share({ popup, setPopup, currentLocation, currentWeather
             </div>
             <div className="share-time">
               <h2 className="share-heavy">{currentWeather.main || 'Loading...'}</h2>
-              <p className="share-ptime">{currentWeather.datetime || 'Getting time...'}</p>
+              <p className="share-ptime">{`${formatTime(currentWeather.datetime)} to ${formatTime(currentWeather.end_datetime)}`}</p>
             </div>
             <div className="share-risk">
               <img src="/share/Icon (3).png" alt="pop-up" className="share-alert" />
@@ -59,4 +59,5 @@ Share.propTypes = {
   setPopup: PropTypes.func.isRequired,
   currentLocation: PropTypes.string.isRequired,
   currentWeather: PropTypes.objectOf(PropTypes.string).isRequired,
+  formatTime: PropTypes.func
 };
