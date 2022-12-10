@@ -263,7 +263,7 @@ export default function Dashboard() {
                 <span className="uppercase">{` ${time}`}</span>
               </p>
               <p className="text-4xl font-bold">{currentWeather.main}</p>
-              <p className="text-xl font-bold opacity-90">
+              <p className="text-xl font-bold opacity-80">
                 {`${formatTime(currentWeather.datetime)} to ${formatTime(
                   currentWeather.end_datetime
                 )}`}
