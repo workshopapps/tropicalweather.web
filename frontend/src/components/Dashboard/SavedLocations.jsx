@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { BsMap, BsThreeDotsVertical, BsPencil } from 'react-icons/bs';
@@ -9,6 +10,11 @@ export default function SavedLocations({
   locations, clearLocations, editLocations, setEditLocations, addToDeleteList, deleteList }) {
   const [openEdit, setOpenEdit] = useState(false);
   const { t } = useTranslation(['dashboard']);
+
+  const navigate = useNavigate();
+  const gotoDashboard = (city) => {
+    navigate(`/dashboard?city=${city}`);
+  };
   return (
     <section id="saved-locations" className="mt-20">
       <div className="relative flex items-center justify-between w-full">
@@ -67,9 +73,11 @@ export default function SavedLocations({
             >
               <div className="flex items-center gap-4">
                 <HiOutlineLocationMarker className="text-lg" />
-                <span className="text-sm capitalize md:text-xl">
-                  {location.location}
-                </span>
+                <button type="button" onClick={() => gotoDashboard(location.location)} className="hover:underline cursor-pointer">
+                  <span className="text-sm capitalize md:text-xl">
+                    {location.location}
+                  </span>
+                </button>
               </div>
               {editLocations && (
                 <label className="flex items-center gap-2 cursor-pointer">

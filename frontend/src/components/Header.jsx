@@ -65,7 +65,7 @@ export default function Header() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t('searchforcity')}
-            className="outline-none px-14 w-full  py-4"
+            className="outline-none px-14 w-full py-4 bg-[var(--background)]"
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
@@ -104,19 +104,19 @@ export default function Header() {
           </button>
         </a>
       </div>
-      <div className="mobilesearch-abs" data-visible={search}>
+      <div className="mobilesearch-abs bg-[var(--background)] lg:hidden" data-visible={search}>
         <label
-          htmlFor="search"
+          htmlFor="mobile-search"
           className="relative w-full max-w-xl border-b justify-self-end border-grey-200"
         >
           <input
             type="text"
-            id="search"
+            id="mobile-search"
             ref={searchRef}
             value={query}
             onChange={closeSearch}
             placeholder="Search for city"
-            className="outline-none px-14 w-full  py-4"
+            className="outline-none px-14 w-full py-4 bg-[var(--background)]"
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
