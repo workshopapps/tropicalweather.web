@@ -26,7 +26,10 @@
   "fewclouds": "Few clouds",
   "scatteredclouds": "Scattered clouds",
   "brokenclouds": "Broken clouds",
-  "fogand depositing rime fog": "FOG AND DEPOSITING RIME FOG",
+  "fogand depositing rime fog": "Fog and depositing rime fog",
+  "flooding": "Flooding",
+  "lightflooding": "Light flooding",
+  "heavyflooding": "Heavy flooding",
   "hasbeenadded": "has been added to saved locations",
   "datanotavailable": "Data is not available for this location yet.. Please refresh after a few seconds."
 }

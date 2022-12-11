@@ -1,4 +1,5 @@
 import { init as initApm } from '@elastic/apm-rum';
+import { ApmRoute } from '@elastic/apm-rum-react';
 
 import React, { Suspense } from 'react';
 import {
@@ -24,11 +25,9 @@ import Notificationsettings from './pages/Notificationsettings';
 import './styles/Theme.css';
 
 const apm = initApm({
-
-  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
   serviceName: 'Tropicalweather',
-
-  // Set the service environment
+  serverUrl:
+    'https://tropicalweather.hng.tech/',
   environment: 'production'
 });
 
@@ -51,6 +50,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

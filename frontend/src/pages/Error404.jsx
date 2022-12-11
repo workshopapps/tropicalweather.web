@@ -8,18 +8,18 @@ export default function Error404() {
     return (
       <div className="error-container">
         <div className="error-col1">
-          <h1 className="error-head">{t('something went wrong')}</h1>
-          <p className="error-para">{t('this i sawkward')}</p>
+          <h1 className="error-head">{t('somethingwentwrong')}</h1>
+          <p className="error-para">{t('thisisawkward')}</p>
           <div className="error-buttons">
-            <Link to="/" className="Error-button">{t('back to homepage')}</Link>
+            <Link to="/" className="Error-button">{t('backtohomepage')}</Link>
           </div>
         </div>
         <div className="error-col2">
           <img src="/Error404/Illustration.png" alt="oops!!Error" className="Error-ill" />
           <img src="/Error404/illustration2.png" alt="oops!!Error" className="Error-ill2" />
-          <p className="error-para2">{t('This is awkward! Our site is under the weather or you are lost in the clouds. Either way, our site is still a delightful means for weather forecast.')}</p>
+          <p className="error-para2">{t('thisisawkward')}</p>
           <div className="error-buttons2">
-            <Link to="/" className="Error-button">{t('back to homepage')}</Link>
+            <Link to="/" className="Error-button">{t('backtohomepage')}</Link>
           </div>
         </div>
       </div>

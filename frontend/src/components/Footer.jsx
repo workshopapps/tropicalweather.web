@@ -1,16 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import i18next from 'i18next';
 import { HashLink as Link } from 'react-router-hash-link';
 import { BsGlobe } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import ReactThemeToggleButton from './Settings/ToggleTheme';
+import '../styles/Footer.css';
+
+function getLanguageValues() {
+  const storedLanguageValue = localStorage.getItem('i18nextLng');
+  if (!storedLanguageValue) return '';
+  return storedLanguageValue;
+}
 
 export default function Footer() {
-  const { t } = useTranslation(['common']);
+  const { i18n, t } = useTranslation(['common']);
+  const [language, setLanguage] = useState(getLanguageValues);
+
+  useEffect(() => {
+    localStorage.setItem('i18nextLng', JSON.stringify(language));
+  }, [language]);
+
+  const languageData = [
+    {
+      title: `${t('narabic')}`,
+      langVal: 'ar',
+    },
+    {
+      title: `${t('nenglish')}`,
+      langVal: 'en',
+    },
+    {
+      title: `${t('nfrench')}`,
+      langVal: 'fr',
+    },
+    {
+      title: `${t('nspanish')}`,
+      langVal: 'es',
+    },
+  ];
 
   useEffect(() => {
     //  scroll to top on page load
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLang')?.length > 2) {
+      i18next.changeLanguage('en');
+    }
+  });
+
+  const handleLanguageChange = (e) => {
+    i18n.changeLanguage(e.target.value);
+    setLanguage(e.currentTarget.value);
+  };
   return (
     <footer className="self-end pt-16 mt-10 text-white bg-primary-btn-clicked">
       <div className="p-4 bg-[#B93815] md:py-10 md:px-16">
@@ -74,17 +117,21 @@ export default function Footer() {
             {t('allrights')}
           </p>
           <div className="flex gap-6">
-            <span className="flex items-center gap-2">
-              <Link to="settings">
-                <BsGlobe />
-              </Link>
-              <span className="hidden md:block">English</span>
+            <span className="flex items-center footer-select">
+              <BsGlobe />
+              <select value={language} onChange={handleLanguageChange}>
+                {languageData?.map(({ title, langVal }) => (
+                  <option
+                    value={langVal}
+                    key={langVal}
+                  >
+                    {title}
+                  </option>
+                ))}
+              </select>
             </span>
             <span className="flex items-center gap-2">
-              <Link to="settings">
-                <img src="/icons/uk-flag.png" alt="uk flag" />
-              </Link>
-              <span className="hidden md:block">United Kingdom</span>
+              <img src={`/icons/${language}-flag.png`} alt={`${language} flag`} />
             </span>
             <span className="flex items-center gap-2">
               <ReactThemeToggleButton />
