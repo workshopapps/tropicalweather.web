@@ -17,7 +17,7 @@ export default function Footer() {
   const [language, setLanguage] = useState(getLanguageValues);
 
   useEffect(() => {
-    localStorage.setItem('i18nextLng', JSON.stringify(language));
+    localStorage.setItem('i18nextLng', language);
   }, [language]);
 
   const languageData = [

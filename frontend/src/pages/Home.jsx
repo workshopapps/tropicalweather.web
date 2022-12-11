@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment/moment';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PopularLocation from '../components/Home/PopularLocation';
 import '../styles/Home.css';
 import NearCity from '../components/Home/NearCity';
@@ -21,11 +21,24 @@ export default function Home() {
   const [curr, setCurr] = useState(0);
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
+  const [locationAllowed, setLocationAllow] = useState(false);
   const { t } = useTranslation(['home']);
   const savedForecast = useRef([]);
   const [lineWidth, setLneWidth] = useState('100%');
   const forecastContainer = useRef();
   const [currentTime, setCurrentTime] = useState(1);
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCoord({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        });
+        setLocationAllow(true);
+      });
+    }
+  }
 
   useEffect(() => {
     const sv = localStorage.getItem('forecast');
@@ -69,20 +82,6 @@ export default function Home() {
       const widthNum = Math.floor(Number(width));
       setCurr(Math.floor(scrollPos / widthNum));
     });
-  }, []);
-
-  useEffect(() => {
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setCoord({
-            longitude: position.coords.longitude,
-            latitude: position.coords.latitude,
-          });
-        });
-      }
-    }
-    getLocation();
   }, []);
 
   useEffect(() => {
@@ -214,6 +213,21 @@ export default function Home() {
             </ul>
           </div>
         </div>
+        {
+          !locationAllowed && (
+            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
+              <h5 className="text-2xl">Allow Location</h5>
+              <p className="text-[var(--accents-7)]">Allow tropicalweather.hng to acess your location for a more accurate forecast of the weather.</p>
+              <button
+                type="button"
+                className="text-lg text-[white] p-[13px] bg-[#EF6820] rounded-lg w-full"
+                onClick={getLocation}
+              >
+                Allow Access
+              </button>
+            </div>
+          )
+        }
       </header>
       <div className="homepg-worldforecast">
         <h2 className="mb-20">{t('worldforecast')}</h2>
