@@ -1,6 +1,7 @@
 import { init as initApm } from '@elastic/apm-rum';
 import { ApmRoute } from '@elastic/apm-rum-react';
 
+import React, { Suspense } from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -26,7 +27,7 @@ import './styles/Theme.css';
 const apm = initApm({
   serviceName: 'Tropicalweather',
   serverUrl:
-    "https://tropicalweather.hng.tech/",
+    'https://tropicalweather.hng.tech/',
   environment: 'production'
 });
 
