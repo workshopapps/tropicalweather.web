@@ -87,9 +87,9 @@ export default function Footer() {
               <Link to="/contact" className="link link-hover">
                 {t('contactus')}
               </Link>
-              <Link smooth to="/#faq" className="link link-hover">
+              {/* <Link smooth to="/#faq" className="link link-hover">
                 {t('faqs')}
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div>
@@ -100,15 +100,15 @@ export default function Footer() {
                 target="_BLANK"
                 rel="noreferrer"
               >
-                <img src="/app-store.png" alt="app store" />
+                <img src="/downloadnow.png" alt="app store" />
               </a>
-              <a
+              {/* <a
                 href=" https://drive.google.com/file/d/1wVcNyyWW0VAWcheReb5cVRidFW6Rl45S/view?usp=drivesdk"
                 target="_BLANK"
                 rel="noreferrer"
               >
                 <img src="/google-play.png" alt="google play" />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

@@ -222,7 +222,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectanglefour.svg" alt="australia flag" />
-                <span> AUS AUSTRALIA</span>
+                <p>
+                  <span className="font-bold">AUS &nbsp;</span>
+                  AUSTRALIA
+                </p>
               </div>
               {' '}
               <button
@@ -235,7 +238,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 3.svg" alt="sweden flag" />
-                <span>SWE SWEDEN </span>
+                <p>
+                  <span className="font-bold">SWE &nbsp;</span>
+                  SWEDEN
+                </p>
                 {' '}
               </div>
 
@@ -249,7 +255,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5.svg" alt="netherlands flag" />
-                <span> NLD NETEHERLANDS</span>
+                <p>
+                  <span className="font-bold">NLD &nbsp;</span>
+                  NETHERLANDS
+                </p>
               </div>
 
               <button
@@ -262,7 +271,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 6.svg" alt="united kingdom flag" />
-                <span>GBR UNITED KINGDOM</span>
+                <p>
+                  <span className="font-bold">GBR &nbsp;</span>
+                  UNITED KINGDOM
+                </p>
               </div>
               <button
                 type="button"
@@ -276,7 +288,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
-                <span>DE GERMANY</span>
+                <p>
+                  <span className="font-bold">DE &nbsp;</span>
+                  GERMANY
+                </p>
               </div>
               <button
                 type="button"
@@ -288,7 +303,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/SouthAfricaFlag.svg" alt="South Africa flag" />
-                <span>RSA SOUTH AFRICA</span>
+                <p>
+                  <span className="font-bold">RSA &nbsp;</span>
+                  SOUTH AFRICA
+                </p>
               </div>
 
               <button
@@ -300,8 +318,11 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/JamaicaFlag.svg" alt="Jamaica flag" />
-                <span>JM JAMAICA</span>
+                <img src="/Home/ScotlandFlag.svg" alt="Jamaica flag" />
+                <p>
+                  <span className="font-bold">JM &nbsp;</span>
+                  JAMAICA
+                </p>
               </div>
               <button
                 type="button"
@@ -312,8 +333,11 @@ export default function Home() {
             </li>
             <li className="homepg-poplis">
               <div className="homepg-popflex">
-                <img src="/Home/ScotlandFlag.svg" alt="Scotland flag" />
-                <span>SCT SCOTLAND</span>
+                <img src="/Home/JamaicaFlag.svg" alt="Scotland flag" />
+                <p>
+                  <span className="font-bold">SCT &nbsp;</span>
+                  SCOTLAND
+                </p>
               </div>
               <button
                 type="button"
@@ -327,7 +351,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
-                <span>IDN INDONESIA</span>
+                <p>
+                  <span className="font-bold">IDN &nbsp;</span>
+                  INDONESIA
+                </p>
               </div>
               <button
                 type="button"
@@ -339,7 +366,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 6 (1).svg" alt="japan flag" />
-                <span>JPN JAPAN</span>
+                <p>
+                  <span className="font-bold">JPN &nbsp;</span>
+                  JAPAN
+                </p>
               </div>
 
               <button
@@ -352,7 +382,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 7.svg" alt="canada flag" />
-                <span>CAN CANADA</span>
+                <p>
+                  <span className="font-bold">CAN &nbsp;</span>
+                  CANADA
+                </p>
               </div>
               <button
                 type="button"
@@ -364,7 +397,10 @@ export default function Home() {
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 8.svg" alt="united states flag" />
-                <span>USA UNITED STATES</span>
+                <p>
+                  <span className="font-bold">USA &nbsp;</span>
+                  UNITED STATES
+                </p>
               </div>
               <button
                 type="button"
