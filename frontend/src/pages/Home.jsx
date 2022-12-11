@@ -440,7 +440,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="px-14">
+      <div className="px-5 md:px-14">
         <MobileAdvert />
       </div>
     </div>
