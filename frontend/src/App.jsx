@@ -25,6 +25,8 @@ import './styles/Theme.css';
 
 const apm = initApm({
   serviceName: 'Tropicalweather',
+  serverUrl:
+    "https://tropicalweather.hng.tech/",
   environment: 'production'
 });
 
