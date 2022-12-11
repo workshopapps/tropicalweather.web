@@ -41,6 +41,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
