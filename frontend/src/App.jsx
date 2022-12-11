@@ -5,8 +5,7 @@ import {
   Route,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { ApmRoute } from '@elastic/apm-rum-react';
-import { withTransaction } from '@elastic/apm-rum-react';
+import { ApmRoute, withTransaction } from '@elastic/apm-rum-react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
