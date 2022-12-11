@@ -1,8 +1,6 @@
 import { init as initApm } from '@elastic/apm-rum';
 import { ApmRoute } from '@elastic/apm-rum-react';
 
-import React, { Suspense } from 'react';
-import * as Sentry from '@sentry/react';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -59,4 +57,4 @@ function App() {
   );
 }
 
-export default Sentry.withProfiler(App);
+export default App;
