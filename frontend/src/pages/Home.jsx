@@ -120,12 +120,13 @@ export default function Home() {
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="gap-2 homepg-immed">
+            <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
               <img
                 src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
                   immediateWeather.main
                 )}`}
                 alt="clouds icons"
+                className="h-16 w-16 md:h-24 md:w-24"
               />
               <div>
                 <p>
@@ -215,7 +216,7 @@ export default function Home() {
         </div>
       </header>
       <div className="homepg-worldforecast">
-        <h2>{t('worldforecast')}</h2>
+        <h2 className="mb-20">{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
           <div className="homepg-worldone">
             <li className="homepg-poplis">
@@ -390,7 +391,7 @@ export default function Home() {
           <div className="w-full flex flex-col gap-[56px]">
             <div className="landing_locations_header">
               <h3 className="landing_header_md">{t('popularlocations')}</h3>
-              <h6>{t('updatedamin')}</h6>
+              {/* <h6>{t('updatedamin')}</h6> */}
             </div>
             <div
               ref={slider}
@@ -439,7 +440,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <MobileAdvert />
+      <div className="px-5 md:px-14">
+        <MobileAdvert />
+      </div>
     </div>
   );
 }
