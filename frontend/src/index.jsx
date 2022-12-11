@@ -6,9 +6,9 @@ import './i18n';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 const apm = initApm({
-  serviceName: "TropicalWeather",
-  serverUrl: "http://localhost:8200",
-  environment: "production"
+  serviceName: 'TropicalWeather',
+  serverUrl: 'http://localhost:8200',
+  environment: 'production'
  });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
