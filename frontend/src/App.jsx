@@ -27,6 +27,8 @@ const apm = initApm({
 
   // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
   serviceName: 'Tropicalweather',
+  //Server url
+  serverUrl: 'http://localhost:8200',
 
   // Set the service environment
   environment: 'production'
