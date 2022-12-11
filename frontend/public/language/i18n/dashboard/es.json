@@ -28,7 +28,10 @@
   "fewclouds": "Pocas nubes",
   "scatteredclouds": "Nubes dispersas",
   "brokenclouds": "Nubes rotas",
-  "fogand depositing rime fog": "NIEBLA Y DEPÓSITO DE NIEBLA",
+  "fogand depositing rime fog": "Niebla y depósito de niebla",
+  "flooding": "Inundación",
+  "lightflooding": "Inundación ligera",
+  "heavyflooding": "Fuertes inundaciones",
   "hasbeenadded": "se ha agregado a las ubicaciones guardadas",
   "datanotavailable": "Los datos aún no están disponibles para esta ubicación. Por favor, actualice después de unos segundos."
 }

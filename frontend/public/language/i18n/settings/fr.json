@@ -8,5 +8,9 @@
   "noti": "Avis",
   "help": "Aider",
   "lightmode": "Mode lumière",
-  "darkmode": "Mode sombre"
+  "darkmode": "Mode sombre",
+  "english": "Anglais",
+  "french": "Français",
+  "spanish": "Espagnol",
+  "arabic": "Arabe"
 }

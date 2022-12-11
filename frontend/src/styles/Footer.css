@@ -1,0 +1,12 @@
+.footer-select select{
+    padding: 0.2rem 0.3rem;
+    outline: 0;
+    box-shadow: none;
+    border: 0!important;
+    background: #B93815;
+}
+
+.footer-select select option{
+    font-size: 0.8rem;
+    width: 80%;
+}

@@ -269,10 +269,10 @@ export default function Dashboard() {
                 )}`}
               </p>
               <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
-                {currentWeather.risk !== `${t('none')}` && (
+                {currentWeather.risk !== 'None' && (
                   <IoMdAlert className="text-red-500" />
                 )}
-                <p>{currentWeather.risk}</p>
+                <p>{t(currentWeather?.risk?.replace(' ', '').toLowerCase())}</p>
               </span>
             </section>
             <section
@@ -322,7 +322,7 @@ export default function Dashboard() {
             className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:min-h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-[calc(100vh-250px)]"
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="mb-4 text-xl font-bold">{currentTimeline}</p>
+              <p className="mb-4 text-xl font-bold">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
               {!showTimelineOptions && (
                 <button
                   title="open"

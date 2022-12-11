@@ -7,7 +7,7 @@ import '../styles/Settings.css';
 import i18next from 'i18next';
 
 function getLanguageValues() {
-  const storedLanguageValue = localStorage.getItem('language');
+  const storedLanguageValue = localStorage.getItem('i18nextLng');
   if (!storedLanguageValue) return '';
   return JSON.parse(storedLanguageValue);
 }
@@ -24,19 +24,19 @@ export default function Settings() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('language', JSON.stringify(languageVal));
+    localStorage.setItem('i18nextLng', JSON.stringify(languageVal));
   }, [languageVal]);
 
   const languageData = [
     {
+      title: `${t('narabic')}`,
+      subtitle: `${t('arabic')}`,
+      value: 'ar',
+    },
+    {
       title: `${t('nenglish')}`,
       subtitle: `${t('english')}`,
       value: 'en',
-    },
-    {
-      title: `${t('nspanish')}`,
-      subtitle: `${t('spanish')}`,
-      value: 'es',
     },
     {
       title: `${t('nfrench')}`,
@@ -44,9 +44,9 @@ export default function Settings() {
       value: 'fr',
     },
     {
-      title: `${t('narabic')}`,
-      subtitle: `${t('arabic')}`,
-      value: 'ar',
+      title: `${t('nspanish')}`,
+      subtitle: `${t('spanish')}`,
+      value: 'es',
     },
   ];
 
@@ -60,7 +60,6 @@ export default function Settings() {
     setLanguageVal(e.target.value);
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
-    e.target.classList.add('active_setting');
   };
 
   const toggleTheme = (theme) => {
