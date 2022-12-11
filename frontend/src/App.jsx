@@ -51,4 +51,4 @@ function App() {
   );
 }
 
-export default withTransaction(App);
+export default App;
