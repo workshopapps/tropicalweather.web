@@ -9,7 +9,7 @@ import '../styles/Footer.css';
 function getLanguageValues() {
   const storedLanguageValue = localStorage.getItem('i18nextLng');
   if (!storedLanguageValue) return '';
-  return JSON.parse(storedLanguageValue);
+  return storedLanguageValue;
 }
 
 export default function Footer() {
