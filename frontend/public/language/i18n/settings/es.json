@@ -8,5 +8,9 @@
   "noti": "Notificaciones",
   "help": "Ayuda",
   "lightmode": "Modo de luz",
-  "darkmode": "Modo oscuro"
+  "darkmode": "Modo oscuro",
+  "english": "Inglés",
+  "french": "Francés",
+  "spanish": "Español",
+  "arabic": "Árabe"
 }

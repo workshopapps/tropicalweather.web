@@ -29,6 +29,9 @@
   "fewclouds": "Quelques nuages",
   "scatteredclouds": "Nuages dispersés",
   "brokenclouds": "Nuages brisés",
-  "fogand depositing rime fog": "BROUILLARD ET DÉPÔT DE BROUILLARD RIME",
+  "fogand depositing rime fog": "Brouillard et dépôt de brouillard de rime",
+  "flooding": "Inondation",
+  "lightflooding": "Inondation légère",
+  "heavyflooding": "Fortes inondations",
   "datanotavailable": "Les données ne sont pas encore disponibles pour cet emplacement. S’il vous plaît rafraîchir après quelques secondes."
 }

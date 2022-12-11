@@ -29,5 +29,8 @@
   "scatteredclouds": "غيوم مبعثرة",
   "brokenclouds": "غيوم متكسرة",
   "fogand depositing rime fog": "الضباب وإيداع ضباب ريم",
+  "flooding": "غمر",
+  "lightflooding": "الفيضانات الخفيفة",
+  "heavyflooding": "فيضانات غزيرة",
   "datanotavailable": "البيانات غير متوفرة لهذا الموقع حتى الآن.. يرجى التحديث بعد بضع ثوان."
 }

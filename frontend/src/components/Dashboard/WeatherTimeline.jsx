@@ -36,8 +36,8 @@ export default function WeatherTimeline({ timelineData }) {
                 <div className="flex flex-col">
                   <span>{t(day?.main?.replace(' ', '').toLowerCase())}</span>
                   <span className="flex items-center gap-4">
-                    <p>{day.risk}</p>
-                    {day.risk !== `${t('none')}` && <IoMdAlert className="text-red-500" />}
+                    <p>{t(day?.risk?.replace(' ', '').toLowerCase())}</p>
+                    {day.risk !== 'None' && <IoMdAlert className="text-red-500" />}
                   </span>
                 </div>
               </div>
