@@ -1,5 +1,6 @@
-import React, { Suspense } from 'react';
-import * as Sentry from '@sentry/react';
+import { init as initApm } from '@elastic/apm-rum';
+import { ApmRoute } from '@elastic/apm-rum-react';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -21,6 +22,13 @@ import Settings from './pages/Settings';
 import NotificationFeedList from './pages/NotificationFeedList';
 import Notificationsettings from './pages/Notificationsettings';
 import './styles/Theme.css';
+
+const apm = initApm({
+  serviceName: 'Tropicalweather',
+  serverUrl:
+    "https://tropicalweather.hng.tech/",
+  environment: 'production'
+});
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter(
@@ -51,4 +59,4 @@ function App() {
   );
 }
 
-export default Sentry.withProfiler(App);
+export default App;
