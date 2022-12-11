@@ -1,7 +1,7 @@
 #about--mobile__app {
   background: #fdead7;
   border-radius: 16px;
-  padding: 64px;
+  padding: 64px 64px 0px 64px;
   display: flex;
   margin-bottom: 30px;
   justify-content: space-between;
