@@ -20,7 +20,7 @@ export default function MobileAdvert() {
             target="_BLANK"
             rel="noreferrer"
           >
-            <button type="button" className="text-white bg-[#EF6820] p-6 rounded-lg">Download Now</button>
+            <img src="/downloadnow.png" alt="app store" />
           </a>
         </div>
       </div>

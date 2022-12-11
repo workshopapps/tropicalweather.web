@@ -218,7 +218,7 @@ export default function Home() {
       <div className="homepg-worldforecast">
         <h2 className="mb-20">{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
-          <div className="homepg-worldone">
+          <div className="homepg-worldone space-y-10">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectanglefour.svg" alt="australia flag" />
@@ -284,7 +284,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldtwo">
+          <div className="homepg-worldtwo space-y-10">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
@@ -347,7 +347,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldthree">
+          <div className="homepg-worldthree space-y-10">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
