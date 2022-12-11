@@ -5,7 +5,6 @@ import {
   Route,
   createRoutesFromElements,
 } from 'react-router-dom';
-import { ApmRoute, withTransaction } from '@elastic/apm-rum-react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -25,20 +24,20 @@ import './styles/Theme.css';
 const queryClient = new QueryClient();
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <ApmRoute element={<AppLayout />}>
-      <ApmRoute path="/" element={<Home />} />
-      <ApmRoute path="/about-us" element={<AboutUs />} />
-      <ApmRoute path="/contact" element={<ContactUs />} />
-      <ApmRoute path="/notification" element={<Notification />} />
-      <ApmRoute path="/dashboard" element={<Dashboard />} />
-      <ApmRoute path="/air-quality" element={<AirQuality />} />
-      <ApmRoute path="/weather-details" element={<FullWeatherDetails />} />
-      <ApmRoute path="/landing" element={<LandingPage />} />
-      <ApmRoute path="/settings" element={<Settings />} />
-      <ApmRoute path="/notification-settings" element={<Notificationsettings />} />
-      <ApmRoute path="/notification-feeds" element={<NotificationFeedList />} />
-      <ApmRoute path="*" element={<Error404 />} />
-    </ApmRoute>
+    <Route element={<AppLayout />}>
+      <Route path="/" element={<Home />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/contact" element={<ContactUs />} />
+      <Route path="/notification" element={<Notification />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/air-quality" element={<AirQuality />} />
+      <Route path="/weather-details" element={<FullWeatherDetails />} />
+      <Route path="/landing" element={<LandingPage />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/notification-settings" element={<Notificationsettings />} />
+      <Route path="/notification-feeds" element={<NotificationFeedList />} />
+      <Route path="*" element={<Error404 />} />
+    </Route>
   )
 );
 function App() {
