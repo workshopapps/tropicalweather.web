@@ -1,12 +1,3 @@
-// Add this to the VERY top of the first file loaded in your app
-var apm = require('elastic-apm-node').start({
-  // Override service name from package.json
-  // Allowed characters: a-z, A-Z, 0-9, -, _, and space
-  serviceName: 'Tropicalweather',
-  // Set custom APM Server URL (default: http://localhost:8200)
-  serverUrl: 'http://localhost:8200)',
-  environment: 'production'
-})
 import React from 'react';
 import { init as initApm } from '@elastic/apm-rum';
 import ReactDOM from 'react-dom/client';
