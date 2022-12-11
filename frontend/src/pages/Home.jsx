@@ -215,7 +215,7 @@ export default function Home() {
         </div>
         {
           !locationAllowed && (
-            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-xl sm:right-4 bg-[var(--background)] ">
+            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
               <h5 className="text-2xl">Allow Location</h5>
               <p className="text-[var(--accents-7)]">Allow tropicalweather.hng to acess your location for a more accurate forecast of the weather.</p>
               <button
