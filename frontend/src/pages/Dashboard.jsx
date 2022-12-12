@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { useLocation } from 'react-router-dom';
-import { BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsHeart, BsThreeDotsVertical, BsDot } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { IoMdAlert } from 'react-icons/io';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -193,8 +193,17 @@ export default function Dashboard() {
     }
   };
 
+  const selectIcon = (main) => {
+    if (main?.toLowerCase().includes('sun')) {
+      return '/dashboard/sunny.png';
+    } if (main?.toLowerCase().includes('rain')) {
+      return '/dashboard/rain.png';
+    }
+    return '/dashboard/cloudy.png';
+  };
+
   return (
-    <div className="relative px-4 mb-36 md:mb-20 md:px-16 text-grey-900">
+    <div className="relative px-4 text-sm md:text-base mb-36 md:mb-20 md:px-16 text-grey-900">
       {toast ? (
         <div
           className="absolute flex items-center gap-3 p-1 rounded-lg"
@@ -218,7 +227,7 @@ export default function Dashboard() {
         <div className="flex flex-col w-full gap-10 md:flex-row">
           <div className="relative w-full">
             <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)] rounded-t-lg">
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-lg font-bold md:text-2xl">
                 {currentLocation || `${t('fetchingdata')}`}
               </h1>
               <div className="flex items-center self-end gap-4">
@@ -258,12 +267,14 @@ export default function Dashboard() {
               </div>
             </div>
             <section className="flex flex-1 flex-col gap-4 px-5 py-8 shadow-lg hero bg-[var(--d-bg)] rounded-b-lg">
-              <p>
-                {t('today')}
+              <span className="flex items-center h-8">
+                <p>{t('today')}</p>
+                <BsDot className="text-2xl" />
                 <span className="uppercase">{` ${time}`}</span>
-              </p>
-              <p className="text-4xl font-bold">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
-              <p className="text-xl font-bold opacity-80">
+                <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-contain pl-2 ml-3 border-l h-5/6" />
+              </span>
+              <p className="text-2xl font-bold md:text-4xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
+              <p className="text-sm font-bold md:text-xl opacity-80">
                 {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
               </p>
               <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
@@ -275,10 +286,10 @@ export default function Dashboard() {
             </section>
             <section
               id="mobile-timeline-forecast"
-              className="flex-1 px-2 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max"
+              className="flex-1 px-3 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max bg-[var(--d-bg)]"
             >
-              <div className="flex items-center justify-between mb-4">
-                <p className="mb-4 text-xl font-bold">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
                 {!showTimelineOptions && (
                   <button
                     title="open"
@@ -319,8 +330,8 @@ export default function Dashboard() {
             id="timeline-forecast"
             className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:min-h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-[calc(100vh-250px)]"
           >
-            <div className="flex items-center justify-between mb-4">
-              <p className="mb-4 text-xl font-bold">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
               {!showTimelineOptions && (
                 <button
                   title="open"
