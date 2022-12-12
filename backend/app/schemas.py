@@ -1,7 +1,18 @@
-from typing import Any, Optional
+from datetime import datetime
 from enum import Enum
+from typing import Any, Optional
 
 from pydantic import BaseModel
+
+
+class TopicEvent(BaseModel):
+    event: str
+    description: str
+    end: datetime
+
+
+class TopicEventResponse(TopicEvent):
+    message_id: str
 
 
 class FcmSubscribeMessage(BaseModel):
@@ -18,18 +29,18 @@ class AlertsResponse(BaseModel):
     datetime: str
 
 
-
 class SingleWeatherResponse(BaseModel):
     main: str
     description: str
     date: str
     time: str
 
-    
+
 class WeatherResponse(BaseModel):
     main: str
     datetime: str
     risk: str
+
 
 class RiskLevel(str, Enum):
     LOW = 'low'
@@ -70,6 +81,7 @@ class CurrentWeatherResponse(SingleWeatherResponse, locationResponse):
     city: Optional[str]
     state: str
 
+
 class UserCurrentWeather(BaseModel):
     main: str
     datetime: str
@@ -79,8 +91,7 @@ class UserCurrentWeather(BaseModel):
     state: str
     country: str
 
+
 class PacketModel(BaseModel):
     content: Any
     content_type: str
-
-    
