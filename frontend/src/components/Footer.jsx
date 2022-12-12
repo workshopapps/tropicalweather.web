@@ -22,8 +22,8 @@ export default function Footer() {
 
   useEffect(() => {
     setInterval(() => {
-      setLanguage(localStorage.getItem("i18nextLng"));
-    }, 2000);
+      setLanguage(localStorage.getItem('i18nextLng'));
+    }, 1000);
   }, []);
 
   const languageData = [

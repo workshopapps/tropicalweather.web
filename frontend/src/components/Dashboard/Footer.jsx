@@ -1,10 +1,9 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { BsGlobe } from 'react-icons/bs';
 import ReactThemeToggleButton from '../Settings/ToggleTheme';
-import "../../styles/Footer.css";
+import '../../styles/Footer.css';
 
 function getLanguageValues() {
   const storedLanguageValue = localStorage.getItem('i18nextLng');
@@ -22,7 +21,7 @@ export default function Footer() {
 
   useEffect(() => {
     setInterval(() => {
-      setLanguage(localStorage.getItem("i18nextLng"));
+      setLanguage(localStorage.getItem('i18nextLng'));
     }, 2000);
   }, []);
 
@@ -58,7 +57,7 @@ export default function Footer() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 flex flex-col justify-between w-full gap-4 px-4 py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)]">
-      <p className="text-sm md:order-first md:text-lg">{t("allrights")}</p>
+      <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
       <div className="flex gap-6 items-center">
         <span className="flex items-center footer-select footer-select_dash">
           <BsGlobe />

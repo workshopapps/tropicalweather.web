@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
@@ -29,7 +31,7 @@ export default function Settings() {
   useEffect(() => {
     setInterval(() => {
       setLanguage(localStorage.getItem('i18nextLng'));
-    }, 2000);
+    }, 1000);
   }, []);
 
   const languageData = [
@@ -82,7 +84,15 @@ export default function Settings() {
     e.classList.add('active_setting');
   };
   return (
-    <div className="settings">
+    <div
+      className="settings"
+      onClick={() => {
+        if (languageIsActive || themeIsActive) {
+          setLanguageIsActive(false);
+          setThemeIsActive(false);
+        }
+      }}
+    >
       <Link to="/dashboard" className="settings_back">
         <TfiAngleLeft />
         <span>{t('back')}</span>
