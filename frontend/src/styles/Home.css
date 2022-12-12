@@ -25,9 +25,11 @@
 .homepg-worldone {
   display: none;
 }
+
 .homepg-worldtwo {
   display: none;
 }
+
 .homepg-worldforecast {
   text-align: center;
   padding: 2em;
@@ -202,7 +204,7 @@
   display: none;
 }
 
-.landing_scroll_indicator > div {
+.landing_scroll_indicator>div {
   border-radius: 50%;
   width: 7px;
   height: 7px;
@@ -215,13 +217,6 @@
   gap: 24px;
 }
 
-@media screen and (max-width: 768px) {
-  .landing_location_brief {
-    background-color: var(--background);
-    border-radius: 10px;
-    padding: 10px;
-  }
-}
 
 .landing_location_brief_header {
   display: flex;
@@ -264,6 +259,19 @@
   letter-spacing: -0.025em;
   font-feature-settings: "tnum" on, "lnum" on;
   color: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 768px) {
+  .landing_location_brief {
+    background-color: var(--background);
+    border-radius: 10px;
+    padding: 50px 20px;
+    color: var(--foreground);
+  }
+
+  .landing_location_body h5 {
+    color: var(--accents-7);
+  }
 }
 
 .landing_link_button {
@@ -412,7 +420,7 @@
   grid-row-gap: 20px;
 }
 
-.landing_phones_container > img {
+.landing_phones_container>img {
   width: 500px;
 }
 
@@ -488,7 +496,7 @@
     gap: 88px;
   }
 
-  .landing_download_container div > img {
+  .landing_download_container div>img {
     width: 50%;
   }
 
@@ -512,9 +520,11 @@
   .homepg-worldone {
     display: block;
   }
+
   .homepg-worldtwo {
     display: block;
   }
+
   .homepg-worldforecast {
     padding: 3em 5em;
   }

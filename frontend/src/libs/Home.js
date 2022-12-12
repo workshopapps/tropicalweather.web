@@ -1,7 +1,7 @@
 export default function getWeatherDescriptionCategory(description) {
     const categories = {
-        rain: ['rainy', 'rain', 'water', 'pouring'],
-        clouds: ['cloud', 'clouds', 'storm'],
+        rain: ['rainy', 'rain', 'water', 'pouring', 'showers', 'drizzling', 'fog', 'fogs'],
+        clouds: ['cloud', 'clouds', 'storm', 'stormy'],
         sun: ['sun', 'sunset', 'sunny'],
     };
 
