@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { useLocation } from 'react-router-dom';
-import { BsHeart, BsThreeDotsVertical } from 'react-icons/bs';
+import { BsHeart, BsThreeDotsVertical, BsDot } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { IoMdAlert } from 'react-icons/io';
 import { AiFillCheckCircle } from 'react-icons/ai';
@@ -193,6 +193,15 @@ export default function Dashboard() {
     }
   };
 
+  const selectIcon = (main) => {
+    if (main?.toLowerCase().includes('sun')) {
+      return '/dashboard/sunny.png';
+    } if (main?.toLowerCase().includes('rain')) {
+      return '/dashboard/rain.png';
+    }
+    return '/dashboard/cloudy.png';
+  };
+
   return (
     <div className="relative px-4 mb-36 md:mb-20 md:px-16 text-grey-900">
       {toast ? (
@@ -258,10 +267,12 @@ export default function Dashboard() {
               </div>
             </div>
             <section className="flex flex-1 flex-col gap-4 px-5 py-8 shadow-lg hero bg-[var(--d-bg)] rounded-b-lg">
-              <p>
-                {t('today')}
+              <span className="flex items-center h-8">
+                <p>{t('today')}</p>
+                <BsDot size={32} />
                 <span className="uppercase">{` ${time}`}</span>
-              </p>
+                <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-contain pl-2 ml-3 border-l h-5/6" />
+              </span>
               <p className="text-4xl font-bold">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
               <p className="text-xl font-bold opacity-80">
                 {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
