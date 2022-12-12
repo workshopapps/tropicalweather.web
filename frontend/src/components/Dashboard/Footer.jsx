@@ -3,13 +3,15 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { BsGlobe } from 'react-icons/bs';
 import ReactThemeToggleButton from '../Settings/ToggleTheme';
+import '../../styles/Footer.css';
+
+function getLanguageValues() {
+  const storedLanguageValue = localStorage.getItem('i18nextLng');
+  if (!storedLanguageValue) return '';
+  return storedLanguageValue;
+}
 
 export default function Footer() {
-  function getLanguageValues() {
-    const storedLanguageValue = localStorage.getItem('i18nextLng');
-    if (!storedLanguageValue) return '';
-    return storedLanguageValue;
-  }
   const { i18n, t } = useTranslation(['common']);
   const [language, setLanguage] = useState(getLanguageValues);
 
@@ -17,11 +19,13 @@ export default function Footer() {
     localStorage.setItem('i18nextLng', language);
   }, [language]);
 
+  useEffect(() => {
+    setInterval(() => {
+      setLanguage(localStorage.getItem('i18nextLng'));
+    }, 2000);
+  }, []);
+
   const languageData = [
-    {
-      title: `${t('narabic')}`,
-      langVal: 'ar',
-    },
     {
       title: `${t('nenglish')}`,
       langVal: 'en',
@@ -33,6 +37,10 @@ export default function Footer() {
     {
       title: `${t('nspanish')}`,
       langVal: 'es',
+    },
+    {
+      title: `${t('narabic')}`,
+      langVal: 'ar',
     },
   ];
 
@@ -47,19 +55,14 @@ export default function Footer() {
     setLanguage(e.currentTarget.value);
   };
   return (
-    <div className="md:text-sm text-xs fixed bottom-0 left-0 right-0 flex flex-col justify-between w-full md:gap-4 px-4 py-2 md:py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)] gap-2">
-      <p className="md:order-first md:text-lg">
-        {t('allrights')}
-      </p>
-      <div className="flex items-center gap-6">
-        <span className="flex items-center gap-2">
+    <div className="fixed bottom-0 left-0 right-0 flex flex-col justify-between w-full gap-4 px-4 py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)]">
+      <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
+      <div className="flex gap-6 items-center">
+        <span className="flex items-center footer-select footer-select_dash">
           <BsGlobe />
-          <select value={language} onChange={handleLanguageChange} className="outline-none focus:outline-none">
+          <select value={language} onChange={handleLanguageChange}>
             {languageData?.map(({ title, langVal }) => (
-              <option
-                value={langVal}
-                key={langVal}
-              >
+              <option value={langVal} key={langVal}>
                 {title}
               </option>
             ))}

@@ -5,6 +5,10 @@
     border: 0!important;
     background: #B93815;
 }
+.footer-select_dash select{
+    background: transparent;
+    color: #888;
+}
 
 .footer-select select option{
     font-size: 0.8rem;

@@ -17,7 +17,8 @@
     "fewclouds": "Few clouds",
     "scatteredclouds": "Scattered clouds",
     "brokenclouds": "Broken clouds",
-    "fogand depositing rime fog": "FOG AND DEPOSITING RIME FOG",
+    "rainshowers": "Rain showers",
+    "fogand depositing rime fog": "Fog and depositing rime fog",
     "risk": "Risk",
     "low": "LOW",
     "mid": "MID",
@@ -59,5 +60,8 @@
     "worldforecast": "World Forecast",
     "locationloading": "location loading....",
     "forecastloading": "Forecast Loading...",
+    "allowlocation": "Allow Location",
+    "allowtropicalweather": "Allow tropicalweather.hng to access your location for a more accurate forecast of the weather. If you have denied location, grant tropicalweather.hng.tech location permission in your browser settings for accurate forecast",
+    "allowaccess": "Allow Access",
     "weatherforecastfortheday": "weather forecasts for the day loading..."
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 import '../../styles/Share.css';
 
 export default function ShareMenu() {
+   const { t } = useTranslation(['dashboard']);
    const [isCopied, setIsCopied] = useState(false);
    const btnRefLinkedin = useRef();
    const btnRefTwitter = useRef();
@@ -12,7 +14,7 @@ export default function ShareMenu() {
    const btnRefMessenger = useRef();
    const btnRefInstagram = useRef();
    const postUrl = encodeURI(window.location.href);
-   const postTitle = encodeURI('Hi everyone,Checkout the weather for today');
+   const postTitle = encodeURI(`${t('hieveryone')}`);
    const onCopyText = () => {
     setIsCopied(true);
     setTimeout(() => {
@@ -67,7 +69,7 @@ export default function ShareMenu() {
             <CopyToClipboard text={postUrl} onCopy={onCopyText}>
               <div className="copy-area">
                 <img src="/share/share-link (1).png" alt="" className="twitter-btn btn-twit" />
-                <span className={`copy-feedback ${isCopied ? 'active' : ''}`}>Copied!</span>
+                <span className={`copy-feedback ${isCopied ? 'active' : ''}`}>{t('copied')}</span>
               </div>
             </CopyToClipboard>
             <a href="https://tropicalweather.hng.tech" ref={btnRefTwitter} className="twitter-btn">

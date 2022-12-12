@@ -16,7 +16,8 @@
   "fewclouds": "Quelques nuages",
   "scatteredclouds": "Nuages dispersés",
   "brokenclouds": "Nuages brisés",
-  "fogand depositing rime fog": "BROUILLARD ET DÉPÔT DE BROUILLARD RIME",
+  "rainshowers": "Averses de pluie",
+  "fogand depositing rime fog": "Brouillard et brouillard de dépôt",
   "risk": "Risque",
   "low": "BAS",
   "mid": "MILIEU",
@@ -59,5 +60,8 @@
   "worldforecast": "Prévisions mondiales",
   "locationloading": "chargement de l'emplacement....",
   "forecastloading": "Chargement des prévisions...",
+  "allowlocation": "Autoriser l’emplacement",
+  "allowtropicalweather": "Autorisez tropicalweather.hng à accéder à votre position pour une prévision plus précise de la météo. Si vous avez refusé la localisation, accordez tropicalweather.hng.tech’autorisation de localisation dans les paramètres de votre navigateur pour des prévisions précises",
+  "allowaccess": "Autoriser l’accès",
   "weatherforecastfortheday": "prévisions météo pour la journée en cours de chargement..."
 }

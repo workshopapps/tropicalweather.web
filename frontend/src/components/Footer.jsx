@@ -20,11 +20,13 @@ export default function Footer() {
     localStorage.setItem('i18nextLng', language);
   }, [language]);
 
+  useEffect(() => {
+    setInterval(() => {
+      setLanguage(localStorage.getItem('i18nextLng'));
+    }, 1000);
+  }, []);
+
   const languageData = [
-    {
-      title: `${t('narabic')}`,
-      langVal: 'ar',
-    },
     {
       title: `${t('nenglish')}`,
       langVal: 'en',
@@ -36,6 +38,10 @@ export default function Footer() {
     {
       title: `${t('nspanish')}`,
       langVal: 'es',
+    },
+    {
+      title: `${t('narabic')}`,
+      langVal: 'ar',
     },
   ];
 
