@@ -13,7 +13,7 @@ import models  # noqa: E402
 from utils.fcm_service import get_topic_name  # noqa: E402
 from utils.general import get_risks_by_address  # noqa: E402
 from utils.logger import basic_logger as logger  # noqa: E402
-from utils.logger import error_logger # noqa: E402
+from utils.logger import error_logger  # noqa: E402
 from utils.push_notification import send_notification_to_topic  # noqa: E402
 from utils.timer import now_utc  # noqa: E402
 
