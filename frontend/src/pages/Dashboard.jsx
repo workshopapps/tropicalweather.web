@@ -264,9 +264,7 @@ export default function Dashboard() {
               </p>
               <p className="text-4xl font-bold">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
               <p className="text-xl font-bold opacity-80">
-                {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(
-                  currentWeather.end_datetime
-                )}`}
+                {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
               </p>
               <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
                 {currentWeather.risk !== 'None' && (
@@ -358,6 +356,8 @@ export default function Dashboard() {
         setPopup={setShowShare}
         currentLocation={currentLocation}
         currentWeather={currentWeather}
+        time={time}
+        formatTime={formatTime}
       />
     </div>
   );
