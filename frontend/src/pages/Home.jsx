@@ -21,7 +21,7 @@ export default function Home() {
   const [curr, setCurr] = useState(0);
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
-  const [locationAllowed, setLocationAllow] = useState(false);
+  const [locationAllowed, setLocationAllow] = useState(true);
   const { t } = useTranslation(['home']);
   const savedForecast = useRef([]);
   const [lineWidth, setLneWidth] = useState('100%');
@@ -36,11 +36,14 @@ export default function Home() {
           latitude: position.coords.latitude,
         });
         setLocationAllow(true);
-      });
+      }, () => { setLocationAllow(false); });
+    } else {
+      alert('Geolocation not supported on this browser');
     }
   }
 
   useEffect(() => {
+    getLocation();
     const sv = localStorage.getItem('forecast');
     if (sv !== null) {
       savedForecast.current = JSON.parse(sv);

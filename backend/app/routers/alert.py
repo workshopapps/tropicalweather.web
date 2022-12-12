@@ -1,12 +1,14 @@
 import models
 from database import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
-from schemas import FcmSubscribeMessage
+from firebase_admin.exceptions import FirebaseError
+from schemas import FcmSubscribeMessage, TopicEvent, TopicEventResponse
 from sqlalchemy.orm import Session
 from utils.fcm_service import (get_topic_name, register_id_to_topic,
                                unsubscribe_id_all_topics,
                                unsubscribe_id_from_topic)
 from utils.general import get_location_obj, reverse_geocode
+from utils.push_notification import send_notification_to_topic
 
 router = APIRouter(
     prefix="/weather/alerts",
@@ -72,10 +74,10 @@ async def unsubscribe_token_from_topic(
 
     try:
         unsubscribe_id_from_topic(fcm_id, topic)
-
         location = get_location_obj(db, city, state, country)
-        location.subscription_count -= 1
-        db.commit()
+        if location:
+            location.subscription_count -= 1
+            db.commit()
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -102,4 +104,54 @@ async def unsubscribe_token_from_all_topics(fcm_id: str):
 
     return {
         "message": "Unsubscribed from all topics"
+    }
+
+
+@router.get("/get-topics", response_model=list[str])
+async def get_topics(db: Session = Depends(get_db)):
+    """Gets all topics in the database.
+
+    Returns:
+        list[str]: List of topics
+    """
+
+    locations: list[models.Location] = db.query(models.Location).all()
+    topics = [get_topic_name(loc.city, loc.state, loc.country)
+              for loc in locations]
+    return topics
+
+
+@router.post("/send-event-to-topic", response_model=TopicEventResponse)
+async def send_event_to_topic(
+    topic: str, event: TopicEvent
+):
+    """Sends an event to a topic.
+
+    Args:
+        topic (str): Topic to send event to.
+        event (TopicEvent): Event to send.
+
+    Raises:
+        HTTPException: If unable to send event.
+
+    Returns:
+        TopicEventResponse: Message
+    """
+
+    try:
+        response = send_notification_to_topic([event.dict()], topic)
+    except FirebaseError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Error sending event to topic: {e}"
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Bad input: {e}"
+        )
+
+    return {
+        **event.dict(),
+        "success_count": response.success_count,
     }

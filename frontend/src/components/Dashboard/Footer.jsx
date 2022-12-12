@@ -54,7 +54,6 @@ export default function Footer() {
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
   };
-
   return (
     <div className="fixed bottom-0 left-0 right-0 flex flex-col justify-between w-full gap-4 px-4 py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)]">
       <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
@@ -72,7 +71,7 @@ export default function Footer() {
         <span className="flex items-center gap-2">
           <img src={`/icons/${language}-flag.png`} alt={`${language} flag`} />
         </span>
-        <span className="h-max pt-1">
+        <span className="pt-1 h-max">
           <ReactThemeToggleButton />
         </span>
       </div>

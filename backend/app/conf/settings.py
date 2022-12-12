@@ -1,6 +1,7 @@
 from pydantic import BaseSettings, BaseModel
 from decouple import config
 from pathlib import Path
+from logging.config import dictConfig
 
 # Use this to build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,9 @@ class LogConfig(BaseModel):
     }
 
 
+dictConfig(LogConfig().dict())
+
+
 class Settings(BaseSettings):
     """Class to hold application config values."""
 
@@ -76,6 +80,8 @@ class Settings(BaseSettings):
 
     GOOGLE_APPLICATION_CREDENTIALS: str = config(
         "GOOGLE_APPLICATION_CREDENTIALS")
+
+    DATETIME_FORMAT: str = "%Y-%m-%d %H:%M"
 
 
 settings = Settings()

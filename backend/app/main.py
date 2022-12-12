@@ -1,19 +1,19 @@
 import ast
+
+import models
+from conf.runtime import initialize_firebase
 # import sentry_sdk
 from conf.settings import settings
+from database import engine
+from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from routers import alert, location, weather, share
-from utils.general import get_status
-from database import engine
-import models
-from conf.runtime import initialize_firebase
+from routers import alert, location, share, weather
 from utils.cache import get_cache, set_cache
-
-from elasticapm.contrib.starlette import make_apm_client, ElasticAPM
+from utils.general import get_status
 
 apm = make_apm_client({
     'SERVICE_NAME': 'Api-TropicalWeather',
@@ -45,7 +45,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 # Registering routes

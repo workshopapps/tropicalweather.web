@@ -5,7 +5,7 @@ from fastapi import HTTPException, status
 from utils.general import (get_risk)
 
 
-def user_current_forecasts(lat: float, lon: float):
+def user_current_forecasts(lat: float, lon: float, data: list = None):
     """Get user current forecasts
 
         Args:
@@ -22,8 +22,10 @@ def user_current_forecasts(lat: float, lon: float):
                 }
         """
     try:
-        weather_forecasts_data = client.get_hourly_forecast(
-            lat, lon, hourly_params=['weathercode'])
+        if data is None:
+            weather_forecasts_data = client.get_hourly_forecast(lat, lon)
+        else:
+            weather_forecasts_data = data
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -31,9 +33,12 @@ def user_current_forecasts(lat: float, lon: float):
         )
     result = {}
     hourly_time: list[str] = weather_forecasts_data["hourly"]["time"]
-    hourly_temp: list[str] = weather_forecasts_data["hourly"]["apparent_temperature"]
-    hourly_precipitation: list[str] = weather_forecasts_data["hourly"]["precipitation"]
-    hourly_weathercode: list[str] = weather_forecasts_data["hourly"]["weathercode"]
+    hourly_temp: list[str] = weather_forecasts_data[
+        "hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = weather_forecasts_data[
+        "hourly"]["precipitation"]
+    hourly_weathercode: list[str] = weather_forecasts_data[
+        "hourly"]["weathercode"]
     now = datetime.now()
     now_str = now.strftime("%Y-%m-%dT%H:%M")
     strp_now = datetime.strptime(now_str, "%Y-%m-%dT%H:%M")
