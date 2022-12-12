@@ -1,14 +1,19 @@
 import datetime
 import hashlib
-from typing import List, Union, Dict
+import pathlib
+import sys
+from typing import Dict, List, Union
 
-import models
 from sqlalchemy.orm import Session
-from utils.fcm_service import get_topic_name
-from utils.general import get_risks_by_address
-from utils.timer import now_utc
-from utils.logger import basic_logger as logger
-from utils.push_notification import send_notification_to_topic
+
+sys.path.append(str(pathlib.Path(__file__).parent.parent.absolute()))
+
+import models  # noqa: E402
+from utils.fcm_service import get_topic_name  # noqa: E402
+from utils.general import get_risks_by_address  # noqa: E402
+from utils.logger import basic_logger as logger  # noqa: E402
+from utils.push_notification import send_notification_to_topic  # noqa: E402
+from utils.timer import now_utc  # noqa: E402
 
 
 def get_db_locations(db: Session) -> List[models.Location]:
@@ -88,7 +93,7 @@ def update_alerts(db: Session):
     logger.info("Updating alerts")
     now = now_utc()
     locations: List[models.Location] = get_db_locations(db)
-    logger.info(f"Found {len(locations)} locations")
+    logger.info(f"Found {len(locations)} location(s)")
 
     for location in locations:
         risks = get_location_risks(location)
@@ -106,3 +111,9 @@ def update_alerts(db: Session):
         new_alerts = list(risks_hash.values())
         create_alerts(db, location, new_alerts)
         send_messages(location, new_alerts)
+
+
+if __name__ == "__main__":
+    from database import get_db
+    db = next(get_db())
+    update_alerts(db)

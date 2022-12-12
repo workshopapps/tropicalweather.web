@@ -1,6 +1,7 @@
 from pydantic import BaseSettings, BaseModel
 from decouple import config
 from pathlib import Path
+from logging.config import dictConfig
 
 # Use this to build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,9 @@ class LogConfig(BaseModel):
         LOGGER_NAME: {"handlers": ["default"], "level": LOG_LEVEL},
         ERROR_NAME: {"handlers": ["error"], "level": LOG_LEVEL},
     }
+
+
+dictConfig(LogConfig().dict())
 
 
 class Settings(BaseSettings):
