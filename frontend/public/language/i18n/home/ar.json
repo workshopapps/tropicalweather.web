@@ -16,6 +16,7 @@
   "fewclouds": "غيوم قليلة",
   "scatteredclouds": "غيوم مبعثرة",
   "brokenclouds": "غيوم متكسرة",
+  "rainshowers": "زخات مطرية",
   "fogand depositing rime fog": "الضباب وإيداع ضباب ريم",
   "risk": "خطر",
   "low": "منخفض",
@@ -59,5 +60,8 @@
   "worldforecast": "توقعات العالم",
   "locationloading": "تحميل الموقع ....",
   "forecastloading": "تحميل التوقعات ...",
+  "allowlocation": "السماح بالموقع",
+  "allowtropicalweather": "اسمح ل tropicalweather.hng بالوصول إلى موقعك للحصول على توقعات أكثر دقة للطقس. إذا رفضت الموقع ، فامنح إذن الموقع tropicalweather.hng.tech في إعدادات المستعرض للحصول على توقعات دقيقة",
+  "allowaccess": "السماح بالوصول",
   "weatherforecastfortheday": "توقعات الطقس ليوم التحميل ..."
 }

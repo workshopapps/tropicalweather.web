@@ -9,14 +9,13 @@ import i18next from 'i18next';
 function getLanguageValues() {
   const storedLanguageValue = localStorage.getItem('i18nextLng');
   if (!storedLanguageValue) return '';
-  return JSON.parse(storedLanguageValue);
+  return storedLanguageValue;
 }
 
 export default function Settings() {
   const [languageIsActive, setLanguageIsActive] = useState(false);
   const [themeIsActive, setThemeIsActive] = useState(false);
-  const [languageVal, setLanguageVal] = useState(getLanguageValues);
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(getLanguageValues);
   const { i18n, t } = useTranslation(['settings']);
 
   useEffect(() => {
@@ -24,15 +23,16 @@ export default function Settings() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('i18nextLng', JSON.stringify(languageVal));
-  }, [languageVal]);
+    localStorage.setItem('i18nextLng', language);
+  }, [language]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setLanguage(localStorage.getItem('i18nextLng'));
+    }, 2000);
+  }, []);
 
   const languageData = [
-    {
-      title: `${t('narabic')}`,
-      subtitle: `${t('arabic')}`,
-      value: 'ar',
-    },
     {
       title: `${t('nenglish')}`,
       subtitle: `${t('english')}`,
@@ -48,6 +48,11 @@ export default function Settings() {
       subtitle: `${t('spanish')}`,
       value: 'es',
     },
+    {
+      title: `${t('narabic')}`,
+      subtitle: `${t('arabic')}`,
+      value: 'ar',
+    },
   ];
 
   useEffect(() => {
@@ -57,7 +62,6 @@ export default function Settings() {
   });
 
   const handleLanguageChange = (e) => {
-    setLanguageVal(e.target.value);
     i18n.changeLanguage(e.target.value);
     setLanguage(e.currentTarget.value);
   };
@@ -113,7 +117,7 @@ export default function Settings() {
                     value={value}
                     name={language}
                     onChange={handleLanguageChange}
-                    checked={languageVal === value}
+                    checked={language === value}
                   />
                   <div className="settings_dropdown-item-text">
                     <h3>{title}</h3>

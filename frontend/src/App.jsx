@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { init as initApm } from '@elastic/apm-rum';
 import { ApmRoute } from '@elastic/apm-rum-react';
 

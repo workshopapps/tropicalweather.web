@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { TfiAngleLeft } from 'react-icons/tfi';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/NotificationSettings.css';
-import BackIcon from '../NotificationSettingsAssets/BackIcon.svg';
 
 function getFormValues1() {
   const storedValues1 = localStorage.getItem('radio1');
@@ -109,7 +110,7 @@ export default function Notificationsettings() {
     <div className="notificationsettings__container">
       <div>
         <Link to="/settings" className="return__btn--container">
-          <img src={BackIcon} alt="Back Icon" />
+          <TfiAngleLeft />
           <p>{t('back')}</p>
         </Link>
       </div>

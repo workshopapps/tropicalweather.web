@@ -16,7 +16,8 @@
   "fewclouds": "Pocas nubes",
   "scatteredclouds": "Nubes dispersas",
   "brokenclouds": "Nubes rotas",
-  "fogand depositing rime fog": "NIEBLA Y DEPÓSITO DE NIEBLA",
+  "rainshowers": "Lluvias",
+  "fogand depositing rime fog": "Niebla y depósito de niebla",
   "risk": "Riesgo",
   "low": "BAJO",
   "mid": "MEDIO",
@@ -59,5 +60,8 @@
   "worldforecast": "Pronóstico mundial",
   "locationloading": "Ubicación cargando...",
   "forecastloading": "Pronóstico de cargando...",
+  "allowlocation": "Permitir ubicación",
+  "allowtropicalweather": "Permita que tropicalweather.hng acceda a su ubicación para obtener un pronóstico más preciso del clima. Si ha denegado la ubicación, otorgue permiso de ubicación tropicalweather.hng.tech en la configuración de su navegador para un pronóstico preciso.",
+  "allowaccess": "Permitir acceso",
   "weatherforecastfortheday": "pronóstico del tiempo para el día cargando..."
 }

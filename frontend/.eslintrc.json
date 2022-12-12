@@ -8,7 +8,7 @@
   "extends": [
     "eslint:recommended",
     "airbnb",
-    "plugin:react/recommended"
+    "plugin:import/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -18,7 +18,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "import"
   ],
   "rules": {
     "react/jsx-filename-extension": [
