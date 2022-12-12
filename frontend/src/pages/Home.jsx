@@ -21,7 +21,7 @@ export default function Home() {
   const [curr, setCurr] = useState(0);
   const onload = useRef(false);
   const [coord, setCoord] = useState({ longitude: 0, latitude: 0 });
-  const [locationAllowed, setLocationAllow] = useState(false);
+  const [locationAllowed, setLocationAllow] = useState(true);
   const { t } = useTranslation(['home']);
   const savedForecast = useRef([]);
   const [lineWidth, setLneWidth] = useState('100%');
@@ -36,11 +36,14 @@ export default function Home() {
           latitude: position.coords.latitude,
         });
         setLocationAllow(true);
-      });
+      }, () => { setLocationAllow(false); });
+    } else {
+      alert('Geolocation not supported on this browser');
     }
   }
 
   useEffect(() => {
+    getLocation();
     const sv = localStorage.getItem('forecast');
     if (sv !== null) {
       savedForecast.current = JSON.parse(sv);
@@ -215,9 +218,17 @@ export default function Home() {
         </div>
         {
           !locationAllowed && (
-            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
+            <div
+              className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0
+            items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)]
+            sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] "
+            >
               <h5 className="text-2xl">Allow Location</h5>
-              <p className="text-[var(--accents-7)]">Allow tropicalweather.hng to acess your location for a more accurate forecast of the weather. If you have denied locatoin, grant tropicalweather.hng.tech location permission in your browser settings for accurate forecast </p>
+              <p className="text-[var(--accents-7)]">
+                Allow tropicalweather.hng to acess your location for a more accurate forecast
+                of the weather. If you have denied location, grant tropicalweather.hng.tech
+                location permission in your browser settings for accurate weather forecast
+              </p>
               <button
                 type="button"
                 className="text-lg text-[white] p-[13px] bg-[#EF6820] rounded-lg w-full"
