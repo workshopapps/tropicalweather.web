@@ -3,6 +3,7 @@ import hashlib
 import pathlib
 import sys
 from typing import Dict, List, Union
+from time import sleep
 
 from sqlalchemy.orm import Session
 
@@ -12,6 +13,7 @@ import models  # noqa: E402
 from utils.fcm_service import get_topic_name  # noqa: E402
 from utils.general import get_risks_by_address  # noqa: E402
 from utils.logger import basic_logger as logger  # noqa: E402
+from utils.logger import error_logger # noqa: E402
 from utils.push_notification import send_notification_to_topic  # noqa: E402
 from utils.timer import now_utc  # noqa: E402
 
@@ -67,12 +69,20 @@ def send_messages(
     topic_name = get_topic_name(
         location.city, location.state, location.country)
 
-    for event in events:
-        message = event["description"]
-        send_notification_to_topic(event, topic_name)
-        logger.info(f"Sending message to {topic_name}: {message}")
+    count = len(events)
+    logger.info(f"Sending {count} message(s) to {topic_name}")
 
-    return topic_name
+    try:
+        response = send_notification_to_topic(events, topic_name)
+        sleep(2)
+    except Exception as e:
+        error_logger.error(f"Error sending messages: {e}")
+        error_logger.exception(e)
+        return
+
+    logger.info(f"Sent {response.success_count} message(s) to {topic_name}")
+
+    return response.success_count > 0
 
 
 def hash_alert(event: dict[str, Union[str, datetime.datetime]]) -> str:
@@ -109,8 +119,50 @@ def update_alerts(db: Session):
                 risks_hash.pop(db_alert.hash, None)
 
         new_alerts = list(risks_hash.values())
-        create_alerts(db, location, new_alerts)
-        send_messages(location, new_alerts)
+
+        if send_messages(location, new_alerts):
+            create_alerts(db, location, new_alerts)
+
+
+def clean_up(db: Session):
+    # Delete all locations
+    print("Deleting all locations")
+    locations: List[models.Location] = get_db_locations(db)
+    for location in locations:
+        print(f"Deleting {location.city}")
+
+        # Delete all alerts
+        location.alerts = []
+        db.commit()
+
+        db.delete(location)
+        db.commit()
+
+
+def create_up(db: Session):
+    to_create = [
+        {
+            "city": "Ikorodu",
+            "state": "Lagos",
+            "country": "Nigeria",
+        },
+        {
+            "city": "Akure",
+            "state": "Ondo",
+            "country": "Nigeria",
+        },
+        {
+            "city": "Ibadan City",
+            "state": "Oyo",
+            "country": "Nigeria",
+        },
+    ]
+
+    for location in to_create:
+        print(f"Creating {location['city']}")
+        db_location = models.Location(**location)
+        db.add(db_location)
+        db.commit()
 
 
 if __name__ == "__main__":
