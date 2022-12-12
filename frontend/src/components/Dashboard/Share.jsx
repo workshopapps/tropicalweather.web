@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Sharemenu from './ShareMenu';
 
-export default function Share({ popup, setPopup, currentLocation, currentWeather }) {
+export default function Share({ popup, setPopup, currentLocation, currentWeather, formatTime }) {
   const { t } = useTranslation(['dashboard']);
   return (
     <div className={` ${!popup ? 'share-close' : 'share-background'}`}>
@@ -29,7 +29,7 @@ export default function Share({ popup, setPopup, currentLocation, currentWeather
               }
               {
                 currentWeather.main?.toLowerCase().includes('cloudy')
-                 && <img src="/share/cloudy (1).png" alt="pop-up" className="share-rain" />
+                && <img src="/share/cloudy (1).png" alt="pop-up" className="share-rain" />
               }
               {
                 currentWeather.main?.toLowerCase().includes('rain')

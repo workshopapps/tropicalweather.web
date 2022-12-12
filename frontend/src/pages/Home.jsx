@@ -62,9 +62,9 @@ export default function Home() {
       setUserLocation(`${data.city}, ${data.state}`);
       setImmediateWeather(data.current);
       const pas = new Date().getHours();
-      savedForecast.current = savedForecast.current
-        .slice(0, pas)
-        .concat(data.todays_timeline);
+      savedForecast.current = savedForecast.current.slice(0, pas);
+      savedForecast.current.push(data.current);
+      savedForecast.current = savedForecast.current.concat(data.todays_timeline);
       setWeatherForecast(savedForecast.current);
       localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
       onload.current = true;
