@@ -1,16 +1,18 @@
-from utils.open_meteo import client
 from datetime import datetime
-from utils.weather_code import WmoCodes
+
 from fastapi import HTTPException, status
+from utils.general import get_risk
+from utils.open_meteo import client
+from utils.weather_code import WmoCodes
 
-from utils.general import (get_risk)
 
-
-def hourly_forecasts(lat: float, lon: float):
+def hourly_forecasts(lat: float, lon: float, data=None):
     """Get the hourly forecasts for a given location"""
     try:
-        weather_forecasts_data = client.get_hourly_forecast(
-            lat, lon, hourly_params=['weathercode'])
+        if data is None:
+            weather_forecasts_data = client.get_hourly_forecast(lat, lon)
+        else:
+            weather_forecasts_data = data
 
     except Exception:
         raise HTTPException(
@@ -20,14 +22,18 @@ def hourly_forecasts(lat: float, lon: float):
 
     results = []
     hourly_time: list[str] = weather_forecasts_data["hourly"]["time"]
-    hourly_temp: list[str] = weather_forecasts_data["hourly"]["apparent_temperature"]
-    hourly_precipitation: list[str] = weather_forecasts_data["hourly"]["precipitation"]
-    hourly_weathercode: list[str] = weather_forecasts_data["hourly"]["weathercode"]
+    hourly_temp: list[str] = weather_forecasts_data[
+        "hourly"]["apparent_temperature"]
+    hourly_precipitation: list[str] = weather_forecasts_data[
+        "hourly"]["precipitation"]
+    hourly_weathercode: list[str] = weather_forecasts_data[
+        "hourly"]["weathercode"]
 
     now_time = datetime.now()
     for forecast in range(24):
         index_time = hourly_time[forecast]
         index_time = datetime.strptime(index_time, "%Y-%m-%dT%H:%M")
+
         if index_time > now_time:
             index_temp = hourly_temp[forecast]
             index_precipitation = hourly_precipitation[forecast]

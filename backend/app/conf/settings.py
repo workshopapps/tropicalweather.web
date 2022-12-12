@@ -81,5 +81,7 @@ class Settings(BaseSettings):
     GOOGLE_APPLICATION_CREDENTIALS: str = config(
         "GOOGLE_APPLICATION_CREDENTIALS")
 
+    DATETIME_FORMAT: str = "%Y-%m-%d %H:%M"
+
 
 settings = Settings()

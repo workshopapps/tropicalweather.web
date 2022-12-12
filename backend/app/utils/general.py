@@ -213,7 +213,7 @@ def geocode_address(
     address: str,
 ) -> Dict[str, Union[str, float]]:
     """Geocode address, return dict of
-    latitude, longitude, city, state
+    latitude, longitude, city, state, country
 
     :param address: address
     :type address: str
@@ -222,25 +222,28 @@ def geocode_address(
     :rtype: Dict[str, Union[str, float]]
     """
 
-    g = geocoder.osm(address)
+    try:
+        g = geocoder.osm(address)
 
-    if not g.ok:
+        if not g.ok:
+            raise Exception("Invalid location")
+
+        city = g.city
+        if city is None:
+            city = g.county
+
+        return {
+            "lat": g.lat,
+            "lon": g.lng,
+            "city": city or "",
+            "state": g.state or "",
+            "country": g.country
+        }
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Address not found. Please retry again",
+            detail="Address not found",
         )
-
-    city = g.city
-    if city is None:
-        city = g.county
-
-    return {
-        "lat": g.lat,
-        "lon": g.lng,
-        "city": city,
-        "state": g.state,
-        "country": g.country
-    }
 
 
 def convert():
@@ -277,8 +280,8 @@ def reverse_geocode(lat: float, lon: float):
         city = g.county
 
     return {
-        'city': city,
-        'state': g.state,
+        'city': city or "",
+        'state': g.state or "",
         'country': g.country
     }
 
@@ -347,6 +350,13 @@ def get_immediate_weather_api_call(lat: float, lng: float) -> Dict[str, str]:
     # Call API and converts response into dictionary
     data = weather(lat, lng)
 
+    if len(data) == 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Weather conditon not found. Please retry again"
+        )
+
+    data = data[0]
     time_epoch = data['dt']
     main = data['weather'][0]['main']
     description = data['weather'][0]['description']
@@ -438,15 +448,20 @@ def get_status():
     urls = [
         ("forecasts", "https://api.tropicalweather.hng.tech/weather/forecasts?lat=6.5631&lon=3.2506"),
         ("current", "https://api.tropicalweather.hng.tech/weather/current?lat=6.5631&lon=3.2506"),
-        ("current-by-address", "https://api.tropicalweather.hng.tech/weather/current/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
-        ("forecasts-immediate", "https://api.tropicalweather.hng.tech/weather/forecasts/immediate?lat=6.5631&lng=3.2506"),
-        ("tomorrow-immediate", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/immediate?lat=6.5631&lon=3.2506"),
-        ("alerts-list", "https://api.tropicalweather.hng.tech/weather/alerts/list?lon=6.5631&lat=3.2506"),
+        ("current_by_address", "https://api.tropicalweather.hng.tech/weather/current/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("forecasts_immediate",
+         "https://api.tropicalweather.hng.tech/weather/forecasts/immediate?lat=6.5631&lng=3.2506"),
+        ("tomorrow_immediate", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/immediate?lat=6.5631&lon=3.2506"),
+        ("alerts_list", "https://api.tropicalweather.hng.tech/weather/alerts/list?lon=6.5631&lat=3.2506"),
         ("risk", "https://api.tropicalweather.hng.tech/weather/risk?lat=6.5631&lon=3.2506"),
-        ("forecast-extended", "https://api.tropicalweather.hng.tech/weather/forcast/extended?lat=6.5631&lon=3.2506"),
-        ("forecast-extended-by-addres", "https://api.tropicalweather.hng.tech/weather/forcast/extended/by_address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
-        ("forecasts-tomorrow", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow?lat=6.5631&lon=3.2506"),
-        ("forecasts-tomorrow-address", "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("forecast_extended",
+         "https://api.tropicalweather.hng.tech/weather/forcast/extended?lat=6.5631&lon=3.2506"),
+        ("forecast_extended_by_address",
+         "https://api.tropicalweather.hng.tech/weather/forcast/extended/by_address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
+        ("forecasts_tomorrow",
+         "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow?lat=6.5631&lon=3.2506"),
+        ("forecasts_tomorrow_address",
+         "https://api.tropicalweather.hng.tech/weather/forecasts/tomorrow/by-address?address=Ikotun%2C%20Lagos%20State%2C%20Nigeria"),
         ("location", "https://api.tropicalweather.hng.tech/location?lat=6.5631&lon=3.2506"),
         ("share", "https://api.tropicalweather.hng.tech/generate/share-link?city=Ikotun&state=Lagos%20State&country=Nigeria")
     ]
@@ -481,20 +496,14 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
     elif temp > 38:
         return HEATWAVE
     else:
-        return "None"
+        return None
 
 
 def get_event(weather_code: str, temp: float, precipitation: float):
     risk = get_risk(temp, precipitation)
-    if risk == "None":
-        if 0 < int(weather_code) <= 4:
+    if not risk:
+        if 0 <= int(weather_code) <= 4:
             return SUNNY
         main = WmoCodes.get_wmo_code(weather_code)
         return main
     return risk
-
-
-def weather_forcast_extended_call(lat: float, lon: float):
-    req = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=weathercode&hourly=precipitation&hourly=temperature_2m&timezone=auto&current_weather=true"
-    res = dict(requests.get(req).json())
-    return res

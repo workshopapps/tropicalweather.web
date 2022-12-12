@@ -74,10 +74,10 @@ async def unsubscribe_token_from_topic(
 
     try:
         unsubscribe_id_from_topic(fcm_id, topic)
-
         location = get_location_obj(db, city, state, country)
-        location.subscription_count -= 1
-        db.commit()
+        if location:
+            location.subscription_count -= 1
+            db.commit()
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

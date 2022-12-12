@@ -39,7 +39,7 @@ class SingleWeatherResponse(BaseModel):
 class WeatherResponse(BaseModel):
     main: str
     datetime: str
-    risk: str
+    risk: Optional[str]
 
 
 class RiskLevel(str, Enum):
@@ -86,7 +86,7 @@ class UserCurrentWeather(BaseModel):
     main: str
     datetime: str
     end_datetime: str
-    risk: str
+    risk: Optional[str]
     city: str
     state: str
     country: str
@@ -95,3 +95,27 @@ class UserCurrentWeather(BaseModel):
 class PacketModel(BaseModel):
     content: Any
     content_type: str
+
+
+class ExtendedCurrentResponse(BaseModel):
+    main: str
+    datetime: str
+    end_datetime: str
+    risk: Optional[str]
+
+
+class ExtendedForecast(BaseModel):
+    city: str
+    state: str
+    country: str
+    current: ExtendedCurrentResponse
+    todays_timeline: list[WeatherResponse]
+
+
+class TimelineForcast(BaseModel):
+    main: str
+    datetime: str
+    risk: Optional[str]
+    city: str
+    state: str
+    country: str

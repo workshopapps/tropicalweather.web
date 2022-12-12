@@ -1,8 +1,10 @@
 
-from typing import Union ,List, Dict
+from typing import Dict, List, Union
+import json
 
 import requests
-from conf.settings import settings
+from conf.settings import settings, BASE_DIR
+from fastapi import HTTPException, status
 
 BASE_URL = settings.OPEN_WEATHER_BASE_URL
 API_KEY = settings.OPEN_WEATHER_API_KEY
@@ -61,7 +63,7 @@ def weather(lat: float, long: float) -> list[dict]:
     return weather_forecasts
 
 
-def reverse_geocoding(lat: float, long: float) -> list:
+def reverse_geocoding(lat: float, long: float):
     """Get the city name for a given latitude and longitude
 
     :param lat: The latitude
@@ -71,19 +73,43 @@ def reverse_geocoding(lat: float, long: float) -> list:
     :raises Exception: If the request fails
     :raises Exception: If the response is invalid
     :return: [
-            {'name': 'Etche',
-            'lat': 5.0765321,
-            'lon': 7.092638789196567,
-            'country': 'NG',
-            'state': 'Rivers State'}
-            ]
+            {
+                'name': 'Etche',
+                'lat': 5.0765321,
+                'lon': 7.092638789196567,
+                'country': 'NG',
+                'state': 'Rivers State'
+            }
+        ]
     :rtype: list
     """
     res = get("/geo/1.0/reverse", {"lat": lat, "lon": long})
     if not res:
-        raise Exception("Invalid request")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid longitute and latitude"
+        )
 
-    return res
+    if len(res) == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid longitute and latitude"
+        )
+
+    data: Dict[str, Union[str, float]] = res[0]
+    data["name"] = data.get("name") or ""
+    data["state"] = data.get("state", "").rstrip(" State")
+    country = data.get("country") or ""
+    if country:
+        country = map_code_to_country(country)
+    data["country"] = country
+    return data
+
+
+def map_code_to_country(code: str):
+    with open(BASE_DIR / 'utils/country_code.json') as f:
+        country_codes = json.load(f)
+    return country_codes[code]
 
 
 def get_location_alerts(lat: float, long: float) -> List[Dict[str, str]]:
