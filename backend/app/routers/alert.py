@@ -139,7 +139,7 @@ async def send_event_to_topic(
     """
 
     try:
-        message_id = send_notification_to_topic([event.dict()], topic)
+        response = send_notification_to_topic([event.dict()], topic)
     except FirebaseError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -153,5 +153,5 @@ async def send_event_to_topic(
 
     return {
         **event.dict(),
-        "message_id": message_id,
+        "success_count": response.success_count,
     }

@@ -12,7 +12,7 @@ class TopicEvent(BaseModel):
 
 
 class TopicEventResponse(TopicEvent):
-    message_id: str
+    success_count: int
 
 
 class FcmSubscribeMessage(BaseModel):
