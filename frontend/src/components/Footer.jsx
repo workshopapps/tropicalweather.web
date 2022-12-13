@@ -38,11 +38,7 @@ export default function Footer() {
     {
       title: `${t('nspanish')}`,
       langVal: 'es',
-    },
-    {
-      title: `${t('narabic')}`,
-      langVal: 'ar',
-    },
+    }
   ];
 
   useEffect(() => {

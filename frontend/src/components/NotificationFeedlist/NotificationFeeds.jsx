@@ -8,7 +8,7 @@ export default function NotificationFeeds({ feeds }) {
       <div className="notificaton_feed-nolist">
         <div>
           <img
-            src="./assets/NotificationFeedList/trash-empty.svg"
+            src="/assets/NotificationFeedList/trash-empty.svg"
             alt="a trash icon"
             className="notificaton_feed-bigtrash"
           />
@@ -27,7 +27,7 @@ export default function NotificationFeeds({ feeds }) {
               {news.events === 'rainy' && (
                 <>
                   <div className="notificaton_feed-listcontent">
-                    <img src="./assets/NotificationFeedList/icon.svg" alt="rainy icon" />
+                    <img src="/assets/NotificationFeedList/icon.svg" alt="rainy icon" />
                     <p className="notificaton_feed-feed">{news.feed}</p>
                   </div>
                   <p className="notificaton_feed-time">{news.time}</p>
@@ -38,7 +38,7 @@ export default function NotificationFeeds({ feeds }) {
                 <>
                   <div className="notificaton_feed-listcontent">
                     <img
-                      src="./assets/NotificationFeedList/Ellipse 14.svg"
+                      src="/assets/NotificationFeedList/sun.svg"
                       alt="sun icon"
                     />
                     <p className="notificaton_feed-feed">{news.feed}</p>
@@ -50,7 +50,7 @@ export default function NotificationFeeds({ feeds }) {
                 <>
                   <div className="notificaton_feed-listcontent">
                     <img
-                      src="./assets/NotificationFeedList/CLOUDY.svg"
+                      src="/assets/NotificationFeedList/CLOUDY.svg"
                       alt="cloudy icon"
                     />
                     <p className="notificaton_feed-feed">{news.feed}</p>

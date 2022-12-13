@@ -251,8 +251,8 @@ export default function Dashboard() {
                 <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-cover" />
               </span>
               <div className="flex flex-col gap-4">
-                <p className="uppercase">{t('today')}</p>
-                <p className="text-2xl font-bold md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
+                <p className="uppercase">{t('currentforecast')}</p>
+                <p className="text-2xl font-bold capitalize md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
                 <p className="text-sm font-bold md:text-4xl opacity-80">
                   {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
                 </p>
@@ -260,7 +260,7 @@ export default function Dashboard() {
                   {currentWeather.risk !== 'None' && (
                     <IoMdAlert className="text-red-500" />
                   )}
-                  <p>{currentWeather.risk}</p>
+                  <p>{`RISK : ${currentWeather.risk || 'NONE'}`}</p>
                 </span>
               </div>
             </section>
