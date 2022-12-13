@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { useLocation } from 'react-router-dom';
-import { BsHeart, BsThreeDotsVertical, BsDot } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsDot } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { IoMdAlert } from 'react-icons/io';
+import { TfiAngleDown } from 'react-icons/tfi';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
-import Share from '../components/Dashboard/Share';
-import WeatherTimeline from '../components/Dashboard/WeatherTimeline';
-import OptionsPopup from '../components/Dashboard/OptionsPopup';
-import TimelineOptions from '../components/Dashboard/TimelineOptions';
+import Share from '../Dashboard/Share';
+import WeatherTimeline from '../Dashboard/WeatherTimeline';
+import OptionsPopup from '../Dashboard/OptionsPopup';
+import TimelineOptions from '../Dashboard/TimelineOptions';
 import {
   getWeatherForecastFromAddressOrLatLong,
   getTomorrowWeatherForecastFromAddressOrLatLong,
   getWeeklyWeatherForecastFromAddressOrLatLong,
-} from '../libs/dashboardForecast';
-import { getSavedLocations, saveLocation, deleteLocations } from '../libs/savedLocations';
-import SavedLocations from '../components/Dashboard/SavedLocations';
-import Footer from '../components/WebApp/Footer';
+} from '../../libs/dashboardForecast';
+import { saveLocation } from '../../libs/savedLocations';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -136,24 +135,11 @@ export default function Dashboard() {
     }
   }, [coord, searchCity, currentLocation]);
 
-  useEffect(() => {
-    const savedLocations = getSavedLocations();
-    setSavedLocations(savedLocations);
-  }, []);
-
   const showToast = () => {
     setToast(true);
     setTimeout(() => {
       setToast(false);
     }, 5000);
-  };
-  const [editLocations, setEditLocations] = useState(false);
-  const [locationIdsToDelete, setlocationIdsToDelete] = useState([]);
-
-  const clearLocations = () => {
-    const newLocations = deleteLocations(locationIdsToDelete);
-    setSavedLocations(newLocations);
-    setEditLocations(false);
   };
 
   const addLocation = (location) => {
@@ -203,7 +189,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="relative px-4 text-sm md:text-base mb-36 md:mb-20 md:px-16 text-grey-900">
+    <div className="relative">
       {toast ? (
         <div
           className="absolute flex items-center gap-3 p-1 rounded-lg"
@@ -224,23 +210,13 @@ export default function Dashboard() {
         </div>
       ) : null}
       <div className="pt-6">
-        <div className="flex flex-col w-full gap-10 md:flex-row">
+        <div className="flex flex-col w-full gap-10">
           <div className="relative w-full">
-            <div className="flex flex-col gap-2 p-5 md:flex-row md:justify-between bg-[var(--d-bg)] rounded-t-lg">
+            <div className="flex gap-4 p-5 bg-[var(--d-bg)]">
               <h1 className="text-lg font-bold md:text-2xl">
                 {currentLocation || `${t('fetchingdata')}`}
               </h1>
-              <div className="flex items-center self-end gap-4">
-                {isSaved ? null : (
-                  <button
-                    type="button"
-                    onClick={() => addLocation(currentLocation)}
-                    className="flex items-center gap-2 text-primary-btn"
-                  >
-                    <BsHeart />
-                    <span>{t('savecity')}</span>
-                  </button>
-                )}
+              <div className="flex items-center">
                 <div className="relative">
                   {!showPopup && (
                     <button
@@ -249,7 +225,7 @@ export default function Dashboard() {
                       className="pt-2 btn btn-ghost btn-circle"
                       onClick={() => setShowPopup(true)}
                     >
-                      <BsThreeDotsVertical />
+                      <TfiAngleDown />
                     </button>
                   )}
                   {showPopup && (
@@ -266,65 +242,24 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-1 flex-col gap-4 px-5 py-8 shadow-lg hero bg-[var(--d-bg)] rounded-b-lg">
-              <span className="flex items-center h-8">
-                <p>{t('today')}</p>
-                <BsDot className="text-2xl" />
-                <span className="uppercase">{` ${time}`}</span>
-                <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-contain pl-2 ml-3 border-l h-5/6" />
+            <section className="flex flex-col md:flex-row gap-4 px-5 bg-[var(--d-bg)] md:gap-7 lg:mt-14">
+              <span className="flex items-center h-auto lg:w-28">
+                <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-cover" />
               </span>
-              <p className="text-2xl font-bold md:text-4xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
-              <p className="text-sm font-bold md:text-xl opacity-80">
-                {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
-              </p>
-              <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90">
-                {currentWeather.risk !== 'None' && (
-                  <IoMdAlert className="text-red-500" />
-                )}
-                <p>{t(currentWeather?.risk?.replace(' ', '').toLowerCase())}</p>
-              </span>
-            </section>
-            <section
-              id="mobile-timeline-forecast"
-              className="flex-1 px-3 py-5 my-8 rounded-lg shadow-lg md:px-10 max-h-[500px] overflow-y-auto relative block lg:hidden h-max bg-[var(--d-bg)]"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
-                {!showTimelineOptions && (
-                  <button
-                    title="open"
-                    type="button"
-                    className="btn btn-ghost btn-circle"
-                    onClick={() => setShowTimelineOptions(true)}
-                  >
-                    <BsThreeDotsVertical />
-                  </button>
-                )}
-                {showTimelineOptions && (
-                  <button
-                    title="close"
-                    type="button"
-                    className="btn btn-ghost btn-circle"
-                    onClick={() => setShowTimelineOptions(false)}
-                  >
-                    <GrClose />
-                  </button>
-                )}
+              <div className="flex flex-col gap-4">
+                <p className="uppercase">{t('today')}</p>
+                <p className="text-2xl font-bold md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase()) || 'Light rain'}</p>
+                <p className="text-sm font-bold md:text-4xl opacity-80">
+                  {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
+                </p>
+                <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90 mt-2">
+                  {currentWeather.risk !== 'None' && (
+                    <IoMdAlert className="text-red-500" />
+                  )}
+                  <p>{t(currentWeather?.risk?.replace(' ', '').toLowerCase())}</p>
+                </span>
               </div>
-              <WeatherTimeline timelineData={timeline} />
-              <TimelineOptions
-                display={showTimelineOptions}
-                setTimeline={timelineToDisplay}
-              />
             </section>
-            <SavedLocations
-              locations={savedLocations}
-              clearLocations={clearLocations}
-              addToDeleteList={setlocationIdsToDelete}
-              editLocations={editLocations}
-              setEditLocations={setEditLocations}
-              deleteList={locationIdsToDelete}
-            />
           </div>
           <section
             id="timeline-forecast"
@@ -361,7 +296,6 @@ export default function Dashboard() {
           </section>
         </div>
       </div>
-      <Footer />
       <Share
         popup={showShare}
         setPopup={setShowShare}

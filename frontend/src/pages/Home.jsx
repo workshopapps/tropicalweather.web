@@ -128,7 +128,7 @@ export default function Home() {
                   immediateWeather.main
                 )}`}
                 alt="clouds icons"
-                className="h-16 w-16 md:h-24 md:w-24"
+                className="w-16 h-16 md:h-24 md:w-24"
               />
               <div>
                 <p>
@@ -139,7 +139,7 @@ export default function Home() {
                   </span>
                 </p>
                 <p className="homepg-immedp">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
-                <h2 className="text-2xl mt-2">
+                <h2 className="mt-2 text-2xl">
                   {`${to12HourFormat(
                     immediateWeather.datetime
                   )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
@@ -191,7 +191,7 @@ export default function Home() {
                 return (
                   <li
                     key={forecast.datetime}
-                    className="homepg-heroforecast text-center"
+                    className="text-center homepg-heroforecast"
                     style={{
                       width: '100px',
                       flexShrink: 0,
@@ -218,7 +218,7 @@ export default function Home() {
         </div>
         {
           !locationAllowed && (
-            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
+            <div className="flex flex-col gap-4 bottom-0  w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
               <h5 className="text-2xl">{t('allowlocation')}</h5>
               <p className="text-[var(--accents-7)]">{t('allowtropicalweather')}</p>
               <button
@@ -235,7 +235,7 @@ export default function Home() {
       <div className="homepg-worldforecast">
         <h2 className="mb-20">{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
-          <div className="homepg-worldone space-y-10">
+          <div className="space-y-10 homepg-worldone">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectanglefour.svg" alt="australia flag" />
@@ -301,7 +301,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldtwo space-y-10">
+          <div className="space-y-10 homepg-worldtwo">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
@@ -364,7 +364,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldthree space-y-10">
+          <div className="space-y-10 homepg-worldthree">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />

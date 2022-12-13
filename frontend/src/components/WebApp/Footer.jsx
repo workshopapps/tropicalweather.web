@@ -55,9 +55,9 @@ export default function Footer() {
     setLanguage(e.currentTarget.value);
   };
   return (
-    <div className="fixed bottom-0 left-0 right-0 flex flex-col justify-between w-full gap-4 px-4 py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)]">
+    <div className="fixed bottom-0 right-0 flex flex-col justify-between w-full gap-4 px-2 py-5 bg-white border-t border-t-white md:flex-row md:px-16 bg-[var(--d-bg)] left-0 border">
       <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
-      <div className="flex gap-6 items-center">
+      <div className="flex items-center gap-6">
         <span className="flex items-center footer-select footer-select_dash">
           <BsGlobe />
           <select value={language} onChange={handleLanguageChange}>

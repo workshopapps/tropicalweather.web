@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import phone from '../aboutphone.png';
-import MobileAdvert from '../MobileAdvert';
 
 function AboutProductSection() {
   const { t } = useTranslation(['about']);
@@ -48,7 +47,7 @@ function AboutProductSection() {
                 <p className="text-[#161518] font-bold text-2xl md:text-4xl mb-4 text-start">{t('usetheapp')}</p>
                 <p className="text-[#565560] text-lg font-normal mb-4 text-start">{t('exploretheapp')}</p>
                 {/* --button- */}
-                <div className="flex justify-around md:justify-evenly gap-4">
+                <div className="flex justify-around gap-4 md:justify-evenly">
                   <div>
                     <img
                       src="/app-store.png"
