@@ -17,8 +17,8 @@ import AirQuality from './pages/AirQuality';
 import FullWeatherDetails from './pages/FullWeatherDetails';
 import LandingPage from './pages/LandingPage';
 import Error404 from './pages/Error404';
-import Settings from './pages/Settings';
-import NotificationFeedList from './pages/NotificationFeedList';
+import Settings from './components/WebApp/Settings';
+import NotificationFeedList from './components/WebApp/NotificationFeedList';
 import Notificationsettings from './pages/Notificationsettings';
 import WebApp from './pages/WebApp';
 import Dashboard from './components/WebApp/Dashboard';
@@ -43,13 +43,13 @@ const router = createBrowserRouter(
       <Route path="/air-quality" element={<AirQuality />} />
       <Route path="/weather-details" element={<FullWeatherDetails />} />
       <Route path="/landing" element={<LandingPage />} />
-      <Route path="/settings" element={<Settings />} />
       <Route path="/notification-settings" element={<Notificationsettings />} />
-      <Route path="/notification-feeds" element={<NotificationFeedList />} />
       <Route path="*" element={<Error404 />} />
       <Route element={<WebApp />}>
         <Route path="/app/dashboard" element={<Dashboard />} />
         <Route path="/app/saved-locations" element={<SavedLocations />} />
+        <Route path="/app/notification-feeds" element={<NotificationFeedList />} />
+        <Route path="/app/settings" element={<Settings />} />
       </Route>
     </Route>
   )

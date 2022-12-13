@@ -5,11 +5,11 @@
 
 html {
   font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
 }
 
 .active {
   color: #EF6820;
-  background: #FDEAD7;
 }
 
 .checked-box:checked {

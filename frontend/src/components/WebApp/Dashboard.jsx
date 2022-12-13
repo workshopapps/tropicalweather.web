@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { useLocation } from 'react-router-dom';
-import { BsThreeDotsVertical, BsDot } from 'react-icons/bs';
-import { GrClose } from 'react-icons/gr';
+import { VscClose } from 'react-icons/vsc';
 import { IoMdAlert } from 'react-icons/io';
 import { TfiAngleDown } from 'react-icons/tfi';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import Share from '../Dashboard/Share';
-import WeatherTimeline from '../Dashboard/WeatherTimeline';
 import OptionsPopup from '../Dashboard/OptionsPopup';
 import TimelineOptions from '../Dashboard/TimelineOptions';
 import {
@@ -17,6 +15,7 @@ import {
   getWeeklyWeatherForecastFromAddressOrLatLong,
 } from '../../libs/dashboardForecast';
 import { saveLocation } from '../../libs/savedLocations';
+import Timeline from './Timeline';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -142,9 +141,9 @@ export default function Dashboard() {
     }, 5000);
   };
 
-  const addLocation = (location) => {
-    if (savedLocations.some((loc) => loc.location === location)) return;
-    setSavedLocations(saveLocation(location));
+  const addLocation = () => {
+    if (savedLocations.some((loc) => loc.location === currentLocation)) return;
+    setSavedLocations(saveLocation(currentLocation));
     showToast();
   };
 
@@ -209,10 +208,10 @@ export default function Dashboard() {
           </p>
         </div>
       ) : null}
-      <div className="pt-6">
-        <div className="flex flex-col w-full gap-10">
+      <div>
+        <div className="flex flex-col w-full gap-5">
           <div className="relative w-full">
-            <div className="flex gap-4 p-5 bg-[var(--d-bg)]">
+            <div className="flex gap-4 p-5 bg-[var(--background)]">
               <h1 className="text-lg font-bold md:text-2xl">
                 {currentLocation || `${t('fetchingdata')}`}
               </h1>
@@ -235,20 +234,25 @@ export default function Dashboard() {
                       className="pt-2 btn btn-ghost btn-circle"
                       onClick={() => setShowPopup(false)}
                     >
-                      <GrClose />
+                      <VscClose />
                     </button>
                   )}
-                  <OptionsPopup display={showPopup} setPopup={setShowShare} />
+                  <OptionsPopup
+                    display={showPopup}
+                    setPopup={setShowShare}
+                    isSaved={isSaved}
+                    addLocation={addLocation}
+                  />
                 </div>
               </div>
             </div>
-            <section className="flex flex-col md:flex-row gap-4 px-5 bg-[var(--d-bg)] md:gap-7 lg:mt-14">
-              <span className="flex items-center h-auto lg:w-28">
+            <section className="flex flex-col md:flex-row gap-4 px-5 bg-[var(--background)] md:gap-7 py-10">
+              <span className="h-auto lg:w-28">
                 <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-cover" />
               </span>
               <div className="flex flex-col gap-4">
                 <p className="uppercase">{t('today')}</p>
-                <p className="text-2xl font-bold md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase()) || 'Light rain'}</p>
+                <p className="text-2xl font-bold md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
                 <p className="text-sm font-bold md:text-4xl opacity-80">
                   {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
                 </p>
@@ -256,43 +260,41 @@ export default function Dashboard() {
                   {currentWeather.risk !== 'None' && (
                     <IoMdAlert className="text-red-500" />
                   )}
-                  <p>{t(currentWeather?.risk?.replace(' ', '').toLowerCase())}</p>
+                  <p>{currentWeather.risk}</p>
                 </span>
               </div>
             </section>
           </div>
           <section
             id="timeline-forecast"
-            className="px-2 py-5 my-5 rounded-lg shadow-lg md:px-10 md:my-0 md:min-h-[650px] md:overflow-y-auto relative hidden lg:block max-w-2xl lg:min-w-[450px] md:max-h-[calc(100vh-250px)]"
+            className="md:overflow-y-auto [var(--background)]"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="relative flex items-center gap-4 mb-6 text-2xl uppercase w-max">
               <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
               {!showTimelineOptions && (
                 <button
                   title="open"
                   type="button"
-                  className="btn btn-ghost btn-circle"
                   onClick={() => setShowTimelineOptions(true)}
                 >
-                  <BsThreeDotsVertical />
+                  <TfiAngleDown />
                 </button>
               )}
               {showTimelineOptions && (
                 <button
                   title="close"
                   type="button"
-                  className="btn btn-ghost btn-circle"
                   onClick={() => setShowTimelineOptions(false)}
                 >
-                  <GrClose />
+                  <VscClose />
                 </button>
               )}
+              <TimelineOptions
+                display={showTimelineOptions}
+                setTimeline={timelineToDisplay}
+              />
             </div>
-            <WeatherTimeline timelineData={timeline} />
-            <TimelineOptions
-              display={showTimelineOptions}
-              setTimeline={timelineToDisplay}
-            />
+            <Timeline weatherForecast={timeline} />
           </section>
         </div>
       </div>

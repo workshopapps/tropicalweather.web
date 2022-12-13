@@ -7,7 +7,7 @@ export default function AppLayout() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const turnOffFooter = useLocation().pathname.includes('dashboard');
+  const turnOffFooter = useLocation().pathname.includes('app');
   return (
     <div>
       <Header />

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RxBookmark } from 'react-icons/rx';
+import { RxBookmark, RxBookmarkFilled } from 'react-icons/rx';
 import { BsShare } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 
-export default function OptionsPopup({ display, setPopup }) {
+export default function OptionsPopup({ display, setPopup, isSaved, addLocation }) {
   const { t } = useTranslation(['dashboard']);
   return (
     <ul
@@ -13,14 +13,23 @@ export default function OptionsPopup({ display, setPopup }) {
     >
       <li className="cursor-pointer hover:text-primary-btn">
         <button
+          disabled={isSaved}
           type="button"
           title="share"
           className="flex items-center gap-3 py-2 text-xl"
+          onClick={() => addLocation()}
         >
-          <RxBookmark className="text-xl" />
-          <p className="text-base">
-            {t('savecity')}
-          </p>
+          {isSaved && (
+            <RxBookmarkFilled className="text-xl text-primary-btn" />
+          )}
+          {!isSaved && (
+            <>
+              <RxBookmark className="text-xl" />
+              <p className="text-base">
+                {t('savecity')}
+              </p>
+            </>
+          )}
         </button>
       </li>
       <li className="cursor-pointer hover:text-primary-btn">
@@ -45,4 +54,6 @@ export default function OptionsPopup({ display, setPopup }) {
 OptionsPopup.propTypes = {
   display: PropTypes.bool.isRequired,
   setPopup: PropTypes.func.isRequired,
+  isSaved: PropTypes.bool.isRequired,
+  addLocation: PropTypes.func.isRequired,
 };
