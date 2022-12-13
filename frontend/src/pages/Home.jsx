@@ -60,9 +60,10 @@ export default function Home() {
       );
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
+      console.log(data);
       setImmediateWeather(data.current);
-      const pas = new Date().getHours();
-      savedForecast.current = savedForecast.current.slice(0, pas);
+      const currentTime = new Date().getHours();
+      savedForecast.current = savedForecast.current.slice(0, currentTime);
       savedForecast.current.push(data.current);
       savedForecast.current = savedForecast.current.concat(data.todays_timeline);
       setWeatherForecast(savedForecast.current);
@@ -144,6 +145,10 @@ export default function Home() {
                     immediateWeather.datetime
                   )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
                 </h2>
+                <div className="flex items-center justify-center w-[140px] gap-[10px] mt-4 rounded-full bg-[white] px-2 py-1">
+                  <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} />
+                  <p className="text-sm text-[black]">Risk: Flood</p>
+                </div>
               </div>
             </div>
           )}
