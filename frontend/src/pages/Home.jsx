@@ -53,6 +53,7 @@ export default function Home() {
       savedForecast.current = patchForecast;
     }
   }, []);
+  const day = moment().format('dddd');
   const time = moment().format('h:mm a');
 
   const getCurrentLocationFromCoords = async () => {
@@ -146,7 +147,9 @@ export default function Home() {
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
             <p className="homepage-location ml-[-16px] md:ml-6">
-              {userLocation}
+              {`${day} `}
+              ·
+              {` ${time}`}
             </p>
           )}
           {userLocation === null && (
@@ -155,37 +158,39 @@ export default function Home() {
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
-              <img
-                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
-                  immediateWeather.main
-                )}`}
-                alt="clouds icons"
-                className="h-16 w-16 md:h-24 md:w-24"
-              />
-              <div>
-                <p>
-                  {t('today')}
-                  {'  '}
-                  <span>
-                    {time}
-                  </span>
-                </p>
-                <p className="text-5xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
-                <h2 className="text-2xl font-bold mt-2">
-                  {`${to12HourFormat(
-                    immediateWeather.datetime
-                  )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
-                </h2>
-
-                <div className="flex items-center justify-center w-[140px] gap-[10px] mt-4 rounded-full bg-[white] px-2 py-1">
-                  <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} />
-                  <p className="text-sm uppercase text-[black]">
-                    RISK:
-                    {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}
+            <div className="translate-y-[70px] sm:translate-y-[0] self-start flex flex-col gap-[20px] md:gap-[48px]">
+              <p className="text-4xl font-bold">{userLocation}</p>
+              <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
+                <img
+                  src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
+                    immediateWeather.main
+                  )}`}
+                  alt="clouds icons"
+                  className="h-16 w-16 md:h-24 md:w-24"
+                />
+                <div className="flex flex-col gap-2">
+                  <p className="font-light">
+                    CURRENT FORECAST
                   </p>
-                </div>
+                  <p className="text-6xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                  <h2
+                    className="text-2xl font-bold mt-2"
+                    style={{ color: 'rgba(255, 255, 255, 0.75)' }}
+                  >
+                    {`${to12HourFormat(
+                      immediateWeather.datetime
+                    )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
+                  </h2>
 
+                  <div className="flex items-center justify-center w-[140px] gap-[10px] mt-4 rounded-full bg-[white] px-2 py-1">
+                    <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} />
+                    <p className="text-sm uppercase text-[black]">
+                      RISK:
+                      {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}
+                    </p>
+                  </div>
+
+                </div>
               </div>
             </div>
           )}
@@ -200,7 +205,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    {time}
+                    CURRENT FORECAST
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
