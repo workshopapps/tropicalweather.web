@@ -153,6 +153,7 @@ export default function Dashboard() {
 
   // Scroll to top
   useEffect(() => {
+    console.log(timeline);
     window.scrollTo(0, 0);
   }, []);
 
@@ -294,7 +295,10 @@ export default function Dashboard() {
                 setTimeline={timelineToDisplay}
               />
             </div>
-            <Timeline weatherForecast={timeline} />
+            <Timeline
+              weatherForecast={timeline}
+              immediateWeather={currentWeather}
+            />
           </section>
         </div>
       </div>

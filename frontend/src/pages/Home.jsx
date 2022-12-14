@@ -78,7 +78,7 @@ export default function Home() {
 
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
-    navigate(`/dashboard?city=${city}`);
+    navigate(`/app/dashboard?city=${city}`);
   };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {

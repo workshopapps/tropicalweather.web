@@ -3,45 +3,104 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import getWeatherDescriptionCategory, { to12HourFormat } from '../../libs/Home';
 
-export default function Timeline({ weatherForecast }) {
+export default function Timeline({ weatherForecast, immediateWeather }) {
   const forecastContainer = useRef();
   const [lineWidth, setLineWidth] = useState('100%');
   const [currentTime, setCurrentTime] = useState(1);
+  const [riskTimeFrame, setRiskTimeFrame] = useState({ transform: 0, width: 0 });
+  const [weatherNotice, setWeatherNotice] = useState('');
   const { t } = useTranslation(['home']);
 
   useEffect(() => {
-    const { scrollWidth, offsetWidth } = forecastContainer.current;
-    setLineWidth(scrollWidth);
-    const t = new Date().getHours() + 1;
-    setCurrentTime(t);
-    const scroll = (scrollWidth / 24) * t - 50;
-    if (forecastContainer.current) {
-      forecastContainer.current.scrollTo({
-        left: scroll - offsetWidth / 2,
-        behavior: 'smooth',
+    if (immediateWeather !== null) {
+      const { scrollWidth, offsetWidth } = forecastContainer.current;
+      setLineWidth(scrollWidth);
+      const t = new Date().getHours() + 1;
+      setCurrentTime(t);
+      const scroll = 120 * t - 60 - offsetWidth / 2;
+
+      const startTime = new Date(immediateWeather.datetime).getHours();
+      const endTime = new Date(immediateWeather.end_datetime).getHours();
+      setRiskTimeFrame({
+        transform: (scrollWidth / 24) * startTime + 60,
+        width: (endTime - startTime) * 120,
       });
+
+      if (forecastContainer.current) {
+        let rangeScroll = (120 * startTime);
+        const diff = offsetWidth - ((endTime - startTime) * 120);
+        if (diff > 1) {
+          rangeScroll -= diff / 2;
+        }
+        forecastContainer.current.scrollTo({
+          left: getWeatherDescriptionCategory(immediateWeather.main) === 'clear.png' ?
+            scroll :
+            rangeScroll,
+          behavior: 'smooth',
+        });
+      }
+
+      switch (getWeatherDescriptionCategory(immediateWeather.main)) {
+        case 'rain.svg':
+          setWeatherNotice('#95B6F6D4');
+          break;
+        case 'sun.svg':
+          setWeatherNotice('#FF8746D4');
+          break;
+        case 'clouds.svg':
+          setWeatherNotice('#B2D4F7D4');
+          break;
+        default:
+          setWeatherNotice('');
+      }
     }
   }, [weatherForecast]);
 
   return (
     <div className="homepg-weatherfc">
-      <ul className="relative pt-10 mt-[10px]" ref={forecastContainer}>
+      <ul className="relative pt-20 mt-[10px]" ref={forecastContainer}>
         <div
-          className="absolute w-[1000px] bg-white/50 mt-8 top-[-20px]"
+          className="absolute w-[1000px] bg-white/50 mt-8 top-[20px]"
           style={{
-            width: `${lineWidth - 50}px`,
+            width: `${lineWidth - 60}px`,
+            overflowY: 'visible'
           }}
         >
           <div
-            className="relative bg-[#F7B27A] h-0.5"
+            className="relative h-0.5"
             style={{
-              width: `${(lineWidth / 24) * currentTime - 50}px`,
+              width: `${(120) * currentTime - 60}px`,
               transition: 'all 1s ease-out',
               transitionDelay: '.5s',
             }}
           >
-            <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]" />
+            <img
+              src="/Home/polygon.png"
+              className="absolute top-[0] right-[-10px]"
+              style={{ border: 'transparent', color: 'red' }}
+              alt="pointer"
+            />
           </div>
+          {
+            weatherNotice !== '' && (
+              <div
+                className="mt-[-2px] relative flex justify-center"
+                style={{
+                  borderBottom: `5px solid ${weatherNotice}`,
+                  overflowY: 'visible',
+                  width: `${riskTimeFrame.width}px`,
+                  transform: `translateX(${riskTimeFrame.transform}px)`
+                }}
+              >
+                <p
+                  className="absolute text-[18px] uppercase font-bold"
+                  style={{ transform: 'translateY(calc(-100%))' }}
+                >
+                  {immediateWeather.main}
+                </p>
+              </div>
+            )
+          }
         </div>
         {weatherForecast.map((forecast, index) => {
           const category = getWeatherDescriptionCategory(forecast.main);
@@ -50,7 +109,7 @@ export default function Timeline({ weatherForecast }) {
               key={forecast.datetime}
               className="text-center homepg-heroforecast"
               style={{
-                width: '100px',
+                width: '120px',
                 flexShrink: 0,
                 paddingInline: '15px',
               }}
@@ -58,10 +117,15 @@ export default function Timeline({ weatherForecast }) {
             >
               <p>{to12HourFormat(forecast.datetime)}</p>
               <img
+                style={{ width: '60px' }}
                 src={`/assets/NotificationFeedList/${category}`}
                 alt=""
               />
-              <p>{t(forecast.main.replace(' ', '').toLowerCase())}</p>
+              <p className="text-sm font-light uppercase">
+                RISK:
+                {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
+              </p>
+              <p className="font-bold">{t(forecast.main?.replace(' ', '')?.toLowerCase())}</p>
             </li>
           );
         })}
@@ -81,4 +145,9 @@ Timeline.propTypes = {
     main: PropTypes.string.isRequired,
     risk: PropTypes.string.isRequired,
   })).isRequired,
+  immediateWeather: PropTypes.shape({
+    datetime: PropTypes.string.isRequired,
+    main: PropTypes.string.isRequired,
+    end_datetime: PropTypes.string.isRequired,
+  }),
 };
