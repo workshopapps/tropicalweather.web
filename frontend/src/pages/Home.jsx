@@ -185,8 +185,21 @@ export default function Home() {
                   <div
                     className="flex items-center justify-center w-[140px] gap-[10px] mt-4 bg-[white] rounded-full px-2 py-1"
                   >
-                    {immediateWeather.risk ? <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} /> : null}
-                    <p className="text-sm uppercase text-[black]">
+                    <svg width="18" height="18" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M11.5 7V11M11.5 15H11.51M21.5 11C21.5 16.5228 17.0228 21 11.5 21C5.97715 21 1.5 16.5228 1.5 11C1.5 5.47715 5.97715 1 11.5 1C17.0228 1 21.5 5.47715 21.5 11Z"
+                        stroke={immediateWeather.risk ? '#EF4444' : 'grey'}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <p
+                      className="text-sm uppercase"
+                      style={{
+                        color: immediateWeather.risk ? 'black' : 'grey'
+                      }}
+                    >
                       RISK:
                       {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}
                     </p>
