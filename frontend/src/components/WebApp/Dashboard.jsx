@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import moment from 'moment/moment';
 import { useLocation } from 'react-router-dom';
 import { VscClose } from 'react-icons/vsc';
@@ -16,6 +16,9 @@ import {
 } from '../../libs/dashboardForecast';
 import { saveLocation } from '../../libs/savedLocations';
 import Timeline from './Timeline';
+import {
+  patchForecast,
+} from '../../libs/Home';
 
 export default function Dashboard() {
   const APIURL = 'https://api.tropicalweather.hng.tech';
@@ -36,7 +39,18 @@ export default function Dashboard() {
   const [currentWeather, setCurrentWeather] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const [searchCity, setSearchCity] = useState(null);
+  const savedForecast = useRef([]);
+
   const { search } = useLocation();
+
+  useEffect(() => {
+    const sv = localStorage.getItem('forecast');
+    if (sv !== null) {
+      savedForecast.current = JSON.parse(sv);
+    } else {
+      savedForecast.current = patchForecast;
+    }
+  }, []);
 
   useEffect(() => {
     const city = new URLSearchParams(search).get('city');
@@ -64,14 +78,22 @@ export default function Dashboard() {
       const data = await getWeatherForecastFromAddressOrLatLong(searchCity);
       setCurrentWeather(data.current);
       setTodayTimeline(data.todays_timeline);
-      setTimeline(data.todays_timeline);
+      const currentTime = new Date().getHours();
+      savedForecast.current = savedForecast.current.slice(0, currentTime);
+      savedForecast.current.push({ main: data.current.main, datetime: `2022-12-13 ${currentTime > 9 ? currentTime : `0${currentTime}`}:00`, risk: data.current.risk });
+      savedForecast.current = savedForecast.current.concat(data.todays_timeline);
+      setTimeline(savedForecast.current);
     } else {
       const data = await getWeatherForecastFromAddressOrLatLong(
         null, coord.latitude, coord.longitude
       );
       setCurrentWeather(data.current);
       setTodayTimeline(data.todays_timeline);
-      setTimeline(data.todays_timeline);
+      const currentTime = new Date().getHours();
+      savedForecast.current = savedForecast.current.slice(0, currentTime);
+      savedForecast.current.push({ main: data.current.main, datetime: `2022-12-13 ${currentTime > 9 ? currentTime : `0${currentTime}`}:00`, risk: data.current.risk });
+      savedForecast.current = savedForecast.current.concat(data.todays_timeline);
+      setTimeline(savedForecast.current);
     }
   };
 
@@ -153,7 +175,6 @@ export default function Dashboard() {
 
   // Scroll to top
   useEffect(() => {
-    console.log(timeline);
     window.scrollTo(0, 0);
   }, []);
 
@@ -268,7 +289,7 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="md:overflow-y-auto [var(--background)]"
+            className="md:overflow-y-auto w-full"
           >
             <div className="relative flex items-center gap-4 mb-6 text-2xl uppercase w-max">
               <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>

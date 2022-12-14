@@ -362,6 +362,7 @@ export default function Dashboard() {
         </div>
       </div>
       <Footer />
+
       <Share
         popup={showShare}
         setPopup={setShowShare}

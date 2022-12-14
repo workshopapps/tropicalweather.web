@@ -54,13 +54,18 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
           setWeatherNotice('');
       }
     }
-  }, [weatherForecast]);
+  }, [immediateWeather]);
 
   return (
-    <div className="homepg-weatherfc">
-      <ul className="relative pt-20 mt-[10px]" ref={forecastContainer}>
+    <div
+      className="homepg-weatherfc"
+    >
+      <ul
+        className="relative pt-20 mt-[10px]"
+        ref={forecastContainer}
+      >
         <div
-          className="absolute w-[1000px] bg-white/50 mt-8 top-[20px]"
+          className="absolute w-[1000px] bg-[var(--accents-2)] mt-8 top-[20px]"
           style={{
             width: `${lineWidth - 60}px`,
             overflowY: 'visible'
