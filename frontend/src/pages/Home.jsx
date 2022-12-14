@@ -171,7 +171,7 @@ export default function Home() {
                     {time}
                   </span>
                 </p>
-                <p className="text-5xl font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                <p className="text-5xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
                 <h2 className="text-2xl font-bold mt-2">
                   {`${to12HourFormat(
                     immediateWeather.datetime
@@ -275,7 +275,7 @@ export default function Home() {
                       RISK:
                       {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
                     </p>
-                    <p className="font-bold">{t(forecast.main.replace(' ', '').toLowerCase())}</p>
+                    <p className="font-bold capitalize">{t(forecast.main.replace(' ', '').toLowerCase())}</p>
                   </li>
                 );
               })}
