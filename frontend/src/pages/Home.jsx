@@ -158,8 +158,8 @@ export default function Home() {
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="translate-y-[70px] sm:translate-y-[0] self-start flex flex-col gap-[20px] md:gap-[48px]">
-              <p className="text-4xl font-bold">{userLocation}</p>
+            <div className="translate-y-[70px] mt-4 self-start flex flex-col gap-[20px] md:gap-[48px] md:mb-[50px]">
+              <p className="text-xl sm:text-2xl md:text-4xl font-bold">{userLocation}</p>
               <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
                 <img
                   src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
@@ -172,7 +172,7 @@ export default function Home() {
                   <p className="font-light">
                     CURRENT FORECAST
                   </p>
-                  <p className="text-6xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                  <p className="text-4xl sm:text-5xl md:text-6xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
                   <h2
                     className="text-2xl font-bold mt-2"
                     style={{ color: 'rgba(255, 255, 255, 0.75)' }}
@@ -182,8 +182,10 @@ export default function Home() {
                     )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
                   </h2>
 
-                  <div className="flex items-center justify-center w-[140px] gap-[10px] mt-4 rounded-full bg-[white] px-2 py-1">
-                    <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} />
+                  <div
+                    className="flex items-center justify-center w-[140px] gap-[10px] mt-4 bg-[white] rounded-full px-2 py-1"
+                  >
+                    {immediateWeather.risk ? <img src="/Home/risk.svg" alt="risk" style={{ width: '18px' }} /> : null}
                     <p className="text-sm uppercase text-[black]">
                       RISK:
                       {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}

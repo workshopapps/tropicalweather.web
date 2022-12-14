@@ -105,9 +105,9 @@
   background-image: url("/public/Home/bg.jpg");
   background-size: cover;
   color: white;
-  height: 34em;
+
   width: 100%;
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
   align-items: flex-end;
