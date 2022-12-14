@@ -125,7 +125,7 @@ export default function Home() {
         case 'sun.svg':
           setWeatherNotice('#FF8746D4');
           break;
-        case 'clouds.svg':
+        case 'clouds.png':
           setWeatherNotice('#B2D4F7D4');
           break;
         default:
