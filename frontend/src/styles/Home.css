@@ -59,7 +59,7 @@
   -ms-overflow-style: none;
 }
 
-.homepg-weatherfc ul::-webkit-scrollbar {
+.webkit-w::-webkit-scrollbar {
   display: none;
 }
 
@@ -86,9 +86,7 @@
   align-items: center;
 }
 
-.homepg-immed {
-  align-self: flex-start;
-}
+
 
 .homepg-immedp {
   font-size: 40px;
@@ -107,9 +105,9 @@
   background-image: url("/public/Home/bg.jpg");
   background-size: cover;
   color: white;
-  height: 34em;
+
   width: 100%;
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
   align-items: flex-end;

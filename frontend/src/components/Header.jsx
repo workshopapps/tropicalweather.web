@@ -28,7 +28,7 @@ export default function Header() {
   const gotoDashboard = (city) => {
     setQuery('');
     searchRef.current.blur();
-    navigate(`/dashboard?city=${city}`);
+    navigate(`/app/dashboard?city=${city}`);
     setSearch('false');
   };
 
@@ -53,7 +53,7 @@ export default function Header() {
           <img src="/tropiclogo.png" alt="logo" />
         </Link>
       </div>
-      <div className="items-center justify-end  hidden w-full m lg:flex gap-x-4">
+      <div className="items-center justify-end hidden w-full m lg:flex gap-x-4">
         <label
           htmlFor="search"
           className="relative w-full max-w-xl border-b justify-self-end border-grey-200"
@@ -71,14 +71,14 @@ export default function Header() {
           {query.length > 0 && (
             <ul className="absolute z-10 w-full shadow shadow-[var(--accents-2)] bg-[var(--background)] py-4 max-h-96 overflow-y-auto">
               {query.length < 3 ? (
-                <p className="text-gray-500 text-center">
+                <p className="text-center text-gray-500">
                   {t('typethreechar')}
                 </p>
               ) : null}
               {searchResults.map((city) => (
                 <li className="hover:bg-[#FDEAD7] hover:text-[black]" key={city}>
                   <button
-                    className="py-5 px-4 w-full text-left"
+                    className="w-full px-4 py-5 text-left"
                     type="button"
                     onClick={() => gotoDashboard(city)}
                   >
@@ -87,10 +87,10 @@ export default function Header() {
                 </li>
               ))}
               {searchResults.length === 0 && query.length > 2 && !isLoading ? (
-                <p className="text-gray-500 text-center">{t('nocities')}</p>
+                <p className="text-center text-gray-500">{t('nocities')}</p>
               ) : null}
               {isLoading ? (
-                <p className="text-gray-500 text-center">{t('loading')}</p>
+                <p className="text-center text-gray-500">{t('loading')}</p>
               ) : null}
             </ul>
           )}
@@ -98,7 +98,7 @@ export default function Header() {
         <a href={appetizeLink} target="_blank" rel="noreferrer">
           <button
             type="button"
-            className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max  header_btn"
+            className="px-4 py-2 text-white rounded-lg bg-primary-btn w-max header_btn"
           >
             {t('getapp')}
           </button>
@@ -120,9 +120,9 @@ export default function Header() {
           />
           <CiSearch className="absolute text-2xl transform -translate-y-1/2 top-1/2 left-4" />
           {query.length > 0 && (
-            <ul className="absolute z-10 w-full shadow bg-white py-4 max-h-96 overflow-y-auto">
+            <ul className="absolute z-10 w-full py-4 overflow-y-auto bg-white shadow max-h-96">
               {query.length < 3 ? (
-                <p className="text-gray-500 text-center">
+                <p className="text-center text-gray-500">
                   Type at least three characters
                 </p>
               ) : null}
@@ -138,7 +138,7 @@ export default function Header() {
                 </li>
               ))}
               {searchResults.length === 0 && query.length > 2 ? (
-                <p className="text-gray-500 text-center">No cities found</p>
+                <p className="text-center text-gray-500">No cities found</p>
               ) : null}
             </ul>
           )}

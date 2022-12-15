@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { HashLink as Link } from 'react-router-hash-link';
 import { RiHome6Line } from 'react-icons/ri';
-import { BsBriefcase, BsQuestionCircle } from 'react-icons/bs';
+import { BsBriefcase } from 'react-icons/bs';
 import { BiInfoCircle } from 'react-icons/bi';
 import { GrClose } from 'react-icons/gr';
 import { useTranslation } from 'react-i18next';
+import { VscBellDot, VscHome, VscSettingsGear } from 'react-icons/vsc';
+import { RxBookmark } from 'react-icons/rx';
+import { useLocation } from 'react-router-dom';
 
 export default function MobileHeaderToggle({ handleToggle, toggle }) {
   return (
@@ -38,7 +41,7 @@ MobileHeaderToggle.propTypes = {
 function MobileHeader({ isOpen, toggleNav }) {
   return (
     <div
-      className="fixed right-0 top-0 bottom-0 z-20 w-3/4 transition-all duration-700 ease-in mobile-nav lg:hidden"
+      className="fixed top-0 bottom-0 right-0 z-20 w-3/4 transition-all duration-700 ease-in mobile-nav lg:hidden"
       style={isOpen ? undefined : { width: '0' }}
     >
       <Navigation
@@ -64,6 +67,7 @@ MobileHeader.propTypes = {
 };
 
 function Navigation({ handleClickProp, style, itemStyle }) {
+  const { pathname } = useLocation();
   const { t } = useTranslation(['common']);
   const links = [
     {
@@ -81,23 +85,42 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       link: '/contact',
       icon: <BiInfoCircle />,
     },
+  ];
+  const appLinks = [
     {
-      name: `${t('faqs')}`,
-      link: '/#faq',
-      icon: <BsQuestionCircle />,
+      name: `${t('home')}`,
+      link: '/app/dashboard',
+      icon: <VscHome />,
+    },
+    {
+      name: `${t('savedlocations')}`,
+      link: '/app/saved-locations',
+      icon: <RxBookmark />,
+    },
+    {
+      name: `${t('notification')}`,
+      link: '/app/notification-feeds',
+      icon: <VscBellDot />,
+    },
+    {
+      name: `${t('settings')}`,
+      link: '/app/settings',
+      icon: <VscSettingsGear />,
     },
   ];
+
+  const linksToUse = pathname.includes('app') ? appLinks : links;
   return (
     <div
       className="mobile-nav__items bg-white h-full transition-all ease-in duration-[600ms] p-4"
       style={style}
     >
-      <button type="button" onClick={handleClickProp} className="flex justify-end text-2xl py-4 border-b border-gray-400 w-full" aria-label="close"><GrClose /></button>
+      <button type="button" onClick={handleClickProp} className="flex justify-end w-full py-4 text-2xl border-b border-gray-400" aria-label="close"><GrClose /></button>
       <menu
-        className="flex flex-col mt-6 gap-6"
+        className="flex flex-col gap-6 mt-6"
         style={itemStyle}
       >
-        {links.map((link) => (
+        {linksToUse.map((link) => (
           <MenuItem
             path={link.link}
             pathName={link.name}
@@ -118,13 +141,13 @@ Navigation.propTypes = {
 };
 
 function MenuItem({
- pathName, path, icon, handleClickProp,
+  pathName, path, icon, handleClickProp,
 }) {
   return (
     <Link
       smooth
       to={path}
-      className="rounded-lg p-2 mb-2 text-lg font-bold mobile-nav__item text-gray-600 flex items-center gap-4"
+      className="flex items-center gap-4 p-2 mb-2 text-lg font-bold text-gray-600 rounded-lg mobile-nav__item"
       onClick={handleClickProp}
     >
       <span>{icon}</span>

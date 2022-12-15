@@ -27,6 +27,8 @@ export default function Home() {
   const [lineWidth, setLneWidth] = useState('100%');
   const forecastContainer = useRef();
   const [currentTime, setCurrentTime] = useState(1);
+  const [riskTimeFrame, setRiskTimeFrame] = useState({ transform: 0, width: 0 });
+  const [weatherNotice, setWeatherNotice] = useState('');
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -51,6 +53,7 @@ export default function Home() {
       savedForecast.current = patchForecast;
     }
   }, []);
+  const day = moment().format('dddd');
   const time = moment().format('h:mm a');
 
   const getCurrentLocationFromCoords = async () => {
@@ -61,9 +64,9 @@ export default function Home() {
       const data = await response.json();
       setUserLocation(`${data.city}, ${data.state}`);
       setImmediateWeather(data.current);
-      const pas = new Date().getHours();
-      savedForecast.current = savedForecast.current.slice(0, pas);
-      savedForecast.current.push(data.current);
+      const currentTime = new Date().getHours();
+      savedForecast.current = savedForecast.current.slice(0, currentTime);
+      savedForecast.current.push({ main: data.current.main, datetime: `2022-12-13 ${currentTime > 9 ? currentTime : `0${currentTime}`}:00`, risk: data.current.risk });
       savedForecast.current = savedForecast.current.concat(data.todays_timeline);
       setWeatherForecast(savedForecast.current);
       localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
@@ -75,7 +78,7 @@ export default function Home() {
 
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
-    navigate(`/dashboard?city=${city}`);
+    navigate(`/app/dashboard?city=${city}`);
   };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
@@ -88,16 +91,47 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const { scrollWidth, offsetWidth } = forecastContainer.current;
-    setLneWidth(scrollWidth);
-    const t = new Date().getHours() + 1;
-    setCurrentTime(t);
-    const scroll = (scrollWidth / 24) * t - 50;
-    if (forecastContainer.current) {
-      forecastContainer.current.scrollTo({
-        left: scroll - offsetWidth / 2,
-        behavior: 'smooth',
+    if (immediateWeather !== null) {
+      const { scrollWidth, offsetWidth } = forecastContainer.current;
+      setLneWidth(scrollWidth);
+      const t = new Date().getHours() + 1;
+      setCurrentTime(t);
+      const scroll = 120 * t - 60 - offsetWidth / 2;
+
+      const startTime = new Date(immediateWeather.datetime).getHours();
+      const endTime = new Date(immediateWeather.end_datetime).getHours();
+      setRiskTimeFrame({
+        transform: (scrollWidth / 24) * startTime + 60,
+        width: (endTime - startTime) * 120,
       });
+
+      if (forecastContainer.current) {
+        let rangeScroll = (120 * startTime);
+        const diff = offsetWidth - ((endTime - startTime) * 120);
+        if (diff > 1) {
+          rangeScroll -= diff / 2;
+        }
+        forecastContainer.current.scrollTo({
+          left: getWeatherDescriptionCategory(immediateWeather.main) === 'clear.png' ?
+            scroll :
+            rangeScroll,
+          behavior: 'smooth',
+        });
+      }
+
+      switch (getWeatherDescriptionCategory(immediateWeather.main)) {
+        case 'rain.svg':
+          setWeatherNotice('#95B6F6D4');
+          break;
+        case 'sun.svg':
+          setWeatherNotice('#FF8746D4');
+          break;
+        case 'clouds.png':
+          setWeatherNotice('#B2D4F7D4');
+          break;
+        default:
+          setWeatherNotice('');
+      }
     }
   }, [immediateWeather]);
 
@@ -113,7 +147,9 @@ export default function Home() {
         <div className="landing_sections_wrapper">
           {userLocation !== null && (
             <p className="homepage-location ml-[-16px] md:ml-6">
-              {userLocation}
+              {`${day} `}
+              ·
+              {` ${time}`}
             </p>
           )}
           {userLocation === null && (
@@ -122,28 +158,54 @@ export default function Home() {
             </p>
           )}
           {immediateWeather !== null && (
-            <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
-              <img
-                src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
-                  immediateWeather.main
-                )}`}
-                alt="clouds icons"
-                className="h-16 w-16 md:h-24 md:w-24"
-              />
-              <div>
-                <p>
-                  {t('today')}
-                  {'  '}
-                  <span>
-                    {time}
-                  </span>
-                </p>
-                <p className="homepg-immedp">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
-                <h2 className="text-2xl mt-2">
-                  {`${to12HourFormat(
-                    immediateWeather.datetime
-                  )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
-                </h2>
+            <div className="translate-y-[70px] mt-4 self-start flex flex-col gap-[20px] md:gap-[48px] md:mb-[50px]">
+              <p className="text-xl font-bold sm:text-2xl md:text-4xl">{userLocation}</p>
+              <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
+                <img
+                  src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
+                    immediateWeather.main
+                  )}`}
+                  alt="clouds icons"
+                  className="w-16 h-16 md:h-24 md:w-24"
+                />
+                <div className="flex flex-col gap-2">
+                  <p className="font-light">
+                    CURRENT FORECAST
+                  </p>
+                  <p className="text-4xl font-extrabold capitalize sm:text-5xl md:text-6xl">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                  <h2
+                    className="mt-2 text-2xl font-bold"
+                    style={{ color: 'rgba(255, 255, 255, 0.75)' }}
+                  >
+                    {`${to12HourFormat(
+                      immediateWeather.datetime
+                    )} ${t('to')} ${to12HourFormat(immediateWeather.end_datetime)}`}
+                  </h2>
+
+                  <div
+                    className="flex items-center justify-center w-[140px] gap-[10px] mt-4 bg-[white] rounded-full px-2 py-1"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M11.5 7V11M11.5 15H11.51M21.5 11C21.5 16.5228 17.0228 21 11.5 21C5.97715 21 1.5 16.5228 1.5 11C1.5 5.47715 5.97715 1 11.5 1C17.0228 1 21.5 5.47715 21.5 11Z"
+                        stroke={immediateWeather.risk ? '#EF4444' : 'grey'}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <p
+                      className="text-sm uppercase"
+                      style={{
+                        color: immediateWeather.risk ? 'black' : 'grey'
+                      }}
+                    >
+                      RISK:
+                      {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}
+                    </p>
+                  </div>
+
+                </div>
               </div>
             </div>
           )}
@@ -158,7 +220,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    {time}
+                    CURRENT FORECAST
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
@@ -166,34 +228,58 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul className="relative pt-10 mt-[10px]" ref={forecastContainer}>
+            <ul className="relative pt-20 mt-[10px] webkit-w" ref={forecastContainer}>
               <div
-                className="absolute w-[1000px] bg-white/50 mt-8 top-[-20px]"
+                className="absolute w-[1000px] bg-white/50 mt-8 top-[20px]"
                 style={{
-                  width: `${lineWidth - 50}px`,
+                  width: `${lineWidth - 60}px`,
+                  overflowY: 'visible'
                 }}
               >
                 <div
-                  className="relative bg-[#F7B27A] h-0.5"
+                  className="relative h-0.5"
                   style={{
-                    width: `${(lineWidth / 24) * currentTime - 50}px`,
+                    width: `${(120) * currentTime - 60}px`,
                     transition: 'all 1s ease-out',
                     transitionDelay: '.5s',
                   }}
                 >
-                  <span className="absolute top-[-10px] rounded-full right-[-10px] h-5 w-5 bg-[#F7B27A]">
-                    {' '}
-                  </span>
+                  <img
+                    src="/Home/polygon.png"
+                    className="absolute top-[0] right-[-95px]"
+                    style={{ border: 'transparent', color: 'red' }}
+                    alt="pointer"
+                  />
                 </div>
+                {
+                  weatherNotice !== '' && (
+                    <div
+                      className="mt-[-2px] relative flex justify-center"
+                      style={{
+                        borderBottom: `5px solid ${weatherNotice}`,
+                        overflowY: 'visible',
+                        width: `${riskTimeFrame.width}px`,
+                        transform: `translateX(${riskTimeFrame.transform}px)`
+                      }}
+                    >
+                      <p
+                        className="absolute text-[18px] uppercase font-bold"
+                        style={{ transform: 'translateY(calc(-100%))' }}
+                      >
+                        {immediateWeather.main}
+                      </p>
+                    </div>
+                  )
+                }
               </div>
               {weatherForecast.map((forecast, index) => {
                 const category = getWeatherDescriptionCategory(forecast.main);
                 return (
                   <li
                     key={forecast.datetime}
-                    className="homepg-heroforecast text-center"
+                    className="text-center homepg-heroforecast"
                     style={{
-                      width: '100px',
+                      width: '130px',
                       flexShrink: 0,
                       paddingInline: '15px',
                     }}
@@ -201,10 +287,15 @@ export default function Home() {
                   >
                     <p>{to12HourFormat(forecast.datetime)}</p>
                     <img
+                      style={{ width: '60px' }}
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
                     />
-                    <p>{t(forecast.main.replace(' ', '').toLowerCase())}</p>
+                    <p className="text-sm font-light uppercase">
+                      RISK:
+                      {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
+                    </p>
+                    <p className="font-bold capitalize">{t(forecast.main.replace(' ', '').toLowerCase())}</p>
                   </li>
                 );
               })}
@@ -218,7 +309,7 @@ export default function Home() {
         </div>
         {
           !locationAllowed && (
-            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
+            <div className="flex flex-col gap-4 bottom-0  w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
               <h5 className="text-2xl">{t('allowlocation')}</h5>
               <p className="text-[var(--accents-7)]">{t('allowtropicalweather')}</p>
               <button
@@ -235,7 +326,7 @@ export default function Home() {
       <div className="homepg-worldforecast">
         <h2 className="mb-20">{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
-          <div className="homepg-worldone space-y-10">
+          <div className="space-y-10 homepg-worldone">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectanglefour.svg" alt="australia flag" />
@@ -301,7 +392,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldtwo space-y-10">
+          <div className="space-y-10 homepg-worldtwo">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
@@ -364,7 +455,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldthree space-y-10">
+          <div className="space-y-10 homepg-worldthree">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />
