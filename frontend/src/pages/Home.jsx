@@ -228,7 +228,7 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul className="relative pt-20 mt-[10px]" ref={forecastContainer}>
+            <ul className="relative pt-20 mt-[10px] webkit-w" ref={forecastContainer}>
               <div
                 className="absolute w-[1000px] bg-white/50 mt-8 top-[20px]"
                 style={{
