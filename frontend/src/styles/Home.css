@@ -59,9 +59,10 @@
   -ms-overflow-style: none;
 }
 
-.webkit-w::-webkit-scrollbar {
+.homepg-weatherfc ul::-webkit-scrollbar {
   display: none;
 }
+
 
 .homepg-heroforecast {
   display: flex;
