@@ -16,5 +16,7 @@
     "spanish": "Spanish",
     "nspanish": "Español",
     "arabic": "Arabic",
-    "narabic": "عربي"
+    "narabic": "عربي",
+    "enablepushnotification": "Enable push notification",
+    "receivelatestnews": "Receive the latest weather news, forecast, updates from us"
 }

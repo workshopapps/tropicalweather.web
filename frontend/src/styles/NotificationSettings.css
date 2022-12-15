@@ -91,8 +91,9 @@
 .toggle-btn__left {
   width: 22px;
   height: 22px;
-  background-color: #ef6820;
+  background-color: #888;
   border-radius: 50%;
+  transition: 0.5s all ease;
 }
 .toggle-btn__right {
   width: 22px;
@@ -100,6 +101,7 @@
   background-color: #ef6820;
   border-radius: 50%;
   margin-left: 22px;
+  transition: 0.5s all ease;
 }
 .notificationsetting {
   padding-top: 28px;
@@ -279,12 +281,10 @@
   .toggle-btn__left {
     width: 16px;
     height: 16px;
-    background-color: #ef6820;
     border-radius: 50%;
   }
   .toggle-btn__right {
     width: 16px;
     height: 16px;
-    /* margin-left: 16px; */
   }
 }

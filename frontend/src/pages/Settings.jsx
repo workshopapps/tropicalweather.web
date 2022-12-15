@@ -14,7 +14,23 @@ function getLanguageValues() {
   return storedLanguageValue;
 }
 
+function getnotificationVal() {
+  const notificationVal = localStorage.getItem('notification');
+  if (!notificationVal) return '';
+  return JSON.parse(notificationVal);
+}
+
 export default function Settings() {
+  const [notification, setnotification] = useState(getnotificationVal);
+
+  useEffect(() => {
+      localStorage.setItem('notification', JSON.stringify(notification));
+    }, [notification]);
+
+  const toggleNotification = () => {
+    setnotification(!notification);
+  };
+
   const [languageIsActive, setLanguageIsActive] = useState(false);
   const [themeIsActive, setThemeIsActive] = useState(false);
   const [language, setLanguage] = useState(getLanguageValues);
@@ -188,20 +204,25 @@ export default function Settings() {
         </div>
       </div>
 
-      <div className="settings_item settings_notifications">
+      {/* <div className="settings_item settings_notifications">
         <div className="settings_item-heading">
           <Link to="/notification-settings">
             <h4>{t('noti')}</h4>
           </Link>
         </div>
-      </div>
-
-      <div className="settings_item">
+      </div> */}
+      <div className="settings_item settings_notifications">
         <div className="settings_item-heading">
-          <Link to="/help">
-            <h4>{t('help')}</h4>
-          </Link>
+          <h4>{t('enablepushnotification')}</h4>
+          <button type="button" className="toggle-btn" onClick={toggleNotification}>
+            {notification ? (
+              <div className="toggle-btn__right" />
+            ) : (
+              <div className="toggle-btn__left" />
+            )}
+          </button>
         </div>
+        <p className="settings_dropdown-body hidden  md:block">{t('receivelatestnews')}</p>
       </div>
     </div>
   );

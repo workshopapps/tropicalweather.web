@@ -12,5 +12,7 @@
   "english": "الإنكليزية",
   "french": "الفرنسية",
   "spanish": "الإسبانية",
-  "arabic": "العربية"
+  "arabic": "العربية",
+  "enablepushnotification": "تمكين إعلام الدفع",
+  "receivelatestnews": "تلقي آخر أخبار الطقس والتنبؤات والتحديثات منا"
 }

@@ -12,5 +12,7 @@
   "english": "Anglais",
   "french": "Français",
   "spanish": "Espagnol",
-  "arabic": "Arabe"
+  "arabic": "Arabe",
+  "enablepushnotification": "Activer la notification push",
+  "receivelatestnews": "Recevez les dernières nouvelles météo, prévisions, mises à jour de notre part"
 }
