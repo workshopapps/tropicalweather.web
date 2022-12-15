@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import NotificationFeeds from '../NotificationFeedlist/NotificationFeeds';
 import '../../styles/NotificationFeedList.css';
@@ -58,13 +57,6 @@ export default function NotificationFeedList() {
     <div className="notificaton_feed-container">
       <div className="notificaton_feedhd">
         <div className="notificaton_feedhd-flex">
-          <Link
-            to="/"
-            className="notificaton_feedbg notificaton_feedhome"
-            aria-label="home"
-          >
-            <span>{t('back')}</span>
-          </Link>
           <h1>{t('notification')}</h1>
         </div>
 

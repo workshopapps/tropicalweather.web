@@ -9,7 +9,6 @@
   display: flex;
   align-items: center;
   column-gap: 0.4rem;
-  margin-bottom: 30px;
 }
 
 .settings_title {
@@ -19,8 +18,12 @@
 }
 
 .settings_item {
-  border-top: 1px solid var(--accents-2);
+  border-bottom: 1px solid var(--accents-2);
   padding-block: 0.8rem;
+}
+
+.settings_item:last-child {
+  border-bottom: none;
 }
 
 .settings_item-heading {
@@ -131,5 +134,9 @@
     padding-block: 0.5rem;
     box-shadow: 0 0 0 0 rgba(66, 65, 65, 0.15);
     width: 100%;
+  }
+
+  .settings_item:last-child {
+    border-bottom: 1px solid var(--accents-2);
   }
 }

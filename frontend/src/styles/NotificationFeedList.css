@@ -1,5 +1,5 @@
 .notificaton_feed-container {
-  padding: 1.5em;
+  padding: 1.5em 0;
 }
 
 .notificaton_feedhd {
@@ -159,10 +159,6 @@
 
   .notificaton_feed-list {
     align-items: flex-start;
-  }
-
-  .notificaton_feed-container {
-    padding-inline: 8em;
   }
 
   .notificaton_feedhd-flex {
