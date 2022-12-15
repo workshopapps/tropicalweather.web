@@ -34,17 +34,13 @@ export default function Notificationsettings() {
     axios.get(`${APIURL}/weather/alerts/subscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
       .then((res) => {
         setSubscribeMessage(res.data.message);
-      }).catch((err) => {
-       return err
-      });
+      }).catch((err) => err);
   }
   function unsubscribeApi() {
     axios.get(`${APIURL}/weather/alerts/unsubscribe?fcm_id=jdhaju04upalkdnlkajd&lat=9.0&lng=8.6`)
       .then((res) => {
         setUnsubscribeMessage(res.data.message);
-      }).catch((err) => {
-        return err
-      });
+      }).catch((err) => err);
   }
   const [toggle, setToggle] = useState(true);
   const [radioVal1, setRadioVal1] = useState(getFormValues1);
