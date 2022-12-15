@@ -98,7 +98,7 @@ function Navigation({ handleClickProp, style, itemStyle }) {
       icon: <RxBookmark />,
     },
     {
-      name: `${t('notificationfeeds')}`,
+      name: `${t('notification')}`,
       link: '/app/notification-feeds',
       icon: <VscBellDot />,
     },
