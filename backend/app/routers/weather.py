@@ -163,6 +163,7 @@ async def get_extended_forcast_by_address(address):
     lon = geocoded['lon']
 
     extended = get_extended_forecast(lat, lon)
+    print(extended.get('current'))
 
     result = {
         "city": geocoded['city'],

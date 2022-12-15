@@ -22,6 +22,7 @@ from .weather_code import WmoCodes
 FLOODING = "Flooding"
 HEATWAVE = "Heatwave"
 SUNNY = "Sunny"
+CLEAR = 'Clear Skies'
 
 
 def get_event_message(event: str):
@@ -499,11 +500,19 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
         return None
 
 
+def get_main_description(weather_code: str, temp: float):
+    if 0 <= int(weather_code) <= 4:
+        if temp >= 33:
+            return SUNNY
+        return CLEAR
+    main = WmoCodes.get_wmo_code(weather_code)
+    return main
+
+
 def get_event(weather_code: str, temp: float, precipitation: float):
     risk = get_risk(temp, precipitation)
     if not risk:
-        if 0 <= int(weather_code) <= 4:
-            return SUNNY
-        main = WmoCodes.get_wmo_code(weather_code)
-        return main
+        main = get_main_description(weather_code, temp)
+        if main != CLEAR:
+            return main
     return risk

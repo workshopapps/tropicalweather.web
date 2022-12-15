@@ -1,8 +1,8 @@
-from utils.open_meteo import client
 from datetime import datetime
-from utils.weather_code import WmoCodes
+
 from fastapi import HTTPException, status
-from utils.general import (get_risk)
+from utils.general import CLEAR, get_main_description, get_risk
+from utils.open_meteo import client
 
 
 def user_current_forecasts(lat: float, lon: float, data: list = None):
@@ -40,15 +40,15 @@ def user_current_forecasts(lat: float, lon: float, data: list = None):
     hourly_weathercode: list[str] = weather_forecasts_data[
         "hourly"]["weathercode"]
     now = datetime.now()
-    now_str = now.strftime("%Y-%m-%dT%H:%M")
-    strp_now = datetime.strptime(now_str, "%Y-%m-%dT%H:%M")
     found = ""
     end_time = None
+    main_start_time = None
 
     for i in range(24):
         if found != "":
             index_weathercode = hourly_weathercode[i]
-            weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+            index_temp = hourly_temp[i]
+            weather_desc = get_main_description(index_weathercode, index_temp)
             if weather_desc != found:
                 end_time = hourly_time[i].replace("T", " ")
                 break
@@ -56,18 +56,29 @@ def user_current_forecasts(lat: float, lon: float, data: list = None):
             continue
         index_time = hourly_time[i]
         index_time = datetime.strptime(index_time, "%Y-%m-%dT%H:%M")
-        if strp_now.hour == index_time.hour and strp_now.day == index_time.day:
+        if index_time >= now:
+
+            if main_start_time is None:
+                main_start_time = hourly_time[i].replace("T", " ")
+
             index_temp = hourly_temp[i]
             index_precipitation = hourly_precipitation[i]
             index_weathercode = hourly_weathercode[i]
-            weather_desc = WmoCodes.get_wmo_code(index_weathercode)
-            risk = get_risk(index_temp, index_precipitation)
-            result = {
-                "main": weather_desc,
-                "datetime": hourly_time[i].replace("T", " "),
-                "risk": risk,
-            }
-            found = weather_desc
+            weather_desc = get_main_description(index_weathercode, index_temp)
+            if weather_desc != CLEAR:
+                risk = get_risk(index_temp, index_precipitation)
+                result = {
+                    "main": weather_desc,
+                    "datetime": hourly_time[i].replace("T", " "),
+                    "risk": risk,
+                }
+                found = weather_desc
+
+    if result.get('main') is None:
+        result['main'] = CLEAR
+        result['risk'] = None
+        result['datetime'] = main_start_time or now.strftime("%Y-%m-%d %H:%M")
+
     if end_time is None:
         end_time = hourly_time[23].replace("T", " ")
     result['end_datetime'] = end_time

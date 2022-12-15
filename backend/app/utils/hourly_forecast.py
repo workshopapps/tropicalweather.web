@@ -1,9 +1,8 @@
 from datetime import datetime
 
 from fastapi import HTTPException, status
-from utils.general import get_risk
+from utils.general import get_main_description, get_risk
 from utils.open_meteo import client
-from utils.weather_code import WmoCodes
 
 
 def hourly_forecasts(lat: float, lon: float, data=None):
@@ -39,7 +38,7 @@ def hourly_forecasts(lat: float, lon: float, data=None):
             index_precipitation = hourly_precipitation[forecast]
             index_weathercode = hourly_weathercode[forecast]
 
-            weather_desc = WmoCodes.get_wmo_code(index_weathercode)
+            weather_desc = get_main_description(index_weathercode, index_temp)
             risk = get_risk(index_temp, index_precipitation)
 
             data = {
