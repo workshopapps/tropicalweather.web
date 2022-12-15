@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
-import { TfiAngleDown, TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi';
-import { Link } from 'react-router-dom';
+import { TfiAngleDown, TfiAngleRight } from 'react-icons/tfi';
 import '../../styles/Settings.css';
 import i18next from 'i18next';
 
@@ -14,7 +13,23 @@ function getLanguageValues() {
   return storedLanguageValue;
 }
 
+function getnotificationVal() {
+  const notificationVal = localStorage.getItem('notification');
+  if (!notificationVal) return '';
+  return JSON.parse(notificationVal);
+}
+
 export default function Settings() {
+  const [notification, setnotification] = useState(getnotificationVal);
+
+  useEffect(() => {
+    localStorage.setItem('notification', JSON.stringify(notification));
+  }, [notification]);
+
+  const toggleNotification = () => {
+    setnotification(!notification);
+  };
+
   const [languageIsActive, setLanguageIsActive] = useState(false);
   const [themeIsActive, setThemeIsActive] = useState(false);
   const [language, setLanguage] = useState(getLanguageValues);
@@ -93,10 +108,6 @@ export default function Settings() {
         }
       }}
     >
-      <Link to="/dashboard" className="settings_back">
-        <TfiAngleLeft />
-        <span>{t('back')}</span>
-      </Link>
       <h3 className="settings_title">{t('title')}</h3>
 
       <div className="settings_item settings_language">
@@ -190,18 +201,16 @@ export default function Settings() {
 
       <div className="settings_item settings_notifications">
         <div className="settings_item-heading">
-          <Link to="/notification-settings">
-            <h4>{t('noti')}</h4>
-          </Link>
+          <h4>{t('enablepushnotification')}</h4>
+          <button type="button" className="toggle-btn" onClick={toggleNotification}>
+            {notification ? (
+              <div className="toggle-btn__right" />
+            ) : (
+              <div className="toggle-btn__left" />
+            )}
+          </button>
         </div>
-      </div>
-
-      <div className="settings_item">
-        <div className="settings_item-heading">
-          <Link to="/help">
-            <h4>{t('help')}</h4>
-          </Link>
-        </div>
+        <p className="hidden settings_dropdown-body md:block">{t('receivelatestnews')}</p>
       </div>
     </div>
   );
