@@ -35,7 +35,7 @@ export default function Notificationsettings() {
       .then((res) => {
         setSubscribeMessage(res.data.message);
       }).catch((err) => {
-        console.log(err);
+       return err
       });
   }
   function unsubscribeApi() {
@@ -43,7 +43,7 @@ export default function Notificationsettings() {
       .then((res) => {
         setUnsubscribeMessage(res.data.message);
       }).catch((err) => {
-        console.log(err);
+        return err
       });
   }
   const [toggle, setToggle] = useState(true);
