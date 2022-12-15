@@ -10,7 +10,7 @@ export default function TimelineOptions({ display, setTimeline }) {
     <div
       className={`${
         display ? 'grid grid-cols-1' : 'hidden'
-      } p-3 shadow menu bg-base-100 rounded-lg w-52 absolute top-20 left-0 divide-y bg-[var(--d-bg)]`}
+      } p-3 shadow menu text-sm md:text-base rounded-lg w-max absolute z-[1000] top-10 left-0 divide-y bg-[var(--d-bg)]`}
     >
       <button
         type="button"
