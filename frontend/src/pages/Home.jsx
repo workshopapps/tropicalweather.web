@@ -65,8 +65,7 @@ export default function Home() {
       setUserLocation(`${data.city}, ${data.state}`);
       setImmediateWeather(data.current);
       const currentTime = new Date().getHours();
-      savedForecast.current = savedForecast.current.slice(0, currentTime);
-      savedForecast.current.push({ main: data.current.main, datetime: `2022-12-13 ${currentTime > 9 ? currentTime : `0${currentTime}`}:00`, risk: data.current.risk });
+      savedForecast.current = savedForecast.current.slice(0, currentTime + 1);
       savedForecast.current = savedForecast.current.concat(data.todays_timeline);
       setWeatherForecast(savedForecast.current);
       localStorage.setItem('forecast', JSON.stringify(savedForecast.current));
@@ -246,7 +245,7 @@ export default function Home() {
                 >
                   <img
                     src="/Home/polygon.png"
-                    className="absolute top-[0] right-[-95px]"
+                    className="absolute top-[0] right-[-10px]"
                     style={{ border: 'transparent', color: 'red' }}
                     alt="pointer"
                   />
@@ -279,7 +278,7 @@ export default function Home() {
                     key={forecast.datetime}
                     className="text-center homepg-heroforecast"
                     style={{
-                      width: '130px',
+                      width: '120px',
                       flexShrink: 0,
                       paddingInline: '15px',
                     }}
