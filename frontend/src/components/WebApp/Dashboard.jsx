@@ -289,9 +289,9 @@ export default function Dashboard() {
           </div>
           <section
             id="timeline-forecast"
-            className="md:overflow-y-auto w-full"
+            className="max-w-full"
           >
-            <div className="relative flex items-center gap-4 mb-6 text-2xl uppercase w-max">
+            <div className="relative flex items-center w-full gap-4 mb-6 text-2xl uppercase">
               <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
               {!showTimelineOptions && (
                 <button

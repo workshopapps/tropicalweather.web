@@ -58,10 +58,10 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
 
   return (
     <div
-      className="homepg-weatherfc"
+      className="w-full mb-32 lg:mb-0"
     >
-      <ul
-        className="relative pt-20 mt-[10px]"
+      <div
+        className="relative pt-20 mt-[10px] max-w-full w-full overflow-x-scroll webkit-w"
         ref={forecastContainer}
       >
         <div
@@ -81,7 +81,7 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
           >
             <img
               src="/Home/polygon.png"
-              className="absolute top-[0] right-[-10px]"
+              className="absolute top-[0] right-[-80px]"
               style={{ border: 'transparent', color: 'red' }}
               alt="pointer"
             />
@@ -92,7 +92,7 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
                 className="mt-[-2px] relative flex justify-center"
                 style={{
                   borderBottom: `5px solid ${weatherNotice}`,
-                  overflowY: 'visible',
+                  overflowY: 'scroll',
                   width: `${riskTimeFrame.width}px`,
                   transform: `translateX(${riskTimeFrame.transform}px)`
                 }}
@@ -107,39 +107,43 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
             )
           }
         </div>
-        {weatherForecast.map((forecast, index) => {
-          const category = getWeatherDescriptionCategory(forecast.main);
-          return (
-            <li
-              key={forecast.datetime}
-              className="text-center homepg-heroforecast"
-              style={{
-                width: '120px',
-                flexShrink: 0,
-                paddingInline: '15px',
-              }}
-              id={`fcst-${index + 1}`}
-            >
-              <p>{to12HourFormat(forecast.datetime)}</p>
-              <img
-                style={{ width: '60px' }}
-                src={`/assets/NotificationFeedList/${category}`}
-                alt=""
-              />
-              <p className="text-sm font-light uppercase">
-                RISK:
-                {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
-              </p>
-              <p className="font-bold">{t(forecast.main?.replace(' ', '')?.toLowerCase())}</p>
-            </li>
-          );
-        })}
+        <div className="">
+          <ul className="flex max-w-full">
+            {weatherForecast.map((forecast, index) => {
+              const category = getWeatherDescriptionCategory(forecast.main);
+              return (
+                <li
+                  key={forecast.datetime}
+                  className="text-center homepg-heroforecast"
+                  style={{
+                    width: '130px',
+                    flexShrink: 0,
+                    paddingInline: '15px',
+                  }}
+                  id={`fcst-${index + 1}`}
+                >
+                  <p>{to12HourFormat(forecast.datetime)}</p>
+                  <img
+                    style={{ width: '60px' }}
+                    src={`/assets/NotificationFeedList/${category}`}
+                    alt=""
+                  />
+                  <p className="text-sm font-light uppercase">
+                    RISK:
+                    {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
+                  </p>
+                  <p className="font-bold">{t(forecast.main?.replace(' ', '')?.toLowerCase())}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
         {!weatherForecast.length && (
           <p className="homepg-heroforecast">
             {t('weatherforecastfortheday')}
           </p>
         )}
-      </ul>
+      </div>
     </div>
   );
 }
