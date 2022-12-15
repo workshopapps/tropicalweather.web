@@ -81,7 +81,7 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
           >
             <img
               src="/Home/polygon.png"
-              className="absolute top-[0] right-[-80px]"
+              className="absolute top-[0] right-[-95px]"
               style={{ border: 'transparent', color: 'red' }}
               alt="pointer"
             />

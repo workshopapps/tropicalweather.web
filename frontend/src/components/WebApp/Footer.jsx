@@ -51,7 +51,7 @@ export default function Footer() {
     setLanguage(e.currentTarget.value);
   };
   return (
-    <div className="fixed w-full bottom-0 flex flex-col justify-between lg:w-[calc(100%-80px)] gap-2 px-2 py-3 border-t border-t-white md:flex-row md:px-16 bg-[var(--background)] right-0">
+    <div className="fixed w-full bottom-0 flex flex-col justify-between lg:w-[calc(100%-80px)] gap-2 px-2 py-3 border-t border-t-[var(--accents-5)] md:flex-row md:px-16 bg-[var(--background)] right-0">
       <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
       <div className="flex items-center gap-6">
         <span className="flex items-center footer-select footer-select_dash">
