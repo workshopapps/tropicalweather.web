@@ -170,7 +170,7 @@ export default function Home() {
                 />
                 <div className="flex flex-col gap-2">
                   <p className="font-light">
-                    CURRENT FORECAST
+                    {t('currentforecast')}
                   </p>
                   <p className="text-4xl font-extrabold capitalize sm:text-5xl md:text-6xl">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
                   <h2
@@ -200,8 +200,8 @@ export default function Home() {
                         color: immediateWeather.risk ? 'black' : 'grey'
                       }}
                     >
-                      RISK:
-                      {immediateWeather.risk ? ` ${immediateWeather.risk}` : ' NONE'}
+                      {`${t('risk')}:`}
+                      {immediateWeather.risk ? ` ${immediateWeather.risk}` : ` ${t('none')}`}
                     </p>
                   </div>
 
@@ -220,7 +220,7 @@ export default function Home() {
                   {t('today')}
                   {' '}
                   <span>
-                    CURRENT FORECAST
+                    {t('currentforecast')}
                   </span>
                 </p>
                 <p className="homepg-immedp">{t('forecastloading')}</p>
@@ -292,8 +292,8 @@ export default function Home() {
                       alt=""
                     />
                     <p className="text-sm font-light uppercase">
-                      RISK:
-                      {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
+                      {`${t('risk')}:`}
+                      {forecast.risk ? ` ${t(forecast.risk.replace(' ', '').toLowerCase())}` : ` ${t('none')}`}
                     </p>
                     <p className="font-bold capitalize">{t(forecast.main.replace(' ', '').toLowerCase())}</p>
                   </li>

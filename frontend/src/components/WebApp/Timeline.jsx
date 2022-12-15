@@ -129,8 +129,8 @@ export default function Timeline({ weatherForecast, immediateWeather }) {
                     alt=""
                   />
                   <p className="text-sm font-light uppercase">
-                    RISK:
-                    {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
+                    {`${t('risk')}:`}
+                    {forecast.risk ? ` ${t(forecast.risk.replace(' ', '').toLowerCase())}` : ` ${t('none')}`}
                   </p>
                   <p className="font-bold">{t(forecast.main?.replace(' ', '')?.toLowerCase())}</p>
                 </li>

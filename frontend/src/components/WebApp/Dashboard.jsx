@@ -282,7 +282,7 @@ export default function Dashboard() {
                   {currentWeather.risk !== 'None' && (
                     <IoMdAlert className="text-red-500" />
                   )}
-                  <p>{`RISK : ${currentWeather.risk || 'NONE'}`}</p>
+                  <p className="text-sm font-light uppercase">{`${t('risk')}: ${t(currentWeather?.risk?.replace(' ', '').toLowerCase()) || t('none')}`}</p>
                 </span>
               </div>
             </section>
