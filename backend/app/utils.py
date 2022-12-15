@@ -1,4 +1,7 @@
 
+from app.client import weather
+import geocoder
+from typing import List, Union, Dict
 from decouple import config
 from fastapi import HTTPException, status
 from datetime import datetime, timedelta
@@ -10,14 +13,6 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Utility functions
 
-from typing import List, Union, Dict
-
-import geocoder
-import requests
-from decouple import config
-from fastapi import HTTPException, status
-from datetime import datetime, timedelta
-from app.client import weather
 
 OPEN_WEATHER_API_KEY = config("OPEN_WEATHER_API_KEY")
 
@@ -43,7 +38,14 @@ def get_weather_forecast(lat: float, lon: float) -> List[Dict[str, str]]:
     url = f"http://api.openweathermap.org/data/2.5/forecast?\
 lat={lat}&lon={lon}&appid={OPEN_WEATHER_API_KEY}"
 
-    response = requests.get(url)
+    try:
+        response = requests.get(url, timeout=5)
+    except requests.exceptions.Timeout:
+        raise HTTPException(
+            status_code=status.HTTP_408_REQUEST_TIMEOUT,
+            detail="Request timeout. Please retry again",
+        )
+
     error = Exception("Invalid request")
 
     if response.status_code != 200:
@@ -106,17 +108,22 @@ def weather_api_call(lon, lat, *args, **kwargs):
 
     # Call API and converts response into dictionary
     open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
-    
 
     try:
-        
-        response = requests.get(open_weather_url).json()
+
+        try:
+            response = requests.get(open_weather_url, timeout=5).json()
+        except requests.exceptions.Timeout:
+            raise HTTPException(
+                status_code=status.HTTP_408_REQUEST_TIMEOUT,
+                detail="Request timeout. Please retry again",
+            )
 
         # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
             return f"Can't retrive weather data for this location"
 
-        weather_conditions = response['weather'] #returns a lists
+        weather_conditions = response['weather']  # returns a lists
 
         for detail in weather_conditions:
             current_weather = detail['main']
@@ -133,29 +140,31 @@ def weather_api_call(lon, lat, *args, **kwargs):
         )
 
 
-def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs):
-    
+def immediate_weather_api_call_tommorrow(lon: float, lat: float, *args, **kwargs):
+
     try:
 
-        weather_conditions = weather(lat, lon) #makes the api call and returns a formatted list 
-        
+        # makes the api call and returns a formatted list
+        weather_conditions = weather(lat, lon)
+
         tommorows_date = datetime.now() + timedelta(days=1)
-        filter_date = tommorows_date.replace(hour=0, minute=0, second=0, microsecond=0)
+        filter_date = tommorows_date.replace(
+            hour=0, minute=0, second=0, microsecond=0)
         tommorrows_timestamp = int(filter_date.timestamp())
-        
+
         tommorrow_weather_data = 0
-      
-        for data in weather_conditions: #getting tommorrows weather data 
-         
-            if data['dt'] >= tommorrows_timestamp: 
+
+        for data in weather_conditions:  # getting tommorrows weather data
+
+            if data['dt'] >= tommorrows_timestamp:
                 tommorrow_weather_data = data
-                break 
-     
+                break
+
         main = tommorrow_weather_data['weather'][0]['main']
-  
+
         description = tommorrow_weather_data['weather'][0]['description']
-        date = tommorrow_weather_data['dt'] 
-        
+        date = tommorrow_weather_data['dt']
+
         r = {
             "a": "ab",
             "c": "ac"
@@ -163,15 +172,15 @@ def immediate_weather_api_call_tommorrow(lon :float, lat: float, *args, **kwargs
         pre_result = {
             "main": str(main),
             "description": str(description)
-            }
+        }
         result = dict(pre_result)
         res = convert_epoch_to_datetime(date)
         result.update(res)
-        
+
         return result
 
     except:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail= f"Weather conditon not found.Please retry again"
+            detail=f"Weather conditon not found.Please retry again"
         )

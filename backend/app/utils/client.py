@@ -27,10 +27,17 @@ def get(url: str, params: dict) -> Union[dict, list, None]:
     params["appid"] = API_KEY
 
     # make request
-    response = requests.get(
-        url=url,
-        params=params
-    )
+    try:
+        response = requests.get(
+            url=url,
+            params=params,
+            timeout=5
+        )
+    except requests.exceptions.Timeout:
+        raise HTTPException(
+            status_code=status.HTTP_408_REQUEST_TIMEOUT,
+            detail="Request timeout. Please retry again",
+        )
 
     # Check for valid status
     if response.status_code == 200:

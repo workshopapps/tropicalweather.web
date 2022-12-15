@@ -324,7 +324,13 @@ def weather_api_call(lon: float, lat: float) -> Dict[str, str]:
     open_weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"  # noqa
 
     try:
-        response = requests.get(open_weather_url)
+        try:
+            response = requests.get(open_weather_url, timeout=5)
+        except requests.exceptions.Timeout:
+            raise HTTPException(
+                status_code=status.HTTP_408_REQUEST_TIMEOUT,
+                detail="Request timeout. Please retry again",
+            )
 
         # Error messages for unknown city or street names or invalid API key
         if response.status_code != 200:
@@ -501,7 +507,7 @@ def get_risk(temp: float, precipitation: float) -> Optional[str]:
 
 def get_main_description(weather_code: str, temp: float):
     if 0 <= int(weather_code) <= 4:
-        if temp >= 33:
+        if temp >= 35:
             return SUNNY
         return CLEAR
     main = WmoCodes.get_wmo_code(weather_code)

@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 
 import requests
 from conf.settings import settings
+from fastapi import HTTPException, status
 
 
 class OpenMeteoAPI:
@@ -45,7 +46,13 @@ class OpenMeteoAPI:
             url += f"?{urlencode(params)}"
             url = url.replace('%2C', ',')
 
-        response = requests.get(url)
+        try:
+            response = requests.get(url, timeout=5)
+        except requests.exceptions.Timeout:
+            raise HTTPException(
+                status_code=status.HTTP_408_REQUEST_TIMEOUT,
+                detail="Request timeout. Please retry again",
+            )
 
         # Check for valid status
         if response.status_code == 200:
@@ -132,7 +139,6 @@ class OpenMeteoAPI:
         }
         params.update(default_params)
         return self.get(self.forecast, params=params)
-
 
     def get_current_weather(
         self, lat: float, lon: float,
