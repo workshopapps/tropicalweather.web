@@ -233,7 +233,7 @@ export default function Dashboard() {
       <div>
         <div className="flex flex-col w-full gap-5">
           <div className="relative w-full">
-            <div className="flex gap-4 p-5 bg-[var(--background)]">
+            <div className="flex gap-4 py-3 lg:p-5 bg-[var(--background)]">
               <h1 className="text-lg font-bold md:text-2xl">
                 {currentLocation || `${t('fetchingdata')}`}
               </h1>
@@ -268,17 +268,17 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <section className="flex flex-col md:flex-row gap-4 px-5 bg-[var(--background)] md:gap-7 py-10">
-              <span className="h-auto lg:w-28">
+            <section className="flex flex-col py-6 md:flex-row gap-4 bg-[var(--background)] md:gap-7 lg:py-10">
+              <span className="h-16 lg:h-auto lg:w-28 w-14">
                 <img src={selectIcon(currentWeather.main)} alt={currentWeather.main} className="object-cover" />
               </span>
               <div className="flex flex-col gap-4">
                 <p className="uppercase">{t('currentforecast')}</p>
                 <p className="text-2xl font-bold capitalize md:text-7xl">{t(currentWeather?.main?.replace(' ', '').toLowerCase())}</p>
-                <p className="text-sm font-bold md:text-4xl opacity-80">
+                <p className="text-lg font-bold md:text-4xl opacity-80">
                   {`${formatTime(currentWeather.datetime)} ${t('to')} ${formatTime(currentWeather.end_datetime)}`}
                 </p>
-                <span className="px-8 py-2 font-semibold text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90 mt-2">
+                <span className="px-2 lg:px-8 py-2 font-semibold text-xs lg:text-base rounded-[40px] border border-gray-400 bg-[var(--d-bg)] w-max flex items-center gap-2 opacity-90 mt-2">
                   {currentWeather.risk !== 'None' && (
                     <IoMdAlert className="text-red-500" />
                   )}
@@ -291,7 +291,7 @@ export default function Dashboard() {
             id="timeline-forecast"
             className="max-w-full"
           >
-            <div className="relative flex items-center w-full gap-4 mb-6 text-2xl uppercase">
+            <div className="relative flex items-center w-full gap-4 uppercase lg:mb-6 lg:text-2xl">
               <p className="text-sm font-bold md:text-xl">{t(currentTimeline.replace(' ', '').toLowerCase())}</p>
               {!showTimelineOptions && (
                 <button

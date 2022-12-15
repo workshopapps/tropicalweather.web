@@ -51,10 +51,10 @@ export default function Footer() {
     setLanguage(e.currentTarget.value);
   };
   return (
-    <div className="fixed w-full bottom-0 flex flex-col justify-between lg:w-[calc(100%-80px)] gap-2 px-2 py-3 border-t border-t-[var(--accents-5)] md:flex-row md:px-16 bg-[var(--background)] right-0">
-      <p className="text-sm md:order-first md:text-lg">{t('allrights')}</p>
-      <div className="flex items-center gap-6">
-        <span className="flex items-center footer-select footer-select_dash">
+    <div className="fixed w-full items-center bottom-0 flex justify-between lg:w-[calc(100%-80px)] gap-2 px-2 lg:py-3 border-t border-t-[var(--accents-5)] md:px-16 bg-[var(--background)] right-0">
+      <p className="text-[9px] md:order-first md:text-lg">{t('allrights')}</p>
+      <div className="relative flex items-center gap-6 lg:gap-6">
+        <span className="items-center hidden lg:flex footer-select footer-select_dash">
           <BsGlobe />
           <select value={language} onChange={handleLanguageChange}>
             {languageData?.map(({ title, langVal }) => (
@@ -64,7 +64,7 @@ export default function Footer() {
             ))}
           </select>
         </span>
-        <span className="flex items-center gap-2">
+        <span className="flex items-center h-auto gap-2 w-max lg:w-auto">
           <img src={`/icons/${language}-flag.png`} alt={`${language} flag`} />
         </span>
         <span className="pt-1 h-max">

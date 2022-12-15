@@ -228,7 +228,7 @@ export default function Home() {
             </div>
           )}
           <div className="homepg-weatherfc">
-            <ul className="relative pt-20 mt-[10px]" ref={forecastContainer}>
+            <ul className="webkit-w relative pt-20 mt-[10px]" ref={forecastContainer}>
               <div
                 className="absolute w-[1000px] bg-white/50 mt-8 top-[20px]"
                 style={{
@@ -246,7 +246,7 @@ export default function Home() {
                 >
                   <img
                     src="/Home/polygon.png"
-                    className="absolute top-[0] right-[-10px]"
+                    className="absolute top-[0] right-[-95px]"
                     style={{ border: 'transparent', color: 'red' }}
                     alt="pointer"
                   />
@@ -279,7 +279,7 @@ export default function Home() {
                     key={forecast.datetime}
                     className="text-center homepg-heroforecast"
                     style={{
-                      width: '120px',
+                      width: '130px',
                       flexShrink: 0,
                       paddingInline: '15px',
                     }}
