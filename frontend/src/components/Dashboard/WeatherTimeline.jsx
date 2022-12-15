@@ -12,7 +12,7 @@ export default function WeatherTimeline({ timelineData }) {
     } if (main.toLowerCase().includes('rain')) {
       return '/dashboard/rain.png';
     }
-      return '/dashboard/cloudy.png';
+    return '/dashboard/cloudy.png';
   }
 
   const formatTime = (time) => moment(time).format('h:mm a');

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { TfiAngleDown, TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi';
 import { Link } from 'react-router-dom';
-import '../styles/Settings.css';
+import '../../styles/Settings.css';
 import i18next from 'i18next';
 
 function getLanguageValues() {

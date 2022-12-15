@@ -78,7 +78,7 @@ export default function Home() {
 
   const navigate = useNavigate();
   const gotoDashboard = (city) => {
-    navigate(`/dashboard?city=${city}`);
+    navigate(`/app/dashboard?city=${city}`);
   };
   useEffect(() => {
     slider.current.addEventListener('scroll', () => {
@@ -159,22 +159,22 @@ export default function Home() {
           )}
           {immediateWeather !== null && (
             <div className="translate-y-[70px] mt-4 self-start flex flex-col gap-[20px] md:gap-[48px] md:mb-[50px]">
-              <p className="text-xl sm:text-2xl md:text-4xl font-bold">{userLocation}</p>
+              <p className="text-xl font-bold sm:text-2xl md:text-4xl">{userLocation}</p>
               <div className="gap-2 homepg-immed mb-[-36px] md:mb-0">
                 <img
                   src={`./assets/NotificationFeedList/${getWeatherDescriptionCategory(
                     immediateWeather.main
                   )}`}
                   alt="clouds icons"
-                  className="h-16 w-16 md:h-24 md:w-24"
+                  className="w-16 h-16 md:h-24 md:w-24"
                 />
                 <div className="flex flex-col gap-2">
                   <p className="font-light">
                     CURRENT FORECAST
                   </p>
-                  <p className="text-4xl sm:text-5xl md:text-6xl capitalize font-extrabold">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
+                  <p className="text-4xl font-extrabold capitalize sm:text-5xl md:text-6xl">{t(immediateWeather.main.replace(' ', '').toLowerCase())}</p>
                   <h2
-                    className="text-2xl font-bold mt-2"
+                    className="mt-2 text-2xl font-bold"
                     style={{ color: 'rgba(255, 255, 255, 0.75)' }}
                   >
                     {`${to12HourFormat(
@@ -277,7 +277,7 @@ export default function Home() {
                 return (
                   <li
                     key={forecast.datetime}
-                    className="homepg-heroforecast text-center"
+                    className="text-center homepg-heroforecast"
                     style={{
                       width: '120px',
                       flexShrink: 0,
@@ -291,7 +291,7 @@ export default function Home() {
                       src={`./assets/NotificationFeedList/${category}`}
                       alt=""
                     />
-                    <p className="text-sm  uppercase font-light">
+                    <p className="text-sm font-light uppercase">
                       RISK:
                       {forecast.risk ? ` ${forecast.risk}` : ' NONE'}
                     </p>
@@ -309,7 +309,7 @@ export default function Home() {
         </div>
         {
           !locationAllowed && (
-            <div className="flex flex-col gap-4 bottom-0 sm:bottom-auto w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
+            <div className="flex flex-col gap-4 bottom-0  w-full sm:w-[500px] right-0 items-center text-center fixed sm:bottom-[30px] px-[20px] text-[var(--foreground)] sm:px-[63px] py-[40px] rounded-t-2xl sm:right-4 bg-[var(--background)] ">
               <h5 className="text-2xl">{t('allowlocation')}</h5>
               <p className="text-[var(--accents-7)]">{t('allowtropicalweather')}</p>
               <button
@@ -326,7 +326,7 @@ export default function Home() {
       <div className="homepg-worldforecast">
         <h2 className="mb-20">{t('worldforecast')}</h2>
         <ul className="homepg-worldul">
-          <div className="homepg-worldone space-y-10">
+          <div className="space-y-10 homepg-worldone">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectanglefour.svg" alt="australia flag" />
@@ -392,7 +392,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldtwo space-y-10">
+          <div className="space-y-10 homepg-worldtwo">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/GermanyFlag.svg" alt="Germany flag" />
@@ -455,7 +455,7 @@ export default function Home() {
               />
             </li>
           </div>
-          <div className="homepg-worldthree space-y-10">
+          <div className="space-y-10 homepg-worldthree">
             <li className="homepg-poplis">
               <div className="homepg-popflex">
                 <img src="/Home/Rectangle 5 (1).svg" alt="indonesia flag" />

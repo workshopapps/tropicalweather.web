@@ -59,7 +59,7 @@
   -ms-overflow-style: none;
 }
 
-.homepg-weatherfc ul::-webkit-scrollbar {
+.webkit-w::-webkit-scrollbar {
   display: none;
 }
 
