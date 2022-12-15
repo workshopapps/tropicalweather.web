@@ -18,7 +18,6 @@ from .open_meteo import client
 from .timer import now_utc
 from .weather_code import WmoCodes
 
-
 FLOODING = "Flooding"
 HEATWAVE = "Heatwave"
 SUNNY = "Sunny"
