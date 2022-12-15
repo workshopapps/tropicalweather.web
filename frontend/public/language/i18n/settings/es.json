@@ -12,5 +12,7 @@
   "english": "Inglés",
   "french": "Francés",
   "spanish": "Español",
-  "arabic": "Árabe"
+  "arabic": "Árabe",
+  "enablepushnotification": "Habilitar notificación automática",
+  "receivelatestnews": "Reciba las últimas noticias meteorológicas, pronósticos, actualizaciones de nosotros"
 }
